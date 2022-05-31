@@ -18,6 +18,7 @@ var (
 	argLineNumber   = flag.Bool("n", false, "number the output lines, starting at 1.")
 	argLockIn       = flag.Bool("L", false, "exclusively flock each file before reading")
 	argLockOut      = flag.Bool("l", false, "exclusively flock stdout ")
+	argBG           = flag.Bool("bg", false, "colorize the background instead of the font")
 
 	tmap   map[string]Color
 	tokens []string
@@ -38,7 +39,12 @@ func main() {
 	}
 
 	tmap = make(map[string]Color)
-	var c Color = new(ColorANSI)
+	var c Color
+	if *argBG {
+		c = new(ColorANSIbg)
+	} else {
+		c = new(ColorANSI)
+	}
 	for _, s := range tokens {
 		c = c.Next()
 		tmap[s] = c
