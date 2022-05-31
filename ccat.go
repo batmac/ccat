@@ -16,7 +16,8 @@ var (
 	argOnlyMatching = flag.Bool("o", false, "don't display lines without at least one token")
 	argRaw          = flag.Bool("r", false, "don't treat tokens as regexps")
 	argLineNumber   = flag.Bool("n", false, "number the output lines, starting at 1.")
-	argLock         = flag.Bool("l", false, "exclusively lock each file before reading")
+	argLockIn       = flag.Bool("L", false, "exclusively flock each file before reading")
+	argLockOut      = flag.Bool("l", false, "exclusively flock stdout ")
 
 	tmap   map[string]Color
 	tokens []string
@@ -39,11 +40,9 @@ func main() {
 	tmap = make(map[string]Color)
 	var c Color = new(ColorANSI)
 	for _, s := range tokens {
-
 		c = c.Next()
 		tmap[s] = c
 	}
-
 	//fmt.Printf("%v\n", tmap)
 
 	fileList := flag.Args()
@@ -51,6 +50,7 @@ func main() {
 		fileList = []string{"-"}
 	}
 
+	setupStdout(*argLockOut)
 	for _, path := range fileList {
 		processFile(path)
 	}
@@ -61,12 +61,12 @@ func processFile(path string) {
 	file := os.Stdin
 	var err error
 	if path != "-" {
-		file, err = fileOpen(path, *argLock)
+		file, err = fileOpen(path, *argLockIn)
 		if err != nil {
 			log.Println(err)
 			return
 		}
-		defer fileClose(file, *argLock)
+		defer fileClose(file, *argLockIn)
 	}
 
 	scanner := bufio.NewScanner(file)
@@ -80,7 +80,6 @@ func processFile(path string) {
 			if *argInsensitive {
 				regexpPrefix = "(?i)"
 			}
-
 			//fmt.Println("text ", text)
 			//fmt.Println("token ", token)
 			matched, err = regexp.MatchString(regexpPrefix+token, text)
