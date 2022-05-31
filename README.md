@@ -1,5 +1,5 @@
 # ccat
-colored cat, multi-color lines according to tokens
+colored cat, multi-colored lines according to tokens
 
 ```
 Usage of ccat:
