@@ -9,7 +9,7 @@ updates:
       # Check for updates to GitHub Actions every weekday
       interval: "daily"
       
-  - package-ecosystem: "go"
+  - package-ecosystem: "gomod"
     directory: "/"
     schedule:
       # Check for updates to GitHub Actions every weekday
