@@ -8,7 +8,7 @@ on:
     branches: [ main ]
     
 env:
-  GOCACHE: /tmp
+  GOCACHE: .cache
 
 jobs:
 
