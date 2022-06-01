@@ -9,6 +9,7 @@ on:
     
 env:
   GOCACHE: /tmp/github-runner/gocache
+  HOME: /tmp/github-runner
 
 jobs:
 
