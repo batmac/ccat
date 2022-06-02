@@ -17,6 +17,7 @@ var (
 	argLockOut      = flag.Bool("l", false, "exclusively flock stdout")
 	argSplitByWords = flag.Bool("w", false, "read word by word instead of line by line (only works with utf8)")
 	argExec         = flag.String("X", "", "command to exec on each file before processing it")
+	argBG           = flag.Bool("bg", false, "colorize the background instead of the font")
 
 	tmap   map[string]color.Color
 	tokens []string
@@ -32,7 +33,12 @@ func main() {
 	}
 
 	tmap = make(map[string]color.Color)
-	var c color.Color = new(color.ColorANSI)
+	var c color.Color
+	if *argBG {
+		c = new(color.ColorANSIbg)
+	} else {
+		c = new(color.ColorANSI)
+	}
 	for _, s := range tokens {
 		c = c.Next()
 		tmap[s] = c
