@@ -25,13 +25,13 @@ func newDummy(logger *log.Logger) (Mutator, error) {
 }
 
 func (m *dummyMutator) Start(w io.WriteCloser, r io.ReadCloser) error {
-	m.Lock()
+	m.mu.Lock()
 	if m.started {
-		m.Unlock()
+		m.mu.Unlock()
 		return fmt.Errorf("dummy: mutator has already started.")
 	}
 	m.started = true
-	m.Unlock()
+	m.mu.Unlock()
 	m.logger.Printf("dummy: start\n")
 
 	go func() {
@@ -54,17 +54,17 @@ func (m *dummyMutator) Start(w io.WriteCloser, r io.ReadCloser) error {
 }
 func (m *dummyMutator) Wait() error {
 	m.logger.Printf("dummy: wait called\n")
-	m.Lock()
+	m.mu.Lock()
 	if !m.started {
-		m.Unlock()
+		m.mu.Unlock()
 		return fmt.Errorf("dummy: mutator is not started")
 	}
 	if m.waited {
-		m.Unlock()
+		m.mu.Unlock()
 		return fmt.Errorf("dummy: mutator is already waited")
 	}
 	m.waited = true
-	m.Unlock()
+	m.mu.Unlock()
 	<-m.done
 	return nil
 }

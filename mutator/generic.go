@@ -6,7 +6,7 @@ import (
 )
 
 type genericMutator struct {
-	sync.Mutex
+	mu          sync.Mutex
 	logger      *log.Logger
 	name        string
 	description string
@@ -18,7 +18,7 @@ type genericMutator struct {
 
 func newGeneric(logger *log.Logger) genericMutator {
 	return genericMutator{
-		Mutex:       sync.Mutex{},
+		mu:          sync.Mutex{},
 		logger:      logger,
 		name:        name,
 		description: description,
