@@ -2,15 +2,17 @@ package main
 
 import (
 	"bufio"
+	"ccat/log"
 	"ccat/pipedcmd"
 	"ccat/scanners"
 	"fmt"
-	"log"
 	"os"
 	"regexp"
 )
 
 func processFile(path string) {
+	log.Debugf("processing %s...\n", path)
+
 	from := os.Stdin
 	var err error
 	if path != "-" {
@@ -23,34 +25,43 @@ func processFile(path string) {
 	}
 	/*************************************/
 	if len(*argExec) > 0 {
-		log.Printf("creating pipedcmd %v\n", *argExec)
+		log.Debugf("creating pipedcmd %v...\n", *argExec)
 		cmd, err := pipedcmd.New(*argExec)
+		log.Debugf("%s", log.Pp(cmd))
+
 		if err != nil {
-			log.Panicln(err)
+			log.Println(err)
 		}
 		defer func() {
+			log.Debugf("waiting pipedcmd %v...\n", *argExec)
+
 			if err := cmd.Wait(); err != nil {
-				log.Print(err)
+				log.Println(err)
 			}
 		}()
 
-		print("start\n")
+		log.Debugf("start pipedcmd %s\n", cmd)
 
 		err = cmd.Start(from)
 		if err != nil {
-			log.Panicln(err)
+			log.Println(err)
 		}
 		from = cmd.Stdout.(*os.File)
 	}
+	log.Debugln("initializing Scanner...")
 
 	scanner := bufio.NewScanner(from)
 
-	splitFn := scanners.ScanLines
+	splitFn := scanners.ScanBytes
+	if len(tokens) > 0 {
+		splitFn = scanners.ScanLines
+	}
 	if *argSplitByWords {
 		splitFn = scanners.ScanWords
 	}
 	scanner.Split(splitFn)
 	lineNumber := 1
+	log.Debugln("start Scanning...")
 	for scanner.Scan() {
 		var matched bool
 		text := scanner.Text()
@@ -84,4 +95,5 @@ func processFile(path string) {
 	if err := scanner.Err(); err != nil {
 		log.Println(err)
 	}
+	log.Debugln("end Scanning...")
 }

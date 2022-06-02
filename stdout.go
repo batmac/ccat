@@ -1,7 +1,7 @@
 package main
 
 import (
-	"log"
+	"ccat/log"
 	"os"
 	"syscall"
 )

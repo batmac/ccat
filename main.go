@@ -2,7 +2,9 @@ package main
 
 import (
 	"ccat/color"
+	"ccat/log"
 	"flag"
+	"io"
 	"regexp"
 	"strings"
 )
@@ -18,6 +20,7 @@ var (
 	argSplitByWords = flag.Bool("w", false, "read word by word instead of line by line (only works with utf8)")
 	argExec         = flag.String("X", "", "command to exec on each file before processing it")
 	argBG           = flag.Bool("bg", false, "colorize the background instead of the font")
+	argDebug        = flag.Bool("d", false, "debug what we are doing")
 
 	tmap   map[string]color.Color
 	tokens []string
@@ -25,13 +28,31 @@ var (
 
 func main() {
 	flag.Parse()
+
+	if !*argDebug {
+		log.SetDebug(io.Discard)
+	}
+
+	log.Debugln("STARTING ccat")
+
+	/* log.Printf("runtest\n")
+	err := mutator.RunTest("dummy", os.Stdout, os.Stdin)
+	if err != nil {
+		log.Fatalln(err)
+	} */
+
 	if len(*argTokens) > 0 {
+		log.Debugln("initializing tokens...")
+
 		if *argRaw {
 			*argTokens = regexp.QuoteMeta(*argTokens)
 		}
 		tokens = strings.Split(*argTokens, ",")
+		log.Debugf("tokens: %v\n", tokens)
+
 	}
 
+	log.Debugln("initializing colors...")
 	tmap = make(map[string]color.Color)
 	var c color.Color
 	if *argBG {
@@ -45,13 +66,17 @@ func main() {
 	}
 	//fmt.Printf("%v\n", tmap)
 
+	log.Debugln("initializing file list...")
 	fileList := flag.Args()
 	if 0 == len(fileList) {
 		fileList = []string{"-"}
 	}
+	log.Debugf("files: %v\n", fileList)
 
 	setupStdout(*argLockOut)
+	log.Debugln("processing...")
 	for _, path := range fileList {
 		processFile(path)
 	}
+	log.Debugln("THE END")
 }

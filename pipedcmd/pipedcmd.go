@@ -1,9 +1,10 @@
 package pipedcmd
 
 import (
+	"ccat/log"
 	"context"
 	"io"
-	"log"
+	"os"
 	"os/exec"
 	"strings"
 )
@@ -18,6 +19,8 @@ type PipedCmd struct {
 }
 
 func New(cmdline ...string) (*PipedCmd, error) {
+	log.Debugln(" pipedcmd: start new...")
+
 	cmdline = strings.Split(strings.Join(cmdline, " "), " ")
 	if cmdline[0] == "" {
 		return nil, exec.ErrNotFound
@@ -31,6 +34,11 @@ func New(cmdline ...string) (*PipedCmd, error) {
 	}
 
 	cmd := exec.CommandContext(ctx, fullCmd, cmdline[1:]...)
+	/* 	cmd.Env = append(os.Environ(),
+		"FOO=actual_value", // this value is used
+	) */
+	log.Debugf(" pipedcmd: created cmd %v", cmd)
+	log.Debugln(" pipedcmd: defining stdstuff...")
 
 	stdin, err := cmd.StdinPipe()
 	if err != nil {
@@ -41,21 +49,27 @@ func New(cmdline ...string) (*PipedCmd, error) {
 		return nil, err
 	}
 
+	cmd.Stderr = os.Stderr
+	stderr := os.Stderr
 	/* stderr, err := cmd.StderrPipe()
 	if err != nil {
 		return nil, err
 	} */
 
+	log.Debugln(" pipedcmd: returning new...")
+
 	return &PipedCmd{
 		Cmd:    cmd,
 		Stdin:  stdin,
 		Stdout: stdout,
-		Stderr: nil,
+		Stderr: stderr,
 		//written: 0,
 	}, nil
 }
 
 func (c *PipedCmd) Start(stdin io.Reader) error {
+	log.Debugln(" pipedcmd: Start %v\n", c)
+
 	err := c.Cmd.Start()
 	if err != nil {
 		return err
@@ -63,16 +77,20 @@ func (c *PipedCmd) Start(stdin io.Reader) error {
 	//print("read\n")
 
 	go func() {
+		log.Debugln(" pipedcmd: routine starting to copy... ")
+
 		written, err := io.Copy(c.Stdin, stdin)
 		if err != nil {
 			log.Println(err)
 		}
 		c.written = written
-		//log.Printf("written %d bytes to the cmd \"%s\"\n", written, c.Cmd)
+		log.Debugf(" pipedcmd: routine written %d bytes to the cmd \"%s\"\n", written, c.Cmd)
 		c.Stdin.Close()
 		if err != nil {
 			log.Println(err)
 		}
+		log.Debugln(" pipedcmd: routine end")
+
 	}()
 
 	return nil
@@ -80,7 +98,7 @@ func (c *PipedCmd) Start(stdin io.Reader) error {
 
 // wait that cmd exits and copying ends.
 func (c *PipedCmd) Wait() error {
-	//log.Printf("Wait %v\n", c)
+	log.Debugf(" pipedcmd: Wait %v\n", c)
 	return c.Cmd.Wait()
 }
 

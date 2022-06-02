@@ -1,7 +1,7 @@
 package main
 
 import (
-	"log"
+	"ccat/log"
 	"os"
 	"syscall"
 )
@@ -11,27 +11,27 @@ func fileOpen(path string, lock bool) (*os.File, error) {
 	if err != nil {
 		return nil, err
 	}
-	//log.Println("opened ", file.Name())
+	log.Debugln("opened ", file.Name())
 	if lock {
 		err = syscall.Flock(int(file.Fd()), syscall.LOCK_EX)
 		if err != nil {
 			file.Close()
 			return nil, err
 		}
-		//log.Println("locked ", file.Name())
+		log.Println("locked ", file.Name())
 	}
 	return file, nil
 }
 
 func fileClose(file *os.File, unlock bool) {
 	if unlock {
-		//log.Println("unlock ", file.Name())
+		log.Debugln("unlock ", file.Name())
 		err := syscall.Flock(int(file.Fd()), syscall.LOCK_UN)
 		if err != nil {
 			log.Println(err)
 		}
 	}
-	//log.Println("close ", file.Name())
+	log.Debugln("close ", file.Name())
 	err := file.Close()
 	if err != nil {
 		log.Println(err)
