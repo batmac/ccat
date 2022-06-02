@@ -68,7 +68,7 @@ func New(cmdline ...string) (*PipedCmd, error) {
 }
 
 func (c *PipedCmd) Start(stdin io.Reader) error {
-	log.Debugln(" pipedcmd: Start %v\n", c)
+	log.Debugf(" pipedcmd: Start %v\n", c)
 
 	err := c.Cmd.Start()
 	if err != nil {
