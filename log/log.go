@@ -9,9 +9,17 @@ import (
 
 var (
 	flags  = log.Ldate | log.Ltime | log.Lmicroseconds | log.Lshortfile
-	Debug  = log.New(os.Stderr, "", flags)
-	Stderr = log.New(os.Stderr, "", flags)
+	Debug  = &Logger{Logger: log.New(os.Stderr, "", flags)}
+	Stderr = &Logger{Logger: log.New(os.Stderr, "", flags)}
 )
+
+type Logger struct {
+	*log.Logger
+}
+
+func Default() *Logger {
+	return Debug
+}
 
 func SetDebug(w io.Writer) {
 	Debug.SetOutput(w)

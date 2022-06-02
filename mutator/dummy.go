@@ -1,9 +1,9 @@
 package mutator
 
 import (
+	"ccat/log"
 	"fmt"
 	"io"
-	"log"
 )
 
 var name = "dummy"

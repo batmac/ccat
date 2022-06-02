@@ -1,7 +1,7 @@
 package mutator
 
 import (
-	"log"
+	"ccat/log"
 	"sync"
 )
 
