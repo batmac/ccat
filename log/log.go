@@ -2,15 +2,19 @@ package log
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"log"
 	"os"
+	"sync/atomic"
 )
 
 var (
 	flags  = log.Ldate | log.Ltime | log.Lmicroseconds | log.Lshortfile
 	Debug  = &Logger{Logger: log.New(os.Stderr, "", flags)}
 	Stderr = &Logger{Logger: log.New(os.Stderr, "", flags)}
+
+	debugIsDiscard int32
 )
 
 type Logger struct {
@@ -22,27 +26,40 @@ func Default() *Logger {
 }
 
 func SetDebug(w io.Writer) {
+	var isDiscard int32 = 0
+	if w == io.Discard {
+		isDiscard = 1
+	}
+	atomic.StoreInt32(&debugIsDiscard, isDiscard)
 	Debug.SetOutput(w)
 }
+
 func Debugf(format string, v ...interface{}) {
-	Debug.Printf(format, v...)
+	if atomic.LoadInt32(&debugIsDiscard) != 0 {
+		return
+	}
+	Debug.Output(2, fmt.Sprintf(format, v...))
 }
 func Debugln(v ...interface{}) {
-	Debug.Println(v...)
+	if atomic.LoadInt32(&debugIsDiscard) != 0 {
+		return
+	}
+	Debug.Output(2, fmt.Sprint(v...))
 }
 
 func Printf(format string, v ...interface{}) {
-	Stderr.Printf(format, v...)
+	Stderr.Output(2, fmt.Sprintf(format, v...))
 }
 func Print(v ...interface{}) {
-	Stderr.Print(v...)
+	Stderr.Output(2, fmt.Sprintln(v...))
 }
 func Println(v ...interface{}) {
-	Stderr.Println(v...)
+	Stderr.Output(2, fmt.Sprint(v...))
 }
 
 func Fatal(v ...interface{}) {
-	Stderr.Fatal(v...)
+	Stderr.Output(2, fmt.Sprint(v...))
+	os.Exit(1)
 }
 
 // pretty print stuff

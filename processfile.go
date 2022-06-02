@@ -30,7 +30,7 @@ func processFile(path string) {
 		log.Debugf("%s", log.Pp(cmd))
 
 		if err != nil {
-			log.Println(err)
+			log.Fatal(err)
 		}
 		defer func() {
 			log.Debugf("waiting pipedcmd %v...\n", *argExec)
