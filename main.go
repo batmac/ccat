@@ -16,7 +16,7 @@ var (
 	argLockIn       = flag.Bool("L", false, "exclusively flock each file before reading")
 	argLockOut      = flag.Bool("l", false, "exclusively flock stdout")
 	argSplitByWords = flag.Bool("w", false, "read word by word instead of line by line (only works with utf8)")
-	argExec         = flag.String("X", "", "command to exec on each file before processing")
+	argExec         = flag.String("X", "", "command to exec on each file before processing it")
 
 	tmap   map[string]color.Color
 	tokens []string
