@@ -6,6 +6,7 @@ import (
 	"syscall"
 )
 
+// open and optionally flock a file
 func fileOpen(path string, lock bool) (*os.File, error) {
 	file, err := os.Open(path)
 	if err != nil {
@@ -23,6 +24,7 @@ func fileOpen(path string, lock bool) (*os.File, error) {
 	return file, nil
 }
 
+//optionally unflock and close a file
 func fileClose(file *os.File, unlock bool) {
 	if unlock {
 		log.Debugln("unlock ", file.Name())
