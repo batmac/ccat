@@ -11,7 +11,7 @@ import (
 
 var (
 	argTokens       = flag.String("t", "", "comma-separated list of tokens")
-	argInsensitive  = flag.Bool("i", false, "case-insensitive")
+	argInsensitive  = flag.Bool("i", false, "tokens given with -t are case-insensitive")
 	argOnlyMatching = flag.Bool("o", false, "don't display lines without at least one token")
 	argRaw          = flag.Bool("r", false, "don't treat tokens as regexps")
 	argLineNumber   = flag.Bool("n", false, "number the output lines, starting at 1.")
@@ -21,6 +21,10 @@ var (
 	argExec         = flag.String("X", "", "command to exec on each file before processing it")
 	argBG           = flag.Bool("bg", false, "colorize the background instead of the font")
 	argDebug        = flag.Bool("d", false, "debug what we are doing")
+	argHighlight    = flag.Bool("H", false, "try to syntax-highlight")
+	argStyle        = flag.String("S", "", "style to use (only used if -H, look in -d for the list)")
+	argFormatter    = flag.String("F", "", "formatter to use (only used if -H, look in -d for the list)")
+	argLexer        = flag.String("P", "", "lexer to use (only used if -H, look in -d for the list)")
 
 	tmap   map[string]color.Color
 	tokens []string
