@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"ccat/lockable"
 	"ccat/log"
 	"ccat/pipedcmd"
 	"ccat/scanners"
@@ -16,12 +17,12 @@ func processFile(path string) {
 	from := os.Stdin
 	var err error
 	if path != "-" {
-		from, err = fileOpen(path, *argLockIn)
+		from, err = lockable.FileOpen(path, *argLockIn)
 		if err != nil {
 			log.Println(err)
 			return
 		}
-		defer fileClose(from, *argLockIn)
+		defer lockable.FileClose(from, *argLockIn)
 	}
 	/*************************************/
 	if len(*argExec) > 0 {

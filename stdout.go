@@ -1,14 +1,14 @@
 package main
 
 import (
+	"ccat/lockable"
 	"ccat/log"
 	"os"
-	"syscall"
 )
 
 func setupStdout(lock bool) {
 	if lock {
-		err := syscall.Flock(int(os.Stdout.Fd()), syscall.LOCK_EX)
+		err := lockable.Flock(os.Stdout)
 		if err != nil {
 			log.Fatal(err)
 		}
