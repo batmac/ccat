@@ -3,8 +3,8 @@ package main
 import (
 	"bufio"
 	"ccat/highlighter"
-	"ccat/lockable"
 	"ccat/log"
+	"ccat/openers"
 	"ccat/pipedcmd"
 	"ccat/scanners"
 	"fmt"
@@ -16,16 +16,18 @@ import (
 func processFile(path string) {
 	log.Debugf("processing %s...\n", path)
 
-	var from io.ReadCloser = os.Stdin
-	var err error
-	if path != "-" {
-		from, err = lockable.FileOpen(path, *argLockIn)
+	from, err := openers.Open(path, *argLockIn)
+	if err != nil {
+		log.Printf("opening %s: %v", path, err)
+		return
+	}
+	defer func() {
+		err := from.Close()
 		if err != nil {
 			log.Println(err)
-			return
 		}
-		defer lockable.FileClose(from.(*os.File), *argLockIn)
-	}
+		log.Debugf("closed %s...\n", path)
+	}()
 	/*************************************/
 	if len(*argExec) > 0 {
 		log.Debugf("creating pipedcmd %v...\n", *argExec)
@@ -55,13 +57,17 @@ func processFile(path string) {
 	if *argHighlight {
 		log.Debugln("highlighting...")
 		r, w := io.Pipe()
-		highlighter.Go(w, from, highlighter.Options{
+		err := highlighter.Go(w, from, highlighter.Options{
 			FileName:      path,
 			StyleHint:     *argStyle,
 			FormatterHint: *argFormatter,
 			LexerHint:     *argLexer,
 		})
-		from = r
+		if err != nil {
+			log.Printf("error while highlighting: %v", err)
+		} else {
+			from = r
+		}
 	}
 	log.Debugln("initializing Scanner...")
 

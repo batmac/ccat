@@ -5,6 +5,7 @@ import (
 	"ccat/log"
 	"flag"
 	"io"
+	"os"
 	"regexp"
 	"strings"
 )
@@ -30,12 +31,17 @@ var (
 	tokens []string
 )
 
-func main() {
+func init() {
 	flag.Parse()
 
 	if !*argDebug {
 		log.SetDebug(io.Discard)
+	} else {
+		log.SetDebug(os.Stderr)
 	}
+
+}
+func main() {
 
 	log.Debugln("STARTING ccat")
 

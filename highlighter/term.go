@@ -45,15 +45,15 @@ func supportedColors() uint {
 	switch {
 	case isITerm2():
 		colors = 16_000_000
-		log.Debugln(" highlight: iterm2 -> 16M colors detected")
+		log.Debugln("  supportedColors: iterm2 -> 16M colors detected")
 	case strings.ToLower(os.Getenv("COLORTERM")) == "truecolor":
 		colors = 16_000_000
-		log.Debugln(" highlight: truecolor -> 16M colors detected")
+		log.Debugln("  supportedColors: truecolor -> 16M colors detected")
 	case os.Getenv("TERM") == "xterm-256color":
 		colors = 256
-		log.Debugln(" highlight: xterm-256color -> 256 colors detected")
+		log.Debugln("  supportedColors: xterm-256color -> 256 colors detected")
 	default:
-		log.Debugf(" highlight: unkown term, $TERM==%s -> 8 colors detected\n", os.Getenv("TERM"))
+		log.Debugf("  supportedColors: unkown term, $TERM==%s -> 8 colors detected\n", os.Getenv("TERM"))
 		return 8
 	}
 

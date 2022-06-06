@@ -11,11 +11,15 @@ import (
 
 var (
 	flags  = log.Ldate | log.Ltime | log.Lmicroseconds | log.Lshortfile
-	Debug  = &Logger{Logger: log.New(os.Stderr, "", flags)}
+	Debug  = &Logger{Logger: log.New(io.Discard, "", flags)}
 	Stderr = &Logger{Logger: log.New(os.Stderr, "", flags)}
 
 	debugIsDiscard int32
 )
+
+func init() {
+
+}
 
 type Logger struct {
 	*log.Logger

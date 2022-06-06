@@ -54,7 +54,6 @@ func (h *Chroma) HighLight(w io.WriteCloser, r io.ReadCloser, o Options) error {
 		lexer = chroma.Coalesce(lexer)
 
 	}
-	//log.Debugf(" highlighter: lexers %v\n", lexer.Config().Name)
 
 	log.Debugf(" highlighter: chosen Lexer is %v\n", lexer.Config().Name)
 
