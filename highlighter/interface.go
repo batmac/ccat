@@ -17,8 +17,8 @@ type Highlighter interface {
 }
 
 func Go(w io.WriteCloser, r io.ReadCloser, o Options) error {
-	c := new(Chroma)
 	go func() {
+		c := new(Chroma)
 		err := c.HighLight(w, r, o)
 		if err != nil {
 			log.Printf(" chroma highlighter returned an err: %v", err)

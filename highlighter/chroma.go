@@ -13,8 +13,8 @@ import (
 )
 
 const (
-	DEFAULT_STYLE     = "monokai"
-	DEFAULT_FORMATTER = "terminal256"
+	DEFAULT_STYLE = "monokai"
+	//DEFAULT_FORMATTER = "terminal16m"
 )
 
 type Chroma struct {
@@ -84,7 +84,20 @@ func (h *Chroma) HighLight(w io.WriteCloser, r io.ReadCloser, o Options) error {
 	if len(o.FormatterHint) > 0 && stringInSlice(o.FormatterHint, formattersList) {
 		h.formatter = o.FormatterHint
 	} else {
-		h.formatter = DEFAULT_FORMATTER
+		c := supportedColors()
+		switch {
+		case c >= 16_000_000:
+			h.formatter = "terminal16m"
+		case c >= 256:
+			h.formatter = "terminal256"
+		case c >= 16:
+			h.formatter = "terminal16"
+		case c >= 8:
+			h.formatter = "terminal8"
+		default:
+			h.formatter = "noop"
+		}
+		/* 		h.formatter = DEFAULT_FORMATTER */
 	}
 	formatter := formatters.Get(h.formatter)
 	if formatter == nil {
@@ -109,7 +122,6 @@ func (h *Chroma) HighLight(w io.WriteCloser, r io.ReadCloser, o Options) error {
 func stringInSlice(a string, list []string) bool {
 	for _, b := range list {
 		if b == a {
-			log.Debugf("%v == %v", a, b)
 			return true
 		}
 	}
