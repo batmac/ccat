@@ -30,7 +30,7 @@ func processFile(path string) {
 	if len(*argExec) > 0 {
 		log.Debugf("creating pipedcmd %v...\n", *argExec)
 		cmd, err := pipedcmd.New(*argExec)
-		log.Debugf("%s", log.Pp(cmd))
+		//log.Debugf("%s", log.Pp(cmd))
 
 		if err != nil {
 			log.Fatal(err)
@@ -69,14 +69,16 @@ func processFile(path string) {
 
 	splitFn := scanners.ScanBytes
 	if len(tokens) > 0 {
+		log.Debugln("splitting on Lines...")
 		splitFn = scanners.ScanLines
 	}
 	if *argSplitByWords {
+		log.Debugln("splitting on Words...")
 		splitFn = scanners.ScanWords
 	}
 	scanner.Split(splitFn)
 	lineNumber := 1
-	log.Debugln("start Scanning...")
+	log.Debugln("start Scanner...")
 	for scanner.Scan() {
 		var matched bool
 		text := scanner.Text()
@@ -110,5 +112,5 @@ func processFile(path string) {
 	if err := scanner.Err(); err != nil {
 		log.Println(err)
 	}
-	log.Debugln("end Scanning...")
+	log.Debugf("end Scanner, processing %v completed.\n", path)
 }

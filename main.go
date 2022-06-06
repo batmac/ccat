@@ -54,20 +54,20 @@ func main() {
 		tokens = strings.Split(*argTokens, ",")
 		log.Debugf("tokens: %v\n", tokens)
 
+		log.Debugln("initializing colors...")
+		tmap = make(map[string]color.Color)
+		var c color.Color
+		if *argBG {
+			c = new(color.ColorANSIbg)
+		} else {
+			c = new(color.ColorANSI)
+		}
+		for _, s := range tokens {
+			c = c.Next()
+			tmap[s] = c
+		}
 	}
 
-	log.Debugln("initializing colors...")
-	tmap = make(map[string]color.Color)
-	var c color.Color
-	if *argBG {
-		c = new(color.ColorANSIbg)
-	} else {
-		c = new(color.ColorANSI)
-	}
-	for _, s := range tokens {
-		c = c.Next()
-		tmap[s] = c
-	}
 	//fmt.Printf("%v\n", tmap)
 
 	log.Debugln("initializing file list...")

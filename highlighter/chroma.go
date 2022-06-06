@@ -13,7 +13,7 @@ import (
 )
 
 const (
-	DEFAULT_STYLE     = "github"
+	DEFAULT_STYLE     = "monokai"
 	DEFAULT_FORMATTER = "terminal256"
 )
 
