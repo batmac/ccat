@@ -7,6 +7,7 @@ import (
 	"ccat/openers"
 	"ccat/pipedcmd"
 	"ccat/scanners"
+	"ccat/term"
 	"fmt"
 	"io"
 	"os"
@@ -21,11 +22,11 @@ func processFile(path string) {
 		log.Printf("opening %s: %v", path, err)
 		return
 	}
+	fromOrig := from
+
 	defer func() {
-		err := from.Close()
-		if err != nil {
-			log.Println(err)
-		}
+		// don't want to determine if already closed, try to close it, it will fail if it is already closed
+		_ = fromOrig.Close()
 		log.Debugf("closed %s...\n", path)
 	}()
 	/*************************************/
@@ -54,7 +55,12 @@ func processFile(path string) {
 		from = cmd.Stdout.(*os.File)
 	}
 
-	if *argHighlight {
+	if *argHuman {
+		if term.IsArt(path) {
+			log.Debugf("is art, displaying directly...\n")
+			term.PrintArt(from)
+			return
+		}
 		log.Debugln("highlighting...")
 		r, w := io.Pipe()
 		err := highlighter.Go(w, from, highlighter.Options{
@@ -73,8 +79,9 @@ func processFile(path string) {
 
 	scanner := bufio.NewScanner(from)
 
-	splitFn := scanners.ScanBytes
-	if len(tokens) > 0 {
+	//splitFn := scanners.ScanBytes
+	splitFn := scanners.ScanLines
+	if len(tokens) > 0 || *argLineNumber || *argOnlyMatching {
 		log.Debugln("splitting on Lines...")
 		splitFn = scanners.ScanLines
 	}

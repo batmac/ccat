@@ -25,7 +25,7 @@ var (
 	argExec         = flag.String("X", "", "command to exec on each file before processing it")
 	argBG           = flag.Bool("bg", false, "colorize the background instead of the font")
 	argDebug        = flag.Bool("d", false, "debug what we are doing")
-	argHighlight    = flag.Bool("H", false, "try to syntax-highlight")
+	argHuman        = flag.Bool("H", false, "try to do what is needed to help (syntax-highlight, autodetect, etc. TODO)")
 	argStyle        = flag.String("S", "", "style to use (only used if -H, look in -d for the list)")
 	argFormatter    = flag.String("F", "", "formatter to use (only used if -H, look in -d for the list)")
 	argLexer        = flag.String("P", "", "lexer to use (only used if -H, look in -d for the list)")

@@ -90,9 +90,7 @@ func (c *PipedCmd) Start(stdin io.Reader) error {
 			log.Println(err)
 		}
 		log.Debugln(" pipedcmd: routine end")
-
 	}()
-
 	return nil
 }
 

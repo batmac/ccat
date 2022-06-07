@@ -1,4 +1,4 @@
-package highlighter
+package term
 
 import (
 	"ccat/log"
@@ -13,7 +13,7 @@ func IsTerminal() bool {
 	return term.IsTerminal(int(os.Stdout.Fd()))
 }
 
-func getTerminalSize() (width, height int, err error) {
+func GetTerminalSize() (width, height int, err error) {
 	if IsTerminal() {
 		return term.GetSize(int(os.Stdout.Fd()))
 	}
@@ -21,29 +21,20 @@ func getTerminalSize() (width, height int, err error) {
 	return 80, 24, nil // VT100 terminal size
 }
 
-func isITerm2() bool {
-	// LC_TERMINAL = iTerm2
-	// TERM_PROGRAM = iTerm.app
-	if os.Getenv("LC_TERMINAL") == "iTerm2" {
-		return IsTerminal()
-	}
-	return false
-}
-
-func clearScreen() {
+func ClearScreen() {
 	if IsTerminal() {
 		fmt.Print("\033[H\033[2J")
 	}
 }
 
-func supportedColors() uint {
+func SupportedColors() uint {
 	var colors uint
 	if !IsTerminal() {
 		log.Debugln("stdout is not a terminal, detecting colors anyway...")
 	}
 
 	switch {
-	case isITerm2():
+	case IsITerm2():
 		colors = 16_000_000
 		log.Debugln("  supportedColors: iterm2 -> 16M colors detected")
 	case strings.ToLower(os.Getenv("COLORTERM")) == "truecolor":

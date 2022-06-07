@@ -66,10 +66,10 @@ func ScanWords(data []byte, atEOF bool) (advance int, token []byte, err error) {
 	return 0, nil, nil
 }
 
-// ScanBytes is a split function for a Scanner that returns ALL bytes as a token.
+// ScanBytes is a split function for a Scanner that returns ALL data []bytes as a token.
 func ScanBytes(data []byte, atEOF bool) (advance int, token []byte, err error) {
 	if atEOF && len(data) == 0 {
 		return 0, nil, nil
 	}
-	return len(data), data[:], nil
+	return len(data), data, nil
 }
