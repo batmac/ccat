@@ -33,11 +33,15 @@ func (f httpOpener) Open(s string, _ bool) (io.ReadCloser, error) {
 		log.Println(err)
 		return nil, err
 	}
-	return resp.Body, nil
+	nrc := NewReadCloser(resp.Body, func() error {
+
+		return nil
+	})
+
+	return nrc, nil
 }
 
 func (f httpOpener) Evaluate(s string) float32 {
-
 	//log.Debugf("Evaluating %s...\n", s)
 	if strings.HasPrefix(s, "http://") || strings.HasPrefix(s, "https://") {
 		return 0.9
