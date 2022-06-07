@@ -71,5 +71,5 @@ func (f curlOpener) Evaluate(s string) float32 {
 	// DICT, FILE, FTP, FTPS, GOPHER, GOPHERS, HTTP, HTTPS, IMAP, IMAPS, LDAP, LDAPS,
 	// MQTT, POP3, POP3S, RTMP, RTSP, SCP, SFTP, SMB, SMBS, SMTP, SMTPS, TELNET, TFTP
 	//log.Debugf("Evaluating %s...\n", s)
-	return 0.99
+	return 0.1
 }
