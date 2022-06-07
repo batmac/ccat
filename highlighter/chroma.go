@@ -2,6 +2,7 @@ package highlighter
 
 import (
 	"ccat/log"
+	"ccat/term"
 	"fmt"
 	"io"
 	"math/rand"
@@ -87,7 +88,7 @@ func (h *Chroma) HighLight(w io.WriteCloser, r io.ReadCloser, o Options) error {
 	if len(o.FormatterHint) > 0 && stringInSlice(o.FormatterHint, formattersList) {
 		h.formatter = o.FormatterHint
 	} else {
-		c := supportedColors()
+		c := term.SupportedColors()
 		switch {
 		case c >= 16_000_000:
 			h.formatter = "terminal16m"
