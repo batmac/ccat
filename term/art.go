@@ -39,8 +39,10 @@ func IsArt(path string) bool {
 func PrintArt(r io.Reader) {
 	fmt.Println()
 	if IsITerm2() {
+		log.Debugf("  art: printITerm2Art\n")
 		printITerm2Art(r)
 	} else {
+		log.Debugf("  art: printANSIArt\n")
 		printANSIArt(r)
 	}
 	fmt.Println()
