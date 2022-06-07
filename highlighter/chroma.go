@@ -35,6 +35,9 @@ func (h *Chroma) HighLight(w io.WriteCloser, r io.ReadCloser, o Options) error {
 		return err
 	}
 	log.Debugf(" highlighter: read %v bytes\n", len(someSourceCode))
+	if err := r.Close(); err != nil {
+		log.Printf(" highlighter: %v\n", err)
+	}
 
 	log.Debugf(" highlighter: registered lexers are: %v\n", lexers.Names(true))
 	lexersList := lexers.Names(true)
