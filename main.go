@@ -2,8 +2,11 @@ package main
 
 import (
 	"ccat/color"
+	"ccat/highlighter"
 	"ccat/log"
+	"ccat/openers"
 	"flag"
+	"fmt"
 	"io"
 	"os"
 	"regexp"
@@ -32,6 +35,7 @@ var (
 )
 
 func init() {
+	flag.Usage = Usage
 	flag.Parse()
 
 	if !*argDebug {
@@ -89,4 +93,14 @@ func main() {
 		processFile(path)
 	}
 	log.Debugln("THE END")
+}
+
+func Usage() {
+	flag.PrintDefaults()
+	fmt.Fprintln(os.Stderr, "---")
+
+	fmt.Fprintf(os.Stderr, "ccat <files>...\n")
+	fmt.Fprintf(os.Stderr, " - openers: %v\n", openers.ListOpeners())
+	fmt.Fprintf(os.Stderr, " - highlighter (-H):\n")
+	fmt.Fprintf(os.Stderr, highlighter.Help())
 }

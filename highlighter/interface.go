@@ -14,6 +14,7 @@ type Options struct {
 
 type Highlighter interface {
 	HighLight(w io.WriteCloser, r io.ReadCloser, o Options) error
+	help() string
 }
 
 func Go(w io.WriteCloser, r io.ReadCloser, o Options) error {
@@ -26,4 +27,9 @@ func Go(w io.WriteCloser, r io.ReadCloser, o Options) error {
 		w.Close()
 	}()
 	return nil
+}
+
+func Help() string {
+	c := new(Chroma)
+	return c.help()
 }

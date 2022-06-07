@@ -28,13 +28,11 @@ func (f httpOpener) Description() string {
 	return f.description
 }
 func (f httpOpener) Open(s string, _ bool) (io.ReadCloser, error) {
-
 	resp, err := http.Get(s)
 	if err != nil {
 		log.Println(err)
 		return nil, err
 	}
-
 	return resp.Body, nil
 }
 

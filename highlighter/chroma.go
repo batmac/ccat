@@ -2,6 +2,7 @@ package highlighter
 
 import (
 	"ccat/log"
+	"fmt"
 	"io"
 	"math/rand"
 	"time"
@@ -125,4 +126,12 @@ func stringInSlice(a string, list []string) bool {
 		}
 	}
 	return false
+}
+
+func (h *Chroma) help() string {
+	return fmt.Sprintf("  - Lexers: %v\n  - Styles: %v\n  - Formatters: %v\n",
+		lexers.Names(true),
+		styles.Names(),
+		formatters.Names(),
+	)
 }

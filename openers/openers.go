@@ -38,7 +38,7 @@ func register(opener Opener) error {
 	globalCollection.openers = append(globalCollection.openers, opener)
 	globalCollection.Unlock()
 	log.SetDebug(os.Stderr)
-	log.Debugf(" opener \"%s\" registered (%s)\n", opener.Name(), opener.Description())
+	//log.Debugf(" opener \"%s\" registered (%s)\n", opener.Name(), opener.Description())
 	return nil
 }
 
@@ -61,4 +61,12 @@ func Open(s string, lock bool) (io.ReadCloser, error) {
 	}
 	log.Debugf(" openers: chosen one is \"%s\"\n", oChosen.Name())
 	return oChosen.Open(s, lock)
+}
+
+func ListOpeners() []string {
+	var l []string
+	for _, o := range globalCollection.openers {
+		l = append(l, o.Name())
+	}
+	return l
 }
