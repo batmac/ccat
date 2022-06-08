@@ -10,8 +10,8 @@ import (
 	"ccat/term"
 	"fmt"
 	"io"
-	"net/http"
-	_ "net/http/pprof"
+
+	//_ "net/http/pprof"
 	"os"
 	"regexp"
 )
@@ -87,7 +87,7 @@ func processFile(path string) {
 	}
 	log.Debugln("initializing Scanner...")
 
-	go http.ListenAndServe(":8090", nil)
+	//go http.ListenAndServe(":8090", nil)
 	scanner := bufio.NewScanner(from)
 
 	splitFn := scanners.ScanBytes
