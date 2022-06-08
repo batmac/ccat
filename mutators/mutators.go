@@ -1,4 +1,4 @@
-package mutator
+package mutators
 
 import (
 	"ccat/log"
@@ -10,7 +10,7 @@ import (
 var (
 	// register() is called from init() so this has to be global
 	glog             *log.Logger // shortcut for globalCollection.logger
-	globalCollection = NewCollection("globalCollection", log.Default())
+	globalCollection = NewCollection("globalMutatorsCollection", log.Default())
 )
 
 type Mutator interface {
@@ -19,7 +19,11 @@ type Mutator interface {
 	Name() string
 	Description() string
 }
-type Factory func(logger *log.Logger) (Mutator, error)
+type Factory interface {
+	New(logger *log.Logger) (Mutator, error)
+	Name() string
+	Description() string
+}
 
 type MutatorCollection struct {
 	mu       sync.Mutex
@@ -33,7 +37,7 @@ type MutatorCollection struct {
 func NewCollection(name string, logger *log.Logger) *MutatorCollection {
 
 	glog = logger
-	glog.Printf("mutators collection %s ready.\n", name)
+	defer glog.Printf("mutators: collection %s ready.\n", name)
 
 	return &MutatorCollection{
 		Name: name,
@@ -46,11 +50,11 @@ func NewCollection(name string, logger *log.Logger) *MutatorCollection {
 func register(name string, factory Factory) error {
 	globalCollection.mu.Lock()
 	if _, ok := globalCollection.factories[name]; ok {
-		return fmt.Errorf("%s is already registered", name)
+		return fmt.Errorf("mutators: %s is already registered", name)
 	}
 	globalCollection.factories[name] = factory
 	globalCollection.mu.Unlock()
-	glog.Printf(" mutator %s registered\n", name)
+	glog.Printf("mutators: %s registered\n", name)
 	return nil
 }
 
@@ -63,7 +67,7 @@ func RunTest(name string, w io.WriteCloser, r io.ReadCloser) error {
 	} else {
 		glog.Printf(" instancing mutator %s\n", name)
 
-		m, err := factory(globalCollection.logger)
+		m, err := factory.New(globalCollection.logger)
 		if err != nil {
 			return err
 		}
@@ -88,6 +92,29 @@ func RunTest(name string, w io.WriteCloser, r io.ReadCloser) error {
 	return nil
 }
 
-func Get(name string) Mutator,err{
+func New(name string) (Mutator, error) {
+	globalCollection.mu.Lock()
+	defer globalCollection.mu.Unlock()
 
+	factory, ok := globalCollection.factories[name]
+	if !ok {
+		return nil, fmt.Errorf("mutators: %s not found", name)
+	}
+	glog.Printf("mutators: instancing %s\n", name)
+
+	m, err := factory.New(globalCollection.logger)
+	if err != nil {
+		return nil, err
+	}
+	globalCollection.mutators = append(globalCollection.mutators, m)
+	glog.Printf("mutators: returning a new %s\n", name)
+	return m, nil
+}
+
+func ListMutators() []string {
+	var l []string
+	for _, v := range globalCollection.factories {
+		l = append(l, v.Name()+": "+v.Description())
+	}
+	return l
 }

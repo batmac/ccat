@@ -10,6 +10,8 @@ import (
 	"ccat/term"
 	"fmt"
 	"io"
+	"net/http"
+	_ "net/http/pprof"
 	"os"
 	"regexp"
 )
@@ -22,10 +24,18 @@ func processFile(path string) {
 		log.Printf("opening %s: %v", path, err)
 		return
 	}
+	/* 	r, w := io.Pipe()
+	   	m, err := mutators.New("dummy")
+	   	if err != nil {
+	   		log.Fatal(err)
+	   	}
+	   	m.Start(w, from)
+
+	   	from = r */
 	fromOrig := from
 
 	defer func() {
-		// don't want to determine if already closed, try to close it, it will fail if it is already closed
+		// I don't want to determine if already closed, try to close it, it will fail if it is already closed
 		_ = fromOrig.Close()
 		log.Debugf("closed %s...\n", path)
 	}()
@@ -77,10 +87,11 @@ func processFile(path string) {
 	}
 	log.Debugln("initializing Scanner...")
 
+	go http.ListenAndServe(":8090", nil)
 	scanner := bufio.NewScanner(from)
 
-	//splitFn := scanners.ScanBytes
-	splitFn := scanners.ScanLines
+	splitFn := scanners.ScanBytes
+	//splitFn := scanners.ScanLines
 	if len(tokens) > 0 || *argLineNumber || *argOnlyMatching {
 		log.Debugln("splitting on Lines...")
 		splitFn = scanners.ScanLines
@@ -94,7 +105,7 @@ func processFile(path string) {
 	log.Debugln("start Scanner...")
 	for scanner.Scan() {
 		var matched bool
-		text := scanner.Text()
+		text := scanner.Bytes()
 		for _, token := range tokens {
 			var err error
 			var regexpPrefix string
@@ -104,13 +115,13 @@ func processFile(path string) {
 
 			//fmt.Println("text ", text)
 			//fmt.Println("token ", token)
-			matched, err = regexp.MatchString(regexpPrefix+token, text)
+			matched, err = regexp.MatchString(regexpPrefix+token, string(text))
 			if err != nil {
 				log.Println(err)
 			}
 			if matched {
 				color := tmap[token]
-				text = color.Sprint(text)
+				text = []byte(color.Sprint(string(text)))
 				break
 			}
 		}
@@ -119,7 +130,7 @@ func processFile(path string) {
 			lineNumber++
 		}
 		if !*argOnlyMatching || matched && *argOnlyMatching {
-			fmt.Print(text)
+			os.Stdout.Write(text)
 		}
 	}
 	if err := scanner.Err(); err != nil {

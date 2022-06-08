@@ -1,4 +1,4 @@
-package mutator
+package mutators
 
 import (
 	"ccat/log"
@@ -6,18 +6,22 @@ import (
 	"io"
 )
 
-var name = "dummy"
-var description = "simple fifo"
+var dummyName = "dummy"
+var dummyDescription = "simple fifo"
 
 type dummyMutator struct {
 	genericMutator
 }
 
-func init() {
-	register(name, newDummy)
+type dummyFactory struct {
 }
 
-func newDummy(logger *log.Logger) (Mutator, error) {
+func init() {
+	f := new(dummyFactory)
+	register(dummyName, f)
+}
+
+func (f *dummyFactory) New(logger *log.Logger) (Mutator, error) {
 	logger.Println("dummy: new")
 	return &dummyMutator{
 		genericMutator: newGeneric(logger),
@@ -32,10 +36,10 @@ func (m *dummyMutator) Start(w io.WriteCloser, r io.ReadCloser) error {
 	}
 	m.started = true
 	m.mu.Unlock()
-	m.logger.Printf("dummy: start\n")
+	m.logger.Printf("dummy: start %v\n", w)
 
 	go func() {
-		m.logger.Printf("dummy: copying\n")
+		m.logger.Printf("dummy: copying from %v to %v\n", r, w)
 		written, err := io.Copy(w, r)
 		m.logger.Printf("dummy: done\n")
 		if err != nil {
@@ -70,8 +74,14 @@ func (m *dummyMutator) Wait() error {
 }
 
 func (m *dummyMutator) Name() string {
-	return name
+	return dummyName
 }
 func (m *dummyMutator) Description() string {
-	return description
+	return dummyDescription
+}
+func (f *dummyFactory) Name() string {
+	return dummyName
+}
+func (f *dummyFactory) Description() string {
+	return dummyDescription
 }

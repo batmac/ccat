@@ -1,4 +1,4 @@
-package mutator
+package mutators
 
 import (
 	"ccat/log"
@@ -20,8 +20,8 @@ func newGeneric(logger *log.Logger) genericMutator {
 	return genericMutator{
 		mu:          sync.Mutex{},
 		logger:      logger,
-		name:        name,
-		description: description,
+		name:        dummyName,
+		description: dummyDescription,
 		started:     false,
 		waited:      false,
 		done:        make(chan struct{}),

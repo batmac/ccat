@@ -4,6 +4,7 @@ import (
 	"ccat/color"
 	"ccat/highlighter"
 	"ccat/log"
+	"ccat/mutators"
 	"ccat/openers"
 	"ccat/term"
 	"flag"
@@ -107,5 +108,5 @@ func Usage() {
 	fmt.Fprintf(os.Stderr, " - highlighter (-H):\n")
 	fmt.Fprintf(os.Stderr, highlighter.Help())
 	fmt.Fprintf(os.Stderr, " - openers:\n    %v\n", strings.Join(openers.ListOpeners(), "\n    "))
-
+	fmt.Fprintf(os.Stderr, " - mutators:\n    %v\n", strings.Join(mutators.ListMutators(), "\n    "))
 }
