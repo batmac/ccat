@@ -9,7 +9,7 @@ import (
 
 var (
 	// register() is called from init() so this has to be global
-	glog             *log.Logger
+	glog             *log.Logger // shortcut for globalCollection.logger
 	globalCollection = NewCollection("globalCollection", log.Default())
 )
 
@@ -22,9 +22,9 @@ type Mutator interface {
 type Factory func(logger *log.Logger) (Mutator, error)
 
 type MutatorCollection struct {
-	sync.Mutex
+	mu       sync.Mutex
 	Name     string
-	Mutators []Mutator
+	mutators []Mutator
 	//Mutators  map[string]Mutator
 	factories map[string]Factory
 	logger    *log.Logger
@@ -44,30 +44,30 @@ func NewCollection(name string, logger *log.Logger) *MutatorCollection {
 }
 
 func register(name string, factory Factory) error {
-	globalCollection.Lock()
+	globalCollection.mu.Lock()
 	if _, ok := globalCollection.factories[name]; ok {
 		return fmt.Errorf("%s is already registered", name)
 	}
 	globalCollection.factories[name] = factory
-	globalCollection.Unlock()
+	globalCollection.mu.Unlock()
 	glog.Printf(" mutator %s registered\n", name)
 	return nil
 }
 
 func RunTest(name string, w io.WriteCloser, r io.ReadCloser) error {
-	globalCollection.Lock()
-	defer globalCollection.Unlock()
+	globalCollection.mu.Lock()
+	defer globalCollection.mu.Unlock()
 
-	if f, ok := globalCollection.factories[name]; !ok {
+	if factory, ok := globalCollection.factories[name]; !ok {
 		return fmt.Errorf("mutator %s not found", name)
 	} else {
 		glog.Printf(" instancing mutator %s\n", name)
 
-		m, err := f(globalCollection.logger)
+		m, err := factory(globalCollection.logger)
 		if err != nil {
 			return err
 		}
-		globalCollection.Mutators = append(globalCollection.Mutators, m)
+		globalCollection.mutators = append(globalCollection.mutators, m)
 		glog.Printf(" instanced mutator %s\n", name)
 
 		glog.Printf(" starting mutator %s\n", name)
@@ -86,4 +86,8 @@ func RunTest(name string, w io.WriteCloser, r io.ReadCloser) error {
 	glog.Printf(" returning from runtest")
 
 	return nil
+}
+
+func Get(name string) Mutator,err{
+
 }

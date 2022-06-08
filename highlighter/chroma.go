@@ -17,6 +17,7 @@ import (
 const (
 	DEFAULT_STYLE = "monokai"
 	//DEFAULT_FORMATTER = "terminal16m"
+	MAX_READ_SIZE = 10_000_000
 )
 
 type Chroma struct {
@@ -31,10 +32,17 @@ func (h *Chroma) HighLight(w io.WriteCloser, r io.ReadCloser, o Options) error {
 
 	var filename string = o.FileName
 
-	someSourceCode, err := io.ReadAll(r)
+	// MAX_READ_SIZE Bytes max
+	someSourceCode, err := io.ReadAll(&io.LimitedReader{R: r, N: MAX_READ_SIZE})
 	if err != nil {
 		return err
 	}
+
+	_, err = r.Read(make([]byte, 1))
+	if err != io.EOF {
+		log.Fatal("highlighter: should read too much (file is too large for me)")
+	}
+
 	log.Debugf(" highlighter: read %v bytes\n", len(someSourceCode))
 	if err := r.Close(); err != nil {
 		log.Printf(" highlighter: %v\n", err)
