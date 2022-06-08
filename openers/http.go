@@ -8,7 +8,7 @@ import (
 )
 
 var httpOpenerName = "http"
-var httpOpenerDescription = "get URL via HTTP"
+var httpOpenerDescription = "get URL via HTTP(S)"
 
 type httpOpener struct {
 	name, description string

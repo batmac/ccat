@@ -21,7 +21,7 @@ type Opener interface {
 }
 
 type OpenerCollection struct {
-	sync.Mutex
+	mu      sync.Mutex
 	Name    string
 	openers []Opener
 }
@@ -34,9 +34,9 @@ func NewCollection(name string) *OpenerCollection {
 }
 
 func register(opener Opener) error {
-	globalCollection.Lock()
+	globalCollection.mu.Lock()
 	globalCollection.openers = append(globalCollection.openers, opener)
-	globalCollection.Unlock()
+	globalCollection.mu.Unlock()
 	log.SetDebug(os.Stderr)
 	//log.Debugf(" opener \"%s\" registered (%s)\n", opener.Name(), opener.Description())
 	return nil
@@ -66,7 +66,7 @@ func Open(s string, lock bool) (io.ReadCloser, error) {
 func ListOpeners() []string {
 	var l []string
 	for _, o := range globalCollection.openers {
-		l = append(l, o.Name())
+		l = append(l, o.Name()+": "+o.Description())
 	}
 	return l
 }

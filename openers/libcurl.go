@@ -6,6 +6,7 @@ package openers
 import (
 	"ccat/log"
 	"io"
+	"strings"
 
 	curl "github.com/andelf/go-curl"
 )
@@ -13,7 +14,9 @@ import (
 var easy *curl.CURL = nil
 
 var curlOpenerName = "curl"
-var curlOpenerDescription = "get URL via go-curl (C bindings)"
+var curlOpenerDescription = "get URL via libcurl bindings\n           " +
+	curl.Version() + "\n           protocols: " +
+	strings.Join(curl.VersionInfo(0).Protocols, ",")
 
 type curlOpener struct {
 	name, description string
@@ -27,6 +30,10 @@ func init() {
 }
 
 func easyHandlerInit() {
+	// we don't cleanup curl stuff when ending because we don't care (we only use one)
+
+	//curl.GlobalInit(curl.GLOBAL_DEFAULT)
+	//defer curl.GlobalCleanup()
 	easy = curl.EasyInit()
 	easy.Setopt(curl.OPT_VERBOSE, false)
 	easy.Setopt(curl.OPT_WRITEFUNCTION, func(ptr []byte, userdata interface{}) bool {
@@ -48,10 +55,8 @@ func (f curlOpener) Open(s string, _ bool) (io.ReadCloser, error) {
 
 	r, w := io.Pipe()
 	go func() {
-		// we don't cleanup curl stuff when ending because we don't care (we only use one)
 		log.Debugln(" curl goroutine started")
-		//curl.GlobalInit(curl.GLOBAL_DEFAULT)
-		//defer curl.GlobalCleanup()
+
 		if easy == nil {
 			easyHandlerInit()
 		}
