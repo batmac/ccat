@@ -5,6 +5,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"time"
 )
 
 var httpOpenerName = "http"
@@ -19,6 +20,7 @@ func init() {
 		name:        httpOpenerName,
 		description: httpOpenerDescription,
 	})
+	http.DefaultClient.Timeout = 10 * time.Second
 }
 
 func (f httpOpener) Name() string {

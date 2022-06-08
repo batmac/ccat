@@ -1,11 +1,9 @@
 package term
 
 import (
-	"ccat/log"
 	"encoding/base64"
 	"fmt"
 	"io"
-	"net/http"
 	"os"
 )
 
@@ -18,7 +16,7 @@ func IsITerm2() bool {
 	return false
 }
 
-func printITerm2ArtFromURL(url string) {
+/* func printITerm2ArtFromURL(url string) {
 	res, err := http.Get(url)
 	if err != nil {
 		log.Println(err)
@@ -28,7 +26,7 @@ func printITerm2ArtFromURL(url string) {
 	if err := printITerm2Art(res.Body); err != nil {
 		log.Println(err)
 	}
-}
+} */
 
 func printITerm2Art(r io.Reader) error {
 	data, err := io.ReadAll(r)

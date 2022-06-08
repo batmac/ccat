@@ -36,6 +36,7 @@ func (f *curlOpener) easyHandlerInit() {
 	//defer curl.GlobalCleanup()
 	f.easy = curl.EasyInit()
 	f.easy.Setopt(curl.OPT_VERBOSE, false)
+	f.easy.Setopt(curl.OPT_TIMEOUT, 10)
 	f.easy.Setopt(curl.OPT_WRITEFUNCTION, func(ptr []byte, userdata interface{}) bool {
 		pipe := userdata.(*io.PipeWriter)
 		if _, err := pipe.Write(ptr); err != nil {

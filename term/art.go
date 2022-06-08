@@ -47,7 +47,8 @@ func PrintArt(r io.Reader) {
 	}
 	fmt.Println()
 }
-func PrintArtFromURL(url string) {
+
+/* func PrintArtFromURL(url string) {
 	fmt.Println()
 	if IsITerm2() {
 		printITerm2ArtFromURL(url)
@@ -56,7 +57,7 @@ func PrintArtFromURL(url string) {
 	}
 	fmt.Println()
 
-}
+} */
 func printANSIArt(r io.Reader) error {
 	tx, ty, err := GetTerminalSize()
 	if err != nil {
@@ -80,28 +81,28 @@ func printANSIArt(r io.Reader) error {
 	return nil
 }
 
-func printANSIArtFromURL(url string) {
+/* func printANSIArtFromURL(url string) {
 
-	tx, ty, err := GetTerminalSize()
-	if err != nil {
-		log.Println(err)
-	}
-	// set image scale factor for ANSIPixel grid
-	//sfy, sfx := ansimage.BlockSizeY, ansimage.BlockSizeX // 8x4 --> with dithering
-	//if ansimage.DitheringMode(flagDither) == ansimage.NoDithering {
-	sfy, sfx := 2, 1 // 2x1 --> without dithering
-	//}
-
-	img, err := ansimage.NewScaledFromURL(
-		url,
-		int(float32(ty*sfy)*artScale), int(float32(tx*sfx)*artScale),
-		color.Transparent,
-		ansimage.ScaleModeFit,
-		ansimage.NoDithering,
-	)
-
-	if err != nil {
-		log.Println(err)
-	}
-	img.Draw()
+tx, ty, err := GetTerminalSize()
+if err != nil {
+	log.Println(err)
 }
+// set image scale factor for ANSIPixel grid
+//sfy, sfx := ansimage.BlockSizeY, ansimage.BlockSizeX // 8x4 --> with dithering
+//if ansimage.DitheringMode(flagDither) == ansimage.NoDithering {
+sfy, sfx := 2, 1 // 2x1 --> without dithering
+//}
+
+img, err := ansimage.NewScaledFromURL(
+	url,
+	int(float32(ty*sfy)*artScale), int(float32(tx*sfx)*artScale),
+	color.Transparent,
+	ansimage.ScaleModeFit,
+	ansimage.NoDithering,
+)
+
+if err != nil {
+	log.Println(err)
+}
+img.Draw()
+} */
