@@ -5,6 +5,7 @@ import (
 	"ccat/highlighter"
 	"ccat/log"
 	"ccat/openers"
+	"ccat/term"
 	"flag"
 	"fmt"
 	"io"
@@ -54,6 +55,9 @@ func main() {
 	if err != nil {
 		log.Fatalln(err)
 	} */
+	if term.IsStdoutTerminal() {
+		*argHuman = true
+	}
 
 	if len(*argTokens) > 0 {
 		log.Debugln("initializing tokens...")

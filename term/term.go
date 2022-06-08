@@ -9,12 +9,12 @@ import (
 	"golang.org/x/term"
 )
 
-func IsTerminal() bool {
+func IsStdoutTerminal() bool {
 	return term.IsTerminal(int(os.Stdout.Fd()))
 }
 
 func GetTerminalSize() (width, height int, err error) {
-	if IsTerminal() {
+	if IsStdoutTerminal() {
 		return term.GetSize(int(os.Stdout.Fd()))
 	}
 	// fallback when piping to a file!
@@ -22,14 +22,14 @@ func GetTerminalSize() (width, height int, err error) {
 }
 
 func ClearScreen() {
-	if IsTerminal() {
+	if IsStdoutTerminal() {
 		fmt.Print("\033[H\033[2J")
 	}
 }
 
 func SupportedColors() uint {
 	var colors uint
-	if !IsTerminal() {
+	if !IsStdoutTerminal() {
 		log.Debugln("stdout is not a terminal, detecting colors anyway...")
 	}
 

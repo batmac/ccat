@@ -13,7 +13,7 @@ func IsITerm2() bool {
 	// LC_TERMINAL = iTerm2
 	// TERM_PROGRAM = iTerm.app
 	if os.Getenv("TERM_PROGRAM") == "iTerm.app" {
-		return IsTerminal()
+		return IsStdoutTerminal()
 	}
 	return false
 }
