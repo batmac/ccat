@@ -28,9 +28,10 @@ var (
 	argBG           = flag.Bool("bg", false, "colorize the background instead of the font")
 	argDebug        = flag.Bool("d", false, "debug what we are doing")
 	argHuman        = flag.Bool("H", false, "try to do what is needed to help (syntax-highlight, autodetect, etc. TODO)")
-	argStyle        = flag.String("S", "", "style to use (only used if -H, look in -d for the list)")
-	argFormatter    = flag.String("F", "", "formatter to use (only used if -H, look in -d for the list)")
-	argLexer        = flag.String("P", "", "lexer to use (only used if -H, look in -d for the list)")
+	argStyle        = flag.String("S", "", "style to use (only used if -H, look in -h for the list)")
+	argFormatter    = flag.String("F", "", "formatter to use (only used if -H, look in -h for the list)")
+	argLexer        = flag.String("P", "", "lexer to use (only used if -H, look in -h for the list)")
+	argMutator      = flag.String("m", "", "mutator to use")
 
 	tmap   map[string]color.Color
 	tokens []string

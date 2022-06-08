@@ -3,6 +3,7 @@ package highlighter
 import (
 	"ccat/log"
 	"ccat/term"
+	"ccat/utils"
 	"fmt"
 	"io"
 	"math/rand"
@@ -51,7 +52,7 @@ func (h *Chroma) HighLight(w io.WriteCloser, r io.ReadCloser, o Options) error {
 	log.Debugf(" highlighter: registered lexers are: %v\n", lexers.Names(true))
 	lexersList := lexers.Names(true)
 	var lexer chroma.Lexer
-	if len(o.LexerHint) > 0 && stringInSlice(o.LexerHint, lexersList) {
+	if len(o.LexerHint) > 0 && utils.StringInSlice(o.LexerHint, lexersList) {
 		log.Debugf(" highlighter: setting the lexer to %v\n", o.LexerHint)
 		lexer = lexers.Get(o.LexerHint)
 	} else {
@@ -78,7 +79,7 @@ func (h *Chroma) HighLight(w io.WriteCloser, r io.ReadCloser, o Options) error {
 		rand.Seed(time.Now().UnixNano())
 		randStyle := rand.Intn(len(stylesList))
 		h.style = stylesList[randStyle]
-	} else if len(o.StyleHint) > 0 && stringInSlice(o.StyleHint, stylesList) {
+	} else if len(o.StyleHint) > 0 && utils.StringInSlice(o.StyleHint, stylesList) {
 		h.style = o.StyleHint
 	} else {
 		h.style = DEFAULT_STYLE
@@ -93,7 +94,7 @@ func (h *Chroma) HighLight(w io.WriteCloser, r io.ReadCloser, o Options) error {
 	log.Debugf(" highlighter: registered formatters are: %v\n", formatters.Names())
 
 	formattersList := formatters.Names()
-	if len(o.FormatterHint) > 0 && stringInSlice(o.FormatterHint, formattersList) {
+	if len(o.FormatterHint) > 0 && utils.StringInSlice(o.FormatterHint, formattersList) {
 		h.formatter = o.FormatterHint
 	} else {
 		c := term.SupportedColors()

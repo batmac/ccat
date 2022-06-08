@@ -5,6 +5,7 @@ package openers
 
 import (
 	"ccat/log"
+	"ccat/utils"
 	"io"
 	"strings"
 
@@ -81,6 +82,10 @@ func (f curlOpener) Evaluate(s string) float32 {
 	// The latest curl (as of this writing) supports these protocols:
 	// DICT, FILE, FTP, FTPS, GOPHER, GOPHERS, HTTP, HTTPS, IMAP, IMAPS, LDAP, LDAPS,
 	// MQTT, POP3, POP3S, RTMP, RTSP, SCP, SFTP, SMB, SMBS, SMTP, SMTPS, TELNET, TFTP
-	//log.Debugf("Evaluating %s...\n", s)
-	return 0.1
+	before, _, found := strings.Cut(s, "://")
+	//log.Printf("before=%s found=%v s=%v", before, found, s)
+	if found && utils.StringInSlice(before, curl.VersionInfo(0).Protocols) {
+		return 0.1
+	}
+	return 0
 }

@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"ccat/highlighter"
 	"ccat/log"
+	"ccat/mutators"
 	"ccat/openers"
 	"ccat/pipedcmd"
 	"ccat/scanners"
@@ -24,14 +25,18 @@ func processFile(path string) {
 		log.Printf("opening %s: %v", path, err)
 		return
 	}
-	/* 	r, w := io.Pipe()
-	   	m, err := mutators.New("dummy")
-	   	if err != nil {
-	   		log.Fatal(err)
-	   	}
-	   	m.Start(w, from)
 
-	   	from = r */
+	if len(*argMutator) > 0 {
+		choice := *argMutator
+		r, w := io.Pipe()
+		m, err := mutators.New(choice)
+		if err != nil {
+			log.Fatal(err)
+		}
+		m.Start(w, from)
+
+		from = r
+	}
 	fromOrig := from
 
 	defer func() {

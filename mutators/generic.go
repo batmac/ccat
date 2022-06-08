@@ -18,12 +18,11 @@ type genericMutator struct {
 
 func newGeneric(logger *log.Logger) genericMutator {
 	return genericMutator{
-		mu:          sync.Mutex{},
-		logger:      logger,
-		name:        dummyName,
-		description: dummyDescription,
-		started:     false,
-		waited:      false,
-		done:        make(chan struct{}),
+		mu:     sync.Mutex{},
+		logger: logger,
+
+		started: false,
+		waited:  false,
+		done:    make(chan struct{}),
 	}
 }
