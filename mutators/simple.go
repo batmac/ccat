@@ -53,7 +53,7 @@ func (m *simpleMutator) Start(w io.WriteCloser, r io.ReadCloser) error {
 		written, err := m.fn(w, r)
 		m.logger.Printf("%s: done\n", m.Name())
 		if err != nil {
-			m.logger.Println(err)
+			log.Fatal(err)
 		}
 		m.logger.Printf("%s: written %d bytes\n", m.Name(), written)
 		m.logger.Printf("%s: closing %v\n", m.Name(), w)
