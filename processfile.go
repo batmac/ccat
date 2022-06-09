@@ -33,7 +33,9 @@ func processFile(path string) {
 		if err != nil {
 			log.Fatal(err)
 		}
-		m.Start(w, from)
+		if m.Start(w, from) != nil {
+			log.Fatal("failed to start the mutator\n")
+		}
 
 		from = r
 	}

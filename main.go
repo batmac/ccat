@@ -105,9 +105,9 @@ func Usage() {
 	flag.PrintDefaults()
 	fmt.Fprintln(os.Stderr, "---")
 
-	fmt.Fprintf(os.Stderr, "ccat <files>...\n")
-	fmt.Fprintf(os.Stderr, " - highlighter (-H):\n")
-	fmt.Fprintf(os.Stderr, highlighter.Help())
+	fmt.Fprint(os.Stderr, "ccat <files>...\n")
+	fmt.Fprint(os.Stderr, " - highlighter (-H):\n")
+	fmt.Fprint(os.Stderr, highlighter.Help())
 	fmt.Fprintf(os.Stderr, " - openers:\n    %v\n", strings.Join(openers.ListOpeners(), "\n    "))
 	fmt.Fprintf(os.Stderr, " - mutators:\n    %v\n", strings.Join(mutators.ListMutators(), "\n    "))
 }
