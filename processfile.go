@@ -79,8 +79,9 @@ func processFile(path string) {
 			return
 		}
 		log.Debugln("highlighting...")
-		hl := globalctx.Get("hintLexer").(string)
-		if len(*argLexer) == 0 && len(hl) != 0 {
+		hl := globalctx.Get("hintLexer")
+		if len(*argLexer) == 0 && hl != nil && len(hl.(string)) != 0 {
+			hl := hl.(string)
 			argLexer = &hl
 		}
 
