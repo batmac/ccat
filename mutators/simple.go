@@ -1,6 +1,7 @@
 package mutators
 
 import (
+	"ccat/globalctx"
 	"ccat/log"
 	"fmt"
 	"io"
@@ -12,29 +13,36 @@ type simpleMutator struct {
 	genericMutator
 	name, description string
 	fn                simpleFn
+	hintLexer         string
 }
 
 type simpleFactory struct {
 	name, description string
 	fn                simpleFn
+	hintLexer         string
 }
 
-func simpleRegister(name, description string, f simpleFn) {
+func simpleRegister(name, description, hintLexer string, f simpleFn) {
 	factory := new(simpleFactory)
 	factory.name = name
 	factory.description = description
-
 	factory.fn = f
+	factory.hintLexer = hintLexer
+
 	register(name, factory)
 }
 
 func (f *simpleFactory) New(logger *log.Logger) (Mutator, error) {
 	logger.Printf("%s: new", f.Name())
+	if len(f.hintLexer) != 0 {
+		globalctx.Set("hintLexer", f.hintLexer)
+	}
 	return &simpleMutator{
 		genericMutator: newGeneric(logger),
 		name:           f.name,
 		description:    f.description,
 		fn:             f.fn,
+		hintLexer:      f.hintLexer,
 	}, nil
 }
 

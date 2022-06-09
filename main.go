@@ -2,6 +2,7 @@ package main
 
 import (
 	"ccat/color"
+	"ccat/globalctx"
 	"ccat/highlighter"
 	"ccat/log"
 	"ccat/mutators"
@@ -94,11 +95,12 @@ func main() {
 	log.Debugf("files: %v\n", fileList)
 
 	setupStdout(*argLockOut)
+
+	globalctx.Set("fileList", fileList)
 	log.Debugln("processing...")
 	for _, path := range fileList {
 		processFile(path)
 	}
-	log.Debugln("THE END")
 }
 
 func Usage() {

@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"ccat/globalctx"
 	"ccat/highlighter"
 	"ccat/log"
 	"ccat/mutators"
@@ -19,6 +20,7 @@ import (
 
 func processFile(path string) {
 	log.Debugf("processing %s...\n", path)
+	globalctx.Set("path", path)
 
 	from, err := openers.Open(path, *argLockIn)
 	if err != nil {
@@ -40,7 +42,6 @@ func processFile(path string) {
 		from = r
 	}
 	fromOrig := from
-
 	defer func() {
 		// I don't want to determine if already closed, try to close it, it will fail if it is already closed
 		_ = fromOrig.Close()
@@ -57,7 +58,6 @@ func processFile(path string) {
 		}
 		defer func() {
 			log.Debugf("waiting pipedcmd %v...\n", *argExec)
-
 			if err := cmd.Wait(); err != nil {
 				log.Println(err)
 			}
@@ -79,6 +79,11 @@ func processFile(path string) {
 			return
 		}
 		log.Debugln("highlighting...")
+		hl := globalctx.Get("hintLexer").(string)
+		if len(*argLexer) == 0 && len(hl) != 0 {
+			argLexer = &hl
+		}
+
 		r, w := io.Pipe()
 		err := highlighter.Go(w, from, highlighter.Options{
 			FileName:      path,

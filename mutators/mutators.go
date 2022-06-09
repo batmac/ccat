@@ -59,40 +59,6 @@ func register(name string, factory Factory) error {
 	return nil
 }
 
-func RunTest(name string, w io.WriteCloser, r io.ReadCloser) error {
-	globalCollection.mu.Lock()
-	defer globalCollection.mu.Unlock()
-
-	if factory, ok := globalCollection.factories[name]; !ok {
-		return fmt.Errorf("mutator %s not found", name)
-	} else {
-		glog.Printf(" instancing mutator %s\n", name)
-
-		m, err := factory.New(globalCollection.logger)
-		if err != nil {
-			return err
-		}
-		globalCollection.mutators = append(globalCollection.mutators, m)
-		glog.Printf(" instanced mutator %s\n", name)
-
-		glog.Printf(" starting mutator %s\n", name)
-
-		err = m.Start(w, r)
-		if err != nil {
-			return err
-		}
-		glog.Printf(" waiting mutator %s\n", name)
-
-		err = m.Wait()
-		if err != nil {
-			return err
-		}
-	}
-	glog.Printf(" returning from runtest")
-
-	return nil
-}
-
 func New(name string) (Mutator, error) {
 	globalCollection.mu.Lock()
 	defer globalCollection.mu.Unlock()

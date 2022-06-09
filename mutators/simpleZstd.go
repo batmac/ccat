@@ -7,8 +7,8 @@ import (
 )
 
 func init() {
-	simpleRegister("unzstd", "decompress zstd data", unzstd)
-	simpleRegister("zstd", "compress zstd data", czstd)
+	simpleRegister("unzstd", "decompress zstd data", "", unzstd)
+	simpleRegister("zstd", "compress zstd data", "", czstd)
 }
 
 func unzstd(out io.WriteCloser, in io.ReadCloser) (int64, error) {

@@ -8,8 +8,8 @@ import (
 )
 
 func init() {
-	simpleRegister("unlz4", "decompress lz4 data", unlz4)
-	simpleRegister("lz4", "compress lz4 data", clz4)
+	simpleRegister("unlz4", "decompress lz4 data", "", unlz4)
+	simpleRegister("lz4", "compress lz4 data", "", clz4)
 }
 
 func unlz4(out io.WriteCloser, in io.ReadCloser) (int64, error) {
