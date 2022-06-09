@@ -10,3 +10,4 @@
 - kubernetes ?
 - opener ssh
 - https://github.com/viant/afs ?
+- ajout d un contexte pou y mettre le filename, des hints (format?), etc.

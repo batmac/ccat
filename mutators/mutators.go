@@ -4,6 +4,7 @@ import (
 	"ccat/log"
 	"fmt"
 	"io"
+	"sort"
 	"sync"
 )
 
@@ -116,5 +117,6 @@ func ListMutators() []string {
 	for _, v := range globalCollection.factories {
 		l = append(l, v.Name()+": "+v.Description())
 	}
+	sort.Strings(l)
 	return l
 }
