@@ -49,7 +49,7 @@ func (h *Chroma) HighLight(w io.WriteCloser, r io.ReadCloser, o Options) error {
 		log.Printf(" highlighter: %v\n", err)
 	}
 
-	log.Debugf(" highlighter: registered lexers are: %v\n", lexers.Names(true))
+	// log.Debugf(" highlighter: registered lexers are: %v\n", lexers.Names(true))
 	lexersList := lexers.Names(true)
 	var lexer chroma.Lexer
 	if len(o.LexerHint) > 0 && utils.StringInSlice(o.LexerHint, lexersList) {
@@ -71,7 +71,7 @@ func (h *Chroma) HighLight(w io.WriteCloser, r io.ReadCloser, o Options) error {
 
 	log.Debugf(" highlighter: chosen Lexer is %v\n", lexer.Config().Name)
 
-	log.Debugf(" highlighter: registered styles are: %v\n", styles.Names())
+	//log.Debugf(" highlighter: registered styles are: %v\n", styles.Names())
 	//registered styles are: [abap algol algol_nu arduino autumn base16-snazzy borland bw colorful doom-one doom-one2 dracula emacs friendly fruity github hr_high_contrast hrdark igor lovelace manni monokai monokailight murphy native nord onesenterprise paraiso-dark paraiso-light pastie perldoc pygments rainbow_dash rrt solarized-dark solarized-dark256 solarized-light swapoff tango trac vim vs vulcan witchhazel xcode xcode-dark]
 
 	stylesList := styles.Names()
