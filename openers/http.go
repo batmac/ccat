@@ -1,3 +1,6 @@
+//go:build !libcurl
+// +build !libcurl
+
 package openers
 
 import (

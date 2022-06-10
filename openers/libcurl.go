@@ -1,5 +1,5 @@
-//go:build cgo
-// +build cgo
+//go:build cgo && libcurl
+// +build cgo,libcurl
 
 package openers
 
