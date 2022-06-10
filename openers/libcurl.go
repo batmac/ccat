@@ -8,6 +8,7 @@ import (
 	"ccat/utils"
 	"io"
 	"strings"
+	"time"
 
 	curl "github.com/andelf/go-curl"
 )
@@ -36,11 +37,25 @@ func (f *curlOpener) easyHandlerInit() {
 	//defer curl.GlobalCleanup()
 	f.easy = curl.EasyInit()
 	f.easy.Setopt(curl.OPT_VERBOSE, false)
-	f.easy.Setopt(curl.OPT_TIMEOUT, 10)
+	f.easy.Setopt(curl.OPT_FOLLOWLOCATION, true)
+	f.easy.Setopt(curl.OPT_MAXREDIRS, 10)
+	f.easy.Setopt(curl.OPT_CONNECTTIMEOUT, 10)
 	f.easy.Setopt(curl.OPT_WRITEFUNCTION, func(ptr []byte, userdata interface{}) bool {
 		pipe := userdata.(*io.PipeWriter)
 		if _, err := pipe.Write(ptr); err != nil {
 			return false
+		}
+		return true
+	})
+
+	step := time.Now().Unix()
+	dlstep := 0.0
+	f.easy.Setopt(curl.OPT_NOPROGRESS, false)
+	f.easy.Setopt(curl.OPT_PROGRESSFUNCTION, func(dltotal, dlnow, ultotal, ulnow float64, _ interface{}) bool {
+		if time.Now().Unix()-step > 2 {
+			log.Debugf("downloaded: %3.2f%%, speed: %.1fKiB/s \r", dlnow/dltotal*100, (dlnow-dlstep)/1000/float64((time.Now().Unix()-step)))
+			step = time.Now().Unix()
+			dlstep = dlnow
 		}
 		return true
 	})
