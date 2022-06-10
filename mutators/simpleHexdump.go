@@ -6,7 +6,7 @@ import (
 )
 
 func init() {
-	simpleRegister("hex", "dump in Hex", "hexdump", hexDump)
+	simpleRegister("hex", hexDump, withDescription("dump in Hex"), withHintLexer("hexdump"))
 }
 
 func hexDump(w io.WriteCloser, r io.ReadCloser) (int64, error) {

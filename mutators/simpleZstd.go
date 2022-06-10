@@ -7,8 +7,8 @@ import (
 )
 
 func init() {
-	simpleRegister("unzstd", "decompress zstd data", "", unzstd)
-	simpleRegister("zstd", "compress zstd data", "", czstd)
+	simpleRegister("unzstd", unzstd, withDescription("decompress zstd data"))
+	simpleRegister("zstd", czstd, withDescription("compress zstd data"))
 }
 
 func unzstd(out io.WriteCloser, in io.ReadCloser) (int64, error) {
@@ -38,7 +38,7 @@ func czstd(out io.WriteCloser, in io.ReadCloser) (int64, error) {
 
 // Decompress a buffer. We don't supply a destination buffer,
 // so it will be allocated by the decoder.
-func Decompress(out io.WriteCloser, in io.ReadCloser) (int64, error) {
+func decompress(out io.WriteCloser, in io.ReadCloser) (int64, error) {
 	var decoder, _ = zstd.NewReader(in, zstd.WithDecoderConcurrency(0))
 	return io.Copy(out, decoder)
 }

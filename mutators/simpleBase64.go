@@ -7,8 +7,8 @@ import (
 )
 
 func init() {
-	simpleRegister("unbase64", "decode base64", "", base64Decode)
-	simpleRegister("base64", "encode base64", "", base64Encode)
+	simpleRegister("unbase64", base64Decode, withDescription("decode base64"))
+	simpleRegister("base64", base64Encode, withDescription("encode base64"))
 }
 
 func base64Decode(w io.WriteCloser, r io.ReadCloser) (int64, error) {

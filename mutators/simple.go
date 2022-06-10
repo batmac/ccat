@@ -22,17 +22,33 @@ type simpleFactory struct {
 	hintLexer         string
 }
 
-func simpleRegister(name, description, hintLexer string, f simpleFn) {
+type simpleOption func(*simpleFactory)
+
+func withHintLexer(s string) simpleOption {
+	return func(f *simpleFactory) {
+		f.hintLexer = s
+	}
+}
+func withDescription(s string) simpleOption {
+	return func(f *simpleFactory) {
+		f.description = s
+	}
+}
+
+func simpleRegister(name string, f simpleFn, opts ...simpleOption) {
 	factory := new(simpleFactory)
 	factory.name = name
-	factory.description = description
+	//factory.description = description
 	factory.fn = f
-	factory.hintLexer = hintLexer
+
+	for _, o := range opts {
+		o(factory)
+	}
 
 	register(name, factory)
 }
 
-func (f *simpleFactory) New(logger *log.Logger) (Mutator, error) {
+func (f *simpleFactory) new(logger *log.Logger) (Mutator, error) {
 	logger.Printf("%s: new", f.Name())
 	if len(f.hintLexer) != 0 {
 		globalctx.Set("hintLexer", f.hintLexer)

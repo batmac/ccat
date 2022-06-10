@@ -10,7 +10,7 @@ import (
 
 var (
 	// register() is called from init() so this has to be global
-	globalCollection = NewCollection("global")
+	globalCollection = newCollection("global")
 )
 
 type Opener interface {
@@ -26,7 +26,7 @@ type OpenerCollection struct {
 	openers []Opener
 }
 
-func NewCollection(name string) *OpenerCollection {
+func newCollection(name string) *OpenerCollection {
 	//log.Printf("openers collection %s ready.\n", name)
 	return &OpenerCollection{
 		Name: name,

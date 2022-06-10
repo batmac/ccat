@@ -11,7 +11,7 @@ import (
 var (
 	// register() is called from init() so this has to be global
 	glog             *log.Logger // shortcut for globalCollection.logger
-	globalCollection = NewCollection("globalMutatorsCollection", log.Default())
+	globalCollection = newCollection("globalMutatorsCollection", log.Default())
 )
 
 type Mutator interface {
@@ -20,35 +20,35 @@ type Mutator interface {
 	Name() string
 	Description() string
 }
-type Factory interface {
-	New(logger *log.Logger) (Mutator, error)
+type factory interface {
+	new(logger *log.Logger) (Mutator, error)
 	Name() string
 	Description() string
 }
 
-type MutatorCollection struct {
+type mutatorCollection struct {
 	mu       sync.Mutex
 	Name     string
 	mutators []Mutator
 	//Mutators  map[string]Mutator
-	factories map[string]Factory
+	factories map[string]factory
 	logger    *log.Logger
 }
 
-func NewCollection(name string, logger *log.Logger) *MutatorCollection {
+func newCollection(name string, logger *log.Logger) *mutatorCollection {
 
 	glog = logger
 	defer glog.Printf("mutators: collection %s ready.\n", name)
 
-	return &MutatorCollection{
+	return &mutatorCollection{
 		Name: name,
 		//Mutators:  make(map[string]Mutator),
-		factories: make(map[string]Factory),
+		factories: make(map[string]factory),
 		logger:    logger,
 	}
 }
 
-func register(name string, factory Factory) error {
+func register(name string, factory factory) error {
 	globalCollection.mu.Lock()
 	if _, ok := globalCollection.factories[name]; ok {
 		return fmt.Errorf("mutators: %s is already registered", name)
@@ -69,7 +69,7 @@ func New(name string) (Mutator, error) {
 	}
 	glog.Printf("mutators: instancing %s\n", name)
 
-	m, err := factory.New(globalCollection.logger)
+	m, err := factory.new(globalCollection.logger)
 	if err != nil {
 		return nil, err
 	}

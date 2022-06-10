@@ -8,11 +8,11 @@ import (
 )
 
 func init() {
-	simpleRegister("uns2", "decompress s2 data", "", uns2)
-	simpleRegister("s2", "compress s2 data", "", cs2)
+	simpleRegister("uns2", uns2, withDescription("decompress s2 data"))
+	simpleRegister("s2", cs2, withDescription("compress s2 data"))
 
-	simpleRegister("unsnap", "decompress snappy data", "", uns2)
-	simpleRegister("snap", "compress snappy data", "", csnappy)
+	simpleRegister("unsnap", uns2, withDescription("decompress snappy data"))
+	simpleRegister("snap", csnappy, withDescription("compress snappy data"))
 
 }
 

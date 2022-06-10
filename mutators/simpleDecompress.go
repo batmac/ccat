@@ -9,9 +9,9 @@ import (
 )
 
 func init() {
-	simpleRegister("gunzip", "decompress gzip data", "", gunzip)
-	simpleRegister("bunzip2", "decompress bzip2 data", "", bunzip2)
-	simpleRegister("unzlib", "decompress zlib data", "", unzlib)
+	simpleRegister("gunzip", gunzip, withDescription("decompress gzip data"))
+	simpleRegister("bunzip2", bunzip2, withDescription("decompress bzip2 data"))
+	simpleRegister("unzlib", unzlib, withDescription("decompress zlib data"))
 }
 
 func gunzip(w io.WriteCloser, r io.ReadCloser) (int64, error) {

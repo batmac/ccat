@@ -7,8 +7,8 @@ import (
 )
 
 func init() {
-	simpleRegister("unxz", "decompress xz data", "", unxz)
-	simpleRegister("xz", "compress xz data", "", cxz)
+	simpleRegister("unxz", unxz, withDescription("decompress xz data"))
+	simpleRegister("xz", cxz, withDescription("compress xz data"))
 }
 
 func unxz(out io.WriteCloser, in io.ReadCloser) (int64, error) {
