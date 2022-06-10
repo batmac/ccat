@@ -4,6 +4,7 @@ import (
 	"encoding/base64"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"os"
 )
 
@@ -29,7 +30,7 @@ func IsITerm2() bool {
 } */
 
 func printITerm2Art(r io.Reader) error {
-	data, err := io.ReadAll(r)
+	data, err := ioutil.ReadAll(r)
 	if err != nil {
 		return err
 	}

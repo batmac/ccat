@@ -6,6 +6,7 @@ import (
 	"ccat/utils"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"math/rand"
 	"time"
 
@@ -34,7 +35,7 @@ func (h *Chroma) HighLight(w io.WriteCloser, r io.ReadCloser, o Options) error {
 	var filename string = o.FileName
 
 	// MAX_READ_SIZE Bytes max
-	someSourceCode, err := io.ReadAll(&io.LimitedReader{R: r, N: MAX_READ_SIZE})
+	someSourceCode, err := ioutil.ReadAll(&io.LimitedReader{R: r, N: MAX_READ_SIZE})
 	if err != nil {
 		return err
 	}

@@ -10,7 +10,7 @@ import (
 	"ccat/term"
 	"flag"
 	"fmt"
-	"io"
+	"io/ioutil"
 	"os"
 	"regexp"
 	"strings"
@@ -43,7 +43,7 @@ func init() {
 	flag.Parse()
 
 	if !*argDebug {
-		log.SetDebug(io.Discard)
+		log.SetDebug(ioutil.Discard)
 	} else {
 		log.SetDebug(os.Stderr)
 	}
