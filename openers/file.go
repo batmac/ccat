@@ -59,11 +59,9 @@ func (f fileOpener) Evaluate(s string) float32 {
 
 func parsePath(s string) string {
 	if strings.HasPrefix(s, "file://") {
-		before, after, found := strings.Cut(s, "file://")
+		after := s[7:]
 		//log.Debugf("before=%v after=%v, found=%v", before, after, found)
-		if found && before == "" {
-			return after
-		}
+		return after
 	}
 	return s
 }
