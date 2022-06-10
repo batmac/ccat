@@ -88,7 +88,6 @@ func (f *localShellScpOpener) Open(s string, _ bool) (io.ReadCloser, error) {
 func (f localShellScpOpener) Evaluate(s string) float32 {
 	arr := strings.SplitN(s, "scp://", 2)
 	before := arr[0]
-	//log.Printf("before=%s found=%v s=%v", before, found, s)
 	if before == "" {
 		return 0.5
 	}
