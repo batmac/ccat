@@ -1,62 +1,96 @@
+//go:build crappy
+// +build crappy
+
 package openers
 
-/*
 import (
-	"bytes"
 	"ccat/log"
-	"context"
-	"fmt"
 	"io"
-
-	"github.com/viant/afs"
-	"github.com/viant/afs/option"
-	"github.com/viant/afs/scp"
+	"io/ioutil"
+	"os"
+	"os/exec"
+	"strings"
 )
 
-var ScpOpenerName = "scp"
-var ScpOpenerDescription = "get URL via SCP (afs)"
+var localShellScpOpenerName = "ShellScp"
+var localShellScpOpenerDescription = "get URL via local scp\n"
 
-type ScpOpener struct {
+type localShellScpOpener struct {
 	name, description string
 }
 
 func init() {
-	register(&ScpOpener{
-		name:        ScpOpenerName,
-		description: ScpOpenerDescription,
+	register(&localShellScpOpener{
+		name:        localShellScpOpenerName,
+		description: localShellScpOpenerDescription,
 	})
 }
 
-func (f ScpOpener) Name() string {
+func (f localShellScpOpener) Name() string {
 	return f.name
 }
-func (f ScpOpener) Description() string {
+func (f localShellScpOpener) Description() string {
 	return f.description
 }
-func (f ScpOpener) Open(s string, _ bool) (io.ReadCloser, error) {
-	auth, err := scp.LocalhostKeyAuth("/User/bat/.ssh/id_ed25519")
+func (f *localShellScpOpener) Open(s string, _ bool) (io.ReadCloser, error) {
 
+	log.Debugln(" localShellScp started")
+
+	arr := strings.SplitN(s, "scp://", 2)
+	path := strings.Split(arr[1], " ")
+	tmpfile, err := os.CreateTemp("", "ccat_tempfile_")
 	if err != nil {
 		log.Fatal(err)
 	}
-	service := afs.New()
-	ctx := context.Background()
-	r, err := service.DownloadWithURL(ctx, s, auth, option.NewTimeout(2000))
+	log.Debugf(" localShellScp temp file is %s\n", tmpfile.Name())
+	path = append(path, tmpfile.Name())
+
+	cmd := exec.Command("scp", path...)
+
+	stderr, err := cmd.StderrPipe()
 	if err != nil {
 		log.Fatal(err)
 	}
-	reader := bytes.NewReader(r)
-	//defer reader.Close()
-	data, err := io.ReadAll(reader)
+	stdout, err := cmd.StdoutPipe()
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf("data: %s\n", data)
-	return io.NopCloser(bytes.NewReader(data)), nil
+	if err := cmd.Start(); err != nil {
+		log.Fatal(err)
+	}
+
+	so, err := ioutil.ReadAll(stdout)
+	se, err := ioutil.ReadAll(stderr)
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Debugln(string(so), string(se))
+	log.Debugf(" localShellScp ended\n")
+	re, err := ioutil.ReadAll(tmpfile)
+	if err != nil {
+		log.Fatal(err)
+	}
+	err = tmpfile.Close()
+	if err != nil {
+		log.Fatal(err)
+	}
+	err = os.Remove(tmpfile.Name())
+	if err != nil {
+		log.Fatal(err)
+	}
+	if err := cmd.Wait(); err != nil {
+		log.Fatal(err)
+	}
+
+	return io.NopCloser(strings.NewReader(string(re))), nil
 }
 
-func (f ScpOpener) Evaluate(s string) float32 {
-
-	return 0.5
+func (f localShellScpOpener) Evaluate(s string) float32 {
+	arr := strings.SplitN(s, "scp://", 2)
+	before := arr[0]
+	//log.Printf("before=%s found=%v s=%v", before, found, s)
+	if before == "" {
+		return 0.5
+	}
+	return 0
 }
-*/
