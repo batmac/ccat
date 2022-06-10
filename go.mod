@@ -10,4 +10,5 @@ require (
 	github.com/pierrec/lz4/v4 v4.1.14
 	github.com/ulikunitz/xz v0.5.10
 	golang.org/x/term v0.0.0-20220526004731-065cf7ba2467
+	sigs.k8s.io/yaml v1.3.0
 )
