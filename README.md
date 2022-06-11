@@ -3,6 +3,7 @@ cat on steroids
 
 ```
 Usage of ccat:
+
   -F string
         formatter to use (only used if -H, look in -h for the list)
   -H    try to do what is needed to help (syntax-highlight, autodetect, etc. TODO)
@@ -37,7 +38,8 @@ ccat <files>...
     curl: get URL via libcurl bindings
            libcurl/7.83.1 SecureTransport (OpenSSL/1.1.1o) zlib/1.2.11 brotli/1.0.9 zstd/1.5.2 libidn2/2.3.2 libssh2/1.10.0 nghttp2/1.47.0 librtmp/2.3 OpenLDAP/2.6.2
            protocols: dict,file,ftp,ftps,gopher,gophers,http,https,imap,imaps,ldap,ldaps,mqtt,pop3,pop3s,rtmp,rtsp,scp,sftp,smb,smbs,smtp,smtps,telnet,tftp
-    ShellScp: get URL via local scp
+    s3: get an AWS s3 object via s3://
+    ShellScp: get scp:// via local scp
 
  - mutators:
     base64: encode base64
@@ -45,6 +47,7 @@ ccat <files>...
     gunzip: decompress gzip data
     hex: dump in Hex
     j2y: JSON -> YAML
+    j: JSON Re-indent
     lz4: compress lz4 data
     qp: encode quoted-printable data
     s2: compress s2 data
@@ -60,4 +63,4 @@ ccat <files>...
     xz: compress xz data
     y2j: YAML -> JSON
     zstd: compress zstd data
-    ```
+```

@@ -49,7 +49,7 @@ func Open(s string, lock bool) (io.ReadCloser, error) {
 	var oChosen Opener
 	for _, o := range globalCollection.openers {
 		e := o.Evaluate(s)
-		log.Debugf(" openers: evaluate %s with \"%s\": %v\n", s, o.Name(), e)
+		//log.Debugf(" openers: evaluate %s with \"%s\": %v\n", s, o.Name(), e)
 		if e > eMax {
 			eMax = e
 			oChosen = o
