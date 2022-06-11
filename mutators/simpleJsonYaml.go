@@ -38,7 +38,7 @@ func Y2J(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 		return 0, err
 	}
 	var b bytes.Buffer
-	err = json.Indent(&b, j, "", "\t")
+	err = json.Indent(&b, j, "", "  ")
 	if err != nil {
 		return 0, err
 	}
