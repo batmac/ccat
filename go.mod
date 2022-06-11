@@ -3,6 +3,7 @@ module ccat
 go 1.15
 
 require (
+	github.com/aixiansheng/lzfse v0.2.4
 	github.com/alecthomas/chroma v0.10.0
 	github.com/andelf/go-curl v0.0.0-20200630032108-fd49ff24ed97
 	github.com/aws/aws-sdk-go-v2 v1.16.5
