@@ -42,6 +42,8 @@ func Y2J(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 	if err != nil {
 		return 0, err
 	}
+	b.WriteString("\n")
+
 	io.Copy(w, bytes.NewReader(b.Bytes()))
 
 	return int64(len(y)), nil
