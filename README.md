@@ -1,5 +1,5 @@
 # ccat
-cat on steroids (mainly useful to multi-color lines/words according to tokens)
+cat on steroids
 
 ```
 Usage of ccat:
