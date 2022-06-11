@@ -1,3 +1,6 @@
+//go:build !fileonly
+// +build !fileonly
+
 package openers
 
 import (

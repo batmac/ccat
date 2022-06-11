@@ -1,5 +1,5 @@
-//go:build crappy
-// +build crappy
+//go:build crappy && !fileonly
+// +build crappy,!fileonly
 
 package openers
 
