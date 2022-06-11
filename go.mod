@@ -5,6 +5,10 @@ go 1.15
 require (
 	github.com/alecthomas/chroma v0.10.0
 	github.com/andelf/go-curl v0.0.0-20200630032108-fd49ff24ed97
+	github.com/aws/aws-sdk-go-v2 v1.16.5
+	github.com/aws/aws-sdk-go-v2/config v1.15.10
+	github.com/aws/aws-sdk-go-v2/service/s3 v1.26.11 // indirect
+	github.com/aws/aws-sdk-go-v2/service/sts v1.16.7
 	github.com/eliukblau/pixterm v1.3.1
 	github.com/klauspost/compress v1.15.6
 	github.com/pierrec/lz4/v4 v4.1.14
