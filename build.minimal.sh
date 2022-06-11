@@ -2,5 +2,5 @@
 
 set -x
 
-CGO_ENABLED=0 go build -v -ldflags '-w ' -tags fileonly,nohl .
+CGO_ENABLED=0 go build -v -ldflags '-s -w ' -tags fileonly,nohl .
 
