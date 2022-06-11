@@ -1,12 +1,10 @@
-//go:build cgo && libcurl
-// +build cgo,libcurl
-
 package openers
 
 import (
 	"ccat/log"
 	"ccat/utils"
 	"io"
+	"regexp"
 	"strings"
 	"time"
 
@@ -78,6 +76,8 @@ func (f *curlOpener) Open(s string, _ bool) (io.ReadCloser, error) {
 		}
 		//defer easy.Cleanup()
 
+		s = tryTransformUrl(s)
+
 		f.easy.Setopt(curl.OPT_URL, s)
 
 		f.easy.Setopt(curl.OPT_WRITEDATA, w)
@@ -105,4 +105,18 @@ func (f curlOpener) Evaluate(s string) float32 {
 		return 0.1
 	}
 	return 0
+}
+
+func tryTransformUrl(s string) string {
+	// ease life by checking urls
+
+	r := regexp.MustCompile(`^https://github.com/(.+)/blob(/.+)$`)
+	matches := r.FindStringSubmatch(s)
+
+	if len(matches) > 0 {
+		url := "https://raw.githubusercontent.com/" + matches[1] + matches[2]
+		log.Debugf("%s looks like a github url, transforming it to get the raw version: %s", s, url)
+		return url
+	}
+	return s
 }
