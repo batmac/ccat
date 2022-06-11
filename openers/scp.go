@@ -82,7 +82,7 @@ func (f *localShellScpOpener) Open(s string, _ bool) (io.ReadCloser, error) {
 		log.Fatal(err)
 	}
 
-	return io.NopCloser(strings.NewReader(string(re))), nil
+	return ioutil.NopCloser(strings.NewReader(string(re))), nil
 }
 
 func (f localShellScpOpener) Evaluate(s string) float32 {
