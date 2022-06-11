@@ -2,7 +2,7 @@
 - (no) recursive ?
 - rename (to crep) ? (see grep/ripgrep/... extensions)
 - done with -X (begun) decompress archives on the fly (implement a pipe type { extension, decompressor, 2x channels - in/out } ?)
-- http/curl done. urls (uris)
+- done http/curl done. urls (uris)
 - trier les options ds le code et a l affichage
 - done option pour afficher les option de l highlighter
 - transform urls (ala finicker): par ex github -> raw, outlook safelinks, shorturl ?
@@ -10,4 +10,4 @@
 - kubernetes ?
 - opener ssh
 - https://github.com/viant/afs ?
-- ajout d un contexte pou y mettre le filename, des hints (format?), etc.
+- done ajout d un contexte pou y mettre le filename, des hints (format?), etc.
