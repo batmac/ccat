@@ -13,16 +13,14 @@ type Options struct {
 	LexerHint     string
 	FormatterHint string
 }
-
 type Highlighter interface {
 	HighLight(w io.WriteCloser, r io.ReadCloser, o Options) error
 	help() string
 }
 
-func Go(w io.WriteCloser, r io.ReadCloser, o Options) error {
+func Go(_ io.WriteCloser, _ io.ReadCloser, _ Options) error {
 	return nil
 }
-
 func Help() string {
 	return "not supported (compiled with nohl)\n"
 }
