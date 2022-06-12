@@ -78,24 +78,27 @@ func processFile(path string) {
 			term.PrintArt(from)
 			return
 		}
-		log.Debugln("highlighting...")
-		hl := globalctx.Get("hintLexer")
-		if len(*argLexer) == 0 && hl != nil && len(hl.(string)) != 0 {
-			hl := hl.(string)
-			argLexer = &hl
-		}
+		expectingBinary := globalctx.Get("expectingBinary")
+		if expectingBinary == nil || expectingBinary != nil && !expectingBinary.(bool) {
+			log.Debugln("highlighting...")
+			hl := globalctx.Get("hintLexer")
+			if len(*argLexer) == 0 && hl != nil && len(hl.(string)) != 0 {
+				hl := hl.(string)
+				argLexer = &hl
+			}
 
-		r, w := io.Pipe()
-		err := highlighter.Go(w, from, highlighter.Options{
-			FileName:      path,
-			StyleHint:     *argStyle,
-			FormatterHint: *argFormatter,
-			LexerHint:     *argLexer,
-		})
-		if err != nil {
-			log.Printf("error while highlighting: %v", err)
-		} else {
-			from = r
+			r, w := io.Pipe()
+			err := highlighter.Go(w, from, highlighter.Options{
+				FileName:      path,
+				StyleHint:     *argStyle,
+				FormatterHint: *argFormatter,
+				LexerHint:     *argLexer,
+			})
+			if err != nil {
+				log.Printf("error while highlighting: %v", err)
+			} else {
+				from = r
+			}
 		}
 	}
 	log.Debugln("initializing Scanner...")

@@ -8,7 +8,7 @@ import (
 
 func init() {
 	simpleRegister("unxz", unxz, withDescription("decompress xz data"))
-	simpleRegister("xz", cxz, withDescription("compress xz data"))
+	simpleRegister("xz", cxz, withDescription("compress xz data"), withExpectingBinary(true))
 }
 
 func unxz(out io.WriteCloser, in io.ReadCloser) (int64, error) {

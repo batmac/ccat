@@ -9,10 +9,10 @@ import (
 
 func init() {
 	simpleRegister("uns2", uns2, withDescription("decompress s2 data"))
-	simpleRegister("s2", cs2, withDescription("compress s2 data"))
+	simpleRegister("s2", cs2, withDescription("compress s2 data"), withExpectingBinary(true))
 
 	simpleRegister("unsnap", uns2, withDescription("decompress snappy data"))
-	simpleRegister("snap", csnappy, withDescription("compress snappy data"))
+	simpleRegister("snap", csnappy, withDescription("compress snappy data"), withExpectingBinary(true))
 
 }
 

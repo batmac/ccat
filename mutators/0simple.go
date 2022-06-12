@@ -14,12 +14,14 @@ type simpleMutator struct {
 	name, description string
 	fn                simpleFn
 	hintLexer         string
+	expectingBinary   bool
 }
 
 type simpleFactory struct {
 	name, description string
 	fn                simpleFn
 	hintLexer         string
+	expectingBinary   bool
 }
 
 type simpleOption func(*simpleFactory)
@@ -34,11 +36,15 @@ func withDescription(s string) simpleOption {
 		f.description = s
 	}
 }
+func withExpectingBinary(b bool) simpleOption {
+	return func(f *simpleFactory) {
+		f.expectingBinary = true
+	}
+}
 
 func simpleRegister(name string, f simpleFn, opts ...simpleOption) {
 	factory := new(simpleFactory)
 	factory.name = name
-	//factory.description = description
 	factory.fn = f
 
 	for _, o := range opts {
@@ -50,15 +56,18 @@ func simpleRegister(name string, f simpleFn, opts ...simpleOption) {
 
 func (f *simpleFactory) new(logger *log.Logger) (Mutator, error) {
 	logger.Printf("%s: new", f.Name())
-	if len(f.hintLexer) != 0 {
-		globalctx.Set("hintLexer", f.hintLexer)
-	}
+	//if len(f.hintLexer) != 0 {
+	globalctx.Set("hintLexer", f.hintLexer)
+	//}
+	globalctx.Set("expectingBinary", f.expectingBinary)
+
 	return &simpleMutator{
-		genericMutator: newGeneric(logger),
-		name:           f.name,
-		description:    f.description,
-		fn:             f.fn,
-		hintLexer:      f.hintLexer,
+		genericMutator:  newGeneric(logger),
+		name:            f.name,
+		description:     f.description,
+		fn:              f.fn,
+		hintLexer:       f.hintLexer,
+		expectingBinary: f.expectingBinary,
 	}, nil
 }
 
