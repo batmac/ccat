@@ -11,10 +11,8 @@ type simpleFn func(w io.WriteCloser, r io.ReadCloser) (int64, error)
 
 type simpleMutator struct {
 	genericMutator
-	name, description string
-	fn                simpleFn
-	hintLexer         string
-	expectingBinary   bool
+
+	factory *simpleFactory
 }
 
 type simpleFactory struct {
@@ -46,28 +44,20 @@ func simpleRegister(name string, f simpleFn, opts ...simpleOption) {
 	factory := new(simpleFactory)
 	factory.name = name
 	factory.fn = f
-
 	for _, o := range opts {
 		o(factory)
 	}
-
 	register(name, factory)
 }
 
-func (f *simpleFactory) new(logger *log.Logger) (Mutator, error) {
+func (f *simpleFactory) newMutator(logger *log.Logger) (Mutator, error) {
 	logger.Printf("%s: new", f.Name())
-	//if len(f.hintLexer) != 0 {
 	globalctx.Set("hintLexer", f.hintLexer)
-	//}
 	globalctx.Set("expectingBinary", f.expectingBinary)
 
 	return &simpleMutator{
-		genericMutator:  newGeneric(logger),
-		name:            f.name,
-		description:     f.description,
-		fn:              f.fn,
-		hintLexer:       f.hintLexer,
-		expectingBinary: f.expectingBinary,
+		genericMutator: newGeneric(logger),
+		factory:        f,
 	}, nil
 }
 
@@ -83,7 +73,7 @@ func (m *simpleMutator) Start(w io.WriteCloser, r io.ReadCloser) error {
 
 	go func() {
 		m.logger.Printf("%s: dumping from %v to %v\n", m.Name(), r, w)
-		written, err := m.fn(w, r)
+		written, err := m.factory.fn(w, r)
 		m.logger.Printf("%s: done\n", m.Name())
 		if err != nil {
 			log.Fatal(err)
@@ -117,10 +107,10 @@ func (m *simpleMutator) Wait() error {
 }
 
 func (m *simpleMutator) Name() string {
-	return m.name
+	return m.factory.Name()
 }
 func (m *simpleMutator) Description() string {
-	return m.description
+	return m.factory.Description()
 }
 func (f *simpleFactory) Name() string {
 	return f.name

@@ -6,10 +6,8 @@ import (
 )
 
 type genericMutator struct {
-	mu          sync.Mutex
-	logger      *log.Logger
-	name        string
-	description string
+	mu     sync.Mutex
+	logger *log.Logger
 
 	started bool
 	waited  bool

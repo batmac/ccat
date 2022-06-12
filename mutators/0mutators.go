@@ -23,7 +23,7 @@ type Mutator interface {
 	Description() string
 }
 type factory interface {
-	new(logger *log.Logger) (Mutator, error)
+	newMutator(logger *log.Logger) (Mutator, error)
 	Name() string
 	Description() string
 }
@@ -71,7 +71,7 @@ func New(name string) (Mutator, error) {
 	}
 	glog.Printf("mutators: instancing %s\n", name)
 
-	m, err := factory.new(globalCollection.logger)
+	m, err := factory.newMutator(globalCollection.logger)
 	if err != nil {
 		return nil, err
 	}
