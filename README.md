@@ -42,12 +42,15 @@ ccat <files>...
  - mutators:
     base64: encode base64
     bunzip2: decompress bzip2 data
+    dummy: a simple fifo
     gunzip: decompress gzip data
     hex: dump in Hex
     j2y: JSON -> YAML
     j: JSON Re-indent
     lz4: compress lz4 data
+    md: Render Markdown (with glamour)
     qp: encode quoted-printable data
+    removeANSI: remove ANSI codes
     s2: compress s2 data
     snap: compress snappy data
     unbase64: decode base64
