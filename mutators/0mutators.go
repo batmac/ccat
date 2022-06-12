@@ -14,7 +14,7 @@ var (
 	globalCollection = newCollection("globalMutatorsCollection", log.Default())
 )
 
-//Mutator and factory should be totally separate or reentrant as in the future they may be used simultanetely
+//Mutator and factory should be totally separate or reentrant as in the future they may be used simultaneously
 
 type Mutator interface {
 	Start(w io.WriteCloser, r io.ReadCloser) error
@@ -80,7 +80,7 @@ func New(name string) (Mutator, error) {
 	return m, nil
 }
 
-func ListMutators() []string {
+func ListAvailableMutators() []string {
 	var l []string
 	for _, v := range globalCollection.factories {
 		l = append(l, v.Name()+": "+v.Description())
