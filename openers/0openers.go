@@ -4,7 +4,6 @@ import (
 	"ccat/log"
 	"errors"
 	"io"
-	"io/fs"
 	"os"
 	"strings"
 	"sync"
@@ -60,7 +59,7 @@ func Open(s string, lock bool) (io.ReadCloser, error) {
 	}
 	if eMax == 0.0 {
 		if !strings.Contains(s, "://") {
-			return nil, fs.ErrNotExist
+			return nil, errors.New("file does not exist.")
 		} else {
 			return nil, errors.New("No adequate opener found.")
 		}
