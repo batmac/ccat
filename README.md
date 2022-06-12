@@ -2,31 +2,29 @@
 cat on steroids
 
 ```
-Usage of ccat:
-
   -F string
-        formatter to use (only used if -H, look in -h for the list)
-  -H    try to do what is needed to help (syntax-highlight, autodetect, etc. TODO)
-  -L    exclusively flock each file before reading
+    	formatter to use (only used if -H, look in -h for the list)
+  -H	try to do what is needed to help (syntax-highlight, autodetect, etc. TODO)
+  -L	exclusively flock each file before reading
   -P string
-        lexer to use (only used if -H, look in -h for the list)
+    	lexer to use (only used if -H, look in -h for the list)
   -S string
-        style to use (only used if -H, look in -h for the list)
+    	style to use (only used if -H, look in -h for the list)
   -X string
-        command to exec on each file before processing it
+    	command to exec on each file before processing it
   -bg
-        colorize the background instead of the font
-  -d    debug what we are doing
-  -i    tokens given with -t are case-insensitive
-  -l    exclusively flock stdout
+    	colorize the background instead of the font
+  -d	debug what we are doing
+  -i	tokens given with -t are case-insensitive
+  -l	exclusively flock stdout
   -m string
-        mutator to use
-  -n    number the output lines, starting at 1.
-  -o    don't display lines without at least one token
-  -r    don't treat tokens as regexps
+    	mutator to use
+  -n	number the output lines, starting at 1.
+  -o	don't display lines without at least one token
+  -r	don't treat tokens as regexps
   -t string
-        comma-separated list of tokens
-  -w    read word by word instead of line by line (only works with utf8)
+    	comma-separated list of tokens
+  -w	read word by word instead of line by line (only works with utf8)
 ---
 ccat <files>...
  - highlighter (-H):
@@ -36,7 +34,7 @@ ccat <files>...
  - openers:
     file: open local files
     curl: get URL via libcurl bindings
-           libcurl/7.83.1 SecureTransport (OpenSSL/1.1.1o) zlib/1.2.11 brotli/1.0.9 zstd/1.5.2 libidn2/2.3.2 libssh2/1.10.0 nghttp2/1.47.0 librtmp/2.3 OpenLDAP/2.6.2
+           libcurl/7.84.0-DEV SecureTransport (OpenSSL/1.1.1o) zlib/1.2.11 brotli/1.0.9 zstd/1.5.2 libidn2/2.3.2 libpsl/0.21.1 (+libicu/70.1) libssh2/1.10.0 nghttp2/1.47.0 librtmp/2.3 OpenLDAP/2.6.2
            protocols: dict,file,ftp,ftps,gopher,gophers,http,https,imap,imaps,ldap,ldaps,mqtt,pop3,pop3s,rtmp,rtsp,scp,sftp,smb,smbs,smtp,smtps,telnet,tftp
     s3: get an AWS s3 object via s3://
     ShellScp: get scp:// via local scp
@@ -54,13 +52,16 @@ ccat <files>...
     snap: compress snappy data
     unbase64: decode base64
     unlz4: decompress lz4 data
+    unlzfse: decompress lzfse data
     unqp: decode quoted-printable data
     uns2: decompress s2 data
     unsnap: decompress snappy data
     unxz: decompress xz data
+    unzip: decompress the first file in a zip archive
     unzlib: decompress zlib data
     unzstd: decompress zstd data
     xz: compress xz data
     y2j: YAML -> JSON
+    zip: compress to zip data
     zstd: compress zstd data
 ```
