@@ -6,10 +6,6 @@ on:
   pull_request:
     branches: [main]
 
-env:
-  GOCACHE: /tmp/github-runner/gocache
-  HOME: /tmp/github-runner
-
 jobs:
   build:
     runs-on: ubuntu-latest
