@@ -1,3 +1,6 @@
+//go:build !nomd
+// +build !nomd
+
 package mutators
 
 import (
