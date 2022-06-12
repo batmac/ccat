@@ -11,7 +11,6 @@ type simpleFn func(w io.WriteCloser, r io.ReadCloser) (int64, error)
 
 type simpleMutator struct {
 	genericMutator
-
 	factory *simpleFactory
 }
 
