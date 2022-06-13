@@ -1,9 +1,10 @@
 package globalctx
 
 import (
-	"ccat/log"
 	"context"
 	"sync"
+
+	"github.com/batmac/ccat/log"
 )
 
 // globalctx is used to set/get context to the processing pipeline

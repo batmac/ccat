@@ -1,4 +1,4 @@
-module ccat
+module github.com/batmac/ccat
 
 go 1.15
 

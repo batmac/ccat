@@ -1,10 +1,11 @@
 package term
 
 import (
-	"ccat/log"
 	"fmt"
 	"os"
 	"strings"
+
+	"github.com/batmac/ccat/log"
 
 	"golang.org/x/term"
 )

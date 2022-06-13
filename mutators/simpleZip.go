@@ -3,12 +3,13 @@ package mutators
 import (
 	"archive/zip"
 	"bytes"
-	"ccat/globalctx"
-	"ccat/log"
 	"fmt"
 	"io"
 	"io/ioutil"
 	"path/filepath"
+
+	"github.com/batmac/ccat/globalctx"
+	"github.com/batmac/ccat/log"
 )
 
 func init() {

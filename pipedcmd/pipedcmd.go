@@ -1,12 +1,13 @@
 package pipedcmd
 
 import (
-	"ccat/log"
 	"context"
 	"io"
 	"os"
 	"os/exec"
 	"strings"
+
+	"github.com/batmac/ccat/log"
 )
 
 type PipedCmd struct {

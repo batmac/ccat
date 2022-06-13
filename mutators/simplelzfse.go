@@ -2,9 +2,10 @@ package mutators
 
 import (
 	"bytes"
-	"ccat/log"
 	"io"
 	"io/ioutil"
+
+	"github.com/batmac/ccat/log"
 
 	lzfse_go "github.com/aixiansheng/lzfse"
 	//"github.com/blacktop/lzfse-cgo"

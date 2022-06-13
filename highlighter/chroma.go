@@ -4,14 +4,15 @@
 package highlighter
 
 import (
-	"ccat/log"
-	"ccat/term"
-	"ccat/utils"
 	"fmt"
 	"io"
 	"io/ioutil"
 	"math/rand"
 	"time"
+
+	"github.com/batmac/ccat/log"
+	"github.com/batmac/ccat/term"
+	"github.com/batmac/ccat/utils"
 
 	"github.com/alecthomas/chroma"
 	"github.com/alecthomas/chroma/formatters"

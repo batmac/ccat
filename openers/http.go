@@ -4,11 +4,12 @@
 package openers
 
 import (
-	"ccat/log"
 	"io"
 	"net/http"
 	"strings"
 	"time"
+
+	"github.com/batmac/ccat/log"
 )
 
 var httpOpenerName = "http"

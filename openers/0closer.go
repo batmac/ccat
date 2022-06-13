@@ -1,8 +1,9 @@
 package openers
 
 import (
-	"ccat/log"
 	"io"
+
+	"github.com/batmac/ccat/log"
 )
 
 func NewReadCloser(r io.Reader, closure func() error) io.ReadCloser {

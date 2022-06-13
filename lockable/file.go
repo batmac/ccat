@@ -1,8 +1,9 @@
 package lockable
 
 import (
-	"ccat/log"
 	"os"
+
+	"github.com/batmac/ccat/log"
 )
 
 // open and optionally flock a file

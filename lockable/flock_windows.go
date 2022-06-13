@@ -4,7 +4,7 @@
 package lockable
 
 import (
-	"ccat/log"
+	"github.com/batmac/ccat/log"
 	"os"
 )
 

@@ -2,17 +2,18 @@ package main
 
 import (
 	"bufio"
-	"ccat/globalctx"
-	"ccat/highlighter"
-	"ccat/log"
-	"ccat/mutators"
-	"ccat/openers"
-	"ccat/pipedcmd"
-	"ccat/scanners"
-	"ccat/term"
 	"fmt"
 	"io"
 	"strings"
+
+	"github.com/batmac/ccat/globalctx"
+	"github.com/batmac/ccat/highlighter"
+	"github.com/batmac/ccat/log"
+	"github.com/batmac/ccat/mutators"
+	"github.com/batmac/ccat/openers"
+	"github.com/batmac/ccat/pipedcmd"
+	"github.com/batmac/ccat/scanners"
+	"github.com/batmac/ccat/term"
 
 	//_ "net/http/pprof"
 	"os"

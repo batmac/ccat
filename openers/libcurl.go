@@ -4,8 +4,8 @@
 package openers
 
 import (
-	"ccat/log"
-	"ccat/utils"
+	"github.com/batmac/ccat/log"
+	"github.com/batmac/ccat/utils"
 	"io"
 	"regexp"
 	"strings"

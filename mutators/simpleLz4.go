@@ -1,8 +1,9 @@
 package mutators
 
 import (
-	"ccat/log"
 	"io"
+
+	"github.com/batmac/ccat/log"
 
 	"github.com/pierrec/lz4/v4"
 )

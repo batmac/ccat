@@ -1,11 +1,12 @@
 package mutators
 
 import (
-	"ccat/log"
 	"fmt"
 	"io"
 	"sort"
 	"sync"
+
+	"github.com/batmac/ccat/log"
 )
 
 var (

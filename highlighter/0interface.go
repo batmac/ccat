@@ -4,8 +4,9 @@
 package highlighter
 
 import (
-	"ccat/log"
 	"io"
+
+	"github.com/batmac/ccat/log"
 )
 
 type Options struct {

@@ -1,8 +1,9 @@
 package mutators
 
 import (
-	"ccat/log"
 	"sync"
+
+	"github.com/batmac/ccat/log"
 )
 
 type genericMutator struct {

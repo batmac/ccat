@@ -1,10 +1,11 @@
 package mutators
 
 import (
-	"ccat/globalctx"
-	"ccat/log"
 	"fmt"
 	"io"
+
+	"github.com/batmac/ccat/globalctx"
+	"github.com/batmac/ccat/log"
 )
 
 // launch a mutator in its dedicated goroutine

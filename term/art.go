@@ -1,12 +1,13 @@
 package term
 
 import (
-	"ccat/log"
 	"fmt"
 	"image/color"
 	"io"
 	"path/filepath"
 	"strings"
+
+	"github.com/batmac/ccat/log"
 
 	"github.com/eliukblau/pixterm/pkg/ansimage"
 )

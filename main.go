@@ -1,19 +1,20 @@
 package main
 
 import (
-	"ccat/color"
-	"ccat/globalctx"
-	"ccat/highlighter"
-	"ccat/log"
-	"ccat/mutators"
-	"ccat/openers"
-	"ccat/term"
 	"flag"
 	"fmt"
 	"io/ioutil"
 	"os"
 	"regexp"
 	"strings"
+
+	"github.com/batmac/ccat/color"
+	"github.com/batmac/ccat/globalctx"
+	"github.com/batmac/ccat/highlighter"
+	"github.com/batmac/ccat/log"
+	"github.com/batmac/ccat/mutators"
+	"github.com/batmac/ccat/openers"
+	"github.com/batmac/ccat/term"
 )
 
 var (
@@ -107,7 +108,7 @@ func Usage() {
 	flag.PrintDefaults()
 	fmt.Fprintln(os.Stderr, "---")
 
-	fmt.Fprint(os.Stderr, "ccat <files>...\n")
+	fmt.Fprint(os.Stderr, "github.com/batmac/ccat <files>...\n")
 	fmt.Fprint(os.Stderr, " - highlighter (-H):\n")
 	fmt.Fprint(os.Stderr, highlighter.Help())
 	fmt.Fprintf(os.Stderr, " - openers:\n    %v\n", strings.Join(openers.ListOpeners(), "\n    "))

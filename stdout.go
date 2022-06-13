@@ -1,9 +1,10 @@
 package main
 
 import (
-	"ccat/lockable"
-	"ccat/log"
 	"os"
+
+	"github.com/batmac/ccat/lockable"
+	"github.com/batmac/ccat/log"
 )
 
 func setupStdout(lock bool) {

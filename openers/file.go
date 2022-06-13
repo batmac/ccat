@@ -1,11 +1,12 @@
 package openers
 
 import (
-	"ccat/lockable"
-	"ccat/log"
 	"io"
 	"os"
 	"strings"
+
+	"github.com/batmac/ccat/lockable"
+	"github.com/batmac/ccat/log"
 )
 
 var fileOpenerName = "file"

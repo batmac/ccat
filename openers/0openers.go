@@ -1,12 +1,13 @@
 package openers
 
 import (
-	"ccat/log"
 	"errors"
 	"io"
 	"os"
 	"strings"
 	"sync"
+
+	"github.com/batmac/ccat/log"
 )
 
 var (
