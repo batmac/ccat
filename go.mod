@@ -14,11 +14,20 @@ require (
 	github.com/charmbracelet/glamour v0.5.0
 	github.com/eliukblau/pixterm v1.3.1
 	github.com/klauspost/compress v1.15.6
+	github.com/kr/pretty v0.3.0 // indirect
+	github.com/microcosm-cc/bluemonday v1.0.18 // indirect
 	github.com/muesli/reflow v0.3.0
+	github.com/muesli/termenv v0.12.0 // indirect
 	github.com/pierrec/lz4/v4 v4.1.14
 	github.com/robert-nix/ansihtml v1.0.1
+	github.com/rogpeppe/go-internal v1.8.1 // indirect
+	github.com/stretchr/testify v1.7.2 // indirect
 	github.com/ulikunitz/xz v0.5.10
+	github.com/yuin/goldmark v1.4.12 // indirect
+	golang.org/x/image v0.0.0-20220601225756-64ec528b34cd // indirect
+	golang.org/x/net v0.0.0-20220607020251-c690dde0001d // indirect
 	golang.org/x/sys v0.0.0-20220610221304-9f5ed59c137d // indirect
 	golang.org/x/term v0.0.0-20220526004731-065cf7ba2467
+	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
 	sigs.k8s.io/yaml v1.3.0
 )
