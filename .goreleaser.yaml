@@ -23,7 +23,7 @@ builds:
 archives:
   - files:
       - none*
-    format: gz
+    format: tar.gz
 checksum:
   name_template: 'checksums.txt'
 snapshot:
