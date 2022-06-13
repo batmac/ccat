@@ -34,6 +34,7 @@ var (
 	argFormatter    = flag.String("F", "", "formatter to use (only used if -H, look in -h for the list)")
 	argLexer        = flag.String("P", "", "lexer to use (only used if -H, look in -h for the list)")
 	argMutator      = flag.String("m", "", "mutator to use")
+	argVersion      = flag.Bool("version", false, "print version on stdout")
 
 	tmap   map[string]color.Color
 	tokens []string
@@ -64,6 +65,10 @@ func main() {
 	log.Debugln("STARTING ccat")
 	log.Debugf(buildLine())
 
+	if *argVersion {
+		fmt.Println(buildLine())
+		os.Exit(0)
+	}
 	/* log.Printf("runtest\n")
 	err := mutator.RunTest("dummy", os.Stdout, os.Stdin)
 	if err != nil {
@@ -111,6 +116,11 @@ func main() {
 	log.Debugln("processing...")
 	for _, path := range fileList {
 		processFile(path)
+	}
+
+	exit := globalctx.Get("an error has occured")
+	if exit != nil && exit.(bool) {
+		os.Exit(1)
 	}
 }
 

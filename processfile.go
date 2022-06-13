@@ -27,6 +27,7 @@ func processFile(path string) {
 	from, err := openers.Open(path, *argLockIn)
 	if err != nil {
 		log.Printf("opening %s: %v", path, err)
+		setError()
 		return
 	}
 	if *argHuman {
@@ -40,9 +41,11 @@ func processFile(path string) {
 		r, w := io.Pipe()
 		m, err := mutators.New(choice)
 		if err != nil {
+			setError()
 			log.Fatal(err)
 		}
 		if m.Start(w, from) != nil {
+			setError()
 			log.Fatal("failed to start the mutator\n")
 		}
 
@@ -61,11 +64,13 @@ func processFile(path string) {
 		//log.Debugf("%s", log.Pp(cmd))
 
 		if err != nil {
+			setError()
 			log.Fatal(err)
 		}
 		defer func() {
 			log.Debugf("waiting pipedcmd %v...\n", *argExec)
 			if err := cmd.Wait(); err != nil {
+				setError()
 				log.Println(err)
 			}
 		}()
@@ -74,6 +79,7 @@ func processFile(path string) {
 
 		err = cmd.Start(from)
 		if err != nil {
+			setError()
 			log.Println(err)
 		}
 		from = cmd.Stdout.(*os.File)
@@ -102,6 +108,7 @@ func processFile(path string) {
 				LexerHint:     *argLexer,
 			})
 			if err != nil {
+				setError()
 				log.Printf("error while highlighting: %v", err)
 			} else {
 				from = r
@@ -140,6 +147,7 @@ func processFile(path string) {
 			//fmt.Println("token ", token)
 			matched, err = regexp.MatchString(regexpPrefix+token, string(text))
 			if err != nil {
+				setError()
 				log.Println(err)
 			}
 			if matched {
@@ -157,7 +165,12 @@ func processFile(path string) {
 		}
 	}
 	if err := scanner.Err(); err != nil {
+		setError()
 		log.Println(err)
 	}
 	log.Debugf("end Scanner, processing %v completed.\n", path)
+}
+
+func setError() {
+	globalctx.Set("an error has occured", true)
 }
