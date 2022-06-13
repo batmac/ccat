@@ -16,6 +16,7 @@ for instance:
 ## help
 
 ```
+version >v0.9.2+dev [libcurl,crappy], commit none, built at 2022-06-13@19:01:57 by build.sh
   -F string
     	formatter to use (only used if -H, look in -h for the list)
   -H	try to do what is needed to help (syntax-highlight, autodetect, etc. TODO)
@@ -38,6 +39,8 @@ for instance:
   -r	don't treat tokens as regexps
   -t string
     	comma-separated list of tokens
+  -version
+    	print version on stdout
   -w	read word by word instead of line by line (only works with utf8)
 ---
 ccat <files>...
@@ -56,6 +59,7 @@ ccat <files>...
  - mutators:
     base64: encode base64
     bunzip2: decompress bzip2 data
+    cb: put a copy in the clipboard
     dummy: a simple fifo
     gunzip: decompress gzip data
     hex: dump in Hex
@@ -77,6 +81,8 @@ ccat <files>...
     unzip: decompress the first file in a zip archive
     unzlib: decompress zlib data
     unzstd: decompress zstd data
+    wrap: word-wrap the text to 80 chars maximum
+    wrapU: unconditionaly wrap the text to 80 chars maximum
     xz: compress xz data
     y2j: YAML -> JSON
     zip: compress to zip data
