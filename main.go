@@ -45,6 +45,7 @@ var (
 	commit  = "unknown"
 	date    = "unknown"
 	builtBy = "unknown"
+	tags    = "unknown"
 )
 
 func init() {
@@ -126,5 +127,5 @@ func Usage() {
 }
 
 func buildLine() string {
-	return fmt.Sprintf("version %s, commit %s, built at %s by %s", version, commit, date, builtBy)
+	return fmt.Sprintf("version %s [%s], commit %s, built at %s by %s", version, tags, commit, date, builtBy)
 }
