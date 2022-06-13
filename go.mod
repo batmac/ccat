@@ -6,6 +6,7 @@ require (
 	github.com/aixiansheng/lzfse v0.2.4
 	github.com/alecthomas/chroma v0.10.0
 	github.com/andelf/go-curl v0.0.0-20200630032108-fd49ff24ed97
+	github.com/atotto/clipboard v0.1.4
 	github.com/aws/aws-sdk-go-v2 v1.16.5
 	github.com/aws/aws-sdk-go-v2/config v1.15.10
 	github.com/aws/aws-sdk-go-v2/service/s3 v1.26.11
@@ -13,6 +14,7 @@ require (
 	github.com/charmbracelet/glamour v0.5.0
 	github.com/eliukblau/pixterm v1.3.1
 	github.com/klauspost/compress v1.15.6
+	github.com/muesli/reflow v0.3.0
 	github.com/pierrec/lz4/v4 v4.1.14
 	github.com/robert-nix/ansihtml v1.0.1
 	github.com/ulikunitz/xz v0.5.10
