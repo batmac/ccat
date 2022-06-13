@@ -1,4 +1,4 @@
-
+all: ccat readme
 
 ccat: *.go */*.go
 	./build.sh
