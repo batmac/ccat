@@ -1,5 +1,5 @@
-//go:build !libcurl && !fileonly
-// +build !libcurl,!fileonly
+//go:build (!libcurl && !fileonly) || (!cgo && !fileonly)
+// +build !libcurl,!fileonly !cgo,!fileonly
 
 package openers
 
