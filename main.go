@@ -39,6 +39,14 @@ var (
 	tokens []string
 )
 
+var (
+	// these are for the build tool
+	version = "dev"
+	commit  = "unknown"
+	date    = "unknown"
+	builtBy = "unknown"
+)
+
 func init() {
 	flag.Usage = Usage
 	flag.Parse()
@@ -53,6 +61,7 @@ func init() {
 func main() {
 
 	log.Debugln("STARTING ccat")
+	log.Debugf(buildLine())
 
 	/* log.Printf("runtest\n")
 	err := mutator.RunTest("dummy", os.Stdout, os.Stdin)
@@ -105,6 +114,7 @@ func main() {
 }
 
 func Usage() {
+	fmt.Println(buildLine())
 	flag.PrintDefaults()
 	fmt.Fprintln(os.Stderr, "---")
 
@@ -113,4 +123,8 @@ func Usage() {
 	fmt.Fprint(os.Stderr, highlighter.Help())
 	fmt.Fprintf(os.Stderr, " - openers:\n    %v\n", strings.Join(openers.ListOpeners(), "\n    "))
 	fmt.Fprintf(os.Stderr, " - mutators:\n    %v\n", strings.Join(mutators.ListAvailableMutators(), "\n    "))
+}
+
+func buildLine() string {
+	return fmt.Sprintf("version %s, commit %s, built at %s by %s", version, commit, date, builtBy)
 }
