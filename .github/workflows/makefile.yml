@@ -10,10 +10,11 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
-  
+    - name: Set up Go
+      uses: actions/setup-go@v3.2.0
+    - name: Install cURL Headers
+      run: sudo apt-get install libcurl4-openssl-dev
     - name: Run
       run: make
-      
