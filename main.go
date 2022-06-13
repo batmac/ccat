@@ -115,7 +115,7 @@ func main() {
 }
 
 func Usage() {
-	fmt.Println(buildLine())
+	fmt.Fprintln(os.Stderr, buildLine())
 	flag.PrintDefaults()
 	fmt.Fprintln(os.Stderr, "---")
 
