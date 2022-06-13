@@ -108,7 +108,7 @@ func Usage() {
 	flag.PrintDefaults()
 	fmt.Fprintln(os.Stderr, "---")
 
-	fmt.Fprint(os.Stderr, "github.com/batmac/ccat <files>...\n")
+	fmt.Fprint(os.Stderr, "ccat <files>...\n")
 	fmt.Fprint(os.Stderr, " - highlighter (-H):\n")
 	fmt.Fprint(os.Stderr, highlighter.Help())
 	fmt.Fprintf(os.Stderr, " - openers:\n    %v\n", strings.Join(openers.ListOpeners(), "\n    "))
