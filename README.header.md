@@ -1,5 +1,7 @@
-# ccat
+# ccat [![Go](https://github.com/batmac/ccat/actions/workflows/go.yml/badge.svg)](https://github.com/batmac/ccat/actions/workflows/go.yml) ![GitHub](https://img.shields.io/github/license/batmac/ccat)
 cat on steroids
+
+
 
 ## build
 available build tags:
