@@ -38,7 +38,7 @@ func (f *localShellScpOpener) Open(s string, _ bool) (io.ReadCloser, error) {
 
 	arr := strings.SplitN(s, "scp://", 2)
 	path := strings.Split(arr[1], " ")
-	tmpfile, err := os.CreateTemp("", "github.com/batmac/ccat_tempfile_")
+	tmpfile, err := os.CreateTemp("", "ccat_tempfile_")
 	if err != nil {
 		log.Fatal(err)
 	}
