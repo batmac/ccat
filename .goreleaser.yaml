@@ -34,8 +34,6 @@ changelog:
     exclude:
       - '^docs:'
       - '^test:'
-source:
-  enabled: true
 release:
   github:
     owner: batmac
