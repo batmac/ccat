@@ -1,0 +1,56 @@
+# Make sure to check the documentation at https://goreleaser.com
+before:
+  hooks:
+    - go mod tidy
+    - go generate ./...
+builds:
+  - id: build
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - darwin
+      - linux
+    goarch:
+      - amd64
+      - arm64
+      - arm
+    goarm: [7]
+    tags:
+    flags:
+      - -v
+    ldflags:
+      - -s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}} -X main.builtBy=goreleaser -X main.tags=
+archives:
+  - files:
+      - none*
+    format: gz
+checksum:
+  name_template: 'checksums.txt'
+snapshot:
+  name_template: "{{ .Tag }}"
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+source:
+  enabled: true
+release:
+  github:
+    owner: batmac
+    name: ccat
+  draft: true
+  prerelease: auto
+  mode: append
+  header: |
+    ## {{ .Date }}
+
+  footer: |
+    ## Thanks!
+
+    Those were the changes on {{ .Tag }}!
+
+    ## NOTE
+    these builds are without libcurl
+
