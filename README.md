@@ -16,7 +16,7 @@ for instance:
 ## help
 
 ```
-version >v0.9.4+dev [libcurl,crappy], commit none, built at 2022-06-14@14:35:15 by build.sh
+version >v0.9.4+dev [libcurl,crappy], commit none, built at 2022-06-14@16:40:56 by build.sh
   -F string
     	formatter to use (only used if -H, look in -h for the list)
   -H	try to do what is needed to help (syntax-highlight, autodetect, etc. TODO)
@@ -61,7 +61,7 @@ ccat <files>...
     bunzip2: decompress bzip2 data
     cb: put a copy in the clipboard
     dummy: a simple fifo
-    gunzip: decompress gzip data
+    gzip: compress gzip data
     hex: dump in Hex
     j2y: JSON -> YAML
     j: JSON Re-indent
@@ -74,6 +74,7 @@ ccat <files>...
     s2: compress s2 data
     snap: compress snappy data
     unbase64: decode base64
+    ungzip: decompress gzip data
     unlz4: decompress lz4 data
     unlzfse: decompress lzfse data
     unlzma2: decompress lzma2 data
@@ -90,5 +91,6 @@ ccat <files>...
     xz: compress xz data
     y2j: YAML -> JSON
     zip: compress to zip data
+    zlib: compress zlib data
     zstd: compress zstd data
 ```

@@ -9,12 +9,15 @@ import (
 )
 
 func init() {
-	simpleRegister("gunzip", gunzip, withDescription("decompress gzip data"))
+	simpleRegister("ungzip", ungzip, withDescription("decompress gzip data"))
 	simpleRegister("bunzip2", bunzip2, withDescription("decompress bzip2 data"))
 	simpleRegister("unzlib", unzlib, withDescription("decompress zlib data"))
+
+	simpleRegister("gzip", cgzip, withDescription("compress gzip data"))
+	simpleRegister("zlib", czlib, withDescription("compress zlib data"))
 }
 
-func gunzip(w io.WriteCloser, r io.ReadCloser) (int64, error) {
+func ungzip(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 	zr, err := gzip.NewReader(r)
 	if err != nil {
 		log.Fatal(err)
@@ -37,6 +40,23 @@ func unzlib(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 		log.Fatal(err)
 	}
 	defer z.Close()
-	return io.Copy(w, r)
+	return io.Copy(w, z)
 
+}
+
+func cgzip(w io.WriteCloser, r io.ReadCloser) (int64, error) {
+	zw, err := gzip.NewWriterLevel(w, gzip.DefaultCompression)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer zw.Close()
+	return io.Copy(zw, r)
+}
+func czlib(w io.WriteCloser, r io.ReadCloser) (int64, error) {
+	zw, err := zlib.NewWriterLevel(w, zlib.DefaultCompression)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer zw.Close()
+	return io.Copy(zw, r)
 }
