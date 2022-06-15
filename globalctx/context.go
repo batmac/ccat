@@ -21,6 +21,8 @@ type ctx struct {
 	mu  sync.Mutex
 }
 
+type key string
+
 func init() {
 	globalCtx = ctx{ctx: context.Background()}
 }
@@ -29,11 +31,11 @@ func Set(k string, v interface{}) {
 	globalCtx.mu.Lock()
 	defer globalCtx.mu.Unlock()
 	log.Debugf("globalctx: setting %v=%v\n", k, v)
-	globalCtx.ctx = context.WithValue(globalCtx.ctx, k, v)
+	globalCtx.ctx = context.WithValue(globalCtx.ctx, key(k), v)
 }
 
 func Get(k string) interface{} {
 	globalCtx.mu.Lock()
 	defer globalCtx.mu.Unlock()
-	return globalCtx.ctx.Value(k)
+	return globalCtx.ctx.Value(key(k))
 }
