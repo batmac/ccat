@@ -3,6 +3,7 @@ package mutators
 import (
 	"bytes"
 	"io"
+	"io/ioutil"
 
 	"github.com/atotto/clipboard"
 	"github.com/batmac/ccat/log"
@@ -13,7 +14,7 @@ func init() {
 }
 
 func teeClipboard(w io.WriteCloser, r io.ReadCloser) (int64, error) {
-	d, err := io.ReadAll(r)
+	d, err := ioutil.ReadAll(r)
 	if err != nil {
 		return 0, err
 	}
