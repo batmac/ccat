@@ -25,7 +25,7 @@ type curlOpener struct {
 }
 
 func init() {
-	register(&curlOpener{
+	_ = register(&curlOpener{
 		name:        curlOpenerName,
 		description: curlOpenerDescription,
 	})

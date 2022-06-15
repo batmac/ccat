@@ -1,4 +1,4 @@
-package openers
+package utils
 
 import (
 	"io"

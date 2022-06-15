@@ -17,7 +17,7 @@ type fileOpener struct {
 }
 
 func init() {
-	register(&fileOpener{
+	_ = register(&fileOpener{
 		name:        fileOpenerName,
 		description: fileOpenerDescription,
 	})

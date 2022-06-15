@@ -25,7 +25,7 @@ type s3Opener struct {
 }
 
 func init() {
-	register(&s3Opener{
+	_ = register(&s3Opener{
 		name:        s3OpenerName,
 		description: s3OpenerDescription,
 	})

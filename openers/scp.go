@@ -20,7 +20,7 @@ type localShellScpOpener struct {
 }
 
 func init() {
-	register(&localShellScpOpener{
+	_ = register(&localShellScpOpener{
 		name:        localShellScpOpenerName,
 		description: localShellScpOpenerDescription,
 	})

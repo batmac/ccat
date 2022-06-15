@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/batmac/ccat/log"
+	"github.com/batmac/ccat/utils"
 )
 
 var httpOpenerName = "http"
@@ -20,7 +21,7 @@ type httpOpener struct {
 }
 
 func init() {
-	register(&httpOpener{
+	_ = register(&httpOpener{
 		name:        httpOpenerName,
 		description: httpOpenerDescription,
 	})
@@ -39,7 +40,7 @@ func (f httpOpener) Open(s string, _ bool) (io.ReadCloser, error) {
 		log.Println(err)
 		return nil, err
 	}
-	nrc := NewReadCloser(resp.Body, func() error {
+	nrc := utils.NewReadCloser(resp.Body, func() error {
 
 		return nil
 	})
