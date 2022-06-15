@@ -172,5 +172,5 @@ func processFile(path string) {
 }
 
 func setError() {
-	globalctx.Set("an error has occured", true)
+	globalctx.Set("an error has occurred", true)
 }

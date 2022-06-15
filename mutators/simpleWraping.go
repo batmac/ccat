@@ -13,7 +13,7 @@ const WRAP_MAX_CHARS = 80
 
 func init() {
 	simpleRegister("wrap", wordWrap, withDescription(fmt.Sprintf("word-wrap the text to %d chars maximum", WRAP_MAX_CHARS)))
-	simpleRegister("wrapU", unconditionalyWrap, withDescription(fmt.Sprintf("unconditionaly wrap the text to %d chars maximum", WRAP_MAX_CHARS)))
+	simpleRegister("wrapU", unconditionalyWrap, withDescription(fmt.Sprintf("unconditionally wrap the text to %d chars maximum", WRAP_MAX_CHARS)))
 }
 
 func wordWrap(w io.WriteCloser, r io.ReadCloser) (int64, error) {

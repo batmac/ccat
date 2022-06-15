@@ -45,7 +45,7 @@ func SupportedColors() uint {
 		colors = 256
 		log.Debugln("  supportedColors: xterm-256color -> 256 colors detected")
 	default:
-		log.Debugf("  supportedColors: unkown term, $TERM==%s -> 8 colors detected\n", os.Getenv("TERM"))
+		log.Debugf("  supportedColors: unknown term, $TERM==%s -> 8 colors detected\n", os.Getenv("TERM"))
 		return 8
 	}
 

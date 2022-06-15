@@ -118,7 +118,7 @@ func main() {
 		processFile(path)
 	}
 
-	exit := globalctx.Get("an error has occured")
+	exit := globalctx.Get("an error has occurred")
 	if exit != nil && exit.(bool) {
 		os.Exit(1)
 	}
