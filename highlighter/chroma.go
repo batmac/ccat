@@ -75,6 +75,7 @@ func (h *Chroma) HighLight(w io.WriteCloser, r io.ReadCloser, o Options) error {
 	}
 
 	log.Debugf(" highlighter: chosen Lexer is %v\n", lexer.Config().Name)
+	h.lexer = lexer.Config().Name
 
 	//log.Debugf(" highlighter: registered styles are: %v\n", styles.Names())
 	//registered styles are: [abap algol algol_nu arduino autumn base16-snazzy borland bw colorful doom-one doom-one2 dracula emacs friendly fruity github hr_high_contrast hrdark igor lovelace manni monokai monokailight murphy native nord onesenterprise paraiso-dark paraiso-light pastie perldoc pygments rainbow_dash rrt solarized-dark solarized-dark256 solarized-light swapoff tango trac vim vs vulcan witchhazel xcode xcode-dark]
@@ -135,15 +136,6 @@ func (h *Chroma) HighLight(w io.WriteCloser, r io.ReadCloser, o Options) error {
 
 	log.Debugln(" highlighter: end chroma Highlight")
 	return nil
-}
-
-func stringInSlice(a string, list []string) bool {
-	for _, b := range list {
-		if b == a {
-			return true
-		}
-	}
-	return false
 }
 
 func (h *Chroma) help() string {
