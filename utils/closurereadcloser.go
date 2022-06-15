@@ -41,9 +41,6 @@ type newCloserWriterTo struct {
 	io.Reader
 	closure func() error
 }
-type checkForWriterTo interface {
-	WriteTo(io.Writer) (int64, error)
-}
 
 func (c newCloserWriterTo) Close() error {
 	if _, ok := c.Reader.(checkForClose); ok {
