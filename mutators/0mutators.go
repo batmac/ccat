@@ -3,10 +3,13 @@ package mutators
 import (
 	"fmt"
 	"io"
+	"io/ioutil"
 	"sort"
+	"strings"
 	"sync"
 
 	"github.com/batmac/ccat/log"
+	"github.com/batmac/ccat/utils"
 )
 
 var (
@@ -88,4 +91,21 @@ func ListAvailableMutators() []string {
 	}
 	sort.Strings(l)
 	return l
+}
+
+func Run(mutatorName, input string) string {
+	in := ioutil.NopCloser(strings.NewReader(input))
+	out := new(utils.NopWriteCloser)
+	m, err := New(mutatorName)
+	if err != nil {
+		log.Fatal(err)
+	}
+	if m.Start(out, in) != nil {
+		log.Fatal("failed to start the mutator\n")
+	}
+	err = m.Wait()
+	if err != nil {
+		log.Fatal(err)
+	}
+	return out.String()
 }
