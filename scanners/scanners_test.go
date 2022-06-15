@@ -3,8 +3,6 @@ package scanners
 import (
 	//. "bufio"
 	"bufio"
-	"bytes"
-	"errors"
 	"io"
 	"strings"
 	"testing"
@@ -35,30 +33,6 @@ func (sr *slowReader) Read(p []byte) (n int, err error) {
 		p = p[0:sr.max]
 	}
 	return sr.buf.Read(p)
-}
-
-// genLine writes to buf a predictable but non-trivial line of text of length
-// n, including the terminal newline and an occasional carriage return.
-// If addNewline is false, the \r and \n are not emitted.
-func genLine(buf *bytes.Buffer, lineNum, n int, addNewline bool) {
-	buf.Reset()
-	doCR := lineNum%5 == 0
-	if doCR {
-		n--
-	}
-	for i := 0; i < n-1; i++ { // Stop early for \n.
-		c := 'a' + byte(lineNum+i)
-		if c == '\n' || c == '\r' { // Don't confuse us.
-			c = 'N'
-		}
-		buf.WriteByte(c)
-	}
-	if addNewline {
-		if doCR {
-			buf.WriteByte('\r')
-		}
-		buf.WriteByte('\n')
-	}
 }
 
 // Test that the line splitter handles a final line without a newline.
@@ -97,8 +71,6 @@ func TestScanLineReturn(t *testing.T) {
 	}
 	testNoNewline(text, lines, t)
 }
-
-var testError = errors.New("testError")
 
 // Test for issue 5268.
 type alwaysError struct{}
