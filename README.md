@@ -1,4 +1,4 @@
-# ccat [![Go](https://github.com/batmac/ccat/actions/workflows/go.yml/badge.svg)](https://github.com/batmac/ccat/actions/workflows/go.yml) ![GitHub](https://img.shields.io/github/license/batmac/ccat)
+# ccat [![Go](https://github.com/batmac/ccat/actions/workflows/go.yml/badge.svg)](https://github.com/batmac/ccat/actions/workflows/go.yml) ![GitHub](https://img.shields.io/github/license/batmac/ccat) [![Go Report Card](https://goreportcard.com/badge/github.com/batmac/ccat)](https://goreportcard.com/report/github.com/batmac/ccat)
 cat on steroids
 
 
@@ -16,7 +16,7 @@ for instance:
 ## help
 
 ```
-version >v0.9.5+dev [libcurl,crappy], commit none, built at 2022-06-15@18:50:55 by build.sh
+version >v0.9.5+dev [libcurl,crappy], commit none, built at 2022-06-15@19:31:39 by build.sh
   -F string
     	formatter to use (only used if -H, look in -h for the list)
   -H	try to do what is needed to help (syntax-highlight, autodetect, etc. TODO)
@@ -88,7 +88,7 @@ ccat <files>...
     unzlib: decompress zlib data
     unzstd: decompress zstd data
     wrap: word-wrap the text to 80 chars maximum
-    wrapU: unconditionaly wrap the text to 80 chars maximum
+    wrapU: unconditionally wrap the text to 80 chars maximum
     xz: compress xz data
     y2j: YAML -> JSON
     zip: compress to zip data
