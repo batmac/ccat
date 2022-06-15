@@ -1,4 +1,4 @@
-all: ccat readme
+all: ccat readme tests
 
 ccat: *.go */*.go go.mod go.sum
 	./build.sh
