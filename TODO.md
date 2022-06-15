@@ -5,9 +5,10 @@
 - done http/curl done. urls (uris)
 - trier les options ds le code et a l affichage
 - done option pour afficher les option de l highlighter
-- transform urls (ala finicker): par ex github -> raw, outlook safelinks, shorturl ?
+- done (github raw)transform urls (ala finicker): par ex github -> raw, outlook safelinks, shorturl ?
 - cookies? (par ex pour choper gitlab/aws) systeme de plugins?
 - kubernetes ?
 - opener ssh
 - https://github.com/viant/afs ?
 - done ajout d un contexte pou y mettre le filename, des hints (format?), etc.
+
