@@ -16,7 +16,7 @@ for instance:
 ## help
 
 ```
-version >v0.9.4+dev [libcurl,crappy], commit none, built at 2022-06-14@16:40:56 by build.sh
+version >v0.9.5+dev [libcurl,crappy], commit none, built at 2022-06-15@18:50:55 by build.sh
   -F string
     	formatter to use (only used if -H, look in -h for the list)
   -H	try to do what is needed to help (syntax-highlight, autodetect, etc. TODO)
@@ -61,6 +61,7 @@ ccat <files>...
     bunzip2: decompress bzip2 data
     cb: put a copy in the clipboard
     dummy: a simple fifo
+    filterUTF8: remove non-utf8
     gzip: compress gzip data
     hex: dump in Hex
     j2y: JSON -> YAML
