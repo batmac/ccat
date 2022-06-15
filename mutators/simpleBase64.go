@@ -2,7 +2,6 @@ package mutators
 
 import (
 	"encoding/base64"
-	"fmt"
 	"io"
 )
 
@@ -19,6 +18,6 @@ func base64Encode(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 	encoder := base64.NewEncoder(base64.StdEncoding, w)
 	written, err := io.Copy(encoder, r)
 	encoder.Close()
-	fmt.Fprintln(w, "")
+	//fmt.Fprintln(w, "")
 	return written, err
 }

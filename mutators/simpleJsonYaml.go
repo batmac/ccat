@@ -24,7 +24,10 @@ func J2Y(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 		return 0, err
 	}
 
-	io.Copy(w, bytes.NewReader(y))
+	_, err = io.Copy(w, bytes.NewReader(y))
+	if err != nil {
+		return 0, err
+	}
 
 	return int64(len(j)), nil
 }
@@ -44,7 +47,9 @@ func Y2J(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 	}
 	b.WriteString("\n")
 
-	io.Copy(w, bytes.NewReader(b.Bytes()))
-
+	_, err = io.Copy(w, bytes.NewReader(b.Bytes()))
+	if err != nil {
+		return 0, err
+	}
 	return int64(len(y)), nil
 }

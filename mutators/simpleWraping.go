@@ -18,13 +18,19 @@ func init() {
 
 func wordWrap(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 	ww := wordwrap.NewWriter(WRAP_MAX_CHARS)
-	io.Copy(ww, r)
+	_, err := io.Copy(ww, r)
+	if err != nil {
+		return 0, err
+	}
 	ww.Close()
 	return io.Copy(w, bytes.NewReader(ww.Bytes()))
 }
 func unconditionalyWrap(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 	ww := uwrap.NewWriter(WRAP_MAX_CHARS)
-	io.Copy(ww, r)
+	_, err := io.Copy(ww, r)
+	if err != nil {
+		return 0, err
+	}
 
 	return io.Copy(w, bytes.NewReader(ww.Bytes()))
 }

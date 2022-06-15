@@ -49,7 +49,9 @@ func simpleRegister(name string, f simpleFn, opts ...simpleOption) {
 	for _, o := range opts {
 		o(factory)
 	}
-	register(name, factory)
+	if err := register(name, factory); err != nil {
+		log.Debugf("registering %s failed!\n", name)
+	}
 }
 
 func (f *simpleFactory) newMutator(logger *log.Logger) (Mutator, error) {

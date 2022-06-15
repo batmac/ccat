@@ -32,13 +32,3 @@ func czstd(out io.WriteCloser, in io.ReadCloser) (int64, error) {
 	e.Close()
 	return n, err
 }
-
-// Create a reader that caches decompressors.
-// For this operation type we supply a nil Reader.
-
-// Decompress a buffer. We don't supply a destination buffer,
-// so it will be allocated by the decoder.
-func decompress(out io.WriteCloser, in io.ReadCloser) (int64, error) {
-	var decoder, _ = zstd.NewReader(in, zstd.WithDecoderConcurrency(0))
-	return io.Copy(out, decoder)
-}
