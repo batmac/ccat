@@ -13,6 +13,7 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/sts v1.16.7
 	github.com/charmbracelet/glamour v0.5.0
 	github.com/eliukblau/pixterm v1.3.1
+	github.com/hbollon/go-edlib v1.6.0
 	github.com/klauspost/compress v1.15.6
 	github.com/kr/pretty v0.3.0 // indirect
 	github.com/microcosm-cc/bluemonday v1.0.18 // indirect

@@ -72,7 +72,7 @@ func New(name string) (Mutator, error) {
 
 	factory, ok := globalCollection.factories[name]
 	if !ok {
-		logFuzzySearch(name)
+		tryFuzzySearch(name)
 		return nil, fmt.Errorf("mutators: %s not found", name)
 	}
 	glog.Printf("mutators: instancing %s\n", name)
@@ -120,7 +120,7 @@ func Run(mutatorName, input string) string {
 	return out.String()
 }
 
-func logFuzzySearch(name string) {
+func tryFuzzySearch(name string) {
 	list := ListAvailableMutators()
 	f, err := utils.FuzzySearch(name, list, 0.5)
 	if err != nil {
