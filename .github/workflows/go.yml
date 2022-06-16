@@ -25,7 +25,7 @@ jobs:
         uses: lyricwulf/abc@v1
         with: 
           linux: libcurl4-openssl-dev
-          macos: curl
+          macos: 
 
       - name: Build
         run: go build -v -tags libcurl ./...
