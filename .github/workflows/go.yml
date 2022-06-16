@@ -8,10 +8,11 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
     strategy:
       matrix:
+        os: [ubuntu-latest, macos-latest]
         go: [ '1.15', '1.18' ]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
 
@@ -21,7 +22,10 @@ jobs:
           go-version: ${{ matrix.go }}
 
       - name: Install cURL Headers
-        run: sudo apt-get install libcurl4-openssl-dev
+        uses: lyricwulf/abc@v1
+        with: 
+          linux: libcurl4-openssl-dev
+          macos: curl
 
       - name: Build
         run: go build -v -tags libcurl ./...
