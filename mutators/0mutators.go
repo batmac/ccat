@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"os"
 	"sort"
 	"strings"
 	"sync"
@@ -71,6 +72,7 @@ func New(name string) (Mutator, error) {
 
 	factory, ok := globalCollection.factories[name]
 	if !ok {
+		logFuzzySearch(name)
 		return nil, fmt.Errorf("mutators: %s not found", name)
 	}
 	glog.Printf("mutators: instancing %s\n", name)
@@ -85,6 +87,14 @@ func New(name string) (Mutator, error) {
 }
 
 func ListAvailableMutators() []string {
+	var l []string
+	for _, v := range globalCollection.factories {
+		l = append(l, v.Name())
+	}
+	sort.Strings(l)
+	return l
+}
+func ListAvailableMutatorsWithDescriptions() []string {
 	var l []string
 	for _, v := range globalCollection.factories {
 		l = append(l, v.Name()+": "+v.Description())
@@ -108,4 +118,19 @@ func Run(mutatorName, input string) string {
 		log.Fatal(err)
 	}
 	return out.String()
+}
+
+func logFuzzySearch(name string) {
+	list := ListAvailableMutators()
+	f, err := utils.FuzzySearch(name, list, 0.5)
+	if err != nil {
+		log.Debugln(err)
+		return
+	}
+	if len(f) == 0 {
+		log.Debugf("fuzzysearch found nothing for '%s'\n", name)
+		return
+	}
+	fmt.Fprintf(os.Stderr, "'%s' does not exist, did you mean %s ?\n", name, f)
+	os.Exit(1)
 }

@@ -133,7 +133,7 @@ func Usage() {
 	fmt.Fprint(os.Stderr, " - highlighter (-H):\n")
 	fmt.Fprint(os.Stderr, highlighter.Help())
 	fmt.Fprintf(os.Stderr, " - openers:\n    %v\n", strings.Join(openers.ListOpeners(), "\n    "))
-	fmt.Fprintf(os.Stderr, " - mutators:\n    %v\n", strings.Join(mutators.ListAvailableMutators(), "\n    "))
+	fmt.Fprintf(os.Stderr, " - mutators:\n    %v\n", strings.Join(mutators.ListAvailableMutatorsWithDescriptions(), "\n    "))
 }
 
 func buildLine() string {
