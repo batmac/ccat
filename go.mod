@@ -18,7 +18,7 @@ require (
 	github.com/microcosm-cc/bluemonday v1.0.18 // indirect
 	github.com/muesli/reflow v0.3.0
 	github.com/muesli/termenv v0.12.0 // indirect
-	github.com/pierrec/lz4/v4 v4.1.14
+	github.com/pierrec/lz4/v4 v4.1.15
 	github.com/robert-nix/ansihtml v1.0.1
 	github.com/rogpeppe/go-internal v1.8.1 // indirect
 	github.com/stretchr/testify v1.7.2 // indirect
