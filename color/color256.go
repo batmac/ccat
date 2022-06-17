@@ -23,6 +23,7 @@ func (c Color256) Sprint(s string) string {
 	return c.String() + s + CReset
 }
 
+//#nosec
 func (c *Color256) Next() Color {
 	rand.Seed(int64(*c))
 	n := Color256(rand.Intn(230))
