@@ -105,7 +105,7 @@ func ListAvailableMutatorsWithDescriptions() []string {
 
 func Run(mutatorName, input string) string {
 	in := ioutil.NopCloser(strings.NewReader(input))
-	out := new(utils.NopWriteCloser)
+	out := new(utils.NopStringWriteCloser)
 	m, err := New(mutatorName)
 	if err != nil {
 		log.Fatal(err)
