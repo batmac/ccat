@@ -1,7 +1,6 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 	"io/ioutil"
 	"os"
@@ -15,28 +14,30 @@ import (
 	"github.com/batmac/ccat/mutators"
 	"github.com/batmac/ccat/openers"
 	"github.com/batmac/ccat/term"
+
+	flag "github.com/spf13/pflag"
 )
 
 //go:generate go run gen.go
 
 var (
-	argTokens       = flag.String("t", "", "comma-separated list of tokens")
-	argInsensitive  = flag.Bool("i", false, "tokens given with -t are case-insensitive")
-	argOnlyMatching = flag.Bool("o", false, "don't display lines without at least one token")
-	argRaw          = flag.Bool("r", false, "don't treat tokens as regexps")
-	argLineNumber   = flag.Bool("n", false, "number the output lines, starting at 1.")
-	argLockIn       = flag.Bool("L", false, "exclusively flock each file before reading")
-	argLockOut      = flag.Bool("l", false, "exclusively flock stdout")
-	argSplitByWords = flag.Bool("w", false, "read word by word instead of line by line (only works with utf8)")
-	argExec         = flag.String("X", "", "command to exec on each file before processing it")
-	argBG           = flag.Bool("bg", false, "colorize the background instead of the font")
-	argDebug        = flag.Bool("d", false, "debug what we are doing")
-	argHuman        = flag.Bool("H", false, "try to do what is needed to help (syntax-highlight, autodetect, etc. TODO)")
-	argStyle        = flag.String("S", "", "style to use (only used if -H, look in -h for the list)")
-	argFormatter    = flag.String("F", "", "formatter to use (only used if -H, look in -h for the list)")
-	argLexer        = flag.String("P", "", "lexer to use (only used if -H, look in -h for the list)")
-	argMutator      = flag.String("m", "", "mutator to use")
-	argVersion      = flag.Bool("version", false, "print version on stdout")
+	argTokens       = flag.StringP("tokens", "t", "", "comma-separated list of tokens")
+	argInsensitive  = flag.BoolP("ignore-case", "i", false, "tokens given with -t are case-insensitive")
+	argOnlyMatching = flag.BoolP("only", "o", false, "don't display lines without at least one token")
+	argRaw          = flag.BoolP("raw", "r", false, "don't treat tokens as regexps")
+	argLineNumber   = flag.BoolP("line-number", "n", false, "number the output lines, starting at 1.")
+	argLockIn       = flag.BoolP("flock-in", "L", false, "exclusively flock each file before reading")
+	argLockOut      = flag.BoolP("flock-out", "l", false, "exclusively flock stdout")
+	argSplitByWords = flag.BoolP("word", "w", false, "read word by word instead of line by line (only works with utf8)")
+	argExec         = flag.StringP("exec", "X", "", "command to exec on each file before processing it")
+	argBG           = flag.BoolP("bg", "b", false, "colorize the background instead of the font")
+	argDebug        = flag.BoolP("debug", "d", false, "debug what we are doing")
+	argHuman        = flag.BoolP("humanize", "H", false, "try to do what is needed to help (syntax-highlight, autodetect, etc. TODO)")
+	argStyle        = flag.StringP("style", "S", "", "style to use (only used if -H, look below for the list)")
+	argFormatter    = flag.StringP("formatter", "F", "", "formatter to use (only used if -H, look below for the list)")
+	argLexer        = flag.StringP("lexer", "P", "", "lexer to use (only used if -H, look below for the list)")
+	argMutator      = flag.StringP("mutator", "m", "", "mutator to use")
+	argVersion      = flag.BoolP("version", "V", false, "print version on stdout")
 	argLicense      = flag.Bool("license", false, "print license on stdout")
 
 	tmap   map[string]color.Color
@@ -133,14 +134,15 @@ func main() {
 }
 
 func Usage() {
+	flag.CommandLine.SortFlags = false
 	fmt.Fprintln(os.Stderr, buildLine())
 	flag.PrintDefaults()
 	fmt.Fprintln(os.Stderr, "---")
 
 	fmt.Fprint(os.Stderr, "ccat <files>...\n")
-	fmt.Fprint(os.Stderr, " - highlighter (-H):\n")
+	fmt.Fprint(os.Stderr, " - highlighter (used with -H):\n")
 	fmt.Fprint(os.Stderr, highlighter.Help())
-	fmt.Fprintf(os.Stderr, " - openers:\n    %v\n", strings.Join(openers.ListOpeners(), "\n    "))
+	fmt.Fprintf(os.Stderr, " - openers:\n    %v\n", strings.Join(openers.ListOpenersWithDescription(), "\n    "))
 	fmt.Fprintf(os.Stderr, " - mutators:\n    %v\n", strings.Join(mutators.ListAvailableMutatorsWithDescriptions(), "\n    "))
 }
 

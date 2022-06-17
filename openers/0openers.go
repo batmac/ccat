@@ -69,7 +69,7 @@ func Open(s string, lock bool) (io.ReadCloser, error) {
 	return oChosen.Open(s, lock)
 }
 
-func ListOpeners() []string {
+func ListOpenersWithDescription() []string {
 	var l []string
 	for _, o := range globalCollection.openers {
 		l = append(l, o.Name()+": "+o.Description())
