@@ -6,7 +6,7 @@ import (
 )
 
 func FuzzySearch(str string, strList []string, threshold float32) (string, error) {
-	res, err := edlib.FuzzySearchThreshold(str, strList, threshold, edlib.Levenshtein)
+	res, err := edlib.FuzzySearchThreshold(str, strList, threshold, edlib.JaroWinkler)
 	if err != nil {
 		log.Debugln(err)
 	} else {
