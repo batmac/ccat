@@ -16,7 +16,7 @@ for instance:
 ## help
 
 ```
-version >v0.9.5+dev [libcurl,crappy], commit none, built at 2022-06-17@21:52:36 by build.sh
+version >v0.9.5+dev [libcurl,crappy], commit 68ccdafd00843a7e913eef980f93f393559eb27c, built at 2022-06-17@22:28:54 by build.sh
   -F string
     	formatter to use (only used if -H, look in -h for the list)
   -H	try to do what is needed to help (syntax-highlight, autodetect, etc. TODO)
