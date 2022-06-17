@@ -16,7 +16,7 @@ for instance:
 ## help
 
 ```
-version >v0.9.5+dev [libcurl,crappy], commit none, built at 2022-06-15@19:31:39 by build.sh
+version >v0.9.5+dev [libcurl,crappy], commit none, built at 2022-06-17@21:52:36 by build.sh
   -F string
     	formatter to use (only used if -H, look in -h for the list)
   -H	try to do what is needed to help (syntax-highlight, autodetect, etc. TODO)
@@ -32,6 +32,8 @@ version >v0.9.5+dev [libcurl,crappy], commit none, built at 2022-06-15@19:31:39 
   -d	debug what we are doing
   -i	tokens given with -t are case-insensitive
   -l	exclusively flock stdout
+  -license
+    	print license on stdout
   -m string
     	mutator to use
   -n	number the output lines, starting at 1.

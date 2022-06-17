@@ -17,6 +17,8 @@ import (
 	"github.com/batmac/ccat/term"
 )
 
+//go:generate go run gen.go
+
 var (
 	argTokens       = flag.String("t", "", "comma-separated list of tokens")
 	argInsensitive  = flag.Bool("i", false, "tokens given with -t are case-insensitive")
@@ -35,6 +37,7 @@ var (
 	argLexer        = flag.String("P", "", "lexer to use (only used if -H, look in -h for the list)")
 	argMutator      = flag.String("m", "", "mutator to use")
 	argVersion      = flag.Bool("version", false, "print version on stdout")
+	argLicense      = flag.Bool("license", false, "print license on stdout")
 
 	tmap   map[string]color.Color
 	tokens []string
@@ -67,6 +70,11 @@ func main() {
 
 	if *argVersion {
 		fmt.Println(buildLine())
+		os.Exit(0)
+	}
+	if *argLicense {
+		fmt.Println(buildLine())
+		printLicense()
 		os.Exit(0)
 	}
 	/* log.Printf("runtest\n")
