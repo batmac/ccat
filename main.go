@@ -39,6 +39,7 @@ var (
 	argMutator      = flag.StringP("mutator", "m", "", "mutator to use")
 	argVersion      = flag.BoolP("version", "V", false, "print version on stdout")
 	argLicense      = flag.Bool("license", false, "print license on stdout")
+	argHelp         = flag.BoolP("help", "h", false, "print usage")
 
 	tmap   map[string]color.Color
 	tokens []string
@@ -76,6 +77,10 @@ func main() {
 	if *argLicense {
 		fmt.Println(buildLine())
 		printLicense()
+		os.Exit(0)
+	}
+	if *argHelp {
+		Usage()
 		os.Exit(0)
 	}
 	/* log.Printf("runtest\n")
