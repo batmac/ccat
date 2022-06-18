@@ -12,6 +12,7 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/s3 v1.26.11
 	github.com/aws/aws-sdk-go-v2/service/sts v1.16.7
 	github.com/charmbracelet/glamour v0.5.0
+	github.com/dsnet/compress v0.0.1
 	github.com/eliukblau/pixterm v1.3.1
 	github.com/hbollon/go-edlib v1.6.0
 	github.com/klauspost/compress v1.15.6
