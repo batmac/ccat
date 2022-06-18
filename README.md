@@ -1,6 +1,6 @@
 # ccat [![Go](https://github.com/batmac/ccat/actions/workflows/go.yml/badge.svg)](https://github.com/batmac/ccat/actions/workflows/go.yml) ![GitHub](https://img.shields.io/github/license/batmac/ccat) [![Go Report Card](https://goreportcard.com/badge/github.com/batmac/ccat)](https://goreportcard.com/report/github.com/batmac/ccat)
-cat on steroids
-
+cat on steroids. 
+Leveraging great go modules to ease my CLI life.
 
 ## build
 you need go >=1.15, available build tags:
@@ -16,7 +16,7 @@ for instance:
 ## help
 
 ```
-version >v0.9.5+dev [libcurl,crappy], commit 7264d5bd37be08d71cbe79618fcb95b94982eb41, built at 2022-06-18@01:40:44 by build.sh
+version >v0.9.5+dev [libcurl,crappy], commit 6c220fed9410e343564ae7500386a0eda0ea8d0e, built at 2022-06-18@02:25:09 by build.sh
   -t, --tokens string      comma-separated list of tokens
   -i, --ignore-case        tokens given with -t are case-insensitive
   -o, --only               don't display lines without at least one token
@@ -35,6 +35,7 @@ version >v0.9.5+dev [libcurl,crappy], commit 7264d5bd37be08d71cbe79618fcb95b9498
   -m, --mutator string     mutator to use
   -V, --version            print version on stdout
       --license            print license on stdout
+  -h, --help               print usage
 ---
 ccat <files>...
  - highlighter (used with -H):
@@ -87,4 +88,4 @@ ccat <files>...
     zip: compress to zip data
     zlib: compress zlib data
     zstd: compress zstd data
-pflag: help requested
+```
