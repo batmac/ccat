@@ -21,20 +21,20 @@ builds:
     ldflags:
       - -s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}} -X main.builtBy=goreleaser -X main.tags=
 archives:
-  - name_template: '{{ .Binary }}-{{ .Version }}-{{ .Os }}-{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}'
+  - name_template: "{{ .Binary }}-{{ .Version }}-{{ .Os }}-{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}"
     files:
       - none*
     format: tar.gz
 checksum:
-  name_template: '{{ .ProjectName }}-{{ .Version }}-checksums.txt'
+  name_template: "{{ .ProjectName }}-{{ .Version }}-checksums.txt"
 snapshot:
   name_template: "{{ .Tag }}"
 changelog:
   sort: asc
   filters:
     exclude:
-      - '^docs:'
-      - '^test:'
+      - "^docs:"
+      - "^test:"
 release:
   github:
     owner: batmac
@@ -46,9 +46,6 @@ release:
     ## {{ .Date }}
 
   footer: |
-    ## Thanks!
-
-    Those were the changes on {{ .Tag }}!
 
     ## NOTE
     these builds are without libcurl
