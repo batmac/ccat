@@ -7,6 +7,7 @@ import (
 
 	"github.com/atotto/clipboard"
 	"github.com/batmac/ccat/log"
+	"github.com/batmac/ccat/term"
 )
 
 func init() {
@@ -19,9 +20,17 @@ func teeClipboard(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 		return 0, err
 	}
 	log.Debugf("readall %d bytes\n", len(d))
+	if term.IsSsh() {
+		term.Osc52(d)
+	} else {
+		cbLocal(d)
+	}
+	return io.Copy(w, bytes.NewReader(d))
+}
+
+func cbLocal(d []byte) {
+	log.Debugf("writing to local clipboard\n")
 	if err := clipboard.WriteAll(string(d)); err != nil {
 		log.Debugln(err)
 	}
-
-	return io.Copy(w, bytes.NewReader(d))
 }
