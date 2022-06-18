@@ -12,9 +12,9 @@ func init() {
 	simpleRegister("xz", cxz, withDescription("compress xz data"), withExpectingBinary(true))
 
 	simpleRegister("unlzma", unlzma, withDescription("decompress lzma data"))
-	simpleRegister("lzma", clzma, withDescription("compress lzma data"))
+	simpleRegister("lzma", clzma, withDescription("compress lzma data"), withExpectingBinary(true))
 	simpleRegister("unlzma2", unlzma2, withDescription("decompress lzma2 data"))
-	simpleRegister("lzma2", clzma2, withDescription("compress lzma2 data"))
+	simpleRegister("lzma2", clzma2, withDescription("compress lzma2 data"), withExpectingBinary(true))
 
 }
 
