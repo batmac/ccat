@@ -13,7 +13,6 @@ VARS="-X main.version=$VERSION -X main.commit=$COMMIT -X main.date=$DATE -X main
 CURLDIR="/opt/homebrew/opt/curl"
 export CGO_LDFLAGS="-L $CURLDIR/lib/"
 export CGO_CPPFLAGS="-I $CURLDIR/include/curl/"
-go generate
 go test -tags $TAGS ./...
 go install -v  -ldflags "-s -w $VARS" -tags $TAGS
 go build -v  -ldflags "-s -w $VARS" -tags $TAGS .
