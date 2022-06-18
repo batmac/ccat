@@ -1,6 +1,6 @@
 # ccat [![Go](https://github.com/batmac/ccat/actions/workflows/go.yml/badge.svg)](https://github.com/batmac/ccat/actions/workflows/go.yml) ![GitHub](https://img.shields.io/github/license/batmac/ccat) [![Go Report Card](https://goreportcard.com/badge/github.com/batmac/ccat)](https://goreportcard.com/report/github.com/batmac/ccat)
-cat on steroids
-
+cat on steroids. 
+Leveraging great go modules to ease my CLI life.
 
 ## build
 you need go >=1.15, available build tags:
