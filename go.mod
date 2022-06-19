@@ -32,5 +32,6 @@ require (
 	golang.org/x/sys v0.0.0-20220615213510-4f61da869c0c // indirect
 	golang.org/x/term v0.0.0-20220526004731-065cf7ba2467
 	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
+	howett.net/plist v1.0.0
 	sigs.k8s.io/yaml v1.3.0
 )
