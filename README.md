@@ -16,7 +16,7 @@ for instance:
 ## help
 
 ```
-version >v0.9.5+dev [libcurl,crappy], commit 6c220fed9410e343564ae7500386a0eda0ea8d0e, built at 2022-06-18@02:25:09 by build.sh
+version >v0.9.5+dev [libcurl,crappy], commit 30d31cbebccfd89f6e9058fc8be203fbbb695e88, built at 2022-06-19@17:40:55 by build.sh
   -t, --tokens string      comma-separated list of tokens
   -i, --ignore-case        tokens given with -t are case-insensitive
   -o, --only               don't display lines without at least one token
@@ -51,23 +51,25 @@ ccat <files>...
     ShellScp: get scp:// via local scp
 
  - mutators:
-    base64: encode base64
+    base64: encode to base64
     bunzip2: decompress bzip2 data
+    bzip2: compress to bzip2 data
     cb: put a copy in the clipboard
     dummy: a simple fifo
     filterUTF8: remove non-utf8
-    gzip: compress gzip data
+    gzip: compress to gzip data
     hex: dump in Hex
     j2y: JSON -> YAML
     j: JSON Re-indent
-    lz4: compress lz4 data
-    lzma2: compress lzma2 data
-    lzma: compress lzma data
+    lz4: compress to lz4 data
+    lzma2: compress to lzma2 data
+    lzma: compress to lzma data
     md: Render Markdown (with glamour)
+    plist2Y: display an Apple plist as yaml
     qp: encode quoted-printable data
     removeANSI: remove ANSI codes
-    s2: compress s2 data
-    snap: compress snappy data
+    s2: compress to s2 data
+    snap: compress to snappy data
     unbase64: decode base64
     ungzip: decompress gzip data
     unlz4: decompress lz4 data
@@ -83,9 +85,9 @@ ccat <files>...
     unzstd: decompress zstd data
     wrap: word-wrap the text to 80 chars maximum
     wrapU: unconditionally wrap the text to 80 chars maximum
-    xz: compress xz data
+    xz: compress to xz data
     y2j: YAML -> JSON
     zip: compress to zip data
-    zlib: compress zlib data
-    zstd: compress zstd data
+    zlib: compress to zlib data
+    zstd: compress to zstd data
 ```
