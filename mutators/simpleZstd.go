@@ -8,7 +8,7 @@ import (
 
 func init() {
 	simpleRegister("unzstd", unzstd, withDescription("decompress zstd data"))
-	simpleRegister("zstd", czstd, withDescription("compress zstd data"), withExpectingBinary(true))
+	simpleRegister("zstd", czstd, withDescription("compress to zstd data"), withExpectingBinary(true))
 }
 
 func unzstd(out io.WriteCloser, in io.ReadCloser) (int64, error) {

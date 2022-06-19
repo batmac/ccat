@@ -8,7 +8,7 @@ import (
 )
 
 func init() {
-	simpleRegister("bzip2", cbzip2, withDescription("compress bzip2 data"), withExpectingBinary(true))
+	simpleRegister("bzip2", cbzip2, withDescription("compress to bzip2 data"), withExpectingBinary(true))
 	// simpleRegister("unbzip2alt", bunzip2Alt, withDescription("decompress bzip2 data (alt)"))
 }
 
