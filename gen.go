@@ -60,7 +60,7 @@ func main() {
 		"log"
 		"os"
 	)
-	var data ={{ . }}
+	var data = {{ . }}
 	func printLicense() {
 		zr, err := gzip.NewReader(bytes.NewReader(data))
 		if err != nil {

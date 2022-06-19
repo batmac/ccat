@@ -14,8 +14,7 @@ builds:
       - amd64
       - arm64
       - arm
-    goarm: [7]
-    tags:
+    goarm: ["7"]
     flags:
       - -v
     ldflags:
@@ -58,7 +57,7 @@ brews:
     description: cat on steroids.
     license: MIT
     folder: Formula
-    skip_upload: false
+    skip_upload: "false"
     dependencies: []
     conflicts:
       - ccat

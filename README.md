@@ -16,7 +16,7 @@ for instance:
 ## help
 
 ```
-version >v0.9.5+dev [libcurl,crappy], commit 30d31cbebccfd89f6e9058fc8be203fbbb695e88, built at 2022-06-19@17:40:55 by build.sh
+version >v0.9.5+dev [libcurl,crappy], commit 2ea87955ca1454c61f2e8d27f672ae6a1cd2ba42, built at 2022-06-19@18:07:54 by build.sh
   -t, --tokens string      comma-separated list of tokens
   -i, --ignore-case        tokens given with -t are case-insensitive
   -o, --only               don't display lines without at least one token
