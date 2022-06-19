@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"os/exec"
 	"text/template"
 
 	"github.com/batmac/ccat/mutators"
@@ -59,10 +60,7 @@ func main() {
 		"log"
 		"os"
 	)
-	
-	var data =
-	{{ . }}
-	
+	var data ={{ . }}
 	func printLicense() {
 		zr, err := gzip.NewReader(bytes.NewReader(data))
 		if err != nil {
@@ -79,5 +77,15 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	ioutil.WriteFile(target, b.Bytes(), 0644)
+
+	cmd := exec.Command("gofmt", "-s", "-w", target)
+	stdoutStderr, err := cmd.CombinedOutput()
+	if err != nil {
+		log.Fatal(err)
+	}
+	if len(stdoutStderr) > 0 {
+		log.Printf("%s\n", stdoutStderr)
+	}
 }
