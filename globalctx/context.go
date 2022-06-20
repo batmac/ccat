@@ -24,7 +24,7 @@ type ctx struct {
 type key string
 
 func init() {
-	globalCtx = ctx{ctx: context.Background()}
+	Reset()
 }
 
 func Set(k string, v interface{}) {
@@ -38,4 +38,10 @@ func Get(k string) interface{} {
 	globalCtx.mu.Lock()
 	defer globalCtx.mu.Unlock()
 	return globalCtx.ctx.Value(key(k))
+}
+
+func Reset() {
+	globalCtx.mu.Lock()
+	defer globalCtx.mu.Unlock()
+	globalCtx.ctx = context.Background()
 }
