@@ -1,6 +1,10 @@
-package utils
+package utils_test
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/batmac/ccat/utils"
+)
 
 func TestFuzzySearch(t *testing.T) {
 	type args struct {
@@ -21,7 +25,7 @@ func TestFuzzySearch(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := FuzzySearch(tt.args.str, tt.args.strList, tt.args.threshold)
+			got, err := utils.FuzzySearch(tt.args.str, tt.args.strList, tt.args.threshold)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("FuzzySearch() error = %v, wantErr %v", err, tt.wantErr)
 				return

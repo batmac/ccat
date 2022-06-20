@@ -1,6 +1,10 @@
-package utils
+package utils_test
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/batmac/ccat/utils"
+)
 
 func TestStringInSlice(t *testing.T) {
 	type args struct {
@@ -20,7 +24,7 @@ func TestStringInSlice(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := StringInSlice(tt.args.a, tt.args.list); got != tt.want {
+			if got := utils.StringInSlice(tt.args.a, tt.args.list); got != tt.want {
 				t.Errorf("StringInSlice() = %v, want %v", got, tt.want)
 			}
 		})
@@ -49,7 +53,7 @@ func TestDeleteSpaces(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := DeleteSpaces(tt.args.str); got != tt.want {
+			if got := utils.DeleteSpaces(tt.args.str); got != tt.want {
 				t.Errorf("DeleteSpaces() = %v, want %v", got, tt.want)
 			}
 		})
