@@ -102,9 +102,9 @@ func processFile(path string) {
 			r, w := io.Pipe()
 			err := highlighter.Go(w, from, highlighter.Options{
 				FileName:      path,
-				StyleHint:     *argStyle,
-				FormatterHint: *argFormatter,
-				LexerHint:     *argLexer,
+				StyleHint:     strings.ToLower(*argStyle),
+				FormatterHint: strings.ToLower(*argFormatter),
+				LexerHint:     strings.ToLower(*argLexer),
 			})
 			if err != nil {
 				setError()
