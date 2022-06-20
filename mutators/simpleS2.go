@@ -22,7 +22,6 @@ func init() {
 	simpleRegister("snap", csnappy, withDescription("compress to snappy data"),
 		withCategory("compress"),
 	)
-
 }
 
 func uns2(out io.WriteCloser, in io.ReadCloser) (int64, error) {
@@ -36,7 +35,6 @@ func uns2(out io.WriteCloser, in io.ReadCloser) (int64, error) {
 
 func cs2(dst io.WriteCloser, src io.ReadCloser) (int64, error) {
 	return _cs2(dst, src)
-
 }
 
 func csnappy(dst io.WriteCloser, src io.ReadCloser) (int64, error) {

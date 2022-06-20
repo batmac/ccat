@@ -1,8 +1,9 @@
 package term
 
 import (
-	"github.com/batmac/ccat/log"
 	"os"
+
+	"github.com/batmac/ccat/log"
 )
 
 func IsSsh() bool {

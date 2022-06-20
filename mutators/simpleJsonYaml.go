@@ -35,6 +35,7 @@ func J2Y(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 
 	return int64(len(j)), nil
 }
+
 func Y2J(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 	y, err := ioutil.ReadAll(r)
 	if err != nil {

@@ -64,7 +64,7 @@ func New(cmdline ...string) (*PipedCmd, error) {
 		Stdin:  stdin,
 		Stdout: stdout,
 		Stderr: stderr,
-		//written: 0,
+		// written: 0,
 	}, nil
 }
 
@@ -75,7 +75,7 @@ func (c *PipedCmd) Start(stdin io.Reader) error {
 	if err != nil {
 		return err
 	}
-	//print("read\n")
+	// print("read\n")
 
 	go func() {
 		log.Debugln(" pipedcmd: routine starting to copy... ")

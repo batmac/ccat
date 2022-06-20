@@ -24,7 +24,7 @@ func FileOpen(path string, lock bool) (*os.File, error) {
 	return file, nil
 }
 
-//optionally unflock and close a file
+// optionally unflock and close a file
 func FileClose(file *os.File, unlock bool) {
 	if unlock {
 		log.Debugln(" lockable: unlock ", file.Name())

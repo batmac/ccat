@@ -69,7 +69,7 @@ func ScanWords(data []byte, atEOF bool) (advance int, token []byte, err error) {
 // ScanBytes is a split function for a Scanner that returns ALL data []bytes as a token.
 func ScanBytes(data []byte, atEOF bool) (advance int, token []byte, err error) {
 	if len(data) < 4096 && !atEOF {
-		//if len(data) < bufio.MaxScanTokenSize && !atEOF {
+		// if len(data) < bufio.MaxScanTokenSize && !atEOF {
 		return 0, nil, nil
 	}
 	if atEOF && len(data) == 0 {

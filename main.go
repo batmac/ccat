@@ -64,10 +64,9 @@ func init() {
 	} else {
 		log.SetDebug(os.Stderr)
 	}
-
 }
-func main() {
 
+func main() {
 	log.Debugln("STARTING ccat")
 	log.Debugf(buildLine())
 
@@ -116,7 +115,7 @@ func main() {
 		}
 	}
 
-	//fmt.Printf("%v\n", tmap)
+	// fmt.Printf("%v\n", tmap)
 
 	log.Debugln("initializing file list...")
 	fileList := flag.Args()
@@ -172,7 +171,6 @@ func availableMutatorsHelp() string {
 		for _, mutator := range l[category] {
 			s.WriteString("        " + mutator + "\n")
 		}
-
 	}
 	return s.String()
 }

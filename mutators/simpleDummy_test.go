@@ -7,7 +7,7 @@ import (
 )
 
 func Test_simpleDummy(t *testing.T) {
-	var tests = []struct {
+	tests := []struct {
 		name, decoded, encoded string
 	}{
 		{"hello", "hello", "hello"},

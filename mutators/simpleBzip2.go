@@ -1,10 +1,10 @@
 package mutators
 
 import (
-	"github.com/dsnet/compress/bzip2"
-
 	"io"
 	"log"
+
+	"github.com/dsnet/compress/bzip2"
 )
 
 func init() {

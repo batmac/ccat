@@ -38,7 +38,7 @@ KLUv/WQwA+UUAGKyjCQQi1gA+Mu1uPH4trE1CdEhIptwP1oghhOOOP5rTRkCAKACAAdroEXGmA2Uz10i
 ## help
 
 ```
-version >v0.9.6+dev [libcurl,crappy], commit ab8664a65a16c4dd1b7aa5d28a74d2bc1d28d6db, built at 2022-06-20@19:58:38 by build.sh
+version >v0.9.6+dev [libcurl,crappy], commit 56c5b5d3f8f44cd962935cdaaa102bb75b4782c2, built at 2022-06-21@00:01:12 by build.sh
   -t, --tokens string      comma-separated list of tokens
   -i, --ignore-case        tokens given with -t are case-insensitive
   -o, --only               don't display lines without at least one token

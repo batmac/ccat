@@ -10,8 +10,10 @@ import (
 	uwrap "github.com/muesli/reflow/wrap"
 )
 
-const WRAP_MAX_CHARS = 80
-const INDENT_CHARS = 4
+const (
+	WRAP_MAX_CHARS = 80
+	INDENT_CHARS   = 4
+)
 
 func init() {
 	simpleRegister("wrap", wordWrap, withDescription(
@@ -21,7 +23,6 @@ func init() {
 
 	simpleRegister("indent", simpleIndent, withDescription(
 		fmt.Sprintf("indent the text with %d chars", INDENT_CHARS)))
-
 }
 
 func wordWrap(w io.WriteCloser, r io.ReadCloser) (int64, error) {
@@ -33,6 +34,7 @@ func wordWrap(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 	ww.Close()
 	return io.Copy(w, bytes.NewReader(ww.Bytes()))
 }
+
 func unconditionalyWrap(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 	ww := uwrap.NewWriter(WRAP_MAX_CHARS)
 	_, err := io.Copy(ww, r)
@@ -49,6 +51,6 @@ func simpleIndent(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 	if err != nil {
 		return 0, err
 	}
-	//f.Close()
+	// f.Close()
 	return io.Copy(w, bytes.NewReader(f.Bytes()))
 }

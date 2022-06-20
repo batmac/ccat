@@ -29,6 +29,7 @@ func Test_simpleY2J(t *testing.T) {
 		})
 	}
 }
+
 func Test_simpleJ2Y(t *testing.T) {
 	f := "j2y"
 	for _, tt := range testsYJ {

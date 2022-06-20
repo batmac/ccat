@@ -7,15 +7,18 @@ import (
 )
 
 func Test_simpleWWrap(t *testing.T) {
-	var tests = []struct {
+	tests := []struct {
 		name, decoded, encoded string
 	}{
-		{"hello",
+		{
 			"hello",
-			"hello"},
+			"hello",
+			"hello",
+		},
 		{"empty", "", ""},
 
-		{"lipsum",
+		{
+			"lipsum",
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor," +
 				" dignissim sit amet, adipiscing nec, ultricies sed, dolor.",
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.\n" +
@@ -35,15 +38,18 @@ func Test_simpleWWrap(t *testing.T) {
 }
 
 func Test_simpleUWrap(t *testing.T) {
-	var tests = []struct {
+	tests := []struct {
 		name, decoded, encoded string
 	}{
-		{"hello",
+		{
 			"hello",
-			"hello"},
+			"hello",
+			"hello",
+		},
 		{"empty", "", ""},
 
-		{"lipsum",
+		{
+			"lipsum",
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor," +
 				" dignissim sit amet, adipiscing nec, ultricies sed, dolor.",
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendi\n" +
@@ -62,15 +68,18 @@ func Test_simpleUWrap(t *testing.T) {
 }
 
 func Test_simpleIndent(t *testing.T) {
-	var tests = []struct {
+	tests := []struct {
 		name, decoded, encoded string
 	}{
-		{"hello",
+		{
 			"hello",
-			"    hello"},
+			"hello",
+			"    hello",
+		},
 		{"empty", "", ""},
 
-		{"lipsum",
+		{
+			"lipsum",
 			"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor,\n" +
 				" dignissim sit amet, adipiscing nec, ultricies sed, dolor.",
 			"    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor,\n" +

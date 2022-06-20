@@ -23,7 +23,7 @@ import (
 
 const (
 	DEFAULT_STYLE = "monokai"
-	//DEFAULT_FORMATTER = "terminal16m"
+	// DEFAULT_FORMATTER = "terminal16m"
 	MAX_READ_SIZE = 10_000_000
 )
 
@@ -35,7 +35,7 @@ type Chroma struct {
 
 func (h *Chroma) highLight(w io.WriteCloser, r io.ReadCloser, o Options) error {
 	log.Debugln(" highlighter: start chroma Highlighter")
-	//log.Debugln(log.Pp(o))
+	// log.Debugln(log.Pp(o))
 
 	var filename string = o.FileName
 
@@ -72,14 +72,13 @@ func (h *Chroma) highLight(w io.WriteCloser, r io.ReadCloser, o Options) error {
 			}
 		}
 		lexer = chroma.Coalesce(lexer)
-
 	}
 
 	log.Debugf(" highlighter: chosen Lexer is %v\n", lexer.Config().Name)
 	h.lexer = lexer.Config().Name
 
-	//log.Debugf(" highlighter: registered styles are: %v\n", styles.Names())
-	//registered styles are: [abap algol algol_nu arduino autumn base16-snazzy borland bw colorful doom-one doom-one2 dracula emacs friendly fruity github hr_high_contrast hrdark igor lovelace manni monokai monokailight murphy native nord onesenterprise paraiso-dark paraiso-light pastie perldoc pygments rainbow_dash rrt solarized-dark solarized-dark256 solarized-light swapoff tango trac vim vs vulcan witchhazel xcode xcode-dark]
+	// log.Debugf(" highlighter: registered styles are: %v\n", styles.Names())
+	// registered styles are: [abap algol algol_nu arduino autumn base16-snazzy borland bw colorful doom-one doom-one2 dracula emacs friendly fruity github hr_high_contrast hrdark igor lovelace manni monokai monokailight murphy native nord onesenterprise paraiso-dark paraiso-light pastie perldoc pygments rainbow_dash rrt solarized-dark solarized-dark256 solarized-light swapoff tango trac vim vs vulcan witchhazel xcode xcode-dark]
 
 	stylesList := styles.Names()
 	//#nosec
@@ -144,10 +143,9 @@ func checkWithFuzzy(s string, list []string) bool {
 	if len(s) == 0 {
 		return false
 	}
-	//log.Printf("%v\n", list)
+	// log.Printf("%v\n", list)
 	if utils.StringInSlice(s, list) {
 		return true
-
 	} else {
 		fs, err := utils.FuzzySearch(s, list, 0.5)
 		if err != nil {

@@ -32,7 +32,7 @@ func unzip(out io.WriteCloser, in io.ReadCloser) (int64, error) {
 		log.Fatal(err)
 	}
 
-	//return the first file
+	// return the first file
 	for _, f := range r.File {
 		log.Debugf("found file %s\n", f.Name)
 		rc, err := f.Open()
@@ -63,7 +63,6 @@ func czip(out io.WriteCloser, in io.ReadCloser) (int64, error) {
 		log.Fatal(err)
 	}
 	return io.Copy(f, in)
-
 }
 
 func filename() string {

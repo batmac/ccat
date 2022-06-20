@@ -13,8 +13,10 @@ import (
 	"github.com/batmac/ccat/utils"
 )
 
-var httpOpenerName = "http"
-var httpOpenerDescription = "get URL via HTTP(S)"
+var (
+	httpOpenerName        = "http"
+	httpOpenerDescription = "get URL via HTTP(S)"
+)
 
 type httpOpener struct {
 	name, description string
@@ -31,9 +33,11 @@ func init() {
 func (f httpOpener) Name() string {
 	return f.name
 }
+
 func (f httpOpener) Description() string {
 	return f.description
 }
+
 func (f httpOpener) Open(s string, _ bool) (io.ReadCloser, error) {
 	resp, err := http.Get(s)
 	if err != nil {
@@ -41,7 +45,6 @@ func (f httpOpener) Open(s string, _ bool) (io.ReadCloser, error) {
 		return nil, err
 	}
 	nrc := utils.NewReadCloser(resp.Body, func() error {
-
 		return nil
 	})
 
@@ -49,7 +52,7 @@ func (f httpOpener) Open(s string, _ bool) (io.ReadCloser, error) {
 }
 
 func (f httpOpener) Evaluate(s string) float32 {
-	//log.Debugf("Evaluating %s...\n", s)
+	// log.Debugf("Evaluating %s...\n", s)
 	if strings.HasPrefix(s, "http://") || strings.HasPrefix(s, "https://") {
 		return 0.9
 	}

@@ -19,21 +19,24 @@ func Test_Run(t *testing.T) {
 	}{
 		{
 			name: "first",
-			args: args{f: "dummy",
+			args: args{
+				f:     "dummy",
 				input: "hello",
 			},
 			want: "hello",
 		},
 		{
 			name: "empty",
-			args: args{f: "dummy",
+			args: args{
+				f:     "dummy",
 				input: "",
 			},
 			want: "",
 		},
 		{
 			name: "zero",
-			args: args{f: "dummy",
+			args: args{
+				f:     "dummy",
 				input: "\x00",
 			},
 			want: "\x00",

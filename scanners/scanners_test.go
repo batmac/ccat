@@ -10,7 +10,7 @@ import (
 	"unicode/utf8"
 )
 
-//const smallMaxTokenSize = 256 // Much smaller for more efficient testing.
+// const smallMaxTokenSize = 256 // Much smaller for more efficient testing.
 
 // Test white space table matches the Unicode definition.
 func TestSpace(t *testing.T) {

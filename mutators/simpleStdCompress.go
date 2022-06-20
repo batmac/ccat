@@ -51,7 +51,6 @@ func unzlib(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 	}
 	defer z.Close()
 	return io.Copy(w, z)
-
 }
 
 func cgzip(w io.WriteCloser, r io.ReadCloser) (int64, error) {
@@ -62,6 +61,7 @@ func cgzip(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 	defer zw.Close()
 	return io.Copy(zw, r)
 }
+
 func czlib(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 	zw, err := zlib.NewWriterLevel(w, zlib.DefaultCompression)
 	if err != nil {

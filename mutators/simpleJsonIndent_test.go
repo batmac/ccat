@@ -8,7 +8,7 @@ import (
 )
 
 func Test_simpleJsonIndent(t *testing.T) {
-	var tests = []struct {
+	tests := []struct {
 		name, decoded, encoded string
 	}{
 		{"empty", "", ""},

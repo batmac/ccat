@@ -60,8 +60,7 @@ func processFile(path string) {
 	if len(*argExec) > 0 {
 		log.Debugf("creating pipedcmd %v...\n", *argExec)
 		cmd, err := pipedcmd.New(*argExec)
-		//log.Debugf("%s", log.Pp(cmd))
-
+		// log.Debugf("%s", log.Pp(cmd))
 		if err != nil {
 			setError()
 			log.Fatal(err)
@@ -116,11 +115,11 @@ func processFile(path string) {
 	}
 	log.Debugln("initializing Scanner...")
 
-	//go http.ListenAndServe(":8090", nil)
+	// go http.ListenAndServe(":8090", nil)
 	scanner := bufio.NewScanner(from)
 
 	splitFn := scanners.ScanBytes
-	//splitFn := scanners.ScanLines
+	// splitFn := scanners.ScanLines
 	if len(tokens) > 0 || *argLineNumber || *argOnlyMatching {
 		log.Debugln("splitting on Lines...")
 		splitFn = scanners.ScanLines
@@ -142,8 +141,8 @@ func processFile(path string) {
 				regexpPrefix = "(?i)"
 			}
 
-			//fmt.Println("text ", text)
-			//fmt.Println("token ", token)
+			// fmt.Println("text ", text)
+			// fmt.Println("token ", token)
 			matched, err = regexp.MatchString(regexpPrefix+token, string(text))
 			if err != nil {
 				setError()

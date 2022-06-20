@@ -8,10 +8,11 @@ import (
 )
 
 func Test_simplePlist(t *testing.T) {
-	var tests = []struct {
+	tests := []struct {
 		name, decoded, encoded string
 	}{
-		{"test",
+		{
+			"test",
 			`<?xml version="1.0" encoding="UTF-8"?>
 		 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 		 <plist version="1.0">
@@ -31,7 +32,8 @@ func Test_simplePlist(t *testing.T) {
 			 </array>
 		 </dict>
 		 </plist>`,
-			"Label: testLabel\ntestArray:\n- testStringInArray\ntestDict:\n  testKeyInDict: true\ntestKey: testString"},
+			"Label: testLabel\ntestArray:\n- testStringInArray\ntestDict:\n  testKeyInDict: true\ntestKey: testString",
+		},
 	}
 
 	f := "plist2Y"

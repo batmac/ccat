@@ -7,12 +7,13 @@ import (
 )
 
 func Test_simpleUnQP(t *testing.T) {
-	var tests = []struct {
+	tests := []struct {
 		name, decoded, encoded string
 	}{
 		{"hello", "hello", "hello"},
 		{"empty", "", ""},
-		{"wikipedia",
+		{
+			"wikipedia",
 			"J'interdis aux marchands de vanter trop leurs marchandises. Car ils se font=\n" +
 				" vite p=C3=A9dagogues et t'enseignent comme but ce qui n'est par essence qu=\n" +
 				"'un moyen, et te trompant ainsi sur la route =C3=A0 suivre les voil=C3=\n" +
@@ -37,12 +38,13 @@ func Test_simpleUnQP(t *testing.T) {
 }
 
 func Test_simpleQP(t *testing.T) {
-	var tests = []struct {
+	tests := []struct {
 		name, decoded, encoded string
 	}{
 		{"hello", "hello", "hello"},
 		{"empty", "", ""},
-		{"wikipedia",
+		{
+			"wikipedia",
 			"J'interdis aux marchands de vanter trop leurs marchandises. Car ils se font " +
 				"vite pédagogues et t'enseignent comme but ce qui n'est par essence qu'un moyen," +
 				" et te trompant ainsi sur la route à suivre les voilà bientôt qui te dégradent," +
@@ -53,7 +55,8 @@ func Test_simpleQP(t *testing.T) {
 				"'un moyen, et te trompant ainsi sur la route =C3=A0 suivre les voil=C3=A0 b=\r\n" +
 				"ient=C3=B4t qui te d=C3=A9gradent, car si leur musique est vulgaire ils te =\r\n" +
 				"fabriquent pour te la vendre une =C3=A2me vulgaire.\r\n" +
-				"=E2=80=94=E2=80=89Antoine de Saint-Exup=C3=A9ry, Citadelle (1948)"},
+				"=E2=80=94=E2=80=89Antoine de Saint-Exup=C3=A9ry, Citadelle (1948)",
+		},
 	}
 	f := "qp"
 	for _, tt := range tests {

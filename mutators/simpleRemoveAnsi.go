@@ -14,7 +14,6 @@ func init() {
 }
 
 func removeANSI(w io.WriteCloser, r io.ReadCloser) (int64, error) {
-
 	p := ansihtml.NewParser(r, w)
 	err := p.Parse(nil)
 	if err != nil {

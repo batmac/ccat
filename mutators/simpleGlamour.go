@@ -20,7 +20,7 @@ func init() {
 func glamourize(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 	g, err := glamour.NewTermRenderer(
 		// detect background color and pick either the default dark or light theme
-		//glamour.WithAutoStyle(),
+		// glamour.WithAutoStyle(),
 		glamour.WithEmoji(),
 		glamour.WithEnvironmentConfig(),
 	)

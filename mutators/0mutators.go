@@ -19,7 +19,7 @@ var (
 	globalCollection = newCollection("globalMutatorsCollection", log.Default())
 )
 
-//Mutator and factory should be totally separate or reentrant as in the future they may be used simultaneously
+// Mutator and factory should be totally separate or reentrant as in the future they may be used simultaneously
 
 type Mutator interface {
 	Start(w io.WriteCloser, r io.ReadCloser) error
@@ -39,19 +39,18 @@ type mutatorCollection struct {
 	mu       sync.Mutex
 	Name     string
 	mutators []Mutator
-	//Mutators  map[string]Mutator
+	// Mutators  map[string]Mutator
 	factories map[string]factory
 	logger    *log.Logger
 }
 
 func newCollection(name string, logger *log.Logger) *mutatorCollection {
-
 	glog = logger
 	defer glog.Printf("mutators: collection %s ready.\n", name)
 
 	return &mutatorCollection{
 		Name: name,
-		//Mutators:  make(map[string]Mutator),
+		// Mutators:  make(map[string]Mutator),
 		factories: make(map[string]factory),
 		logger:    logger,
 	}
@@ -96,6 +95,7 @@ func ListAvailableMutators() []string {
 	sort.Strings(l)
 	return l
 }
+
 func ListAvailableMutatorsByCategoryWithDescriptions() map[string][]string {
 	listByCategory := make(map[string][]string)
 	for _, v := range globalCollection.factories {

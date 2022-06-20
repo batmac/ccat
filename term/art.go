@@ -28,8 +28,8 @@ func init() {
 		extMap["."+e] = true
 	}
 }
-func IsArt(path string) bool {
 
+func IsArt(path string) bool {
 	extension := strings.ToLower(filepath.Ext(path))
 	_, ok := extMap[extension]
 
@@ -37,6 +37,7 @@ func IsArt(path string) bool {
 
 	return ok
 }
+
 func PrintArt(r io.Reader) {
 	fmt.Println()
 	if IsITerm2() {
@@ -74,7 +75,6 @@ func printANSIArt(r io.Reader) error {
 		ansimage.ScaleModeFit,
 		ansimage.NoDithering,
 	)
-
 	if err != nil {
 		log.Println(err)
 	}

@@ -19,7 +19,6 @@ var (
 )
 
 func init() {
-
 }
 
 type Logger struct {
@@ -45,6 +44,7 @@ func Debugf(format string, v ...interface{}) {
 	}
 	_ = Debug.Output(2, fmt.Sprintf(format, v...))
 }
+
 func Debugln(v ...interface{}) {
 	if atomic.LoadInt32(&debugIsDiscard) != 0 {
 		return
@@ -55,9 +55,11 @@ func Debugln(v ...interface{}) {
 func Printf(format string, v ...interface{}) {
 	Stderr.Output(2, fmt.Sprintf(format, v...))
 }
+
 func Print(v ...interface{}) {
 	Stderr.Output(2, fmt.Sprintln(v...))
 }
+
 func Println(v ...interface{}) {
 	Stderr.Output(2, fmt.Sprint(v...))
 }

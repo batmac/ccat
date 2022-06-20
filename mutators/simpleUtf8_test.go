@@ -7,7 +7,7 @@ import (
 )
 
 func Test_simpleFilterUTF8(t *testing.T) {
-	var tests = []struct {
+	tests := []struct {
 		name, decoded, encoded string
 	}{
 		{"empty", "", ""},

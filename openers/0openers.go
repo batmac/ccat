@@ -10,14 +10,12 @@ import (
 	"github.com/batmac/ccat/log"
 )
 
-var (
-	// register() is called from init() so this has to be global
-	globalCollection = newCollection("global")
-)
+// register() is called from init() so this has to be global
+var globalCollection = newCollection("global")
 
 type Opener interface {
 	Open(s string, lock bool) (io.ReadCloser, error)
-	Evaluate(s string) float32 //score the ability to open
+	Evaluate(s string) float32 // score the ability to open
 	Name() string
 	Description() string
 }
@@ -29,7 +27,7 @@ type OpenerCollection struct {
 }
 
 func newCollection(name string) *OpenerCollection {
-	//log.Printf("openers collection %s ready.\n", name)
+	// log.Printf("openers collection %s ready.\n", name)
 	return &OpenerCollection{
 		Name: name,
 	}
@@ -40,7 +38,7 @@ func register(opener Opener) error {
 	globalCollection.openers = append(globalCollection.openers, opener)
 	globalCollection.mu.Unlock()
 	log.SetDebug(os.Stderr)
-	//log.Debugf(" opener \"%s\" registered (%s)\n", opener.Name(), opener.Description())
+	// log.Debugf(" opener \"%s\" registered (%s)\n", opener.Name(), opener.Description())
 	return nil
 }
 
@@ -51,12 +49,11 @@ func Open(s string, lock bool) (io.ReadCloser, error) {
 	var oChosen Opener
 	for _, o := range globalCollection.openers {
 		e := o.Evaluate(s)
-		//log.Debugf(" openers: evaluate %s with \"%s\": %v\n", s, o.Name(), e)
+		// log.Debugf(" openers: evaluate %s with \"%s\": %v\n", s, o.Name(), e)
 		if e > eMax {
 			eMax = e
 			oChosen = o
 		}
-
 	}
 	if eMax == 0.0 {
 		if !strings.Contains(s, "://") {

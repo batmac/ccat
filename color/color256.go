@@ -16,7 +16,6 @@ func (c Color256) String() string {
 		ccached[c] = "\x1b[38;5;" + strconv.Itoa(1+int(c)) + "m"
 	}
 	return ccached[c]
-
 }
 
 func (c Color256) Sprint(s string) string {

@@ -17,8 +17,10 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/sts"
 )
 
-var s3OpenerName = "s3"
-var s3OpenerDescription = "get an AWS s3 object via s3://"
+var (
+	s3OpenerName        = "s3"
+	s3OpenerDescription = "get an AWS s3 object via s3://"
+)
 
 type s3Opener struct {
 	name, description string
@@ -34,15 +36,18 @@ func init() {
 func (f s3Opener) Name() string {
 	return f.name
 }
+
 func (f s3Opener) Description() string {
 	return f.description
 }
+
 func (f s3Opener) Evaluate(s string) float32 {
 	if strings.HasPrefix(s, "s3://") {
 		return 0.99
 	}
 	return 0
 }
+
 func (f s3Opener) Open(s string, _ bool) (io.ReadCloser, error) {
 	ctx := context.Background()
 
@@ -53,7 +58,7 @@ func (f s3Opener) Open(s string, _ bool) (io.ReadCloser, error) {
 		log.Debugf("  nothing found in env, setting a default profile\n")
 		os.Setenv("AWS_PROFILE", "default")
 	}
-	//os.Setenv("AWS_PROFILE", "splio-sandbox")
+	// os.Setenv("AWS_PROFILE", "splio-sandbox")
 
 	// Load the Shared AWS Configuration (~/.aws/config)``
 	log.Debugf(" LoadDefaultConfig...\n")
@@ -76,18 +81,21 @@ func (f s3Opener) Open(s string, _ bool) (io.ReadCloser, error) {
 	o, err := s3Client.GetObject(ctx,
 		&s3.GetObjectInput{
 			Bucket: aws.String(bucket),
-			Key:    aws.String(object)})
+			Key:    aws.String(object),
+		})
 	if err != nil {
 		return nil, err
 	}
 
 	return o.Body, nil
 }
+
 func parseURI(s string) (string, string) {
 	s = strings.TrimPrefix(s, "s3://")
 	pair := strings.SplitN(s, "/", 2)
 	return pair[0], pair[1]
 }
+
 func displayDebugInfoWithSTS(ctx context.Context, cfg aws.Config) error {
 	// Create an Amazon S3 service client
 	log.Debugf(" creating STS client...\n")
@@ -100,6 +108,7 @@ func displayDebugInfoWithSTS(ctx context.Context, cfg aws.Config) error {
 	log.Debugf("  Account: %s, Arn: %s\n", aws.ToString(identity.Account), aws.ToString(identity.Arn))
 	return nil
 }
+
 func isAWSEnvSet() bool {
 	found := false
 

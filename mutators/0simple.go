@@ -32,11 +32,13 @@ func withHintLexer(s string) simpleOption {
 		f.hintLexer = s
 	}
 }
+
 func withDescription(s string) simpleOption {
 	return func(f *simpleFactory) {
 		f.description = s
 	}
 }
+
 func withCategory(s string) simpleOption {
 	return func(f *simpleFactory) {
 		if s == "compress" {
@@ -45,6 +47,7 @@ func withCategory(s string) simpleOption {
 		f.category = s
 	}
 }
+
 func withExpectingBinary(b bool) simpleOption {
 	return func(f *simpleFactory) {
 		f.expectingBinary = true
@@ -102,6 +105,7 @@ func (m *simpleMutator) Start(w io.WriteCloser, r io.ReadCloser) error {
 
 	return nil
 }
+
 func (m *simpleMutator) Wait() error {
 	m.logger.Printf("%s: wait called\n", m.Name())
 	m.mu.Lock()
@@ -122,18 +126,23 @@ func (m *simpleMutator) Wait() error {
 func (m *simpleMutator) Name() string {
 	return m.factory.Name()
 }
+
 func (m *simpleMutator) Description() string {
 	return m.factory.Description()
 }
+
 func (m *simpleMutator) Category() string {
 	return m.factory.Category()
 }
+
 func (f *simpleFactory) Name() string {
 	return f.name
 }
+
 func (f *simpleFactory) Description() string {
 	return f.description
 }
+
 func (f *simpleFactory) Category() string {
 	return f.category
 }
