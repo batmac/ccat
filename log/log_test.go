@@ -29,7 +29,6 @@ func TestDefault(t *testing.T) {
 }
 
 func TestSetDebug(t *testing.T) {
-
 	t.Run("bytes.Buffer", func(t *testing.T) {
 		w := &bytes.Buffer{}
 		SetDebug(w)
@@ -37,7 +36,6 @@ func TestSetDebug(t *testing.T) {
 			t.Errorf("SetDebug() = %v, want %v", Debug.Logger, w)
 		}
 	})
-
 }
 
 func TestPp(t *testing.T) {

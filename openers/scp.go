@@ -4,16 +4,19 @@
 package openers
 
 import (
-	"github.com/batmac/ccat/log"
 	"io"
 	"io/ioutil"
 	"os"
 	"os/exec"
 	"strings"
+
+	"github.com/batmac/ccat/log"
 )
 
-var localShellScpOpenerName = "ShellScp"
-var localShellScpOpenerDescription = "get scp:// via local scp\n"
+var (
+	localShellScpOpenerName        = "ShellScp"
+	localShellScpOpenerDescription = "get scp:// via local scp\n"
+)
 
 type localShellScpOpener struct {
 	name, description string
@@ -29,11 +32,12 @@ func init() {
 func (f localShellScpOpener) Name() string {
 	return f.name
 }
+
 func (f localShellScpOpener) Description() string {
 	return f.description
 }
-func (f *localShellScpOpener) Open(s string, _ bool) (io.ReadCloser, error) {
 
+func (f *localShellScpOpener) Open(s string, _ bool) (io.ReadCloser, error) {
 	log.Debugln(" localShellScp started")
 
 	arr := strings.SplitN(s, "scp://", 2)

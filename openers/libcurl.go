@@ -4,20 +4,23 @@
 package openers
 
 import (
-	"github.com/batmac/ccat/log"
-	"github.com/batmac/ccat/utils"
 	"io"
 	"regexp"
 	"strings"
 	"time"
 
+	"github.com/batmac/ccat/log"
+	"github.com/batmac/ccat/utils"
+
 	curl "github.com/andelf/go-curl"
 )
 
-var curlOpenerName = "curl"
-var curlOpenerDescription = "get URL via libcurl bindings\n           " +
-	curl.Version() + "\n           protocols: " +
-	strings.Join(curl.VersionInfo(0).Protocols, ",")
+var (
+	curlOpenerName        = "curl"
+	curlOpenerDescription = "get URL via libcurl bindings\n           " +
+		curl.Version() + "\n           protocols: " +
+		strings.Join(curl.VersionInfo(0).Protocols, ",")
+)
 
 type curlOpener struct {
 	easy              *curl.CURL
@@ -34,8 +37,8 @@ func init() {
 func (f *curlOpener) easyHandlerInit() {
 	// we don't cleanup curl stuff when ending because we don't care (we only use one)
 
-	//curl.GlobalInit(curl.GLOBAL_DEFAULT)
-	//defer curl.GlobalCleanup()
+	// curl.GlobalInit(curl.GLOBAL_DEFAULT)
+	// defer curl.GlobalCleanup()
 	f.easy = curl.EasyInit()
 	f.easy.Setopt(curl.OPT_VERBOSE, false)
 	f.easy.Setopt(curl.OPT_FOLLOWLOCATION, true)
@@ -65,11 +68,12 @@ func (f *curlOpener) easyHandlerInit() {
 func (f curlOpener) Name() string {
 	return f.name
 }
+
 func (f curlOpener) Description() string {
 	return f.description
 }
-func (f *curlOpener) Open(s string, _ bool) (io.ReadCloser, error) {
 
+func (f *curlOpener) Open(s string, _ bool) (io.ReadCloser, error) {
 	r, w := io.Pipe()
 	go func() {
 		log.Debugln(" curl goroutine started")
@@ -77,7 +81,7 @@ func (f *curlOpener) Open(s string, _ bool) (io.ReadCloser, error) {
 		if f.easy == nil {
 			f.easyHandlerInit()
 		}
-		//defer easy.Cleanup()
+		// defer easy.Cleanup()
 
 		s = tryTransformUrl(s)
 
@@ -103,7 +107,7 @@ func (f curlOpener) Evaluate(s string) float32 {
 	// MQTT, POP3, POP3S, RTMP, RTSP, SCP, SFTP, SMB, SMBS, SMTP, SMTPS, TELNET, TFTP
 	arr := strings.SplitN(s, "://", 2)
 	before := arr[0]
-	//log.Printf("before=%s found=%v s=%v", before, found, s)
+	// log.Printf("before=%s found=%v s=%v", before, found, s)
 	if utils.StringInSlice(before, curl.VersionInfo(0).Protocols) {
 		return 0.1
 	}

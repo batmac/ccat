@@ -4,8 +4,9 @@
 package lockable
 
 import (
-	"github.com/batmac/ccat/log"
 	"os"
+
+	"github.com/batmac/ccat/log"
 )
 
 func Flock(file *os.File) error {
