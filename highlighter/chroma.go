@@ -8,6 +8,7 @@ import (
 	"io"
 	"io/ioutil"
 	"math/rand"
+	"os"
 	"time"
 
 	"github.com/batmac/ccat/log"
@@ -34,7 +35,7 @@ type Chroma struct {
 
 func (h *Chroma) HighLight(w io.WriteCloser, r io.ReadCloser, o Options) error {
 	log.Debugln(" highlighter: start chroma Highlighter")
-	log.Debugln(log.Pp(o))
+	//log.Debugln(log.Pp(o))
 
 	var filename string = o.FileName
 
@@ -57,7 +58,7 @@ func (h *Chroma) HighLight(w io.WriteCloser, r io.ReadCloser, o Options) error {
 	// log.Debugf(" highlighter: registered lexers are: %v\n", lexers.Names(true))
 	lexersList := lexers.Names(true)
 	var lexer chroma.Lexer
-	if len(o.LexerHint) > 0 && utils.StringInSlice(o.LexerHint, lexersList) {
+	if checkWithFuzzy(o.LexerHint, lexersList) {
 		log.Debugf(" highlighter: setting the lexer to %v\n", o.LexerHint)
 		lexer = lexers.Get(o.LexerHint)
 	} else {
@@ -86,13 +87,13 @@ func (h *Chroma) HighLight(w io.WriteCloser, r io.ReadCloser, o Options) error {
 		rand.Seed(time.Now().UnixNano())
 		randStyle := rand.Intn(len(stylesList))
 		h.style = stylesList[randStyle]
-	} else if len(o.StyleHint) > 0 && utils.StringInSlice(o.StyleHint, stylesList) {
+	} else if checkWithFuzzy(o.StyleHint, stylesList) {
 		h.style = o.StyleHint
 	} else {
 		h.style = DEFAULT_STYLE
 	}
 
-	style := styles.Get(h.style) // or monokai
+	style := styles.Get(h.style)
 	if style == nil {
 		style = styles.Fallback
 	}
@@ -101,7 +102,7 @@ func (h *Chroma) HighLight(w io.WriteCloser, r io.ReadCloser, o Options) error {
 	log.Debugf(" highlighter: registered formatters are: %v\n", formatters.Names())
 
 	formattersList := formatters.Names()
-	if len(o.FormatterHint) > 0 && utils.StringInSlice(o.FormatterHint, formattersList) {
+	if checkWithFuzzy(o.FormatterHint, formattersList) {
 		h.formatter = o.FormatterHint
 	} else {
 		c := term.SupportedColors()
@@ -137,6 +138,28 @@ func (h *Chroma) HighLight(w io.WriteCloser, r io.ReadCloser, o Options) error {
 
 	log.Debugln(" highlighter: end chroma Highlight")
 	return nil
+}
+
+func checkWithFuzzy(s string, list []string) bool {
+	if len(s) == 0 {
+		return false
+	}
+	//log.Printf("%v\n", list)
+	if utils.StringInSlice(s, list) {
+		return true
+
+	} else {
+		fs, err := utils.FuzzySearch(s, list, 0.5)
+		if err != nil {
+			log.Fatal(err)
+		}
+		if len(fs) == 0 {
+			return false
+		}
+		fmt.Fprintf(os.Stderr, "'%s' does not exist, did you mean %s?\n", s, fs)
+		os.Exit(1)
+	}
+	return false
 }
 
 func (h *Chroma) help() string {
