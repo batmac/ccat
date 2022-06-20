@@ -17,7 +17,7 @@ import (
 
 var (
 	path   = "LICENSE"
-	target = "license.go"
+	target = "generated.go"
 )
 
 func main() {
@@ -78,12 +78,12 @@ func main() {
 		log.Fatal(err)
 	}
 
-	ioutil.WriteFile(target, b.Bytes(), 0644)
+	ioutil.WriteFile(target, b.Bytes(), 0o644)
 
 	cmd := exec.Command("gofmt", "-s", "-w", target)
 	stdoutStderr, err := cmd.CombinedOutput()
 	if err != nil {
-		log.Fatal(err)
+		log.Print(err)
 	}
 	if len(stdoutStderr) > 0 {
 		log.Printf("%s\n", stdoutStderr)
