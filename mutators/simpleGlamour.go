@@ -12,8 +12,9 @@ import (
 )
 
 func init() {
-	// we want the output not to be highlighted
-	simpleRegister("md", glamourize, withDescription("Render Markdown (with glamour)"), withExpectingBinary(true))
+	// we want the output not to be highlighted again
+	simpleRegister("md", glamourize, withDescription("Render Markdown (with glamour)"),
+		withExpectingBinary(true))
 }
 
 func glamourize(w io.WriteCloser, r io.ReadCloser) (int64, error) {

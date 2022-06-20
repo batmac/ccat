@@ -9,8 +9,12 @@ import (
 )
 
 func init() {
-	simpleRegister("unqp", unqp, withDescription("decode quoted-printable data"))
-	simpleRegister("qp", cqp, withDescription("encode quoted-printable data"))
+	simpleRegister("unqp", unqp, withDescription("decode quoted-printable data"),
+		withCategory("convert"),
+	)
+	simpleRegister("qp", cqp, withDescription("encode quoted-printable data"),
+		withCategory("convert"),
+	)
 }
 
 func unqp(out io.WriteCloser, in io.ReadCloser) (int64, error) {

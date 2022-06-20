@@ -11,7 +11,10 @@ import (
 )
 
 func init() {
-	simpleRegister("plist2Y", unplist, withDescription("display an Apple plist as yaml"), withHintLexer("YAML"))
+	simpleRegister("plist2Y", unplist, withDescription("display an Apple plist as yaml"),
+		withHintLexer("YAML"),
+		withCategory("convert"),
+	)
 }
 
 func unplist(out io.WriteCloser, in io.ReadCloser) (int64, error) {

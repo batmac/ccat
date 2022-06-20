@@ -9,8 +9,12 @@ import (
 )
 
 func init() {
-	simpleRegister("unlz4", unlz4, withDescription("decompress lz4 data"))
-	simpleRegister("lz4", clz4, withDescription("compress to lz4 data"), withExpectingBinary(true))
+	simpleRegister("unlz4", unlz4, withDescription("decompress lz4 data"),
+		withCategory("decompress"),
+	)
+	simpleRegister("lz4", clz4, withDescription("compress to lz4 data"),
+		withCategory("compress"),
+	)
 }
 
 func unlz4(out io.WriteCloser, in io.ReadCloser) (int64, error) {

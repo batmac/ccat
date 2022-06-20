@@ -8,14 +8,26 @@ import (
 )
 
 func init() {
-	simpleRegister("unxz", unxz, withDescription("decompress xz data"))
-	simpleRegister("xz", cxz, withDescription("compress to xz data"), withExpectingBinary(true))
+	simpleRegister("unxz", unxz, withDescription("decompress xz data"),
+		withCategory("decompress"),
+	)
+	simpleRegister("xz", cxz, withDescription("compress to xz data"),
+		withCategory("compress"),
+	)
 
-	simpleRegister("unlzma", unlzma, withDescription("decompress lzma data"))
-	simpleRegister("lzma", clzma, withDescription("compress to lzma data"), withExpectingBinary(true))
-	simpleRegister("unlzma2", unlzma2, withDescription("decompress lzma2 data"))
-	simpleRegister("lzma2", clzma2, withDescription("compress to lzma2 data"), withExpectingBinary(true))
+	simpleRegister("unlzma", unlzma, withDescription("decompress lzma data"),
+		withCategory("decompress"),
+	)
+	simpleRegister("lzma", clzma, withDescription("compress to lzma data"),
+		withCategory("compress"),
+	)
 
+	simpleRegister("unlzma2", unlzma2, withDescription("decompress lzma2 data"),
+		withCategory("decompress"),
+	)
+	simpleRegister("lzma2", clzma2, withDescription("compress to lzma2 data"),
+		withCategory("compress"),
+	)
 }
 
 func unxz(out io.WriteCloser, in io.ReadCloser) (int64, error) {

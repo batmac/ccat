@@ -13,8 +13,12 @@ import (
 )
 
 func init() {
-	simpleRegister("unzip", unzip, withDescription("decompress the first file in a zip archive"))
-	simpleRegister("zip", czip, withDescription("compress to zip data"), withExpectingBinary(true))
+	simpleRegister("unzip", unzip, withDescription("decompress the first file in a zip archive"),
+		withCategory("decompress"),
+	)
+	simpleRegister("zip", czip, withDescription("compress to zip data"),
+		withCategory("compress"),
+	)
 }
 
 func unzip(out io.WriteCloser, in io.ReadCloser) (int64, error) {

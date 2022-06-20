@@ -4,6 +4,8 @@ import (
 	"bufio"
 	"fmt"
 	"io"
+	"os"
+	"regexp"
 	"strings"
 
 	"github.com/batmac/ccat/globalctx"
@@ -14,10 +16,7 @@ import (
 	"github.com/batmac/ccat/pipedcmd"
 	"github.com/batmac/ccat/scanners"
 	"github.com/batmac/ccat/term"
-
 	//_ "net/http/pprof"
-	"os"
-	"regexp"
 )
 
 func processFile(path string) {

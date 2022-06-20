@@ -26,11 +26,13 @@ type Mutator interface {
 	Wait() error
 	Name() string
 	Description() string
+	Category() string
 }
 type factory interface {
 	newMutator(logger *log.Logger) (Mutator, error)
 	Name() string
 	Description() string
+	Category() string
 }
 
 type mutatorCollection struct {
@@ -94,13 +96,12 @@ func ListAvailableMutators() []string {
 	sort.Strings(l)
 	return l
 }
-func ListAvailableMutatorsWithDescriptions() []string {
-	var l []string
+func ListAvailableMutatorsByCategoryWithDescriptions() map[string][]string {
+	listByCategory := make(map[string][]string)
 	for _, v := range globalCollection.factories {
-		l = append(l, v.Name()+": "+v.Description())
+		listByCategory[v.Category()] = append(listByCategory[v.Category()], v.Name()+": "+v.Description())
 	}
-	sort.Strings(l)
-	return l
+	return listByCategory
 }
 
 func Run(mutatorName, input string) string {

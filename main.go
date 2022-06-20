@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"os"
 	"regexp"
+	"sort"
 	"strings"
 
 	"github.com/batmac/ccat/color"
@@ -138,6 +139,10 @@ func main() {
 	}
 }
 
+func buildLine() string {
+	return fmt.Sprintf("version %s [%s], commit %s, built at %s by %s", version, tags, commit, date, builtBy)
+}
+
 func Usage() {
 	flag.CommandLine.SortFlags = false
 	fmt.Fprintln(os.Stderr, buildLine())
@@ -148,9 +153,26 @@ func Usage() {
 	fmt.Fprint(os.Stderr, " - highlighter (used with -H):\n")
 	fmt.Fprint(os.Stderr, highlighter.Help())
 	fmt.Fprintf(os.Stderr, " - openers:\n    %v\n", strings.Join(openers.ListOpenersWithDescription(), "\n    "))
-	fmt.Fprintf(os.Stderr, " - mutators:\n    %v\n", strings.Join(mutators.ListAvailableMutatorsWithDescriptions(), "\n    "))
+	fmt.Fprintf(os.Stderr, " - mutators:\n%v\n", availableMutatorsHelp())
 }
 
-func buildLine() string {
-	return fmt.Sprintf("version %s [%s], commit %s, built at %s by %s", version, tags, commit, date, builtBy)
+func availableMutatorsHelp() string {
+	var s strings.Builder
+	l := mutators.ListAvailableMutatorsByCategoryWithDescriptions()
+	keys := make([]string, 0, len(l))
+	for k := range l {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+	for _, category := range keys {
+		if len(category) > 0 {
+			s.WriteString("    " + category + ":\n")
+		}
+		sort.Strings(l[category])
+		for _, mutator := range l[category] {
+			s.WriteString("        " + mutator + "\n")
+		}
+
+	}
+	return s.String()
 }

@@ -19,6 +19,7 @@ type simpleMutator struct {
 
 type simpleFactory struct {
 	name, description string
+	category          string
 	fn                simpleFn
 	hintLexer         string
 	expectingBinary   bool
@@ -34,6 +35,14 @@ func withHintLexer(s string) simpleOption {
 func withDescription(s string) simpleOption {
 	return func(f *simpleFactory) {
 		f.description = s
+	}
+}
+func withCategory(s string) simpleOption {
+	return func(f *simpleFactory) {
+		if s == "compress" {
+			f.expectingBinary = true
+		}
+		f.category = s
 	}
 }
 func withExpectingBinary(b bool) simpleOption {
@@ -116,9 +125,15 @@ func (m *simpleMutator) Name() string {
 func (m *simpleMutator) Description() string {
 	return m.factory.Description()
 }
+func (m *simpleMutator) Category() string {
+	return m.factory.Category()
+}
 func (f *simpleFactory) Name() string {
 	return f.name
 }
 func (f *simpleFactory) Description() string {
 	return f.description
+}
+func (f *simpleFactory) Category() string {
+	return f.category
 }

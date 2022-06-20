@@ -7,8 +7,12 @@ import (
 )
 
 func init() {
-	simpleRegister("unzstd", unzstd, withDescription("decompress zstd data"))
-	simpleRegister("zstd", czstd, withDescription("compress to zstd data"), withExpectingBinary(true))
+	simpleRegister("unzstd", unzstd, withDescription("decompress zstd data"),
+		withCategory("decompress"),
+	)
+	simpleRegister("zstd", czstd, withDescription("compress to zstd data"),
+		withCategory("compress"),
+	)
 }
 
 func unzstd(out io.WriteCloser, in io.ReadCloser) (int64, error) {

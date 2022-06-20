@@ -9,12 +9,22 @@ import (
 )
 
 func init() {
-	simpleRegister("ungzip", ungzip, withDescription("decompress gzip data"))
-	simpleRegister("bunzip2", bunzip2, withDescription("decompress bzip2 data"))
-	simpleRegister("unzlib", unzlib, withDescription("decompress zlib data"))
+	simpleRegister("ungzip", ungzip, withDescription("decompress gzip data"),
+		withCategory("decompress"),
+	)
+	simpleRegister("unbzip2", bunzip2, withDescription("decompress bzip2 data"),
+		withCategory("decompress"),
+	)
+	simpleRegister("unzlib", unzlib, withDescription("decompress zlib data"),
+		withCategory("decompress"),
+	)
 
-	simpleRegister("gzip", cgzip, withDescription("compress to gzip data"), withExpectingBinary(true))
-	simpleRegister("zlib", czlib, withDescription("compress to zlib data"), withExpectingBinary(true))
+	simpleRegister("gzip", cgzip, withDescription("compress to gzip data"),
+		withCategory("compress"),
+	)
+	simpleRegister("zlib", czlib, withDescription("compress to zlib data"),
+		withCategory("compress"),
+	)
 }
 
 func ungzip(w io.WriteCloser, r io.ReadCloser) (int64, error) {

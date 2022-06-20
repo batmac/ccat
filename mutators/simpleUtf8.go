@@ -8,7 +8,9 @@ import (
 
 func init() {
 	// we want the output to be as-is
-	simpleRegister("filterUTF8", filterUTF8, withDescription("remove non-utf8"), withExpectingBinary(true))
+	simpleRegister("filterUTF8", filterUTF8, withDescription("remove non-utf8"),
+		withCategory("filter"),
+		withExpectingBinary(true))
 }
 
 func filterUTF8(w io.WriteCloser, r io.ReadCloser) (int64, error) {
