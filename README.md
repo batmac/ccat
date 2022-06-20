@@ -16,7 +16,7 @@ for instance:
 ## help
 
 ```
-version >v0.9.5+dev [libcurl,crappy], commit 2ea87955ca1454c61f2e8d27f672ae6a1cd2ba42, built at 2022-06-19@18:07:54 by build.sh
+version >v0.9.6+dev [libcurl,crappy], commit ab8664a65a16c4dd1b7aa5d28a74d2bc1d28d6db, built at 2022-06-20@19:58:38 by build.sh
   -t, --tokens string      comma-separated list of tokens
   -i, --ignore-case        tokens given with -t are case-insensitive
   -o, --only               don't display lines without at least one token
@@ -51,43 +51,49 @@ ccat <files>...
     ShellScp: get scp:// via local scp
 
  - mutators:
-    base64: encode to base64
-    bunzip2: decompress bzip2 data
-    bzip2: compress to bzip2 data
-    cb: put a copy in the clipboard
-    dummy: a simple fifo
-    filterUTF8: remove non-utf8
-    gzip: compress to gzip data
-    hex: dump in Hex
-    j2y: JSON -> YAML
-    j: JSON Re-indent
-    lz4: compress to lz4 data
-    lzma2: compress to lzma2 data
-    lzma: compress to lzma data
-    md: Render Markdown (with glamour)
-    plist2Y: display an Apple plist as yaml
-    qp: encode quoted-printable data
-    removeANSI: remove ANSI codes
-    s2: compress to s2 data
-    snap: compress to snappy data
-    unbase64: decode base64
-    ungzip: decompress gzip data
-    unlz4: decompress lz4 data
-    unlzfse: decompress lzfse data
-    unlzma2: decompress lzma2 data
-    unlzma: decompress lzma data
-    unqp: decode quoted-printable data
-    uns2: decompress s2 data
-    unsnap: decompress snappy data
-    unxz: decompress xz data
-    unzip: decompress the first file in a zip archive
-    unzlib: decompress zlib data
-    unzstd: decompress zstd data
-    wrap: word-wrap the text to 80 chars maximum
-    wrapU: unconditionally wrap the text to 80 chars maximum
-    xz: compress to xz data
-    y2j: YAML -> JSON
-    zip: compress to zip data
-    zlib: compress to zlib data
-    zstd: compress to zstd data
+        cb: put a copy in the clipboard
+        dummy: a simple fifo
+        hex: dump in Hex
+        indent: indent the text with 4 chars
+        j: JSON Re-indent
+        md: Render Markdown (with glamour)
+        wrap: word-wrap the text to 80 chars maximum
+        wrapU: unconditionally wrap the text to 80 chars maximum
+    compress:
+        bzip2: compress to bzip2 data
+        gzip: compress to gzip data
+        lz4: compress to lz4 data
+        lzma2: compress to lzma2 data
+        lzma: compress to lzma data
+        s2: compress to s2 data
+        snap: compress to snappy data
+        xz: compress to xz data
+        zip: compress to zip data
+        zlib: compress to zlib data
+        zstd: compress to zstd data
+    convert:
+        base64: encode to base64
+        j2y: JSON -> YAML
+        plist2Y: display an Apple plist as yaml
+        qp: encode quoted-printable data
+        unbase64: decode base64
+        unqp: decode quoted-printable data
+        y2j: YAML -> JSON
+    decompress:
+        unbzip2: decompress bzip2 data
+        ungzip: decompress gzip data
+        unlz4: decompress lz4 data
+        unlzfse: decompress lzfse data
+        unlzma2: decompress lzma2 data
+        unlzma: decompress lzma data
+        uns2: decompress s2 data
+        unsnap: decompress snappy data
+        unxz: decompress xz data
+        unzip: decompress the first file in a zip archive
+        unzlib: decompress zlib data
+        unzstd: decompress zstd data
+    filter:
+        filterUTF8: remove non-utf8
+        removeANSI: remove ANSI codes
+
 ```
