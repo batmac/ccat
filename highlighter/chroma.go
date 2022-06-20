@@ -33,7 +33,7 @@ type Chroma struct {
 	lexer     string
 }
 
-func (h *Chroma) HighLight(w io.WriteCloser, r io.ReadCloser, o Options) error {
+func (h *Chroma) highLight(w io.WriteCloser, r io.ReadCloser, o Options) error {
 	log.Debugln(" highlighter: start chroma Highlighter")
 	//log.Debugln(log.Pp(o))
 
