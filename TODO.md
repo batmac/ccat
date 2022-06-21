@@ -1,14 +1,13 @@
 
 - (no) recursive ?
-- rename (to crep) ? (see grep/ripgrep/... extensions)
 - done with -X (begun) decompress archives on the fly (implement a pipe type { extension, decompressor, 2x channels - in/out } ?)
 - done http/curl done. urls (uris)
-- trier les options ds le code et a l affichage
+- done trier les options ds le code et a l affichage
 - done option pour afficher les option de l highlighter
 - done (github raw)transform urls (ala finicker): par ex github -> raw, outlook safelinks, shorturl ?
 - cookies? (par ex pour choper gitlab/aws) systeme de plugins?
 - kubernetes ?
-- opener ssh
+- done opener ssh
 - https://github.com/viant/afs ?
 - done ajout d un contexte pou y mettre le filename, des hints (format?), etc.
 
