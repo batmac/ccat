@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"os"
 	"regexp"
+	"runtime"
 	"sort"
 	"strings"
 
@@ -139,7 +140,7 @@ func main() {
 }
 
 func buildLine() string {
-	return fmt.Sprintf("version %s [%s], commit %s, built at %s by %s", version, tags, commit, date, builtBy)
+	return fmt.Sprintf("version %s [%s], commit %s, built at %s by %s (%s)", version, tags, commit, date, builtBy, runtime.Version())
 }
 
 func Usage() {
