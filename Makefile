@@ -1,3 +1,6 @@
+GIT=$(shell git tag|tail -n1)
+VERSION="post-${GIT}-dev"
+
 all: ccat readme tests
 
 ccat: *.go */*.go go.mod go.sum
@@ -22,3 +25,12 @@ janitor:
 	govulncheck ./...
 	go test -cover -coverprofile coverage.out ./...
 	echo gocovsh --profile coverage.out
+
+docker-local: tests
+	-rm ccat
+	docker build --compress -t batmac/ccat:${VERSION} .
+
+docker: tests
+	-rm ccat
+	docker buildx build --compress -t batmac/ccat:latest -t batmac/ccat:${VERSION} --platform=linux/arm,linux/amd64,linux/arm64 -f Dockerfile . --push
+
