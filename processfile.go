@@ -53,7 +53,10 @@ func processFile(path string) {
 	fromOrig := from
 	defer func() {
 		// I don't want to determine if already closed, try to close it, it will fail if it is already closed
-		_ = fromOrig.Close()
+		err := fromOrig.Close()
+		if err != nil {
+			log.Debugln(err)
+		}
 		log.Debugf("closed %s...\n", path)
 	}()
 	/*************************************/
