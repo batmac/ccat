@@ -23,7 +23,7 @@ type highlighter interface {
 
 func Go(w io.WriteCloser, r io.ReadCloser, o Options) error {
 	go func() {
-		c := new(Chroma)
+		var c highlighter = new(Chroma)
 		err := c.highLight(w, r, o)
 		if err != nil {
 			log.Printf(" chroma highlighter returned an err: %v", err)

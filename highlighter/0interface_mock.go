@@ -13,10 +13,6 @@ type Options struct {
 	LexerHint     string
 	FormatterHint string
 }
-type highlighter interface {
-	highLight(w io.WriteCloser, r io.ReadCloser, o Options) error
-	help() string
-}
 
 func Go(_ io.WriteCloser, _ io.ReadCloser, _ Options) error {
 	return nil
