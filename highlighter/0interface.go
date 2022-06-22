@@ -16,7 +16,7 @@ type Options struct {
 	FormatterHint string
 }
 
-type Highlighter interface {
+type highlighter interface {
 	highLight(w io.WriteCloser, r io.ReadCloser, o Options) error
 	help() string
 }

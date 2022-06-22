@@ -13,8 +13,8 @@ type Options struct {
 	LexerHint     string
 	FormatterHint string
 }
-type Highlighter interface {
-	HighLight(w io.WriteCloser, r io.ReadCloser, o Options) error
+type highlighter interface {
+	highLight(w io.WriteCloser, r io.ReadCloser, o Options) error
 	help() string
 }
 
