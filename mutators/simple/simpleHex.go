@@ -3,6 +3,8 @@ package mutators
 import (
 	"encoding/hex"
 	"io"
+
+	"github.com/batmac/ccat/log"
 )
 
 func init() {
@@ -13,8 +15,10 @@ func init() {
 
 func hexDump(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 	dumper := hex.Dumper(w)
+	n, err := io.Copy(dumper, r)
+	log.Debugf("finished\n")
 	defer dumper.Close()
-	return io.Copy(dumper, r)
+	return n, err
 }
 
 func hexRaw(w io.WriteCloser, r io.ReadCloser) (int64, error) {

@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/batmac/ccat/mutators"
+	_ "github.com/batmac/ccat/mutators/simple"
 )
 
 // yo dawg

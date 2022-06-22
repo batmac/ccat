@@ -44,7 +44,7 @@ kubectl run -i --tty ccat --image=batmac/ccat -- /bin/sh
 ## help
 
 ```
-version >v0.9.6+dev [libcurl,crappy], commit b982b36f8b6b601956caf784096d5aa56ce6a15c, built at 2022-06-22@00:07:53 by build.sh (go1.18.3)
+version >v0.9.7+dev [libcurl,crappy], commit 7e49472ce2965d9e653e338a1d3524e0113971ea, built at 2022-06-22@22:23:20 by build.sh (go1.18.3)
   -t, --tokens string      comma-separated list of tokens
   -i, --ignore-case        tokens given with -t are case-insensitive
   -o, --only               don't display lines without at least one token
@@ -81,7 +81,7 @@ ccat <files>...
  - mutators:
         cb: put a copy in the clipboard
         dummy: a simple fifo
-        hex: dump in Hex
+        hexdump: dump in hex as xxd
         indent: indent the text with 4 chars
         j: JSON Re-indent
         md: Render Markdown (with glamour)
@@ -101,6 +101,7 @@ ccat <files>...
         zstd: compress to zstd data
     convert:
         base64: encode to base64
+        hex: dump in lowercase hex
         j2y: JSON -> YAML
         plist2Y: display an Apple plist as yaml
         qp: encode quoted-printable data
@@ -120,6 +121,10 @@ ccat <files>...
         unzip: decompress the first file in a zip archive
         unzlib: decompress zlib data
         unzstd: decompress zstd data
+    decrypt:
+        easyopen: decrypt with Nacl EasyOpen, get the key from env (KEY)
+    encrypt:
+        easyseal: encrypt with Nacl EasySeal, key used is printed on stderr
     filter:
         filterUTF8: remove non-utf8
         removeANSI: remove ANSI codes

@@ -11,7 +11,8 @@ import (
 	"github.com/batmac/ccat/globalctx"
 	"github.com/batmac/ccat/highlighter"
 	"github.com/batmac/ccat/log"
-	"github.com/batmac/ccat/mutators"
+	"github.com/batmac/ccat/mutators/pipeline"
+	_ "github.com/batmac/ccat/mutators/simple"
 	"github.com/batmac/ccat/openers"
 	"github.com/batmac/ccat/pipedcmd"
 	"github.com/batmac/ccat/scanners"
@@ -36,16 +37,11 @@ func processFile(path string) {
 		}
 	}
 	if len(*argMutator) > 0 {
-		choice := *argMutator
 		r, w := io.Pipe()
-		m, err := mutators.New(choice)
+		err := pipeline.NewPipeline(*argMutator, w, from)
 		if err != nil {
 			setError()
 			log.Fatal(err)
-		}
-		if m.Start(w, from) != nil {
-			setError()
-			log.Fatal("failed to start the mutator\n")
 		}
 
 		from = r
@@ -57,7 +53,7 @@ func processFile(path string) {
 		if err != nil {
 			log.Debugln(err)
 		}
-		log.Debugf("closed %s...\n", path)
+		log.Debugf("final closed %s...\n", path)
 	}()
 	/*************************************/
 	if len(*argExec) > 0 {
@@ -170,8 +166,13 @@ func processFile(path string) {
 		log.Println(err)
 	}
 	log.Debugf("end Scanner, processing %v completed.\n", path)
+	if len(*argMutator) > 0 {
+		log.Debugln("Wait()ing pipeline...")
+		pipeline.Wait()
+		pipeline.Reset()
+	}
 }
 
 func setError() {
-	globalctx.Set("an error has occurred", true)
+	globalctx.SetErrored()
 }

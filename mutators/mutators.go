@@ -28,8 +28,8 @@ type Mutator interface {
 	Description() string
 	Category() string
 }
-type factory interface {
-	newMutator(logger *log.Logger) (Mutator, error)
+type Factory interface {
+	NewMutator(logger *log.Logger) (Mutator, error)
 	Name() string
 	Description() string
 	Category() string
@@ -40,7 +40,7 @@ type mutatorCollection struct {
 	Name     string
 	mutators []Mutator
 	// Mutators  map[string]Mutator
-	factories map[string]factory
+	factories map[string]Factory
 	logger    *log.Logger
 }
 
@@ -51,19 +51,19 @@ func newCollection(name string, logger *log.Logger) *mutatorCollection {
 	return &mutatorCollection{
 		Name: name,
 		// Mutators:  make(map[string]Mutator),
-		factories: make(map[string]factory),
+		factories: make(map[string]Factory),
 		logger:    logger,
 	}
 }
 
-func register(name string, factory factory) error {
+func Register(name string, factory Factory) error {
 	globalCollection.mu.Lock()
 	if _, ok := globalCollection.factories[name]; ok {
 		return fmt.Errorf("mutators: %s is already registered", name)
 	}
 	globalCollection.factories[name] = factory
 	globalCollection.mu.Unlock()
-	glog.Printf("mutators: %s registered\n", name)
+	//glog.Printf("mutators: %s registered\n", name)
 	return nil
 }
 
@@ -78,7 +78,7 @@ func New(name string) (Mutator, error) {
 	}
 	glog.Printf("mutators: instancing %s\n", name)
 
-	m, err := factory.newMutator(globalCollection.logger)
+	m, err := factory.NewMutator(globalCollection.logger)
 	if err != nil {
 		return nil, err
 	}

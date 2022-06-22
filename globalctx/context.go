@@ -19,6 +19,7 @@ var globalCtx ctx
 type ctx struct {
 	ctx context.Context
 	mu  sync.Mutex
+	err bool
 }
 
 type key string
@@ -41,7 +42,20 @@ func Get(k string) interface{} {
 }
 
 func Reset() {
+	// doesn't touch globalCtx.err
 	globalCtx.mu.Lock()
 	defer globalCtx.mu.Unlock()
 	globalCtx.ctx = context.Background()
+}
+
+func SetErrored() {
+	globalCtx.mu.Lock()
+	defer globalCtx.mu.Unlock()
+	globalCtx.err = true
+}
+
+func IsErrored() bool {
+	globalCtx.mu.Lock()
+	defer globalCtx.mu.Unlock()
+	return globalCtx.err
 }

@@ -127,14 +127,14 @@ func main() {
 
 	setupStdout(*argLockOut)
 
-	globalctx.Set("fileList", fileList)
 	log.Debugln("processing...")
 	for _, path := range fileList {
+		globalctx.Reset()
+		globalctx.Set("fileList", fileList)
 		processFile(path)
 	}
 
-	exit := globalctx.Get("an error has occurred")
-	if exit != nil && exit.(bool) {
+	if globalctx.IsErrored() {
 		os.Exit(1)
 	}
 }

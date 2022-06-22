@@ -6,6 +6,7 @@ import (
 
 	"github.com/batmac/ccat/globalctx"
 	"github.com/batmac/ccat/log"
+	. "github.com/batmac/ccat/mutators"
 )
 
 // launch a mutator in its dedicated goroutine
@@ -13,7 +14,7 @@ import (
 type simpleFn func(w io.WriteCloser, r io.ReadCloser) (int64, error)
 
 type simpleMutator struct {
-	genericMutator
+	GenericMutator
 	factory *simpleFactory
 }
 
@@ -61,65 +62,66 @@ func simpleRegister(name string, f simpleFn, opts ...simpleOption) {
 	for _, o := range opts {
 		o(factory)
 	}
-	if err := register(name, factory); err != nil {
+	if err := Register(name, factory); err != nil {
 		log.Debugf("registering %s failed!\n", name)
 	}
 }
 
-func (f *simpleFactory) newMutator(logger *log.Logger) (Mutator, error) {
+func (f *simpleFactory) NewMutator(logger *log.Logger) (Mutator, error) {
 	logger.Printf("%s: new", f.Name())
 	globalctx.Set("hintLexer", f.hintLexer)
 	globalctx.Set("expectingBinary", f.expectingBinary)
 
 	return &simpleMutator{
-		genericMutator: newGeneric(logger),
+		GenericMutator: NewGeneric(logger),
 		factory:        f,
 	}, nil
 }
 
 func (m *simpleMutator) Start(w io.WriteCloser, r io.ReadCloser) error {
-	m.mu.Lock()
-	if m.started {
-		m.mu.Unlock()
+	m.Mu.Lock()
+	if m.Started {
+		m.Mu.Unlock()
 		return fmt.Errorf("%s: mutator has already started.", m.Name())
 	}
-	m.started = true
-	m.mu.Unlock()
-	m.logger.Printf("%s: start %v\n", m.Name(), w)
+	m.Started = true
+	m.Mu.Unlock()
+	m.Logger.Printf("%s: start %v\n", m.Name(), w)
 
 	go func() {
-		m.logger.Printf("%s: dumping from %v to %v\n", m.Name(), r, w)
+		m.Logger.Printf("%s: dumping from %v to %v\n", m.Name(), r, w)
 		written, err := m.factory.fn(w, r)
-		m.logger.Printf("%s: done\n", m.Name())
+		m.Logger.Printf("%s: done\n", m.Name())
 		if err != nil {
 			log.Fatal(err)
 		}
-		m.logger.Printf("%s: written %d bytes\n", m.Name(), written)
-		m.logger.Printf("%s: closing %v\n", m.Name(), w)
-		w.Close()
+		m.Logger.Printf("%s: written %d bytes\n", m.Name(), written)
+		m.Logger.Printf("%s: closing %v\n", m.Name(), w)
+		err = w.Close()
 		if err != nil {
-			m.logger.Println(err)
+			m.Logger.Println(err)
 		}
-		close(m.done)
+		m.Logger.Printf("%s: closed %v\n", m.Name(), w)
+		close(m.Done)
 	}()
 
 	return nil
 }
 
 func (m *simpleMutator) Wait() error {
-	m.logger.Printf("%s: wait called\n", m.Name())
-	m.mu.Lock()
-	if !m.started {
-		m.mu.Unlock()
+	m.Logger.Printf("%s: wait called\n", m.Name())
+	m.Mu.Lock()
+	if !m.Started {
+		m.Mu.Unlock()
 		return fmt.Errorf("%s: mutator is not started", m.Name())
 	}
-	if m.waited {
-		m.mu.Unlock()
+	if m.Waited {
+		m.Mu.Unlock()
 		return fmt.Errorf("%s: mutator is already waited", m.Name())
 	}
-	m.waited = true
-	m.mu.Unlock()
-	<-m.done
+	m.Waited = true
+	m.Mu.Unlock()
+	<-m.Done
 	return nil
 }
 

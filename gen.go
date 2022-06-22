@@ -13,6 +13,7 @@ import (
 	"text/template"
 
 	"github.com/batmac/ccat/mutators"
+	_ "github.com/batmac/ccat/mutators/simple"
 )
 
 var (
