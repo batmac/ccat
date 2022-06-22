@@ -44,7 +44,7 @@ kubectl run -i --tty ccat --image=batmac/ccat -- /bin/sh
 ## help
 
 ```
-version >v0.9.7+dev [libcurl,crappy], commit 7e49472ce2965d9e653e338a1d3524e0113971ea, built at 2022-06-22@22:23:20 by build.sh (go1.18.3)
+version >v0.9.7+dev [libcurl,crappy], commit 933391ffad8ff994b567266dfe7d5728adea2484, built at 2022-06-22@22:45:58 by build.sh (go1.18.3)
   -t, --tokens string      comma-separated list of tokens
   -i, --ignore-case        tokens given with -t are case-insensitive
   -o, --only               don't display lines without at least one token
@@ -60,7 +60,7 @@ version >v0.9.7+dev [libcurl,crappy], commit 7e49472ce2965d9e653e338a1d3524e0113
   -S, --style string       style to use (only used if -H, look below for the list)
   -F, --formatter string   formatter to use (only used if -H, look below for the list)
   -P, --lexer string       lexer to use (only used if -H, look below for the list)
-  -m, --mutator string     mutator to use
+  -m, --mutators string    mutators to use (comma-separated)
   -V, --version            print version on stdout
       --license            print license on stdout
   -h, --help               print usage
