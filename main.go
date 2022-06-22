@@ -38,7 +38,7 @@ var (
 	argStyle        = flag.StringP("style", "S", "", "style to use (only used if -H, look below for the list)")
 	argFormatter    = flag.StringP("formatter", "F", "", "formatter to use (only used if -H, look below for the list)")
 	argLexer        = flag.StringP("lexer", "P", "", "lexer to use (only used if -H, look below for the list)")
-	argMutator      = flag.StringP("mutator", "m", "", "mutator to use")
+	argMutators     = flag.StringP("mutators", "m", "", "mutators to use (comma-separated)")
 	argVersion      = flag.BoolP("version", "V", false, "print version on stdout")
 	argLicense      = flag.Bool("license", false, "print license on stdout")
 	argHelp         = flag.BoolP("help", "h", false, "print usage")

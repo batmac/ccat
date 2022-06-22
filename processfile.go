@@ -31,14 +31,14 @@ func processFile(path string) {
 		return
 	}
 	if *argHuman {
-		if len(*argMutator) == 0 && (strings.HasSuffix(path, ".md") || strings.HasSuffix(path, ".MD")) {
+		if len(*argMutators) == 0 && (strings.HasSuffix(path, ".md") || strings.HasSuffix(path, ".MD")) {
 			log.Debugf("%s is .md, adding the md mutator", path)
-			*argMutator = "md"
+			*argMutators = "md"
 		}
 	}
-	if len(*argMutator) > 0 {
+	if len(*argMutators) > 0 {
 		r, w := io.Pipe()
-		err := pipeline.NewPipeline(*argMutator, w, from)
+		err := pipeline.NewPipeline(*argMutators, w, from)
 		if err != nil {
 			setError()
 			log.Fatal(err)
@@ -166,7 +166,7 @@ func processFile(path string) {
 		log.Println(err)
 	}
 	log.Debugf("end Scanner, processing %v completed.\n", path)
-	if len(*argMutator) > 0 {
+	if len(*argMutators) > 0 {
 		log.Debugln("Wait()ing pipeline...")
 		pipeline.Wait()
 		pipeline.Reset()
