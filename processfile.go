@@ -169,7 +169,6 @@ func processFile(path string) {
 	if len(*argMutators) > 0 {
 		log.Debugln("Wait()ing pipeline...")
 		pipeline.Wait()
-		pipeline.Reset()
 	}
 }
 

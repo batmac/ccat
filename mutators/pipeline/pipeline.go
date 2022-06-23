@@ -3,14 +3,24 @@ package pipeline
 import (
 	"io"
 	"strings"
+	"sync"
 
 	"github.com/batmac/ccat/log"
 	"github.com/batmac/ccat/mutators"
 )
 
-var globalPipeline []mutators.Mutator
+var globalPipeline pipeline
+
+type pipeline struct {
+	mu     sync.Mutex
+	stages []mutators.Mutator
+}
 
 func NewPipeline(description string, out io.WriteCloser, in io.ReadCloser) error {
+	globalPipeline.mu.Lock()
+	if len(globalPipeline.stages) > 0 {
+		log.Fatal("pipeline is not empty\n")
+	}
 	list := strings.Split(description, ",")
 	for _, m := range list {
 		log.Debugf("creating %v\n", m)
@@ -18,11 +28,13 @@ func NewPipeline(description string, out io.WriteCloser, in io.ReadCloser) error
 		if err != nil {
 			log.Fatal(err)
 		}
-		globalPipeline = append(globalPipeline, mutator)
+		globalPipeline.stages = append(globalPipeline.stages, mutator)
 	}
+	globalPipeline.mu.Unlock()
 	go func() {
+		globalPipeline.mu.Lock()
 		from, to := in, out
-		for _, mutator := range globalPipeline {
+		for _, mutator := range globalPipeline.stages {
 			r, w := io.Pipe()
 			log.Debugf("starting %v\n", mutator.Name())
 			if mutator.Start(w, from) != nil {
@@ -30,6 +42,7 @@ func NewPipeline(description string, out io.WriteCloser, in io.ReadCloser) error
 			}
 			from = r
 		}
+		globalPipeline.mu.Unlock()
 		n, err := io.Copy(to, from)
 		if err != nil {
 			log.Fatal(err)
@@ -51,7 +64,9 @@ func NewPipeline(description string, out io.WriteCloser, in io.ReadCloser) error
 }
 
 func Wait() {
-	for _, m := range globalPipeline {
+	globalPipeline.mu.Lock()
+	defer globalPipeline.mu.Unlock()
+	for _, m := range globalPipeline.stages {
 		log.Debugf("waiting %v\n", m)
 
 		err := m.Wait()
@@ -60,8 +75,5 @@ func Wait() {
 		}
 		log.Debugf("waited %v\n", m)
 	}
-}
-
-func Reset() {
-	globalPipeline = nil
+	globalPipeline.stages = nil
 }
