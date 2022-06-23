@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/batmac/ccat/log"
+	"github.com/batmac/ccat/utils"
 
 	"golang.org/x/term"
 )
@@ -44,6 +45,10 @@ func SupportedColors() uint {
 	case os.Getenv("TERM") == "xterm-256color":
 		colors = 256
 		log.Debugln("  supportedColors: xterm-256color -> 256 colors detected")
+	case utils.IsRunningInContainer():
+		// if we're running in a container, we suppose the user has a sufficiently modern term.
+		colors = 256
+		log.Debugln("  supportedColors: container detected, setting to 256 colors")
 	default:
 		log.Debugf("  supportedColors: unknown term, $TERM==%s -> 8 colors detected\n", os.Getenv("TERM"))
 		return 8
