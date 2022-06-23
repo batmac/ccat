@@ -5,21 +5,21 @@
 class Ccatng < Formula
   desc "cat on steroids."
   homepage ""
-  version "0.9.7"
+  version "0.9.8"
   license "MIT"
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/batmac/ccat/releases/download/v0.9.7/ccat-0.9.7-darwin-arm64.tar.gz"
-      sha256 "35cb16b71d4f1c427b631de0a5582a67b638ca166db4886d321b359f0fca8e93"
+      url "https://github.com/batmac/ccat/releases/download/v0.9.8/ccat-0.9.8-darwin-arm64.tar.gz"
+      sha256 "fac4d8d44501416b8b06f89840b4d93e1a0bf1011ef867d35d152fbff2cabac8"
 
       def install
         bin.install "ccat"
       end
     end
     if Hardware::CPU.intel?
-      url "https://github.com/batmac/ccat/releases/download/v0.9.7/ccat-0.9.7-darwin-amd64.tar.gz"
-      sha256 "40eaf600db1ec32142ff4a00a1c3c690a63859f90b54e18291c2a39ef8a59afd"
+      url "https://github.com/batmac/ccat/releases/download/v0.9.8/ccat-0.9.8-darwin-amd64.tar.gz"
+      sha256 "ddc96629fc3b1952c074fe18fcc03fb84ebdb95ea93b6e2da3a900285c89223a"
 
       def install
         bin.install "ccat"
@@ -29,16 +29,16 @@ class Ccatng < Formula
 
   on_linux do
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/batmac/ccat/releases/download/v0.9.7/ccat-0.9.7-linux-arm64.tar.gz"
-      sha256 "61de888061b6dd8f7c99a9ad12542ee1a4a14216f79093744361e1e4bcc4ae9b"
+      url "https://github.com/batmac/ccat/releases/download/v0.9.8/ccat-0.9.8-linux-arm64.tar.gz"
+      sha256 "ab702f982d684f26d30ce13aa4a20f637baff6a25b62231039d95ffdc80c15cf"
 
       def install
         bin.install "ccat"
       end
     end
     if Hardware::CPU.intel?
-      url "https://github.com/batmac/ccat/releases/download/v0.9.7/ccat-0.9.7-linux-amd64.tar.gz"
-      sha256 "943fa0a8b95651eba02473eca57c6d3611464542bf4f4e01106ed9e611958a46"
+      url "https://github.com/batmac/ccat/releases/download/v0.9.8/ccat-0.9.8-linux-amd64.tar.gz"
+      sha256 "b78b12750204db86c2385b4bfe3d3f209e0274fa2c03941192bb74879381d478"
 
       def install
         bin.install "ccat"
