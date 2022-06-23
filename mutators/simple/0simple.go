@@ -97,6 +97,10 @@ func (m *simpleMutator) Start(w io.WriteCloser, r io.ReadCloser) error {
 		}
 		m.Logger.Printf("%s: written %d bytes\n", m.Name(), written)
 		m.Logger.Printf("%s: closing %v\n", m.Name(), w)
+		err = r.Close()
+		if err != nil {
+			m.Logger.Println(err)
+		}
 		err = w.Close()
 		if err != nil {
 			m.Logger.Println(err)
