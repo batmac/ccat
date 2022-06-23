@@ -27,7 +27,7 @@ service/kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   21d
 ( "READY and "Running" have different background colors )
 
 ```
-$ echo Hello: | cat -m y2j | cat -m j2y | cat -m base64 | cat -m hex
+$ echo Hello: | cat -m y2j,j2y,base64,hexdump
 00000000  53 47 56 73 62 47 38 36  49 47 35 31 62 47 77 4b  |SGVsbG86IG51bGwK|
 ```
 ```
@@ -44,7 +44,7 @@ kubectl run -i --tty ccat --image=batmac/ccat -- /bin/sh
 ## help
 
 ```
-version >v0.9.7+dev [libcurl,crappy], commit 933391ffad8ff994b567266dfe7d5728adea2484, built at 2022-06-22@22:45:58 by build.sh (go1.18.3)
+version >v0.9.7+dev [libcurl,crappy], commit 9ef122b5e22bad60ce1e049de204ee3a2ec16207, built at 2022-06-23@19:38:44 by build.sh (go1.18.3)
   -t, --tokens string      comma-separated list of tokens
   -i, --ignore-case        tokens given with -t are case-insensitive
   -o, --only               don't display lines without at least one token
@@ -73,7 +73,7 @@ ccat <files>...
  - openers:
     file: open local files
     curl: get URL via libcurl bindings
-           libcurl/7.84.0-DEV SecureTransport (OpenSSL/1.1.1o) zlib/1.2.11 brotli/1.0.9 zstd/1.5.2 libidn2/2.3.2 libpsl/0.21.1 (+libicu/70.1) libssh2/1.10.0 nghttp2/1.47.0 librtmp/2.3 OpenLDAP/2.6.2
+           libcurl/7.84.0-DEV SecureTransport (OpenSSL/1.1.1p) zlib/1.2.11 brotli/1.0.9 zstd/1.5.2 libidn2/2.3.2 libssh2/1.10.0 nghttp2/1.47.0 librtmp/2.3 OpenLDAP/2.6.2
            protocols: dict,file,ftp,ftps,gopher,gophers,http,https,imap,imaps,ldap,ldaps,mqtt,pop3,pop3s,rtmp,rtsp,scp,sftp,smb,smbs,smtp,smtps,telnet,tftp
     s3: get an AWS s3 object via s3://
     ShellScp: get scp:// via local scp

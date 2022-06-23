@@ -27,7 +27,7 @@ service/kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   21d
 ( "READY and "Running" have different background colors )
 
 ```
-$ echo Hello: | cat -m y2j | cat -m j2y | cat -m base64 | cat -m hex
+$ echo Hello: | cat -m y2j,j2y,base64,hexdump
 00000000  53 47 56 73 62 47 38 36  49 47 35 31 62 47 77 4b  |SGVsbG86IG51bGwK|
 ```
 ```
