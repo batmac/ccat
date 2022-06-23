@@ -63,7 +63,7 @@ func Register(name string, factory Factory) error {
 	}
 	globalCollection.factories[name] = factory
 	globalCollection.mu.Unlock()
-	//glog.Printf("mutators: %s registered\n", name)
+	// glog.Printf("mutators: %s registered\n", name)
 	return nil
 }
 
