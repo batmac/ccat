@@ -144,7 +144,7 @@ func checkWithFuzzy(s string, list []string) bool {
 		return false
 	}
 	// log.Printf("%v\n", list)
-	if utils.StringInSlice(s, list) {
+	if utils.IsStringInSlice(s, list) {
 		return true
 	} else {
 		fs, err := utils.FuzzySearch(s, list, 0.5)
