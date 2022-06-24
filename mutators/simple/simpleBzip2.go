@@ -20,7 +20,7 @@ func cbzip2(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 		log.Fatal(err)
 	}
 	defer zw.Close()
-	return io.Copy(zw, r)
+	return io.Copy(zw, r) // streamable
 }
 
 /* func bunzip2Alt(w io.WriteCloser, r io.ReadCloser) (int64, error) {

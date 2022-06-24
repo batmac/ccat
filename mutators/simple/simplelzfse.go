@@ -30,7 +30,7 @@ func init() {
 } */
 
 func unlzfseGo(out io.WriteCloser, in io.ReadCloser) (int64, error) {
-	dat, err := ioutil.ReadAll(in)
+	dat, err := ioutil.ReadAll(in) // NOT streamable
 	if err != nil {
 		log.Fatal("failed to read compressed file: ", err)
 	}

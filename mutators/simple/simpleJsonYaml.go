@@ -19,7 +19,7 @@ func init() {
 }
 
 func J2Y(w io.WriteCloser, r io.ReadCloser) (int64, error) {
-	j, err := ioutil.ReadAll(r)
+	j, err := ioutil.ReadAll(r) // NOT streamable
 	if err != nil {
 		return 0, err
 	}
@@ -37,7 +37,7 @@ func J2Y(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 }
 
 func Y2J(w io.WriteCloser, r io.ReadCloser) (int64, error) {
-	y, err := ioutil.ReadAll(r)
+	y, err := ioutil.ReadAll(r) // NOT streamable
 	if err != nil {
 		return 0, err
 	}

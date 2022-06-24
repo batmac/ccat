@@ -12,12 +12,12 @@ func init() {
 
 func base64Decode(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 	decoder := base64.NewDecoder(base64.StdEncoding, r)
-	return io.Copy(w, decoder)
+	return io.Copy(w, decoder) // streamable
 }
 
 func base64Encode(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 	encoder := base64.NewEncoder(base64.StdEncoding, w)
-	written, err := io.Copy(encoder, r)
+	written, err := io.Copy(encoder, r) // streamable
 	encoder.Close()
 	// fmt.Fprintln(w, "")
 	return written, err

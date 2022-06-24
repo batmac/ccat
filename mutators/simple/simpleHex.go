@@ -15,7 +15,7 @@ func init() {
 
 func hexDump(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 	dumper := hex.Dumper(w)
-	n, err := io.Copy(dumper, r)
+	n, err := io.Copy(dumper, r) // streamable
 	log.Debugf("finished\n")
 	defer dumper.Close()
 	return n, err
@@ -23,5 +23,5 @@ func hexDump(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 
 func hexRaw(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 	h := hex.NewEncoder(w)
-	return io.Copy(h, r)
+	return io.Copy(h, r) // streamable
 }

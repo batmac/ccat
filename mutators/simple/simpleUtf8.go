@@ -14,7 +14,7 @@ func init() {
 }
 
 func filterUTF8(w io.WriteCloser, r io.ReadCloser) (int64, error) {
-	u, err := ioutil.ReadAll(r)
+	u, err := ioutil.ReadAll(r) // NOT streamable
 	if err != nil {
 		return 0, err
 	}

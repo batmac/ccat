@@ -27,7 +27,7 @@ func glamourize(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 	if err != nil {
 		return 0, err
 	}
-	t, err := ioutil.ReadAll(r)
+	t, err := ioutil.ReadAll(r) // NOT streamable
 	if err != nil {
 		return 0, err
 	}

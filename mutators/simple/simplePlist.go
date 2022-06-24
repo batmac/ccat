@@ -18,7 +18,7 @@ func init() {
 }
 
 func unplist(out io.WriteCloser, in io.ReadCloser) (int64, error) {
-	d, err := ioutil.ReadAll(in)
+	d, err := ioutil.ReadAll(in) // NOT streamable
 	if err != nil {
 		return 0, err
 	}

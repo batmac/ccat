@@ -12,7 +12,7 @@ func init() {
 }
 
 func jsonIndent(w io.WriteCloser, r io.ReadCloser) (int64, error) {
-	j, err := ioutil.ReadAll(r)
+	j, err := ioutil.ReadAll(r) // NOT streamable
 	if err != nil {
 		return 0, err
 	}
