@@ -44,7 +44,7 @@ kubectl run -i --tty ccat --image=batmac/ccat -- /bin/sh
 ## help
 
 ```
-version >v0.9.8+dev [libcurl,crappy], commit 3830c9238df53ec3fc1cd85b15b01f2bc470e5e7, built at 2022-06-24@23:37:03 by build.sh (go1.18.3)
+version >v0.9.8+dev [libcurl,crappy], commit 526d5b293805f039e01c3fbcb1f189655c717596, built at 2022-06-25@01:42:17 by build.sh (go1.18.3)
   -t, --tokens string      comma-separated list of tokens
   -i, --ignore-case        tokens given with -t are case-insensitive
   -o, --only               don't display lines without at least one token
@@ -64,6 +64,7 @@ version >v0.9.8+dev [libcurl,crappy], commit 3830c9238df53ec3fc1cd85b15b01f2bc47
   -V, --version            print version on stdout
       --license            print license on stdout
   -h, --help               print usage
+      --selfupdate         Update to latest Github release
 ---
 ccat <files>...
  - highlighter (used with -H):
