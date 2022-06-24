@@ -59,7 +59,7 @@ func (f gcsOpener) Open(s string, _ bool) (io.ReadCloser, error) {
 	if err != nil {
 		return nil, fmt.Errorf("storage.NewClient: %v", err)
 	}
-	//defer client.Close()
+	// defer client.Close()
 
 	/* 	ctx, cancel := context.WithTimeout(ctx, time.Second*50)
 	 */ //defer cancel()
@@ -70,13 +70,12 @@ func (f gcsOpener) Open(s string, _ bool) (io.ReadCloser, error) {
 	if err != nil {
 		return nil, fmt.Errorf("Object(%q).NewReader: %v", object, err)
 	}
-	//defer rc.Close()
+	// defer rc.Close()
 
 	return utils.NewReadCloser(rc, func() error {
 		log.Debugf("closing client...\n")
 		return client.Close()
 	}), nil
-
 }
 
 func parseGcsURI(s string) (string, string) {
