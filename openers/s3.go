@@ -51,7 +51,7 @@ func (f s3Opener) Evaluate(s string) float32 {
 func (f s3Opener) Open(s string, _ bool) (io.ReadCloser, error) {
 	ctx := context.Background()
 
-	bucket, object := parseURI(s)
+	bucket, object := parseS3URI(s)
 	log.Debugf("request to get %s in %s\n", object, bucket)
 
 	if !isAWSEnvSet() {
@@ -90,7 +90,7 @@ func (f s3Opener) Open(s string, _ bool) (io.ReadCloser, error) {
 	return o.Body, nil
 }
 
-func parseURI(s string) (string, string) {
+func parseS3URI(s string) (string, string) {
 	s = strings.TrimPrefix(s, "s3://")
 	pair := strings.SplitN(s, "/", 2)
 	return pair[0], pair[1]
