@@ -44,7 +44,7 @@ kubectl run -i --tty ccat --image=batmac/ccat -- /bin/sh
 ## help
 
 ```
-version >v0.9.7+dev [libcurl,crappy], commit 9ef122b5e22bad60ce1e049de204ee3a2ec16207, built at 2022-06-23@19:38:44 by build.sh (go1.18.3)
+version >v0.9.8+dev [libcurl,crappy], commit 3830c9238df53ec3fc1cd85b15b01f2bc470e5e7, built at 2022-06-24@23:37:03 by build.sh (go1.18.3)
   -t, --tokens string      comma-separated list of tokens
   -i, --ignore-case        tokens given with -t are case-insensitive
   -o, --only               don't display lines without at least one token
@@ -72,6 +72,7 @@ ccat <files>...
   - Formatters: [html json noop svg terminal terminal16 terminal16m terminal256 terminal8 tokens]
  - openers:
     file: open local files
+    gcs: get a GCP Cloud Storage object via gs://
     curl: get URL via libcurl bindings
            libcurl/7.84.0-DEV SecureTransport (OpenSSL/1.1.1p) zlib/1.2.11 brotli/1.0.9 zstd/1.5.2 libidn2/2.3.2 libssh2/1.10.0 nghttp2/1.47.0 librtmp/2.3 OpenLDAP/2.6.2
            protocols: dict,file,ftp,ftps,gopher,gophers,http,https,imap,imaps,ldap,ldaps,mqtt,pop3,pop3s,rtmp,rtsp,scp,sftp,smb,smbs,smtp,smtps,telnet,tftp
