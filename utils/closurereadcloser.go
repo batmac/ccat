@@ -28,7 +28,9 @@ type checkForClose interface {
 }
 
 func (c newCloser) Close() error {
+	log.Debugf("newCloser Close()\n")
 	if _, ok := c.Reader.(checkForClose); ok {
+		log.Debugf("newCloser inner Close()\n")
 		err := c.Reader.(checkForClose).Close()
 		if err != nil {
 			log.Println(err)
@@ -43,7 +45,9 @@ type newCloserWriterTo struct {
 }
 
 func (c newCloserWriterTo) Close() error {
+	log.Debugf("newCloserWriterTo Close()\n")
 	if _, ok := c.Reader.(checkForClose); ok {
+		log.Debugf("newCloserWriterTo inner Close()\n")
 		err := c.Reader.(checkForClose).Close()
 		if err != nil {
 			log.Println(err)
