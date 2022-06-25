@@ -10,7 +10,7 @@ import (
 	"github.com/creativeprojects/go-selfupdate"
 )
 
-func update(version string) error {
+func update(version string, checkOnly bool) error {
 	log.Debugf("Trying to self-update %v...\n", version)
 
 	selfupdate.SetLogger(log.Stderr)
@@ -33,6 +33,12 @@ func update(version string) error {
 	log.Debugf("cleaned version is %v\n", cleanedVersion)
 	if latest.LessOrEqual(cleanedVersion) {
 		log.Printf("Current version (%s) is the latest", version)
+		return nil
+	}
+
+	fmt.Printf("Update to version %v is available\n", latest.Version())
+
+	if checkOnly {
 		return nil
 	}
 

@@ -43,6 +43,7 @@ var (
 	argLicense      = flag.Bool("license", false, "print license on stdout")
 	argHelp         = flag.BoolP("help", "h", false, "print usage")
 	argSelfUpdate   = flag.Bool("selfupdate", false, "Update to latest Github release")
+	argCheckUpdate  = flag.Bool("check", false, "Check version with the latest Github release")
 
 	tmap   map[string]color.Color
 	tokens []string
@@ -86,7 +87,11 @@ func main() {
 		os.Exit(0)
 	}
 	if *argSelfUpdate {
-		_ = update(version)
+		_ = update(version, false)
+		os.Exit(0)
+	}
+	if *argCheckUpdate {
+		_ = update(version, true)
 		os.Exit(0)
 	}
 	/* log.Printf("runtest\n")
