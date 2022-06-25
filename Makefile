@@ -39,3 +39,5 @@ docker-release: tests
 	-rm ccat
 	docker buildx build --compress -t batmac/ccat:latest -t batmac/ccat:${VERSION} --platform=linux/arm,linux/amd64,linux/arm64 -f Dockerfile . --push
 
+thanks:
+	gothanks
