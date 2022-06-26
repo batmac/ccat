@@ -3,6 +3,7 @@ package highlighter_test
 import (
 	"bytes"
 	"io"
+	"io/ioutil"
 	"testing"
 
 	"github.com/batmac/ccat/highlighter"
@@ -20,8 +21,8 @@ func TestGo(t *testing.T) {
 		args    args
 		wantErr bool
 	}{
-		{"empty", args{&utils.NopStringWriteCloser{}, io.NopCloser(&bytes.Buffer{}), highlighter.Options{"", "", "", ""}}, false},
-		{"simple", args{&utils.NopStringWriteCloser{}, io.NopCloser(bytes.NewBufferString("hello")), highlighter.Options{"", "", "", ""}}, false},
+		{"empty", args{&utils.NopStringWriteCloser{}, ioutil.NopCloser(&bytes.Buffer{}), highlighter.Options{"", "", "", ""}}, false},
+		{"simple", args{&utils.NopStringWriteCloser{}, ioutil.NopCloser(bytes.NewBufferString("hello")), highlighter.Options{"", "", "", ""}}, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
