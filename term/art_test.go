@@ -85,6 +85,7 @@ func TestPrintANSIArt(t *testing.T) {
 }
 
 func assertPanic(t *testing.T, f func()) {
+	t.Helper()
 	defer func() {
 		if r := recover(); r == nil {
 			t.Errorf("The code did not panic")
