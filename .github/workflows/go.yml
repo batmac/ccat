@@ -25,6 +25,9 @@ jobs:
         uses: lyricwulf/abc@v1
         with: 
           linux: libcurl4-openssl-dev
+          
+      - name: printenv
+        run: printenv|sort
 
       - name: Build
         run: go build -v -tags libcurl ./...
