@@ -6,14 +6,8 @@ import (
 
 func Test_update(t *testing.T) {
 	t.Run("donotpanicplease", func(t *testing.T) {
-		err := update("v0+dev", true)
-		if err != nil {
-			t.Error(err)
-		}
-		err = update("100", true)
-		if err != nil {
-			t.Error(err)
-		}
+		update("v0+dev", true)
+		update("100", true)
 	})
 }
 

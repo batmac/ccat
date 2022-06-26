@@ -158,7 +158,7 @@ func processFile(path string) {
 			lineNumber++
 		}
 		if !*argOnlyMatching || matched && *argOnlyMatching {
-			os.Stdout.Write(text)
+			_, _ = os.Stdout.Write(text)
 		}
 	}
 	if err := scanner.Err(); err != nil {

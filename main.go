@@ -87,11 +87,11 @@ func main() {
 		os.Exit(0)
 	}
 	if *argSelfUpdate {
-		_ = update(version, false)
+		update(version, false)
 		os.Exit(0)
 	}
 	if *argCheckUpdate {
-		_ = update(version, true)
+		update(version, true)
 		os.Exit(0)
 	}
 	/* log.Printf("runtest\n")
@@ -130,7 +130,7 @@ func main() {
 
 	log.Debugln("initializing file list...")
 	fileList := flag.Args()
-	if 0 == len(fileList) {
+	if len(fileList) == 0 {
 		fileList = []string{"-"}
 	}
 	log.Debugf("files: %v\n", fileList)

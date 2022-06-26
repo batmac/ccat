@@ -10,7 +10,7 @@ import (
 	"github.com/creativeprojects/go-selfupdate"
 )
 
-func update(version string, checkOnly bool) error {
+func update(version string, checkOnly bool) {
 	log.Debugf("Trying to self-update %v...\n", version)
 
 	selfupdate.SetLogger(log.Stderr)
@@ -33,13 +33,13 @@ func update(version string, checkOnly bool) error {
 	log.Debugf("cleaned version is %v\n", cleanedVersion)
 	if latest.LessOrEqual(cleanedVersion) {
 		log.Printf("Current version (%s) is the latest", version)
-		return nil
+		return
 	}
 
 	fmt.Printf("Update to version %v is available\n", latest.Version())
 
 	if checkOnly {
-		return nil
+		return
 	}
 
 	exe, err := os.Executable()
@@ -51,7 +51,6 @@ func update(version string, checkOnly bool) error {
 		panic(fmt.Errorf("error occurred while updating binary: %v", err))
 	}
 	fmt.Printf("Successfully updated to version %s", latest.Version())
-	return nil
 }
 
 func cleanVersion(v string) string {
