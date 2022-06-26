@@ -42,10 +42,10 @@ func PrintArt(r io.Reader) {
 	fmt.Println()
 	if IsITerm2() {
 		log.Debugf("  art: printITerm2Art\n")
-		_ = printITerm2Art(r)
+		_ = PrintITerm2Art(r)
 	} else {
 		log.Debugf("  art: printANSIArt\n")
-		_ = printANSIArt(r)
+		_ = PrintANSIArt(r)
 	}
 	fmt.Println()
 }
@@ -60,7 +60,7 @@ func PrintArt(r io.Reader) {
 	fmt.Println()
 
 } */
-func printANSIArt(r io.Reader) error {
+func PrintANSIArt(r io.Reader) error {
 	tx, ty, err := GetTerminalSize()
 	if err != nil {
 		log.Println(err)
