@@ -29,7 +29,7 @@ func IsITerm2() bool {
 	}
 } */
 
-func printITerm2Art(r io.Reader) error {
+func PrintITerm2Art(r io.Reader) error {
 	data, err := ioutil.ReadAll(r)
 	if err != nil {
 		return err
