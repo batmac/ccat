@@ -1,0 +1,104 @@
+run:
+  build-tags:
+    - crappy
+
+linters:
+  enable:
+    - bodyclose
+    - deadcode
+    - errcheck
+    - exportloopref
+    - goimports
+    - gosec
+    - gosimple
+    - govet
+    - ineffassign
+    - nilerr
+    - predeclared
+    - rowserrcheck
+    - sqlclosecheck
+    - staticcheck
+    - structcheck
+    - tparallel
+    - typecheck
+    - unconvert
+    - unused
+    - varcheck
+    - whitespace
+
+    - asciicheck
+    - bidichk
+    # - containedctx
+    - contextcheck
+    # - cyclop
+    - decorder
+    - depguard
+    - dogsled
+    - dupl
+    - durationcheck
+    - errchkjson
+    - errname
+    # - errorlint
+    - execinquery
+    - exhaustive
+    # - exhaustivestruct [deprecated]
+    - exhaustruct
+    # - forbidigo
+    # - forcetypeassert
+    # - funlen
+    # - gci
+    # - gochecknoglobals
+    # - gochecknoinits
+    # - gocognit
+    - goconst
+    # - gocritic
+    # - gocyclo
+    # - godot
+    - godox
+    # - goerr113
+    - gofmt
+    - gofumpt
+    - goheader
+    # - golint [deprecated]
+    # - gomnd
+    - gomoddirectives
+    - gomodguard
+    - goprintffuncname
+    - grouper
+    - ifshort
+    - importas
+    # - interfacer [deprecated]
+    - ireturn
+    # - lll
+    - maintidx
+    - makezero
+    # - maligned [deprecated]
+    - misspell
+    - nakedret
+    # - nestif
+    - nilnil
+    # - nlreturn
+    - noctx
+    - nolintlint
+    - nonamedreturns
+    - nosprintfhostport
+    # - paralleltest
+    - prealloc
+    - promlinter
+    - revive
+    # - scopelint [deprecated]
+    - stylecheck
+    - tagliatelle
+    - tenv
+    - testpackage
+    - thelper
+    - unparam
+    # - varnamelen
+    - wastedassign
+    # - wrapcheck
+    # - wsl
+
+issues:
+  exclude-use-default: true
+  exclude:
+    - 'package should be `main_test` instead of `main`'
