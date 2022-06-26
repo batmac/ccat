@@ -79,7 +79,7 @@ func main() {
 	}
 	if *argLicense {
 		fmt.Println(buildLine())
-		printLicense()
+		printLicense(os.Stdout)
 		os.Exit(0)
 	}
 	if *argHelp {
@@ -135,7 +135,9 @@ func main() {
 	}
 	log.Debugf("files: %v\n", fileList)
 
-	setupStdout(*argLockOut)
+	if err := setupStdout(*argLockOut); err != nil {
+		log.Fatal(err)
+	}
 
 	log.Debugln("processing...")
 	for _, path := range fileList {

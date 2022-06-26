@@ -42,3 +42,32 @@ func TestGet(t *testing.T) {
 		})
 	}
 }
+
+func TestReset(t *testing.T) {
+	if !setDone {
+		TestSet(t)
+	}
+	globalctx.Reset()
+	for _, tt := range testsGlobalCtx {
+		t.Run(tt.name, func(t *testing.T) {
+			got := globalctx.Get(tt.k)
+			if reflect.DeepEqual(got, tt.v) {
+				t.Errorf("Get() = %v, want nil", got)
+			}
+		})
+	}
+}
+
+func TestIsErrored(t *testing.T) {
+	if !setDone {
+		TestSet(t)
+	}
+	globalctx.SetErrored()
+	if !globalctx.IsErrored() {
+		t.Errorf("IsErrored = false")
+	}
+	globalctx.Reset()
+	if !globalctx.IsErrored() {
+		t.Errorf("after Reset, IsErrored = false")
+	}
+}

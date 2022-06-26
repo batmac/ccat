@@ -59,15 +59,14 @@ func main() {
 		"compress/gzip"
 		"io"
 		"log"
-		"os"
 	)
 	var data = {{ . }}
-	func printLicense() {
+	func printLicense(w io.Writer) {
 		zr, err := gzip.NewReader(bytes.NewReader(data))
 		if err != nil {
 			log.Fatal(err)
 		}
-		if _, err := io.Copy(os.Stdout, zr); err != nil {
+		if _, err := io.Copy(w, zr); err != nil {
 			log.Fatal(err)
 		}
 		if err := zr.Close(); err != nil {

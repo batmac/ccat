@@ -29,7 +29,7 @@ func update(version string, checkOnly bool) error {
 		panic(fmt.Errorf("latest version for %s/%s could not be found from github repository", runtime.GOOS, runtime.GOARCH))
 	}
 
-	cleanedVersion := cleanVersion([]byte(version))
+	cleanedVersion := cleanVersion(version)
 	log.Debugf("cleaned version is %v\n", cleanedVersion)
 	if latest.LessOrEqual(cleanedVersion) {
 		log.Printf("Current version (%s) is the latest", version)
@@ -54,7 +54,8 @@ func update(version string, checkOnly bool) error {
 	return nil
 }
 
-func cleanVersion(s []byte) string {
+func cleanVersion(v string) string {
+	s := []byte(v)
 	j := 0
 	for _, b := range s {
 		if ('0' <= b && b <= '9') ||

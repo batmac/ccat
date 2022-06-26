@@ -24,10 +24,10 @@ func ScanLines(data []byte, atEOF bool) (advance int, token []byte, err error) {
 	return 0, nil, nil
 }
 
-// isSpace reports whether the character is a Unicode white space character.
+// IsSpace reports whether the character is a Unicode white space character.
 // We avoid dependency on the unicode package, but check validity of the implementation
 // in the tests.
-func isSpace(r rune) bool {
+func IsSpace(r rune) bool {
 	if r <= '\u00FF' {
 		// Obvious ASCII ones: \t through \r plus space. Plus two Latin-1 oddballs.
 		switch r {
@@ -54,7 +54,7 @@ func ScanWords(data []byte, atEOF bool) (advance int, token []byte, err error) {
 	for width, i := 0, 0; i < len(data); i += width {
 		var r rune
 		r, width = utf8.DecodeRune(data[i:])
-		if isSpace(r) {
+		if IsSpace(r) {
 			return i + width, data[:i+width], nil
 		}
 	}

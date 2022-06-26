@@ -7,7 +7,7 @@ import (
 )
 
 func TestIsRunningIn(t *testing.T) {
-	t.Run("donotpanicplease", func(t *testing.T) {
+	t.Run("simple", func(t *testing.T) {
 		got := utils.IsRunningInContainer()
 		k8s := utils.IsRunningInK8s()
 		docker := utils.IsRunningInDocker()

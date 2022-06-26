@@ -1,4 +1,4 @@
-package scanners
+package scanners_test
 
 import (
 	//. "bufio"
@@ -8,6 +8,8 @@ import (
 	"testing"
 	"unicode"
 	"unicode/utf8"
+
+	"github.com/batmac/ccat/scanners"
 )
 
 // const smallMaxTokenSize = 256 // Much smaller for more efficient testing.
@@ -15,7 +17,7 @@ import (
 // Test white space table matches the Unicode definition.
 func TestSpace(t *testing.T) {
 	for r := rune(0); r <= utf8.MaxRune; r++ {
-		if isSpace(r) != unicode.IsSpace(r) {
+		if scanners.IsSpace(r) != unicode.IsSpace(r) {
 			t.Fatalf("white space property disagrees: %#U should be %t", r, unicode.IsSpace(r))
 		}
 	}
@@ -39,7 +41,7 @@ func (sr *slowReader) Read(p []byte) (n int, err error) {
 func testNoNewline(text string, lines []string, t *testing.T) {
 	buf := strings.NewReader(text)
 	s := bufio.NewScanner(&slowReader{7, buf})
-	s.Split(ScanLines)
+	s.Split(scanners.ScanLines)
 	for lineNum := 0; s.Scan(); lineNum++ {
 		line := lines[lineNum]
 		if s.Text() != line {
@@ -81,7 +83,7 @@ func (alwaysError) Read(p []byte) (int, error) {
 
 func TestNonEOFWithEmptyRead(t *testing.T) {
 	scanner := bufio.NewScanner(alwaysError{})
-	scanner.Split(ScanLines)
+	scanner.Split(scanners.ScanLines)
 	for scanner.Scan() {
 		t.Fatal("read should fail")
 	}
@@ -100,7 +102,7 @@ func (endlessZeros) Read(p []byte) (int, error) {
 
 func TestBadReader(t *testing.T) {
 	scanner := bufio.NewScanner(endlessZeros{})
-	scanner.Split(ScanLines)
+	scanner.Split(scanners.ScanLines)
 	for scanner.Scan() {
 		t.Fatal("read should fail")
 	}
@@ -112,7 +114,7 @@ func TestBadReader(t *testing.T) {
 
 func TestBlankLines(t *testing.T) {
 	s := bufio.NewScanner(strings.NewReader(strings.Repeat("\n", 1000)))
-	s.Split(ScanLines)
+	s.Split(scanners.ScanLines)
 	for count := 0; s.Scan(); count++ {
 		if count > 2000 {
 			t.Fatal("looping")
