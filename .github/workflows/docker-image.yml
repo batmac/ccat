@@ -22,10 +22,13 @@ jobs:
     - name: Login to DockerHub
       uses: docker/login-action@v2
       with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          username: batmac
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-    - name: Build the Docker image
-      run: docker buildx build --compress -t batmac/ccat:$(date +%s) --platform=linux/amd64,linux/arm64 -f Dockerfile . --push
-
-      
+    - name: Build and push
+      uses: docker/build-push-action@v3
+      with:
+        context: .
+        platforms: linux/amd64,linux/arm64
+        push: true
+        tags: batmac/ccat:$(date +%s)
