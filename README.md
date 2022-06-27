@@ -44,7 +44,7 @@ kubectl run -i --tty ccat --image=batmac/ccat -- /bin/sh
 ## help
 
 ```
-version >v0.9.8+dev [libcurl,crappy], commit 00d08e653fd9b48ee45af3f5e4dc35c28b003435, built at 2022-06-25@22:30:43 by build.sh (go1.18.3)
+version >v0.9.8+dev [libcurl,crappy], commit 8bf1c4cf137082ed4c3e4a8c992d5b166eb6af0c, built at 2022-06-27@13:53:35 by build.sh (go1.18.3)
   -t, --tokens string      comma-separated list of tokens
   -i, --ignore-case        tokens given with -t are case-insensitive
   -o, --only               don't display lines without at least one token
@@ -88,6 +88,7 @@ ccat <files>...
         hexdump: dump in hex as xxd
         indent: indent the text with 4 chars
         j: JSON Re-indent
+        jcs: JSON Canonicalization (RFC 8785)
         md: Render Markdown (with glamour)
         wrap: word-wrap the text to 80 chars maximum
         wrapU: unconditionally wrap the text to 80 chars maximum

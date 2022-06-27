@@ -18,6 +18,7 @@ require (
 	github.com/creativeprojects/go-selfupdate v0.6.1
 	github.com/dsnet/compress v0.0.1
 	github.com/eliukblau/pixterm v1.3.1
+	github.com/go-json-experiment/json v0.0.0-20220620174529-794765d0bd38
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/google/go-querystring v1.1.0 // indirect
 	github.com/hashicorp/go-version v1.5.0 // indirect
