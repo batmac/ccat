@@ -36,3 +36,18 @@ jobs:
 
       - name: Test
         run: go test -v -tags libcurl  ./...
+
+  win:
+    strategy:
+      matrix:
+        os: [windows-latest]
+        go: ["1.15", "1.18"]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v3.2.0
+        with:
+          go-version: ${{ matrix.go }}
+      - run: printenv|sort
+      - run: go build -v ./...
+      - run: go test -v ./...
