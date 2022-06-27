@@ -5,7 +5,8 @@ import (
 	"io"
 	"io/ioutil"
 
-	"github.com/go-json-experiment/json"
+	// "github.com/go-json-experiment/json"
+	json "github.com/gowebpki/jcs"
 )
 
 func init() {
@@ -20,8 +21,9 @@ func jcs(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 	if len(j) == 0 {
 		return 0, nil
 	}
-	var c json.RawValue = j
-	err = c.Canonicalize()
+	// var c json.RawValue = j
+	// err = c.Canonicalize()
+	c, err := json.Transform(j)
 	if err != nil {
 		return 0, err
 	}
