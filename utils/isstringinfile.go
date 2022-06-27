@@ -13,10 +13,10 @@ func IsStringInFile(s, path string) bool {
 	// use only with small files as we read it fully
 	d, err := ioutil.ReadFile(path)
 	if os.IsNotExist(err) {
-		panic("file does not exist")
+		return false
 	}
 	if err != nil {
-		panic(err)
+		return false
 	}
 	return bytes.Contains(d, []byte(s))
 }
