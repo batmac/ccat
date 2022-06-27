@@ -13,4 +13,4 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker buildx build --compress -t batmac/ccat:$(date +%s) --platform=linux/amd64,linux/arm64 -f Dockerfile . --push
+      run: docker buildx create –use && docker buildx build --compress -t batmac/ccat:$(date +%s) --platform=linux/amd64,linux/arm64 -f Dockerfile . --push
