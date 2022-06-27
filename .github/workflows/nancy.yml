@@ -1,20 +1,24 @@
 name: Go Nancy
 
-on: [push]
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "0 0 * * 0"
 
 jobs:
-  build:
+  nancy:
     runs-on: ubuntu-latest
     steps:
-    - name: Check out code into the Go module directory
-      uses: actions/checkout@v2
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@v3
 
-    - name: Set up Go 1.x in order to write go.list file
-      uses: actions/setup-go@v2
-      with:
-        go-version: ^1.18
-    - name: WriteGoList
-      run: go list -json -m all > go.list
+      - name: Set up Go 1.x in order to write go.list file
+        uses: actions/setup-go@v2
+        with:
+          go-version: ^1.18
+      - name: WriteGoList
+        run: go list -json -m all > go.list
 
-    - name: Nancy
-      uses: sonatype-nexus-community/nancy-github-action@main
+      - name: Nancy
+        uses: sonatype-nexus-community/nancy-github-action@main

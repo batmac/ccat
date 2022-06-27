@@ -1,23 +1,20 @@
-name: Makefile CI
+name: Makefile
 
 env:
   GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
 on:
   push:
-    branches: [ "main" ]
   pull_request:
-    branches: [ "main" ]
 
 jobs:
-  build:
-
+  makefile:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up Go
-      uses: actions/setup-go@v3.2.0
-    - name: Install cURL Headers
-      run: sudo apt-get install libcurl4-openssl-dev
-    - name: Run
-      run: make
+      - uses: actions/checkout@v3
+      - name: Set up Go
+        uses: actions/setup-go@v3.2.0
+      - name: Install cURL Headers
+        run: sudo apt-get install libcurl4-openssl-dev
+      - name: Run
+        run: make

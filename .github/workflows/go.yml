@@ -1,22 +1,22 @@
 name: Go
 env:
+  # needed for the --check tests
   GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-  
+
 on:
   push:
-    branches: ['**']
   pull_request:
-    branches: ['**']
 
 jobs:
-  build:
+  go:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
-        go: [ '1.15', '1.18' ]
+        go: ["1.15", "1.18"]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v3
+      - name: Check out code
+        uses: actions/checkout@v3
 
       - name: Set up Go ${{ matrix.go }}
         uses: actions/setup-go@v3.2.0
@@ -25,9 +25,9 @@ jobs:
 
       - name: Install cURL Headers
         uses: lyricwulf/abc@v1
-        with: 
+        with:
           linux: libcurl4-openssl-dev
-          
+
       - name: printenv
         run: printenv|sort
 
