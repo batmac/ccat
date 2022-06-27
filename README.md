@@ -44,7 +44,7 @@ kubectl run -i --tty ccat --image=batmac/ccat -- /bin/sh
 ## help
 
 ```
-version >v0.9.8+dev [libcurl,crappy], commit 8bf1c4cf137082ed4c3e4a8c992d5b166eb6af0c, built at 2022-06-27@13:53:35 by build.sh (go1.18.3)
+version >v0.9.8+dev [libcurl,crappy], commit 25a133349761c8cd156896b228a5a9bdf4769653, built at 2022-06-27@22:26:28 by build.sh (go1.18.3)
   -t, --tokens string      comma-separated list of tokens
   -i, --ignore-case        tokens given with -t are case-insensitive
   -o, --only               don't display lines without at least one token
@@ -55,7 +55,6 @@ version >v0.9.8+dev [libcurl,crappy], commit 8bf1c4cf137082ed4c3e4a8c992d5b166eb
   -w, --word               read word by word instead of line by line (only works with utf8)
   -X, --exec string        command to exec on each file before processing it
   -b, --bg                 colorize the background instead of the font
-  -d, --debug              debug what we are doing
   -H, --humanize           try to do what is needed to help (syntax-highlight, autodetect, etc. TODO)
   -S, --style string       style to use (only used if -H, look below for the list)
   -F, --formatter string   formatter to use (only used if -H, look below for the list)
@@ -66,6 +65,8 @@ version >v0.9.8+dev [libcurl,crappy], commit 8bf1c4cf137082ed4c3e4a8c992d5b166eb
   -h, --help               print usage
       --selfupdate         Update to latest Github release
       --check              Check version with the latest Github release
+  -d, --debug              debug what we are doing
+  -k, --insecure           get files insecurely (globally)
 ---
 ccat <files>...
  - highlighter (used with -H):

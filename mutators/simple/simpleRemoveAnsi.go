@@ -15,8 +15,7 @@ func init() {
 
 func removeANSI(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 	p := ansihtml.NewParser(r, w)
-	err := p.Parse(nil) // streamable?
-	if err != nil {
+	if err := p.Parse(nil); err != nil { // streamable
 		return 0, err
 	}
 

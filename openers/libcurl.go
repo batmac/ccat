@@ -9,6 +9,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/batmac/ccat/globalctx"
 	"github.com/batmac/ccat/log"
 	"github.com/batmac/ccat/utils"
 
@@ -28,7 +29,8 @@ type curlOpener struct {
 }
 
 func init() {
-	_ = register(&curlOpener{
+	register(&curlOpener{
+		easy:        nil,
 		name:        curlOpenerName,
 		description: curlOpenerDescription,
 	})
@@ -40,29 +42,43 @@ func (f *curlOpener) easyHandlerInit() {
 	// curl.GlobalInit(curl.GLOBAL_DEFAULT)
 	// defer curl.GlobalCleanup()
 	f.easy = curl.EasyInit()
-	f.easy.Setopt(curl.OPT_VERBOSE, false)
-	f.easy.Setopt(curl.OPT_FOLLOWLOCATION, true)
-	f.easy.Setopt(curl.OPT_MAXREDIRS, 10)
-	f.easy.Setopt(curl.OPT_CONNECTTIMEOUT, 10)
-	f.easy.Setopt(curl.OPT_WRITEFUNCTION, func(ptr []byte, userdata interface{}) bool {
+	if err := f.easy.Setopt(curl.OPT_VERBOSE, false); err != nil {
+		log.Println(" curl ERROR", err.Error())
+	}
+	if err := f.easy.Setopt(curl.OPT_FOLLOWLOCATION, true); err != nil {
+		log.Println(" curl ERROR", err.Error())
+	}
+	if err := f.easy.Setopt(curl.OPT_MAXREDIRS, 10); err != nil {
+		log.Println(" curl ERROR", err.Error())
+	}
+	if err := f.easy.Setopt(curl.OPT_CONNECTTIMEOUT, 10); err != nil {
+		log.Println(" curl ERROR", err.Error())
+	}
+	if err := f.easy.Setopt(curl.OPT_WRITEFUNCTION, func(ptr []byte, userdata interface{}) bool {
 		pipe := userdata.(*io.PipeWriter)
 		if _, err := pipe.Write(ptr); err != nil {
 			return false
 		}
 		return true
-	})
+	}); err != nil {
+		log.Println(" curl ERROR", err.Error())
+	}
 
 	step := time.Now().Unix()
 	dlstep := 0.0
-	f.easy.Setopt(curl.OPT_NOPROGRESS, false)
-	f.easy.Setopt(curl.OPT_PROGRESSFUNCTION, func(dltotal, dlnow, ultotal, ulnow float64, _ interface{}) bool {
+	if err := f.easy.Setopt(curl.OPT_NOPROGRESS, false); err != nil {
+		log.Println(" curl ERROR", err.Error())
+	}
+	if err := f.easy.Setopt(curl.OPT_PROGRESSFUNCTION, func(dltotal, dlnow, ultotal, ulnow float64, _ interface{}) bool {
 		if time.Now().Unix()-step > 2 {
 			log.Debugf("downloaded: %3.2f%%, speed: %.1fKiB/s \r", dlnow/dltotal*100, (dlnow-dlstep)/1000/float64((time.Now().Unix()-step)))
 			step = time.Now().Unix()
 			dlstep = dlnow
 		}
 		return true
-	})
+	}); err != nil {
+		log.Println(" curl ERROR", err.Error())
+	}
 }
 
 func (f curlOpener) Name() string {
@@ -83,17 +99,44 @@ func (f *curlOpener) Open(s string, _ bool) (io.ReadCloser, error) {
 		}
 		// defer easy.Cleanup()
 
-		s = tryTransformUrl(s)
+		s = tryTransformURL(s)
 
-		f.easy.Setopt(curl.OPT_URL, s)
+		flag := globalctx.Get("insecure").(bool)
 
-		f.easy.Setopt(curl.OPT_WRITEDATA, w)
+		if flag {
+			log.Debugln(" curl insecure enabled!")
+			if err := f.easy.Setopt(curl.OPT_SSL_VERIFYHOST, 0); err != nil {
+				log.Println(" curl ERROR", err.Error())
+			}
+			if err := f.easy.Setopt(curl.OPT_SSL_VERIFYPEER, 0); err != nil {
+				log.Println(" curl ERROR", err.Error())
+			}
+		} else {
+			log.Debugln(" curl SECURE only.")
+			if err := f.easy.Setopt(curl.OPT_SSL_VERIFYHOST, 2); err != nil {
+				log.Println(" curl ERROR", err.Error())
+			}
+			if err := f.easy.Setopt(curl.OPT_SSL_VERIFYPEER, 1); err != nil {
+				log.Println(" curl ERROR", err.Error())
+			}
+		}
+
+		if err := f.easy.Setopt(curl.OPT_URL, s); err != nil {
+			log.Println(" curl ERROR", err.Error())
+		}
+		if err := f.easy.Setopt(curl.OPT_WRITEDATA, w); err != nil {
+			log.Println(" curl ERROR", err.Error())
+		}
 
 		if err := f.easy.Perform(); err != nil {
-			println(" curl ERROR", err.Error())
-			w.CloseWithError(err)
+			log.Println(" curl ERROR", err.Error())
+			if err := w.CloseWithError(err); err != nil {
+				log.Println(" curl ERROR", err.Error())
+			}
 		}
-		w.Close()
+		if err := w.Close(); err != nil {
+			log.Println(" curl ERROR", err.Error())
+		}
 		log.Debugln(" curl goroutine ended")
 	}()
 
@@ -114,7 +157,7 @@ func (f curlOpener) Evaluate(s string) float32 {
 	return 0
 }
 
-func tryTransformUrl(s string) string {
+func tryTransformURL(s string) string {
 	// ease life by checking urls
 
 	r := regexp.MustCompile(`^https://github.com/(.+)/blob(/.+)$`)

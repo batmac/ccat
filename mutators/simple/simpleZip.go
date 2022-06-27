@@ -40,6 +40,7 @@ func unzip(out io.WriteCloser, in io.ReadCloser) (int64, error) {
 			log.Debugln(err)
 			continue
 		}
+		//#nosec
 		n, err := io.Copy(out, rc)
 		if err != nil {
 			log.Fatal(err)

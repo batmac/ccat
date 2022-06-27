@@ -56,6 +56,6 @@ func (c newCloserWriterTo) Close() error {
 	return c.closure()
 }
 
-func (c newCloserWriterTo) WriteTo(w io.Writer) (n int64, err error) {
+func (c newCloserWriterTo) WriteTo(w io.Writer) (int64, error) {
 	return c.Reader.(io.WriterTo).WriteTo(w)
 }

@@ -23,7 +23,7 @@ type tcpOpener struct {
 }
 
 func init() {
-	_ = register(&tcpOpener{
+	register(&tcpOpener{
 		name:        tcpOpenerName,
 		description: tcpOpenerDescription,
 	})

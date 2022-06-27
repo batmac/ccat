@@ -34,8 +34,7 @@ func FileClose(file *os.File, unlock bool) {
 		}
 	}
 	log.Debugln(" lockable: close ", file.Name())
-	err := file.Close()
-	if err != nil {
+	if err := file.Close(); err != nil {
 		log.Println(err)
 	}
 }

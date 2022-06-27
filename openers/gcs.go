@@ -24,7 +24,7 @@ type gcsOpener struct {
 }
 
 func init() {
-	_ = register(&gcsOpener{
+	register(&gcsOpener{
 		name:        gcsOpenerName,
 		description: gcsOpenerDescription,
 	})

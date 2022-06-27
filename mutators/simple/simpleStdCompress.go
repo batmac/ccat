@@ -33,6 +33,7 @@ func ungzip(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 		log.Fatal(err)
 	}
 	defer zr.Close()
+	//#nosec
 	return io.Copy(w, zr)
 }
 
@@ -41,6 +42,7 @@ func bunzip2(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 	if bzr == nil {
 		log.Fatal("bzip2 decompressor failed to init")
 	}
+	//#nosec
 	return io.Copy(w, bzr)
 }
 
@@ -50,6 +52,7 @@ func unzlib(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 		log.Fatal(err)
 	}
 	defer z.Close()
+	//#nosec
 	return io.Copy(w, z)
 }
 
@@ -59,6 +62,7 @@ func cgzip(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 		log.Fatal(err)
 	}
 	defer zw.Close()
+	//#nosec
 	return io.Copy(zw, r)
 }
 
@@ -68,5 +72,6 @@ func czlib(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 		log.Fatal(err)
 	}
 	defer zw.Close()
+	//#nosec
 	return io.Copy(zw, r)
 }

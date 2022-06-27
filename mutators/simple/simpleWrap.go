@@ -27,8 +27,7 @@ func init() {
 
 func wordWrap(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 	ww := wordwrap.NewWriter(WRAP_MAX_CHARS)
-	_, err := io.Copy(ww, r) // streamable?
-	if err != nil {
+	if _, err := io.Copy(ww, r); err != nil { // streamable?
 		return 0, err
 	}
 	ww.Close()
@@ -37,8 +36,7 @@ func wordWrap(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 
 func unconditionalyWrap(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 	ww := uwrap.NewWriter(WRAP_MAX_CHARS)
-	_, err := io.Copy(ww, r) // streamable?
-	if err != nil {
+	if _, err := io.Copy(ww, r); err != nil { // streamable?
 		return 0, err
 	}
 
@@ -47,8 +45,7 @@ func unconditionalyWrap(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 
 func simpleIndent(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 	f := indent.NewWriter(INDENT_CHARS, nil)
-	_, err := io.Copy(f, r) // streamable?
-	if err != nil {
+	if _, err := io.Copy(f, r); err != nil { // streamable?
 		return 0, err
 	}
 	// f.Close()

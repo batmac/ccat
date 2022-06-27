@@ -30,7 +30,7 @@ type slowReader struct {
 	buf io.Reader
 }
 
-func (sr *slowReader) Read(p []byte) (n int, err error) {
+func (sr *slowReader) Read(p []byte) (int, error) {
 	if len(p) > sr.max {
 		p = p[0:sr.max]
 	}
@@ -38,7 +38,8 @@ func (sr *slowReader) Read(p []byte) (n int, err error) {
 }
 
 // Test that the line splitter handles a final line without a newline.
-func testNoNewline(text string, lines []string, t *testing.T) {
+func testNoNewline(t *testing.T, text string, lines []string) {
+	t.Helper()
 	buf := strings.NewReader(text)
 	s := bufio.NewScanner(&slowReader{7, buf})
 	s.Split(scanners.ScanLines)
@@ -48,8 +49,7 @@ func testNoNewline(text string, lines []string, t *testing.T) {
 			t.Errorf("%d: bad line: %d %d\n%.100q\n%.100q\n", lineNum, len(s.Bytes()), len(line), s.Bytes(), line)
 		}
 	}
-	err := s.Err()
-	if err != nil {
+	if err := s.Err(); err != nil {
 		t.Fatal(err)
 	}
 }
@@ -61,7 +61,7 @@ func TestScanLineNoNewline(t *testing.T) {
 		"abcdefghijklmn\n",
 		"opqrstuvwxyz",
 	}
-	testNoNewline(text, lines, t)
+	testNoNewline(t, text, lines)
 }
 
 // Test that the line splitter handles a final line with a carriage return but no newline.
@@ -71,7 +71,7 @@ func TestScanLineReturn(t *testing.T) {
 		"abcdefghijklmn\n",
 		"opqrstuvwxyz\r",
 	}
-	testNoNewline(text, lines, t)
+	testNoNewline(t, text, lines)
 }
 
 // Test for issue 5268.
@@ -87,8 +87,7 @@ func TestNonEOFWithEmptyRead(t *testing.T) {
 	for scanner.Scan() {
 		t.Fatal("read should fail")
 	}
-	err := scanner.Err()
-	if err != io.ErrUnexpectedEOF {
+	if err := scanner.Err(); err != io.ErrUnexpectedEOF {
 		t.Errorf("unexpected error: %v", err)
 	}
 }
@@ -106,8 +105,7 @@ func TestBadReader(t *testing.T) {
 	for scanner.Scan() {
 		t.Fatal("read should fail")
 	}
-	err := scanner.Err()
-	if err != io.ErrNoProgress {
+	if err := scanner.Err(); err != io.ErrNoProgress {
 		t.Errorf("unexpected error: %v", err)
 	}
 }

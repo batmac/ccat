@@ -33,13 +33,12 @@ func newCollection(name string) *OpenerCollection {
 	}
 }
 
-func register(opener Opener) error {
+func register(opener Opener) {
 	globalCollection.mu.Lock()
 	globalCollection.openers = append(globalCollection.openers, opener)
 	globalCollection.mu.Unlock()
 	log.SetDebug(os.Stderr)
 	// log.Debugf(" opener \"%s\" registered (%s)\n", opener.Name(), opener.Description())
-	return nil
 }
 
 func Open(s string, lock bool) (io.ReadCloser, error) {

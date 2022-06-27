@@ -16,7 +16,7 @@ var (
 	emptyReader = strings.NewReader("")
 	hello       = "hello"
 	helloReader = strings.NewReader(hello)
-	helloErr    = errors.New(hello)
+	ErrHello    = errors.New(hello)
 )
 
 func TestNewReadCloser(t *testing.T) {
@@ -37,8 +37,8 @@ func TestNewReadCloser(t *testing.T) {
 		}}, nil, true},
 		{"hello", args{helloReader, func() error {
 			taint = true
-			return helloErr
-		}}, helloErr, true},
+			return ErrHello
+		}}, ErrHello, true},
 	}
 	for _, tt := range tests {
 		taint = false

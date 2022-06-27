@@ -4,13 +4,14 @@
 package openers
 
 import (
+	"crypto/tls"
 	"io"
 	"net/http"
 	"strings"
 	"time"
 
+	"github.com/batmac/ccat/globalctx"
 	"github.com/batmac/ccat/log"
-	"github.com/batmac/ccat/utils"
 )
 
 var (
@@ -23,7 +24,7 @@ type httpOpener struct {
 }
 
 func init() {
-	_ = register(&httpOpener{
+	register(&httpOpener{
 		name:        httpOpenerName,
 		description: httpOpenerDescription,
 	})
@@ -39,14 +40,21 @@ func (f httpOpener) Description() string {
 }
 
 func (f httpOpener) Open(s string, _ bool) (io.ReadCloser, error) {
+	flag := globalctx.Get("insecure")
+	tr := http.DefaultTransport.(*http.Transport)
+	// log.Debugf("flag=%v, tr=%#v\n", flag, tr)
+	if i, ok := flag.(bool); ok {
+		//#nosec
+		tr.TLSClientConfig = &tls.Config{InsecureSkipVerify: i}
+	}
+
+	//#nosec
 	resp, err := http.Get(s)
 	if err != nil {
 		log.Println(err)
 		return nil, err
 	}
-	nrc := utils.NewReadCloser(resp.Body, func() error {
-		return nil
-	})
+	nrc := resp.Body
 
 	return nrc, nil
 }

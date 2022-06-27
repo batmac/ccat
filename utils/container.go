@@ -12,8 +12,7 @@ func IsRunningInContainer() bool {
 }
 
 func IsRunningInDocker() bool {
-	_, err := os.Stat("/.dockerenv")
-	if err == nil {
+	if _, err := os.Stat("/.dockerenv"); err == nil {
 		log.Debugf("docker detected.")
 		return true
 	}
@@ -22,8 +21,7 @@ func IsRunningInDocker() bool {
 
 func IsRunningInK8s() bool {
 	// these does not work if automountServiceAccountToken: false
-	_, err := os.Stat("/run/secrets/kubernetes.io/")
-	if err == nil {
+	if _, err := os.Stat("/run/secrets/kubernetes.io/"); err == nil {
 		log.Debugf("k8s (at least one secret is mounted) detected.")
 		return true
 	}

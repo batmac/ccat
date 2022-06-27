@@ -19,7 +19,7 @@ type fileOpener struct {
 }
 
 func init() {
-	_ = register(&fileOpener{
+	register(&fileOpener{
 		name:        fileOpenerName,
 		description: fileOpenerDescription,
 	})
@@ -55,8 +55,7 @@ func (f fileOpener) Evaluate(s string) float32 {
 	if path == "-" {
 		return 1.0
 	}
-	_, err := os.Stat(path)
-	if err == nil {
+	if _, err := os.Stat(path); err == nil {
 		return 0.99
 	}
 	return 0.0

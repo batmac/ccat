@@ -8,7 +8,7 @@ import (
 // All functions below are taken from go 1.18.2 and simplified because we don't want trimming.
 // https://cs.opensource.google/go/go/+/refs/tags/go1.18.2:src/bufio/scan.go;l=351
 
-func ScanLines(data []byte, atEOF bool) (advance int, token []byte, err error) {
+func ScanLines(data []byte, atEOF bool) (int, []byte, error) {
 	if atEOF && len(data) == 0 {
 		return 0, nil, nil
 	}
@@ -49,9 +49,10 @@ func IsSpace(r rune) bool {
 	return false
 }
 
-func ScanWords(data []byte, atEOF bool) (advance int, token []byte, err error) {
+func ScanWords(data []byte, atEOF bool) (int, []byte, error) {
 	// Scan until space, marking end of word.
-	for width, i := 0, 0; i < len(data); i += width {
+	var width int
+	for i := 0; i < len(data); i += width {
 		var r rune
 		r, width = utf8.DecodeRune(data[i:])
 		if IsSpace(r) {
@@ -67,7 +68,7 @@ func ScanWords(data []byte, atEOF bool) (advance int, token []byte, err error) {
 }
 
 // ScanBytes is a split function for a Scanner that returns ALL data []bytes as a token.
-func ScanBytes(data []byte, atEOF bool) (advance int, token []byte, err error) {
+func ScanBytes(data []byte, atEOF bool) (int, []byte, error) {
 	if len(data) < 4096 && !atEOF {
 		// if len(data) < bufio.MaxScanTokenSize && !atEOF {
 		return 0, nil, nil

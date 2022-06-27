@@ -15,7 +15,7 @@ func IsStdoutTerminal() bool {
 	return term.IsTerminal(int(os.Stdout.Fd()))
 }
 
-func GetTerminalSize() (width, height int, err error) {
+func GetTerminalSize() (int, int, error) {
 	if IsStdoutTerminal() {
 		return term.GetSize(int(os.Stdout.Fd()))
 	}

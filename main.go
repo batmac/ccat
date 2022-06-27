@@ -33,7 +33,6 @@ var (
 	argSplitByWords = flag.BoolP("word", "w", false, "read word by word instead of line by line (only works with utf8)")
 	argExec         = flag.StringP("exec", "X", "", "command to exec on each file before processing it")
 	argBG           = flag.BoolP("bg", "b", false, "colorize the background instead of the font")
-	argDebug        = flag.BoolP("debug", "d", false, "debug what we are doing")
 	argHuman        = flag.BoolP("humanize", "H", false, "try to do what is needed to help (syntax-highlight, autodetect, etc. TODO)")
 	argStyle        = flag.StringP("style", "S", "", "style to use (only used if -H, look below for the list)")
 	argFormatter    = flag.StringP("formatter", "F", "", "formatter to use (only used if -H, look below for the list)")
@@ -44,6 +43,8 @@ var (
 	argHelp         = flag.BoolP("help", "h", false, "print usage")
 	argSelfUpdate   = flag.Bool("selfupdate", false, "Update to latest Github release")
 	argCheckUpdate  = flag.Bool("check", false, "Check version with the latest Github release")
+	argDebug        = flag.BoolP("debug", "d", false, "debug what we are doing")
+	argInsecure     = flag.BoolP("insecure", "k", false, "get files insecurely (globally)")
 
 	tmap   map[string]color.Color
 	tokens []string
@@ -94,11 +95,7 @@ func main() {
 		update(version, true)
 		os.Exit(0)
 	}
-	/* log.Printf("runtest\n")
-	err := mutator.RunTest("dummy", os.Stdout, os.Stdin)
-	if err != nil {
-		log.Fatalln(err)
-	} */
+
 	if term.IsStdoutTerminal() {
 		*argHuman = true
 	}
@@ -143,6 +140,7 @@ func main() {
 	for _, path := range fileList {
 		globalctx.Reset()
 		globalctx.Set("fileList", fileList)
+		globalctx.Set("insecure", *argInsecure)
 		processFile(path)
 	}
 

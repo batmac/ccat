@@ -23,7 +23,7 @@ type localShellScpOpener struct {
 }
 
 func init() {
-	_ = register(&localShellScpOpener{
+	register(&localShellScpOpener{
 		name:        localShellScpOpenerName,
 		description: localShellScpOpenerDescription,
 	})
@@ -64,6 +64,9 @@ func (f *localShellScpOpener) Open(s string, _ bool) (io.ReadCloser, error) {
 	}
 
 	so, err := ioutil.ReadAll(stdout)
+	if err != nil {
+		log.Fatal(err)
+	}
 	se, err := ioutil.ReadAll(stderr)
 	if err != nil {
 		log.Fatal(err)
@@ -91,8 +94,7 @@ func (f *localShellScpOpener) Open(s string, _ bool) (io.ReadCloser, error) {
 
 func (f localShellScpOpener) Evaluate(s string) float32 {
 	arr := strings.SplitN(s, "scp://", 2)
-	before := arr[0]
-	if before == "" {
+	if before := arr[0]; before == "" {
 		return 0.5
 	}
 	return 0

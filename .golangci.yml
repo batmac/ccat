@@ -42,7 +42,7 @@ linters:
     - execinquery
     - exhaustive
     # - exhaustivestruct [deprecated]
-    - exhaustruct
+    # - exhaustruct
     # - forbidigo
     # - forcetypeassert
     # - funlen
@@ -68,7 +68,7 @@ linters:
     - ifshort
     - importas
     # - interfacer [deprecated]
-    - ireturn
+    # - ireturn
     # - lll
     - maintidx
     - makezero
@@ -78,16 +78,16 @@ linters:
     # - nestif
     - nilnil
     # - nlreturn
-    - noctx
+    # - noctx
     - nolintlint
     - nonamedreturns
     - nosprintfhostport
     # - paralleltest
-    - prealloc
+    # - prealloc
     - promlinter
-    - revive
+    # - revive
     # - scopelint [deprecated]
-    - stylecheck
+    # - stylecheck
     - tagliatelle
     - tenv
     - testpackage

@@ -38,7 +38,7 @@ func easyseal(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 		return 0, err
 	}
 	defer func() {
-		log.Printf("KEY=%s", hex.EncodeToString([]byte((*key)[:])))
+		log.Printf("KEY=%s", hex.EncodeToString((*key)[:]))
 	}()
 	return int64(len(box)), nil
 }
@@ -70,9 +70,8 @@ func easyopen(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 }
 
 func getKey() nacl.Key {
-	keyString := os.Getenv("KEY")
 	var key nacl.Key
-	if len(keyString) == 0 {
+	if keyString := os.Getenv("KEY"); len(keyString) == 0 {
 		key = nacl.NewKey()
 	} else {
 		var err error
