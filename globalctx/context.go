@@ -41,6 +41,17 @@ func Get(k string) interface{} {
 	return globalCtx.ctx.Value(key(k))
 }
 
+func GetBool(k string) bool {
+	globalCtx.mu.Lock()
+	defer globalCtx.mu.Unlock()
+	bi := globalCtx.ctx.Value(key(k))
+	if b, ok := bi.(bool); ok {
+		return b
+	} else {
+		return false
+	}
+}
+
 func Reset() {
 	// doesn't touch globalCtx.err
 	globalCtx.mu.Lock()

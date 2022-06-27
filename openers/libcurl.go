@@ -101,12 +101,7 @@ func (f *curlOpener) Open(s string, _ bool) (io.ReadCloser, error) {
 
 		s = tryTransformURL(s)
 
-		var flag bool
-		flagi := globalctx.Get("insecure")
-		if _, ok := flagi.(bool); ok {
-			flag = true
-		}
-
+		flag := globalctx.GetBool("insecure")
 		if flag {
 			log.Debugln(" curl insecure enabled!")
 			if err := f.easy.Setopt(curl.OPT_SSL_VERIFYHOST, 0); err != nil {

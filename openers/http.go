@@ -40,13 +40,11 @@ func (f httpOpener) Description() string {
 }
 
 func (f httpOpener) Open(s string, _ bool) (io.ReadCloser, error) {
-	flag := globalctx.Get("insecure")
+	flag := globalctx.GetBool("insecure")
 	tr := http.DefaultTransport.(*http.Transport)
 	// log.Debugf("flag=%v, tr=%#v\n", flag, tr)
-	if i, ok := flag.(bool); ok {
-		//#nosec
-		tr.TLSClientConfig = &tls.Config{InsecureSkipVerify: i}
-	}
+	//#nosec
+	tr.TLSClientConfig = &tls.Config{InsecureSkipVerify: flag}
 
 	//#nosec
 	resp, err := http.Get(s)

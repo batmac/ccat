@@ -71,3 +71,27 @@ func TestIsErrored(t *testing.T) {
 		t.Errorf("after Reset, IsErrored = false")
 	}
 }
+
+func TestGetBool(t *testing.T) {
+	globalctx.Set("test_true", true)
+	globalctx.Set("test_false", false)
+	type args struct {
+		k string
+	}
+	tests := []struct {
+		name string
+		args args
+		want bool
+	}{
+		{"true", args{"test_true"}, true},
+		{"false", args{"test_false"}, false},
+		{"not existing", args{"not existing"}, false},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := globalctx.GetBool(tt.args.k); got != tt.want {
+				t.Errorf("GetBool() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
