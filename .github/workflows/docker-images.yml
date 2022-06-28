@@ -57,7 +57,7 @@ jobs:
         uses: peter-evans/dockerhub-description@v3
         with:
           username: batmac
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
           repository: batmac/ccat
           short-description: ${{ github.event.repository.description }}
           
