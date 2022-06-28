@@ -22,14 +22,28 @@ jobs:
         uses: actions/setup-go@v3.2.0
         with:
           go-version: ${{ matrix.go }}
+          
+      - name: Cache
+        uses: actions/cache@v3
+        with:
+          # In order:
+          # * Module download cache
+          # * Build cache (Linux)
+          # * Build cache (Mac)
+          # * Build cache (Windows)
+          path: |
+            ~/go/pkg/mod
+            ~/.cache/go-build
+            ~/Library/Caches/go-build
+            ~\AppData\Local\go-build
+          key: ${{ runner.os }}-go-${{ matrix.go-version }}-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-${{ matrix.go-version }}-
 
       - name: Install cURL Headers
         uses: lyricwulf/abc@v1
         with:
           linux: libcurl4-openssl-dev
-
-      - name: printenv
-        run: printenv|sort
 
       - name: Build
         run: go build -v -tags libcurl ./...
@@ -37,10 +51,10 @@ jobs:
       - name: Test
         run: go test -v -tags libcurl  ./...
      
-      - name: Coverage 1
-        run: go test -cover -coverprofile coverage1.out ./...
-      - name: Coverage 2
-        run: go test -cover -coverprofile coverage2.out -tags libcurl,crappy  ./...
+      - name: Coverage
+        run: |
+          go test -cover -coverprofile coverage1.out ./...
+          go test -cover -coverprofile coverage2.out -tags libcurl,crappy  ./...
         
       - name: Codecov
         uses: codecov/codecov-action@v3.1.0
