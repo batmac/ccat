@@ -15,7 +15,7 @@ var (
 	Debug  = &Logger{Logger: log.New(ioutil.Discard, "", flags)}
 	Stderr = &Logger{Logger: log.New(os.Stderr, "", flags)}
 
-	debugIsDiscard int32
+	DebugIsDiscard int32
 )
 
 func init() {
@@ -34,19 +34,19 @@ func SetDebug(w io.Writer) {
 	if w == ioutil.Discard {
 		isDiscard = 1
 	}
-	atomic.StoreInt32(&debugIsDiscard, isDiscard)
+	atomic.StoreInt32(&DebugIsDiscard, isDiscard)
 	Debug.SetOutput(w)
 }
 
 func Debugf(format string, v ...interface{}) {
-	if atomic.LoadInt32(&debugIsDiscard) != 0 {
+	if atomic.LoadInt32(&DebugIsDiscard) != 0 {
 		return
 	}
 	_ = Debug.Output(2, fmt.Sprintf(format, v...))
 }
 
 func Debugln(v ...interface{}) {
-	if atomic.LoadInt32(&debugIsDiscard) != 0 {
+	if atomic.LoadInt32(&DebugIsDiscard) != 0 {
 		return
 	}
 	_ = Debug.Output(2, fmt.Sprint(v...))
