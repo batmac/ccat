@@ -13,7 +13,7 @@ import (
 func update(version string, checkOnly bool) {
 	log.Debugf("Trying to self-update %v...\n", version)
 
-	selfupdate.SetLogger(log.Stderr)
+	selfupdate.SetLogger(log.Debug)
 	defer func() {
 		if r := recover(); r != nil {
 			fmt.Println("self-update failed: ", r)
