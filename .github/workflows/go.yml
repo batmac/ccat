@@ -36,6 +36,10 @@ jobs:
 
       - name: Test
         run: go test -v -tags libcurl  ./...
+        
+      - name: Codecov
+        uses: codecov/codecov-action@v3.1.0
+
 
   win:
     strategy:
