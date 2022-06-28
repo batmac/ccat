@@ -20,7 +20,6 @@ require (
 	github.com/eliukblau/pixterm v1.3.1
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/google/go-querystring v1.1.0 // indirect
-	github.com/gopherjs/gopherjs v0.0.0-20220104163920-15ed2e8cf2bd // indirect
 	github.com/gowebpki/jcs v1.0.0
 	github.com/hashicorp/go-version v1.6.0 // indirect
 	github.com/hbollon/go-edlib v1.6.0
@@ -36,7 +35,6 @@ require (
 	github.com/pierrec/lz4/v4 v4.1.15
 	github.com/robert-nix/ansihtml v1.0.1
 	github.com/rs/xid v1.4.0 // indirect
-	github.com/smartystreets/assertions v1.1.1 // indirect
 	github.com/spf13/pflag v1.0.5
 	github.com/ulikunitz/xz v0.5.10
 	github.com/yuin/goldmark v1.4.12 // indirect
@@ -49,6 +47,7 @@ require (
 	google.golang.org/genproto v0.0.0-20220627200112-0a929928cb33 // indirect
 	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
 	gopkg.in/ini.v1 v1.66.6 // indirect
+	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
 	howett.net/plist v1.0.0
 	sigs.k8s.io/yaml v1.3.0
 )
