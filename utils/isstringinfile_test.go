@@ -19,18 +19,13 @@ func TestIsStringInFile(t *testing.T) {
 		log.Debugf("%v\n", got)
 	})
 	t.Run("notexistingfile", func(t *testing.T) {
-		assertPanic(t, func() {
-			_ = utils.IsStringInFile(" ", "not existing file")
-		})
+		if utils.IsStringInFile(" ", "not existing file") {
+			t.Fail()
+		}
 	})
 	t.Run("panicplease", func(t *testing.T) {
 		assertPanic(t, func() {
 			_ = utils.IsStringInFile("", exe)
-		})
-	})
-	t.Run("panic+notexistingfile", func(t *testing.T) {
-		assertPanic(t, func() {
-			_ = utils.IsStringInFile("", "not existing file")
 		})
 	})
 }
