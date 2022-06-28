@@ -36,10 +36,16 @@ jobs:
 
       - name: Test
         run: go test -v -tags libcurl  ./...
+     
+      - name: Coverage 1
+        run: go test -cover -coverprofile coverage1.out ./...
+      - name: Coverage 2
+        run: go test -cover -coverprofile coverage2.out -tags libcurl,crappy  ./...
         
       - name: Codecov
         uses: codecov/codecov-action@v3.1.0
-
+        with:
+          files: coverage1.out,coverage2.out
 
   win:
     strategy:
