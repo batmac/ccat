@@ -2,13 +2,14 @@ package lockable
 
 import (
 	"os"
+	"path/filepath"
 
 	"github.com/batmac/ccat/log"
 )
 
 // open and optionally flock a file
 func FileOpen(path string, lock bool) (*os.File, error) {
-	file, err := os.Open(path)
+	file, err := os.Open(filepath.Clean(path))
 	if err != nil {
 		return nil, err
 	}
