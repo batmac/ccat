@@ -8,6 +8,7 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
 
@@ -44,6 +45,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
+          context: .
           platforms: linux/amd64,linux/arm64,linux/arm/v7,
           push: true
           tags: ${{ steps.meta.outputs.tags }}
@@ -57,4 +59,5 @@ jobs:
           username: batmac
           password: ${{ secrets.DOCKERHUB_TOKEN }}
           repository: batmac/ccat
+          short-description: ${{ github.event.repository.description }}
           
