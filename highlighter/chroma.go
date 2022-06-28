@@ -81,7 +81,7 @@ func (h *Chroma) highLight(w io.WriteCloser, r io.ReadCloser, o Options) error {
 	// registered styles are: [abap algol algol_nu arduino autumn base16-snazzy borland bw colorful doom-one doom-one2 dracula emacs friendly fruity github hr_high_contrast hrdark igor lovelace manni monokai monokailight murphy native nord onesenterprise paraiso-dark paraiso-light pastie perldoc pygments rainbow_dash rrt solarized-dark solarized-dark256 solarized-light swapoff tango trac vim vs vulcan witchhazel xcode xcode-dark]
 
 	stylesList := styles.Names()
-	//#nosec
+	//#nosec G404
 	if o.StyleHint == "random" {
 		rand.Seed(time.Now().UnixNano())
 		randStyle := rand.Intn(len(stylesList))

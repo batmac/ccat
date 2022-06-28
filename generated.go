@@ -66,7 +66,7 @@ func printLicense(w io.Writer) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	if _, err := io.Copy(w, zr); err != nil {
+	if _, err := io.CopyN(w, zr, 10*1024); err != io.EOF {
 		log.Fatal(err)
 	}
 	if err := zr.Close(); err != nil {
