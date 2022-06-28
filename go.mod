@@ -26,6 +26,8 @@ require (
 	github.com/kevinburke/nacl v0.0.0-20210405173606-cd9060f5f776
 	github.com/klauspost/compress v1.15.6
 	github.com/microcosm-cc/bluemonday v1.0.18 // indirect
+	github.com/minio/minio-go/v7 v7.0.30
+	github.com/minio/pkg v1.1.26
 	github.com/muesli/reflow v0.3.0
 	github.com/muesli/termenv v0.12.0 // indirect
 	github.com/pierrec/lz4/v4 v4.1.15
