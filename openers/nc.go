@@ -7,10 +7,10 @@ import (
 	"fmt"
 	"io"
 	"net"
-	"net/url"
 	"strings"
 
 	"github.com/batmac/ccat/log"
+	"github.com/batmac/ccat/utils"
 )
 
 var (
@@ -38,11 +38,11 @@ func (f tcpOpener) Description() string {
 }
 
 func (f tcpOpener) Open(s string, _ bool) (io.ReadCloser, error) {
-	l, err := net.Listen("tcp", removeScheme(s))
+	l, err := net.Listen("tcp", utils.RemoveScheme(s))
 	if err != nil {
 		return nil, fmt.Errorf("Error listening: %v", err)
 	}
-	log.Debugln("Listening on " + removeScheme(s))
+	log.Debugln("Listening on " + utils.RemoveScheme(s))
 
 	conn, err := l.Accept()
 	if err != nil {
@@ -60,12 +60,4 @@ func (f tcpOpener) Evaluate(s string) float32 {
 		return 0.9
 	}
 	return 0
-}
-
-func removeScheme(s string) string {
-	u, err := url.Parse(s)
-	if err != nil {
-		log.Fatal(err)
-	}
-	return u.Host
 }
