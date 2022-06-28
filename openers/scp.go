@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"strings"
 
 	"github.com/batmac/ccat/log"
@@ -48,8 +49,13 @@ func (f *localShellScpOpener) Open(s string, _ bool) (io.ReadCloser, error) {
 	}
 	log.Debugf(" localShellScp temp file is %s\n", tmpfile.Name())
 	path = append(path, tmpfile.Name())
+	var cleaned []string
 
-	cmd := exec.Command("scp", path...)
+	for _, p := range path {
+		cleaned = append(cleaned, filepath.Clean(p))
+	}
+
+	cmd := exec.Command("scp", cleaned...)
 
 	stderr, err := cmd.StderrPipe()
 	if err != nil {
