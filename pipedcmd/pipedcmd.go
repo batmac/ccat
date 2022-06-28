@@ -34,6 +34,7 @@ func New(cmdline ...string) (*PipedCmd, error) {
 		return nil, err
 	}
 
+	//#nosec G204
 	cmd := exec.CommandContext(ctx, fullCmd, cmdline[1:]...)
 	/* 	cmd.Env = append(os.Environ(),
 		"FOO=actual_value", // this value is used
