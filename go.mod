@@ -20,6 +20,7 @@ require (
 	github.com/eliukblau/pixterm v1.3.1
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/google/go-querystring v1.1.0 // indirect
+	github.com/gopherjs/gopherjs v0.0.0-20220104163920-15ed2e8cf2bd // indirect
 	github.com/gowebpki/jcs v1.0.0
 	github.com/hashicorp/go-version v1.5.0 // indirect
 	github.com/hbollon/go-edlib v1.6.0
@@ -27,11 +28,12 @@ require (
 	github.com/klauspost/compress v1.15.6
 	github.com/microcosm-cc/bluemonday v1.0.18 // indirect
 	github.com/minio/minio-go/v7 v7.0.30
-	github.com/minio/pkg v1.1.26
+	github.com/minio/sha256-simd v1.0.0 // indirect
 	github.com/muesli/reflow v0.3.0
 	github.com/muesli/termenv v0.12.0 // indirect
 	github.com/pierrec/lz4/v4 v4.1.15
 	github.com/robert-nix/ansihtml v1.0.1
+	github.com/smartystreets/assertions v1.1.1 // indirect
 	github.com/spf13/pflag v1.0.5
 	github.com/ulikunitz/xz v0.5.10
 	github.com/yuin/goldmark v1.4.12 // indirect
@@ -42,6 +44,7 @@ require (
 	golang.org/x/sys v0.0.0-20220624220833-87e55d714810 // indirect
 	golang.org/x/term v0.0.0-20220526004731-065cf7ba2467
 	google.golang.org/genproto v0.0.0-20220627151210-f754eecb4be7 // indirect
+	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
 	howett.net/plist v1.0.0
 	sigs.k8s.io/yaml v1.3.0
 )
