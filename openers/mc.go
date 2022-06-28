@@ -11,6 +11,7 @@ import (
 	"io/ioutil"
 	"net/url"
 	"os"
+	"path/filepath"
 	"strings"
 
 	"github.com/batmac/ccat/globalctx"
@@ -154,7 +155,7 @@ func getConfigFromMCFile(alias string) Config {
 		Aliases map[string]Config `json:"aliases"`
 	}
 
-	confJ, err := ioutil.ReadFile(home + mcConfigPath)
+	confJ, err := ioutil.ReadFile(filepath.Clean(home + mcConfigPath))
 	if err != nil {
 		log.Debugln(err)
 		return Config{}
