@@ -24,7 +24,7 @@ require (
 	github.com/hashicorp/go-version v1.6.0 // indirect
 	github.com/hbollon/go-edlib v1.6.0
 	github.com/kevinburke/nacl v0.0.0-20210405173606-cd9060f5f776
-	github.com/klauspost/compress v1.15.6
+	github.com/klauspost/compress v1.15.7
 	github.com/microcosm-cc/bluemonday v1.0.18 // indirect
 	github.com/muesli/reflow v0.3.0
 	github.com/muesli/termenv v0.12.0 // indirect
