@@ -39,7 +39,8 @@ KLUv/WQwA+UUAGKyjCQQi1gA+Mu1uPH4trE1CdEhIptwP1oghhOOOP5rTRkCAKACAAdroEXGmA2Uz10i
 ```
 
 ## docker image
-an image is available, for instance:
+multi-arch container images are automatically built by [Github Actions](https://github.com/batmac/ccat/actions/workflows/docker-images.yml) and made available on [Dockerhub](https://hub.docker.com/r/batmac/ccat) and [Github Packages](https://github.com/batmac/ccat/pkgs/container/ccat). <br/>
+for instance:
 ```
 kubectl run -i --tty ccat --image=batmac/ccat -- /bin/sh
 ```
@@ -47,7 +48,7 @@ kubectl run -i --tty ccat --image=batmac/ccat -- /bin/sh
 ## help
 
 ```
-version >v0.9.8+dev [libcurl,crappy], commit 4bcd7399e90820d0dbcf74a768feb03accf1ebeb, built at 2022-06-28@23:50:15 by build.sh (go1.18.3)
+version >v0.9.8+dev [libcurl,crappy], commit 310669dd783ad382c663debbc5616fda2c0aee51, built at 2022-06-29@02:30:59 by build.sh (go1.18.3)
   -t, --tokens string      comma-separated list of tokens
   -i, --ignore-case        tokens given with -t are case-insensitive
   -o, --only               don't display lines without at least one token
