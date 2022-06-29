@@ -13,6 +13,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest]
         go: ["1.15", "1.18"]
+      fail-fast: false
     runs-on: ${{ matrix.os }}
     steps:
       - name: Check out code
@@ -22,7 +23,7 @@ jobs:
         uses: actions/setup-go@v3.2.0
         with:
           go-version: ${{ matrix.go }}
-          
+
       - name: Cache
         uses: actions/cache@v3
         with:
@@ -50,12 +51,12 @@ jobs:
 
       - name: Test
         run: go test -v -tags libcurl  ./...
-     
+
       - name: Coverage
         run: |
           go test -cover -coverprofile coverage1.out ./...
           go test -cover -coverprofile coverage2.out -tags libcurl  ./...
-        
+
       - name: Codecov
         uses: codecov/codecov-action@v3.1.0
         with:
