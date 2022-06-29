@@ -10,9 +10,9 @@ require (
 	github.com/alecthomas/chroma v0.10.0
 	github.com/andelf/go-curl v0.0.0-20200630032108-fd49ff24ed97
 	github.com/atotto/clipboard v0.1.4
-	github.com/aws/aws-sdk-go-v2 v1.16.5
+	github.com/aws/aws-sdk-go-v2 v1.16.6
 	github.com/aws/aws-sdk-go-v2/config v1.15.11
-	github.com/aws/aws-sdk-go-v2/service/s3 v1.26.11
+	github.com/aws/aws-sdk-go-v2/service/s3 v1.26.12
 	github.com/aws/aws-sdk-go-v2/service/sts v1.16.7
 	github.com/charmbracelet/glamour v0.5.0
 	github.com/creativeprojects/go-selfupdate v0.6.1
