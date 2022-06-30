@@ -9,7 +9,7 @@ on:
     - cron: "0 0 * * 0"
 
 jobs:
-  gosec:
+  sec-gosec:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code into the Go module directory
