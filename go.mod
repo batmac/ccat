@@ -24,12 +24,17 @@ require (
 	github.com/hashicorp/go-version v1.6.0 // indirect
 	github.com/hbollon/go-edlib v1.6.0
 	github.com/kevinburke/nacl v0.0.0-20210405173606-cd9060f5f776
+	github.com/klauspost/cpuid/v2 v2.0.14 // indirect
 	github.com/klauspost/compress v1.15.7
 	github.com/microcosm-cc/bluemonday v1.0.18 // indirect
+	github.com/minio/md5-simd v1.1.2 // indirect
+	github.com/minio/minio-go/v7 v7.0.30
+	github.com/minio/sha256-simd v1.0.0 // indirect
 	github.com/muesli/reflow v0.3.0
 	github.com/muesli/termenv v0.12.0 // indirect
 	github.com/pierrec/lz4/v4 v4.1.15
 	github.com/robert-nix/ansihtml v1.0.1
+	github.com/rs/xid v1.4.0 // indirect
 	github.com/spf13/pflag v1.0.5
 	github.com/ulikunitz/xz v0.5.10
 	github.com/yuin/goldmark v1.4.12 // indirect
@@ -40,6 +45,9 @@ require (
 	golang.org/x/sys v0.0.0-20220627191245-f75cf1eec38b // indirect
 	golang.org/x/term v0.0.0-20220526004731-065cf7ba2467
 	google.golang.org/genproto v0.0.0-20220627200112-0a929928cb33 // indirect
+	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
+	gopkg.in/ini.v1 v1.66.6 // indirect
+	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
 	howett.net/plist v1.0.0
 	sigs.k8s.io/yaml v1.3.0
 )
