@@ -39,7 +39,8 @@ KLUv/WQwA+UUAGKyjCQQi1gA+Mu1uPH4trE1CdEhIptwP1oghhOOOP5rTRkCAKACAAdroEXGmA2Uz10i
 ```
 
 ## docker image
-an image is available, for instance:
+multi-arch container images are automatically built by [Github Actions](https://github.com/batmac/ccat/actions/workflows/docker-images.yml) and made available on [Dockerhub](https://hub.docker.com/r/batmac/ccat) and [Github Packages](https://github.com/batmac/ccat/pkgs/container/ccat). <br/>
+for instance:
 ```
 kubectl run -i --tty ccat --image=batmac/ccat -- /bin/sh
 ```

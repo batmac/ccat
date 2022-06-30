@@ -10,10 +10,10 @@ require (
 	github.com/alecthomas/chroma v0.10.0
 	github.com/andelf/go-curl v0.0.0-20200630032108-fd49ff24ed97
 	github.com/atotto/clipboard v0.1.4
-	github.com/aws/aws-sdk-go-v2 v1.16.5
-	github.com/aws/aws-sdk-go-v2/config v1.15.11
-	github.com/aws/aws-sdk-go-v2/service/s3 v1.26.11
-	github.com/aws/aws-sdk-go-v2/service/sts v1.16.7
+	github.com/aws/aws-sdk-go-v2 v1.16.6
+	github.com/aws/aws-sdk-go-v2/config v1.15.12
+	github.com/aws/aws-sdk-go-v2/service/s3 v1.26.12
+	github.com/aws/aws-sdk-go-v2/service/sts v1.16.8
 	github.com/charmbracelet/glamour v0.5.0
 	github.com/creativeprojects/go-selfupdate v0.6.1
 	github.com/dsnet/compress v0.0.1
@@ -24,8 +24,8 @@ require (
 	github.com/hashicorp/go-version v1.6.0 // indirect
 	github.com/hbollon/go-edlib v1.6.0
 	github.com/kevinburke/nacl v0.0.0-20210405173606-cd9060f5f776
-	github.com/klauspost/compress v1.15.6
 	github.com/klauspost/cpuid/v2 v2.0.14 // indirect
+	github.com/klauspost/compress v1.15.7
 	github.com/microcosm-cc/bluemonday v1.0.18 // indirect
 	github.com/minio/md5-simd v1.1.2 // indirect
 	github.com/minio/minio-go/v7 v7.0.30

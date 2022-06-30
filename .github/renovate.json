@@ -6,6 +6,8 @@
   "labels": [
     "renovate"
   ],
+  "prHourlyLimit": 0,
+  
   "packageRules": [
     {
       "matchUpdateTypes": [
@@ -14,7 +16,6 @@
         "pin",
         "digest"
       ],
-      "matchCurrentVersion": "!/^0/",
       "automerge": true
     }
   ],
