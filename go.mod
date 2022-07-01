@@ -12,7 +12,7 @@ require (
 	github.com/atotto/clipboard v0.1.4
 	github.com/aws/aws-sdk-go-v2 v1.16.6
 	github.com/aws/aws-sdk-go-v2/config v1.15.12
-	github.com/aws/aws-sdk-go-v2/service/s3 v1.26.12
+	github.com/aws/aws-sdk-go-v2/service/s3 v1.27.0
 	github.com/aws/aws-sdk-go-v2/service/sts v1.16.8
 	github.com/charmbracelet/glamour v0.5.0
 	github.com/creativeprojects/go-selfupdate v0.6.1
