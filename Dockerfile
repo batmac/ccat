@@ -6,9 +6,7 @@ COPY . .
 ENV CGO_ENABLED 1
 RUN go version && ./build.sh
 
-FROM alpine:latest
-LABEL Maintainer="Baptiste Canton <bat@sbz.fr>"
-LABEL Name="ccat"
+FROM alpine:3
 RUN apk add --no-cache libcurl
 COPY --from=build /usr/src/app/ccat /usr/bin/ccat
 
