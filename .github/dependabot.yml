@@ -14,7 +14,6 @@ updates:
       interval: "daily"
     assignees: ["batmac"]
 
-      
   - package-ecosystem: "docker"
     directory: "/"
     schedule:
