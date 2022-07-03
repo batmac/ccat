@@ -17,6 +17,6 @@
 *.py
 
 
-ccat
+/ccat
 
 dist/
