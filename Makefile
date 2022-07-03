@@ -3,7 +3,7 @@ VERSION="post-${GIT}-dev"
 
 all: ccat readme tests
 
-ccat: */*.go */*/*.go */*/*/*.go go.mod go.sum
+ccat: */*/*.go */*/*/*.go go.mod go.sum
 	./build.sh
 
 readme: ccat
