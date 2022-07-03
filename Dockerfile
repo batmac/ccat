@@ -13,3 +13,4 @@ COPY --from=build /usr/src/app/ccat /usr/bin/ccat
 COPY "entrypoint.sh" "/entrypoint.sh"
 CMD ["ccat"]
 ENTRYPOINT ["/entrypoint.sh"]
+HEALTHCHECK CMD /usr/bin/true
