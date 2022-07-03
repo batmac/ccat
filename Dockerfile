@@ -1,4 +1,4 @@
-FROM golang:alpine as build
+FROM golang:1.18-alpine as build
 WORKDIR /usr/src/app
 COPY go.mod go.sum ./
 RUN go mod download && go mod verify && apk add --no-cache build-base pkgconf curl-dev git
