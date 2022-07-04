@@ -2,8 +2,8 @@
 
 set -x
 
-GIT=$(git tag|tail -n1)
-VERSION=">$GIT+dev"
+GIT=$(git describe --tags 2> /dev/null || git rev-parse --short HEAD)
+VERSION="$GIT"
 COMMIT=$(git rev-parse HEAD)
 DATE=$(date +%Y-%m-%d@%H:%M:%S)
 BUILTBY="build.sh"
