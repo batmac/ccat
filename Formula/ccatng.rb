@@ -5,21 +5,21 @@
 class Ccatng < Formula
   desc "cat on steroids."
   homepage ""
-  version "0.9.10"
+  version "0.9.11"
   license "MIT"
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/batmac/ccat/releases/download/v0.9.10/ccat-0.9.10-darwin-arm64.tar.gz"
-      sha256 "44f594b92f2315c6103d764b05b139ddc5c36ff152ac162199dfdaa29a3c6b4a"
+      url "https://github.com/batmac/ccat/releases/download/v0.9.11/ccat-0.9.11-darwin-arm64.tar.gz"
+      sha256 "9a120b26222ab12ae6c0a6a6293aa9eac1335008b2245289a6adc0fce670ff3d"
 
       def install
         bin.install "ccat"
       end
     end
     if Hardware::CPU.intel?
-      url "https://github.com/batmac/ccat/releases/download/v0.9.10/ccat-0.9.10-darwin-amd64.tar.gz"
-      sha256 "82af6792bd590d96f0e437310b62a4d81f49b6873797bab7d46cc1ecebea8fb0"
+      url "https://github.com/batmac/ccat/releases/download/v0.9.11/ccat-0.9.11-darwin-amd64.tar.gz"
+      sha256 "0935c11e328617e19b53f27b2cb1a5beddd705b4999dd1e46fa4dd9f7b15d50e"
 
       def install
         bin.install "ccat"
@@ -29,16 +29,16 @@ class Ccatng < Formula
 
   on_linux do
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/batmac/ccat/releases/download/v0.9.10/ccat-0.9.10-linux-arm64.tar.gz"
-      sha256 "6d9c57d89eaae9e35184f9295ce9339afcb70f0f01ca293e6fa4d9d851261693"
+      url "https://github.com/batmac/ccat/releases/download/v0.9.11/ccat-0.9.11-linux-arm64.tar.gz"
+      sha256 "2deaf9a5d6c2913e6c40b18a04d1a4000be8fa3a0c677579d5e118d66b6d941d"
 
       def install
         bin.install "ccat"
       end
     end
     if Hardware::CPU.intel?
-      url "https://github.com/batmac/ccat/releases/download/v0.9.10/ccat-0.9.10-linux-amd64.tar.gz"
-      sha256 "b057de47b298791eed2a21f85ca6fba289ce0fdcc8e37a87b7f64f447d1996c0"
+      url "https://github.com/batmac/ccat/releases/download/v0.9.11/ccat-0.9.11-linux-amd64.tar.gz"
+      sha256 "0f9fdd6ee3a227830faa13cd1e25b9b63f1389ebfd9d721f8408b1081caace07"
 
       def install
         bin.install "ccat"
