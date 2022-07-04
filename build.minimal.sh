@@ -1,7 +1,8 @@
 #! /bin/sh
 
 set -x
-GIT=$(git tag|tail -n1)
+
+GIT=$(git describe --tags 2> /dev/null || git rev-parse --short HEAD)
 VERSION=">$GIT+dev"
 COMMIT=$(git rev-parse HEAD)
 DATE=$(date +%Y-%m-%d@%H:%M:%S)
