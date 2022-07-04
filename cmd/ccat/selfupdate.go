@@ -58,7 +58,7 @@ func update(version string, checkOnly bool) {
 
 func cleanVersion(v string) string {
 	// only keep the semver string on patch/git version
-	v, _, _ = strings.Cut(v, "-")
+	v, _, _ = Cut(v, "-")
 	s := []byte(v)
 	j := 0
 	for _, b := range s {
@@ -69,4 +69,12 @@ func cleanVersion(v string) string {
 		}
 	}
 	return string(s[:j])
+}
+
+// strings.Cut() is unavailable on 1.15
+func Cut(s, sep string) (string, string, bool) {
+	if i := strings.Index(s, sep); i >= 0 {
+		return s[:i], s[i+len(sep):], true
+	}
+	return s, "", false
 }

@@ -55,6 +55,20 @@ func Test_cleanVersion(t *testing.T) {
 			},
 			want: "1.0",
 		},
+		{
+			name: "patch",
+			args: args{
+				s: "0.9.9-11-a23",
+			},
+			want: "0.9.9",
+		},
+		{
+			name: "vpatch",
+			args: args{
+				s: "v0.9.9-11-a23",
+			},
+			want: "0.9.9",
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
