@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"runtime"
+	"strings"
 
 	"github.com/batmac/ccat/pkg/log"
 	"github.com/creativeprojects/go-selfupdate"
@@ -21,7 +22,9 @@ func update(version string, checkOnly bool) {
 		}
 	}()
 
-	latest, found, err := selfupdate.DetectLatest("batmac/ccat")
+	updater, _ := selfupdate.NewUpdater(selfupdate.Config{Validator: &selfupdate.ChecksumValidator{UniqueFilename: "checksums.txt"}})
+
+	latest, found, err := updater.DetectLatest("batmac/ccat")
 	if err != nil {
 		panic(fmt.Errorf("error occurred while detecting version: %v", err))
 	}
@@ -47,13 +50,15 @@ func update(version string, checkOnly bool) {
 		panic(errors.New("could not locate executable path"))
 	}
 
-	if err := selfupdate.UpdateTo(latest.AssetURL, latest.AssetName, exe); err != nil {
+	if err := updater.UpdateTo(latest, exe); err != nil {
 		panic(fmt.Errorf("error occurred while updating binary: %v", err))
 	}
 	fmt.Printf("Successfully updated to version %s", latest.Version())
 }
 
 func cleanVersion(v string) string {
+	// only keep the semver string on patch/git version
+	v, _, _ = strings.Cut(v, "-")
 	s := []byte(v)
 	j := 0
 	for _, b := range s {
