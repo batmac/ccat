@@ -3,6 +3,7 @@ module github.com/batmac/ccat
 go 1.15
 
 require (
+	cloud.google.com/go v0.103.0 // indirect
 	cloud.google.com/go/storage v1.23.0
 	code.gitea.io/sdk/gitea v0.15.1 // indirect
 	github.com/Masterminds/semver/v3 v3.1.1 // indirect
@@ -24,9 +25,9 @@ require (
 	github.com/hashicorp/go-version v1.6.0 // indirect
 	github.com/hbollon/go-edlib v1.6.0
 	github.com/kevinburke/nacl v0.0.0-20210405173606-cd9060f5f776
-	github.com/klauspost/cpuid/v2 v2.0.14 // indirect
 	github.com/klauspost/compress v1.15.7
-	github.com/microcosm-cc/bluemonday v1.0.18 // indirect
+	github.com/klauspost/cpuid/v2 v2.0.14 // indirect
+	github.com/microcosm-cc/bluemonday v1.0.19 // indirect
 	github.com/minio/md5-simd v1.1.2 // indirect
 	github.com/minio/minio-go/v7 v7.0.30
 	github.com/minio/sha256-simd v1.0.0 // indirect
@@ -40,11 +41,11 @@ require (
 	github.com/yuin/goldmark v1.4.12 // indirect
 	golang.org/x/crypto v0.0.0-20220622213112-05595931fe9d // indirect
 	golang.org/x/image v0.0.0-20220617043117-41969df76e82 // indirect
-	golang.org/x/net v0.0.0-20220624214902-1bab6f366d9e // indirect
-	golang.org/x/oauth2 v0.0.0-20220622183110-fd043fe589d2 // indirect
-	golang.org/x/sys v0.0.0-20220627191245-f75cf1eec38b // indirect
+	golang.org/x/net v0.0.0-20220630215102-69896b714898 // indirect
+	golang.org/x/oauth2 v0.0.0-20220630143837-2104d58473e0 // indirect
+	golang.org/x/sys v0.0.0-20220704084225-05e143d24a9e // indirect
 	golang.org/x/term v0.0.0-20220526004731-065cf7ba2467
-	google.golang.org/genproto v0.0.0-20220627200112-0a929928cb33 // indirect
+	google.golang.org/genproto v0.0.0-20220630174209-ad1d48641aa7 // indirect
 	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
 	gopkg.in/ini.v1 v1.66.6 // indirect
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
