@@ -3,13 +3,12 @@
 ![GitHub](https://img.shields.io/github/license/batmac/ccat)
 [![Go Report Card](https://goreportcard.com/badge/github.com/batmac/ccat)](https://goreportcard.com/report/github.com/batmac/ccat)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fbatmac%2Fccat.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fbatmac%2Fccat?ref=badge_shield)
-[![codecov](https://codecov.io/gh/batmac/ccat/branch/main/graph/badge.svg?token=PCD6DM6S75)](https://codecov.io/gh/batmac/ccat)
 
 cat on steroids. 
 Leveraging great go modules to ease my CLI life.
 
 ## build
-you need go >=1.15, available build tags:
+you need a recent go, available build tags:
 - `libcurl`: build with the libcurl opener.
 - `fileonly`: build with the local file opener only.
 - `nomd`: build without the markdown interpreter (glamour).
@@ -49,8 +48,7 @@ kubectl run -i --tty ccat --image=batmac/ccat -- /bin/sh
 ## help
 
 ```
-
-version >v0.9.8+dev [libcurl,crappy], commit 310669dd783ad382c663debbc5616fda2c0aee51, built at 2022-06-29@02:30:59 by build.sh (go1.18.3)
+version v0.9.10-2-g837a190 [libcurl,crappy], commit 837a190866011136546d885835550b67a5a6146a, built at 2022-07-04@22:56:38 by build.sh (go1.18.3)
   -t, --tokens string      comma-separated list of tokens
   -i, --ignore-case        tokens given with -t are case-insensitive
   -o, --only               don't display lines without at least one token
@@ -83,8 +81,8 @@ ccat <files>...
     file: open local files
     gcs: get a GCP Cloud Storage object via gs://
     curl: get URL via libcurl bindings
-           libcurl/7.84.0-DEV SecureTransport (OpenSSL/1.1.1p) zlib/1.2.11 brotli/1.0.9 zstd/1.5.2 libidn2/2.3.2 libssh2/1.10.0 nghttp2/1.47.0 librtmp/2.3 OpenLDAP/2.6.2
-           protocols: dict,file,ftp,ftps,gopher,gophers,http,https,imap,imaps,ldap,ldaps,mqtt,pop3,pop3s,rtmp,rtsp,scp,sftp,smb,smbs,smtp,smtps,telnet,tftp
+           libcurl/7.79.1 SecureTransport (LibreSSL/3.3.6) zlib/1.2.11 nghttp2/1.45.1
+           protocols: dict,file,ftp,ftps,gopher,gophers,http,https,imap,imaps,ldap,ldaps,mqtt,pop3,pop3s,rtsp,smb,smbs,smtp,smtps,telnet,tftp
     mc: get a Minio-compatible object via mc:// (use ~/.mc/config.json or env for credentials)
     tcp: get data from listening on tcp://[HOST]:<PORT>
     s3: get an AWS s3 object via s3://

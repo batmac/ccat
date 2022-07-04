@@ -42,8 +42,6 @@ func main() {
 		log.Fatal(err)
 	}
 
-	// below is needed because we are compatible with go1.15
-
 	/* 	if err = ioutil.WriteFile(path+".gz", b.Bytes(), 0644); err != nil {
 		log.Fatal(err)
 	} */

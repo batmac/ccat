@@ -8,7 +8,7 @@ cat on steroids.
 Leveraging great go modules to ease my CLI life.
 
 ## build
-you need go >=1.15, available build tags:
+you need a recent go, available build tags:
 - `libcurl`: build with the libcurl opener.
 - `fileonly`: build with the local file opener only.
 - `nomd`: build without the markdown interpreter (glamour).
