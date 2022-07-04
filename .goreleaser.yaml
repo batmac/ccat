@@ -8,6 +8,7 @@ builds:
   - id: build
     env:
       - CGO_ENABLED=0
+    main: ./cmd/ccat
     goos:
       - darwin
       - linux
