@@ -1,6 +1,7 @@
 #! /bin/sh
 
 set -x
+
 GIT=$(git tag|tail -n1)
 VERSION=">$GIT+dev"
 COMMIT=$(git rev-parse HEAD)
