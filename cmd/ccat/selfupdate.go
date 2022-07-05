@@ -53,7 +53,7 @@ func update(version string, checkOnly bool) {
 	if err := updater.UpdateTo(latest, exe); err != nil {
 		panic(fmt.Errorf("error occurred while updating binary: %v", err))
 	}
-	fmt.Printf("Successfully updated to version %s", latest.Version())
+	fmt.Printf("Successfully updated to version %s\n", latest.Version())
 }
 
 func cleanVersion(v string) string {
