@@ -4,6 +4,7 @@ import (
 	"io"
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/batmac/ccat/pkg/mutators/pipeline"
 	_ "github.com/batmac/ccat/pkg/mutators/simple"
@@ -31,8 +32,9 @@ func TestNewPipeline(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			n := utils.NopStringWriteCloser{strings.Builder{}}
+			n := utils.NopStringWriteCloser{Builder: strings.Builder{}}
 			err := pipeline.NewPipeline(tt.args.description, &n, io.NopCloser(strings.NewReader(tt.args.in)))
+			time.Sleep(1 * time.Second)
 			if pipeline.Wait(); (err != nil) != tt.wantErr || tt.args.out != n.String() {
 				t.Errorf("NewPipeline() error = %v, wantErr %v - out = %v/, want %v", err, tt.wantErr, n.String(), tt.args.out)
 			}

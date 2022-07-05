@@ -13,5 +13,4 @@ func TestNewGeneric(t *testing.T) {
 			t.Errorf("NewGeneric(), want log.Default()")
 		}
 	})
-
 }
