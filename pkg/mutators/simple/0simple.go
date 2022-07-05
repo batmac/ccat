@@ -82,7 +82,7 @@ func (m *simpleMutator) Start(w io.WriteCloser, r io.ReadCloser) error {
 	m.Mu.Lock()
 	if m.Started {
 		m.Mu.Unlock()
-		return fmt.Errorf("%s: mutator has already started.", m.Name())
+		return fmt.Errorf("%s: mutator has already started", m.Name())
 	}
 	m.Started = true
 	m.Mu.Unlock()

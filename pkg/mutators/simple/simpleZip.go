@@ -48,7 +48,7 @@ func unzip(out io.WriteCloser, in io.ReadCloser) (int64, error) {
 		rc.Close()
 		return n, nil
 	}
-	return 0, fmt.Errorf("No extractable File found")
+	return 0, fmt.Errorf("no extractable File found")
 }
 
 func czip(out io.WriteCloser, in io.ReadCloser) (int64, error) {
