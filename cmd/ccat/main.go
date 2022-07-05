@@ -33,14 +33,15 @@ var (
 	argSplitByWords = flag.BoolP("word", "w", false, "read word by word instead of line by line (only works with utf8)")
 	argExec         = flag.StringP("exec", "X", "", "command to exec on each file before processing it")
 	argBG           = flag.BoolP("bg", "b", false, "colorize the background instead of the font")
-	argHuman        = flag.BoolP("humanize", "H", false, "try to do what is needed to help (syntax-highlight, autodetect, etc. TODO)")
-	argStyle        = flag.StringP("style", "S", "", "style to use (only used if -H, look below for the list)")
-	argFormatter    = flag.StringP("formatter", "F", "", "formatter to use (only used if -H, look below for the list)")
-	argLexer        = flag.StringP("lexer", "P", "", "lexer to use (only used if -H, look below for the list)")
-	argMutators     = flag.StringP("mutators", "m", "", "mutators to use (comma-separated)")
+	argHuman        = flag.BoolP("humanize", "H", false, "try to do what is needed to help (syntax-highlight, autodetect, etc.)")
+	argStyle        = flag.StringP("style", "S", "", "style to use (only used if -H, --fullhelp for the list)")
+	argFormatter    = flag.StringP("formatter", "F", "", "formatter to use (only used if -H, --fullhelp for the list)")
+	argLexer        = flag.StringP("lexer", "P", "", "lexer to use (only used if -H, --fullhelp for the list)")
+	argMutators     = flag.StringP("mutators", "m", "", "mutators to use (comma-separated), --fullhelp for the list")
 	argVersion      = flag.BoolP("version", "V", false, "print version on stdout")
 	argLicense      = flag.Bool("license", false, "print license on stdout")
 	argHelp         = flag.BoolP("help", "h", false, "print usage")
+	argFullHelp     = flag.BoolP("fullhelp", "", false, "print full usage")
 	argSelfUpdate   = flag.Bool("selfupdate", false, "Update to latest Github release")
 	argCheckUpdate  = flag.Bool("check", false, "Check version with the latest Github release")
 	argDebug        = flag.BoolP("debug", "d", false, "debug what we are doing")
@@ -85,6 +86,10 @@ func main() {
 	}
 	if *argHelp {
 		Usage()
+		os.Exit(0)
+	}
+	if *argFullHelp {
+		FullUsage()
 		os.Exit(0)
 	}
 	if *argSelfUpdate {
@@ -154,11 +159,24 @@ func buildLine() string {
 }
 
 func Usage() {
+	usage(false)
+}
+
+func FullUsage() {
+	usage(true)
+}
+
+func usage(full bool) {
 	flag.CommandLine.SortFlags = false
 	fmt.Fprintln(os.Stderr, buildLine())
 	flag.PrintDefaults()
-	fmt.Fprintln(os.Stderr, "---")
+	fmt.Fprintln(os.Stderr, "")
 
+	if !full {
+		return
+	}
+
+	fmt.Fprintln(os.Stderr, "---")
 	fmt.Fprint(os.Stderr, "ccat <files>...\n")
 	fmt.Fprint(os.Stderr, " - highlighter (used with -H):\n")
 	fmt.Fprint(os.Stderr, highlighter.Help())

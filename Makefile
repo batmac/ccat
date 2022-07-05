@@ -9,7 +9,7 @@ ccat: */*/*.go */*/*/*.go go.mod go.sum
 readme: ccat
 	cp README.header.md README.md
 	echo '```'      >> README.md
-	sh -c './ccat -h 2>&1'  >> README.md
+	sh -c './ccat --fullhelp 2>&1'  >> README.md
 	echo '```'      >> README.md
 
 tests: ccat
