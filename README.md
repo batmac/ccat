@@ -7,6 +7,12 @@
 cat on steroids. 
 Leveraging great go modules to ease my CLI life.
 
+## install
+- get the latest release from https://github.com/batmac/ccat/releases/latest
+- or `go install github.com/batmac/ccat/cmd/ccat@latest`
+
+then, you can update to the latest github release with `ccat --selfupdate`
+
 ## build
 you need a recent go, available build tags:
 - `libcurl`: build with the libcurl opener.
@@ -48,7 +54,7 @@ kubectl run -i --tty ccat --image=batmac/ccat -- /bin/sh
 ## help
 
 ```
-version v0.9.12-1-gbb60124 [libcurl,crappy], commit bb601244144924b36b83aadd78e0c3967090629a, built at 2022-07-05@18:08:40 by build.sh (go1.18.3)
+version v0.9.12-2-g622db78 [libcurl,crappy], commit 622db78547b77e51cf7bd1562c9b53d852d133aa, built at 2022-07-05@18:23:49 by build.sh (go1.18.3)
   -t, --tokens string      comma-separated list of tokens
   -i, --ignore-case        tokens given with -t are case-insensitive
   -o, --only               don't display lines without at least one token
@@ -59,7 +65,7 @@ version v0.9.12-1-gbb60124 [libcurl,crappy], commit bb601244144924b36b83aadd78e0
   -w, --word               read word by word instead of line by line (only works with utf8)
   -X, --exec string        command to exec on each file before processing it
   -b, --bg                 colorize the background instead of the font
-  -H, --humanize           try to do what is needed to help (syntax-highlight, autodetect, etc. TODO)
+  -H, --humanize           try to do what is needed to help (syntax-highlight, autodetect, etc.)
   -S, --style string       style to use (only used if -H, --fullhelp for the list)
   -F, --formatter string   formatter to use (only used if -H, --fullhelp for the list)
   -P, --lexer string       lexer to use (only used if -H, --fullhelp for the list)

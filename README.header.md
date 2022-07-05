@@ -7,6 +7,12 @@
 cat on steroids. 
 Leveraging great go modules to ease my CLI life.
 
+## install
+- get the latest release from https://github.com/batmac/ccat/releases/latest
+- or `go install github.com/batmac/ccat/cmd/ccat@latest`
+
+then, you can update to the latest github release with `ccat --selfupdate`
+
 ## build
 you need a recent go, available build tags:
 - `libcurl`: build with the libcurl opener.
