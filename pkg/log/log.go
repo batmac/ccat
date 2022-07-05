@@ -15,7 +15,8 @@ var (
 	Debug  = &Logger{Logger: log.New(ioutil.Discard, "", flags)}
 	Stderr = &Logger{Logger: log.New(os.Stderr, "", flags)}
 
-	DebugIsDiscard int32
+	DebugIsDiscard  int32
+	continueOnFatal int32
 )
 
 func init() {
@@ -66,7 +67,9 @@ func Println(v ...interface{}) {
 
 func Fatal(v ...interface{}) {
 	Stderr.Output(2, fmt.Sprint(v...))
-	os.Exit(1)
+	if atomic.LoadInt32(&continueOnFatal) <= 0 {
+		os.Exit(1)
+	}
 }
 
 // pretty print stuff
@@ -79,4 +82,8 @@ func Pp(data interface{}) string {
 		return err.Error()
 	}
 	return string(j)
+}
+
+func SetContinueOnFatal() {
+	atomic.StoreInt32(&continueOnFatal, 1)
 }
