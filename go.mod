@@ -5,7 +5,7 @@ go 1.18
 require (
 	cloud.google.com/go/storage v1.23.0
 	github.com/aixiansheng/lzfse v0.2.4
-	github.com/alecthomas/chroma v0.10.0
+	github.com/alecthomas/chroma/v2 v2.2.0
 	github.com/andelf/go-curl v0.0.0-20200630032108-fd49ff24ed97
 	github.com/atotto/clipboard v0.1.4
 	github.com/aws/aws-sdk-go-v2 v1.16.6
@@ -37,6 +37,7 @@ require (
 	cloud.google.com/go/iam v0.3.0 // indirect
 	code.gitea.io/sdk/gitea v0.15.1 // indirect
 	github.com/Masterminds/semver/v3 v3.1.1 // indirect
+	github.com/alecthomas/chroma v0.10.0 // indirect
 	github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream v1.4.3 // indirect
 	github.com/aws/aws-sdk-go-v2/credentials v1.12.7 // indirect
 	github.com/aws/aws-sdk-go-v2/feature/ec2/imds v1.12.7 // indirect
