@@ -11,7 +11,7 @@ require (
 	github.com/aws/aws-sdk-go-v2 v1.16.7
 	github.com/aws/aws-sdk-go-v2/config v1.15.12
 	github.com/aws/aws-sdk-go-v2/service/s3 v1.27.1
-	github.com/aws/aws-sdk-go-v2/service/sts v1.16.8
+	github.com/aws/aws-sdk-go-v2/service/sts v1.16.9
 	github.com/charmbracelet/glamour v0.5.0
 	github.com/creativeprojects/go-selfupdate v0.6.1
 	github.com/dsnet/compress v0.0.1
