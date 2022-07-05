@@ -6,7 +6,7 @@ import (
 
 	"github.com/batmac/ccat/pkg/globalctx"
 	"github.com/batmac/ccat/pkg/log"
-	. "github.com/batmac/ccat/pkg/mutators"
+	"github.com/batmac/ccat/pkg/mutators"
 )
 
 // launch a mutator in its dedicated goroutine
@@ -14,7 +14,7 @@ import (
 type simpleFn func(w io.WriteCloser, r io.ReadCloser) (int64, error)
 
 type simpleMutator struct {
-	GenericMutator
+	mutators.GenericMutator
 	factory *simpleFactory
 }
 
@@ -62,18 +62,18 @@ func simpleRegister(name string, f simpleFn, opts ...simpleOption) {
 	for _, o := range opts {
 		o(factory)
 	}
-	if err := Register(name, factory); err != nil {
+	if err := mutators.Register(name, factory); err != nil {
 		log.Debugf("registering %s failed!\n", name)
 	}
 }
 
-func (f *simpleFactory) NewMutator(logger *log.Logger) (Mutator, error) {
+func (f *simpleFactory) NewMutator(logger *log.Logger) (mutators.Mutator, error) {
 	logger.Printf("%s: new", f.Name())
 	globalctx.Set("hintLexer", f.hintLexer)
 	globalctx.Set("expectingBinary", f.expectingBinary)
 
 	return &simpleMutator{
-		GenericMutator: NewGeneric(logger),
+		GenericMutator: mutators.NewGeneric(logger),
 		factory:        f,
 	}, nil
 }
