@@ -3,6 +3,7 @@
 ![GitHub](https://img.shields.io/github/license/batmac/ccat)
 [![Go Report Card](https://goreportcard.com/badge/github.com/batmac/ccat)](https://goreportcard.com/report/github.com/batmac/ccat)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fbatmac%2Fccat.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fbatmac%2Fccat?ref=badge_shield)
+[![codecov](https://codecov.io/gh/batmac/ccat/branch/main/graph/badge.svg?token=PCD6DM6S75)](https://codecov.io/gh/batmac/ccat)
 
 cat on steroids. 
 Leveraging great go modules to ease my CLI life.
@@ -58,7 +59,7 @@ kubectl run -i --tty ccat --image=batmac/ccat:latest -- /bin/sh
 ## help
 
 ```
-version v0.9.12-2-g622db78 [libcurl,crappy], commit 622db78547b77e51cf7bd1562c9b53d852d133aa, built at 2022-07-05@18:23:49 by build.sh (go1.18.3)
+version v0.9.12-12-g47bc771 [libcurl,crappy], commit 47bc77171a1e0ae8c6e2c028fc3f321d21810907, built at 2022-07-06@19:32:00 by build.sh (go1.18.3)
   -t, --tokens string      comma-separated list of tokens
   -i, --ignore-case        tokens given with -t are case-insensitive
   -o, --only               don't display lines without at least one token
