@@ -1,6 +1,7 @@
 package pipeline
 
 import (
+	"errors"
 	"io"
 	"strings"
 	"sync"
@@ -21,6 +22,9 @@ func NewPipeline(description string, out io.WriteCloser, in io.ReadCloser) error
 	if len(globalPipeline.stages) > 0 {
 		log.Fatal("pipeline is not empty\n")
 	}
+	if len(description) == 0 {
+		return errors.New("empty pipeline requested")
+	}
 	list := strings.Split(description, ",")
 	for _, m := range list {
 		log.Debugf("creating %v\n", m)
@@ -31,6 +35,8 @@ func NewPipeline(description string, out io.WriteCloser, in io.ReadCloser) error
 		globalPipeline.stages = append(globalPipeline.stages, mutator)
 	}
 	globalPipeline.mu.Unlock()
+
+	ready := make(chan struct{})
 	go func() {
 		globalPipeline.mu.Lock()
 		from, to := in, out
@@ -42,6 +48,7 @@ func NewPipeline(description string, out io.WriteCloser, in io.ReadCloser) error
 			}
 			from = r
 		}
+		close(ready) // all mutators are started, we are ready
 		globalPipeline.mu.Unlock()
 		n, err := io.Copy(to, from)
 		if err != nil {
@@ -59,7 +66,7 @@ func NewPipeline(description string, out io.WriteCloser, in io.ReadCloser) error
 		}
 		log.Debugf("closed pipeline.\n")
 	}()
-
+	<-ready
 	return nil
 }
 
