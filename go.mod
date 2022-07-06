@@ -20,7 +20,7 @@ require (
 	github.com/hbollon/go-edlib v1.6.0
 	github.com/kevinburke/nacl v0.0.0-20210405173606-cd9060f5f776
 	github.com/klauspost/compress v1.15.7
-	github.com/minio/minio-go/v7 v7.0.30
+	github.com/minio/minio-go/v7 v7.0.31
 	github.com/muesli/reflow v0.3.0
 	github.com/pierrec/lz4/v4 v4.1.15
 	github.com/robert-nix/ansihtml v1.0.1
