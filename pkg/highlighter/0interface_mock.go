@@ -14,7 +14,11 @@ type Options struct {
 	FormatterHint string
 }
 
-func Go(_ io.WriteCloser, _ io.ReadCloser, _ Options) error {
+func Go(w io.WriteCloser, r io.ReadCloser, _ Options) error {
+	go func() {
+		_, _ = io.Copy(w, r)
+		w.Close()
+	}()
 	return nil
 }
 
