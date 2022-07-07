@@ -31,7 +31,6 @@ func cksum256(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 
 func cksumxxh64(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 	return cksum(xxhash.New(), w, r)
-
 }
 
 func cksum(h hash.Hash, w io.WriteCloser, r io.ReadCloser) (int64, error) {
