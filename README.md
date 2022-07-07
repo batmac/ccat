@@ -59,7 +59,7 @@ kubectl run -i --tty ccat --image=batmac/ccat:latest -- /bin/sh
 ## help
 
 ```
-version v0.9.12-12-g47bc771 [libcurl,crappy], commit 47bc77171a1e0ae8c6e2c028fc3f321d21810907, built at 2022-07-06@19:32:00 by build.sh (go1.18.3)
+version v0.9.12-18-g171d25b [libcurl,crappy], commit 171d25b91a464528723aec6aa873c12f5b3d61a2, built at 2022-07-07@21:13:59 by build.sh (go1.18.3)
   -t, --tokens string      comma-separated list of tokens
   -i, --ignore-case        tokens given with -t are case-insensitive
   -o, --only               don't display lines without at least one token
@@ -111,6 +111,12 @@ ccat <files>...
         md: Render Markdown (with glamour)
         wrap: word-wrap the text to 80 chars maximum
         wrapU: unconditionally wrap the text to 80 chars maximum
+    checksum:
+        md5: compute the md5 checksum
+        sha1: compute the sha1 checksum
+        sha256: compute the sha256 (stdlib) checksum
+        xxh3: compute the xxh3 checksum
+        xxhash: compute the xxhash (xxh64) checksum
     compress:
         bzip2: compress to bzip2 data
         gzip: compress to gzip data
