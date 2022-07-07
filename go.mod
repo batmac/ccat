@@ -28,6 +28,7 @@ require (
 	github.com/robert-nix/ansihtml v1.0.1
 	github.com/spf13/pflag v1.0.5
 	github.com/ulikunitz/xz v0.5.10
+	github.com/zeebo/xxh3 v1.0.2
 	golang.org/x/term v0.0.0-20220526004731-065cf7ba2467
 	howett.net/plist v1.0.0
 	sigs.k8s.io/yaml v1.3.0
