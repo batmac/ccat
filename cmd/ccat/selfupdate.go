@@ -33,7 +33,7 @@ func update(version string, checkOnly bool) {
 	}
 
 	cleanedVersion := cleanVersion(version)
-	log.Debugf("cleaned version is %v\n", cleanedVersion)
+	log.Debugf("cleaned version is '%v'\n", cleanedVersion)
 	if latest.LessOrEqual(cleanedVersion) {
 		fmt.Printf("Current version (%s) is the latest", version)
 		return
@@ -68,5 +68,9 @@ func cleanVersion(v string) string {
 			j++
 		}
 	}
-	return string(s[:j])
+	c := string(s[:j])
+	if c == "" {
+		return "0"
+	}
+	return c
 }

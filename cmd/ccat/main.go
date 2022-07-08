@@ -53,7 +53,7 @@ var (
 
 var (
 	// these are for the build tool
-	version = "0"
+	version = "unknown"
 	commit  = "unknown"
 	date    = "unknown"
 	builtBy = "unknown"
