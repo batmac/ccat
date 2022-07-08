@@ -3,7 +3,7 @@
 set -x
 
 GIT=$(git describe --tags 2> /dev/null || git rev-parse --short HEAD)
-VERSION=">$GIT+dev"
+VERSION="$GIT"
 COMMIT=$(git rev-parse HEAD)
 DATE=$(date +%Y-%m-%d@%H:%M:%S)
 BUILTBY="build.minimal.sh"
