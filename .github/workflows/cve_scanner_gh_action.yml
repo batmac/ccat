@@ -45,13 +45,14 @@ jobs:
 #          Here, we are building Python wheel for this example.
 #          You need to replace this with your build process.
         run: |
-          pip install wheel
-          python setup.py bdist_wheel
+          cd cmd/ccat
+          go mod tidy
+          go build .
       - name: Scan built package
 #          Here, we are scanning built wheel which is situated in /dist directory
 #          Python stores built packages in /dist directory.
 #          You need to replace it with the directory where you have stored built package
-        run: cve-bin-tool dist -f html -o cve-bin-tool-report.html -x
+        run: cve-bin-tool . -f html -o cve-bin-tool-report.html -x
 #          Alternatively if you have written config file for cve-bin-tool you can use following command
 #          cve-bin-tool -C path/to/cve_bin_tool_config.toml
         continue-on-error: true
