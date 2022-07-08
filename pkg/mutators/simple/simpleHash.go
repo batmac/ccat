@@ -14,31 +14,34 @@ import (
 	"github.com/zeebo/xxh3"
 )
 
+type hasher func() hash.Hash
+
 var list = []struct {
 	name, description string
-	hash              hash.Hash
+	newHash           hasher
 }{
-	{"sha256", "compute the sha256 (stdlib) checksum", sha256.New()},
+	{"sha256", "compute the sha256 (stdlib) checksum", sha256.New},
 	// {"sha256", "compute the sha256 checksum", ssha256.New()},
-	{"xxhash", "compute the xxhash (xxh64) checksum", xxhash.New()},
-	{"xxh3", "compute the xxh3 checksum", xxh3.New()},
+	{"xxhash", "compute the xxhash (xxh64) checksum", xxhashNew},
+	{"xxh3", "compute the xxh3 checksum", xxh3New},
 	// useful but avoid them
 	//#nosec
-	{"md5", "compute the md5 checksum", md5.New()},
+	{"md5", "compute the md5 checksum", md5.New},
 	//#nosec
-	{"sha1", "compute the sha1 checksum", sha1.New()},
+	{"sha1", "compute the sha1 checksum", sha1.New},
 }
 
 func init() {
 	for _, h := range list {
-		simpleRegister(h.name, wrap(h.hash),
+		simpleRegister(h.name, wrap(h.newHash),
 			withDescription(h.description),
 			withCategory("checksum"))
 	}
 }
 
-func wrap(h hash.Hash) func(w io.WriteCloser, r io.ReadCloser) (int64, error) {
+func wrap(f hasher) func(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 	return func(w io.WriteCloser, r io.ReadCloser) (int64, error) {
+		h := f()
 		h.Reset()
 		n, err := io.Copy(h, r)
 		if err != nil {
@@ -51,3 +54,6 @@ func wrap(h hash.Hash) func(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 		return n, nil
 	}
 }
+
+func xxhashNew() hash.Hash { return xxhash.New() }
+func xxh3New() hash.Hash   { return xxh3.New() }
