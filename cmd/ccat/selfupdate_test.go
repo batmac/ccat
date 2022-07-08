@@ -25,7 +25,7 @@ func Test_cleanVersion(t *testing.T) {
 			args: args{
 				s: "",
 			},
-			want: "",
+			want: "0",
 		},
 		{
 			name: "1",
