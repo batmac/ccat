@@ -37,7 +37,7 @@ jobs:
 #          We are using latest development version of CVE Binary Tool
 #          because current PyPI version don't have features like config file support,
 #          generating HTML report etc.
-        run: pip install git+https://github.com/intel/cve-bin-tool@master
+        run: pip install git+https://github.com/intel/cve-bin-tool@main
 #          In case you prefer current PyPI version, you need to hard code CLI options
 #          for cve-bin-tool in the action itself and have to use CSV or JSON as output format.
 #          pip install cve-bin-tool
