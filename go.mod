@@ -17,6 +17,7 @@ require (
 	github.com/creativeprojects/go-selfupdate v0.6.1
 	github.com/dsnet/compress v0.0.1
 	github.com/eliukblau/pixterm v1.3.1
+	github.com/gabriel-vasile/mimetype v1.4.1
 	github.com/gowebpki/jcs v1.0.0
 	github.com/hbollon/go-edlib v1.6.0
 	github.com/kevinburke/nacl v0.0.0-20210405173606-cd9060f5f776
