@@ -59,7 +59,7 @@ kubectl run -i --tty ccat --image=batmac/ccat:latest -- /bin/sh
 ## help
 
 ```
-version v0.9.12-16-g3b50895 [libcurl,crappy], commit 3b50895a6bcc7796bcafe755d35f001f0054692f, built at 2022-07-07@22:50:05 by build.sh (go1.18.3)
+version v0.9.15-6-g7d1b561 [libcurl,crappy], commit 7d1b5615a3869a9cdf0adb25d0cab087fe068cc1, built at 2022-07-09@23:14:57 by build.sh (go1.18.3)
   -t, --tokens string      comma-separated list of tokens
   -i, --ignore-case        tokens given with -t are case-insensitive
   -o, --only               don't display lines without at least one token
@@ -104,17 +104,19 @@ ccat <files>...
  - mutators:
         cb: put a copy in the clipboard
         dummy: a simple fifo
+        help: display mutators help
         hexdump: dump in hex as xxd
         indent: indent the text with 4 chars
         j: JSON Re-indent
         jcs: JSON Canonicalization (RFC 8785)
         md: Render Markdown (with glamour)
+        translate: translate to $TARGET_LANGUAGE with google translate (need a valid key in $GOOGLE_API_KEY)
         wrap: word-wrap the text to 80 chars maximum
         wrapU: unconditionally wrap the text to 80 chars maximum
     checksum:
         md5: compute the md5 checksum
         sha1: compute the sha1 checksum
-        sha256: compute the sha256 (stdlib) checksum
+        sha256: compute the sha256 checksum
         xxh3: compute the xxh3 checksum
         xxhash: compute the xxhash (xxh64) checksum
     compress:
