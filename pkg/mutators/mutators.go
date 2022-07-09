@@ -19,7 +19,7 @@ var (
 	globalCollection = newCollection("globalMutatorsCollection", log.Default())
 )
 
-// Mutator and factory should be totally separate or reentrant as in the future they may be used simultaneously
+// Mutator and factory should be totally separate or reentrant as they may be used simultaneously
 
 type Mutator interface {
 	Start(w io.WriteCloser, r io.ReadCloser) error
