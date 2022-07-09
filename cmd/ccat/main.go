@@ -6,7 +6,6 @@ import (
 	"os"
 	"regexp"
 	"runtime"
-	"sort"
 	"strings"
 
 	"github.com/batmac/ccat/pkg/color"
@@ -181,25 +180,5 @@ func usage(full bool) {
 	fmt.Fprint(os.Stderr, " - highlighter (used with -H):\n")
 	fmt.Fprint(os.Stderr, highlighter.Help())
 	fmt.Fprintf(os.Stderr, " - openers:\n    %v\n", strings.Join(openers.ListOpenersWithDescription(), "\n    "))
-	fmt.Fprintf(os.Stderr, " - mutators:\n%v\n", availableMutatorsHelp())
-}
-
-func availableMutatorsHelp() string {
-	var s strings.Builder
-	l := mutators.ListAvailableMutatorsByCategoryWithDescriptions()
-	keys := make([]string, 0, len(l))
-	for k := range l {
-		keys = append(keys, k)
-	}
-	sort.Strings(keys)
-	for _, category := range keys {
-		if len(category) > 0 {
-			s.WriteString("    " + category + ":\n")
-		}
-		sort.Strings(l[category])
-		for _, mutator := range l[category] {
-			s.WriteString("        " + mutator + "\n")
-		}
-	}
-	return s.String()
+	fmt.Fprintf(os.Stderr, " - mutators:\n%v\n", mutators.AvailableMutatorsHelp())
 }

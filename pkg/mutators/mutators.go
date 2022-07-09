@@ -96,12 +96,32 @@ func ListAvailableMutators() []string {
 	return l
 }
 
-func ListAvailableMutatorsByCategoryWithDescriptions() map[string][]string {
+func listAvailableMutatorsByCategoryWithDescriptions() map[string][]string {
 	listByCategory := make(map[string][]string)
 	for _, v := range globalCollection.factories {
 		listByCategory[v.Category()] = append(listByCategory[v.Category()], v.Name()+": "+v.Description())
 	}
 	return listByCategory
+}
+
+func AvailableMutatorsHelp() string {
+	var s strings.Builder
+	l := listAvailableMutatorsByCategoryWithDescriptions()
+	keys := make([]string, 0, len(l))
+	for k := range l {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+	for _, category := range keys {
+		if len(category) > 0 {
+			s.WriteString("    " + category + ":\n")
+		}
+		sort.Strings(l[category])
+		for _, mutator := range l[category] {
+			s.WriteString("        " + mutator + "\n")
+		}
+	}
+	return s.String()
 }
 
 func Run(mutatorName, input string) string {
