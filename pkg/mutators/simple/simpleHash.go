@@ -20,7 +20,7 @@ var list = []struct {
 	name, description string
 	newHash           hasher
 }{
-	{"sha256", "compute the sha256 (stdlib) checksum", sha256.New},
+	{"sha256", "compute the sha256 checksum", sha256.New},
 	// {"sha256", "compute the sha256 checksum", ssha256.New()},
 	{"xxhash", "compute the xxhash (xxh64) checksum", xxhashNew},
 	{"xxh3", "compute the xxh3 checksum", xxh3New},
