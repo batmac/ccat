@@ -36,6 +36,10 @@ func translate(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 		return 0, err
 	}
 
+	if len(msg) == 0 {
+		return 0, nil
+	}
+
 	result := strings.Builder{}
 
 	key := os.Getenv("GOOGLE_API_KEY")
