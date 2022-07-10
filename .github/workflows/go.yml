@@ -62,8 +62,12 @@ jobs:
         with:
           files: coverage1.out,coverage2.out
           
-      - name: Coveralls GitHub Action
-        uses: coverallsapp/github-action@1.1.3
+      - uses: shogo82148/actions-goveralls@v1
+        with:
+          path-to-profile: coverage1.out
+      - uses: shogo82148/actions-goveralls@v1
+        with:
+          path-to-profile: coverage2.out
 
   win:
     strategy:
