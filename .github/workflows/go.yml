@@ -61,13 +61,6 @@ jobs:
         uses: codecov/codecov-action@v3.1.0
         with:
           files: coverage1.out,coverage2.out
-          
-      - uses: shogo82148/actions-goveralls@v1
-        with:
-          path-to-profile: coverage1.out
-      - uses: shogo82148/actions-goveralls@v1
-        with:
-          path-to-profile: coverage2.out
 
   win:
     strategy:
