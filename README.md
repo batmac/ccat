@@ -57,9 +57,8 @@ kubectl run -i --tty ccat --image=batmac/ccat:latest -- /bin/sh
 ```
 
 ## help
-
 ```
-version v0.9.15-16-g405647e [libcurl,crappy], commit 405647e569f899ef56b5a2895ab981ec021aac34, built at 2022-07-12@22:40:39 by build.sh (go1.18.3 darwin/arm64)
+version v0.9.16-4-g0da46b5 [libcurl,crappy], commit 0da46b59fbae0cb0671cfb3d85603a38db2ed7ad, built at 2022-07-13@17:04:46 by build.sh (go1.18.4 darwin/arm64)
   -t, --tokens string      comma-separated list of tokens
   -i, --ignore-case        tokens given with -t are case-insensitive
   -o, --only               don't display lines without at least one token
