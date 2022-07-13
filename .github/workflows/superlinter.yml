@@ -1,0 +1,22 @@
+name: superlinter
+env:
+  GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+  DEFAULT_BRANCH: main
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  superlinter:
+  runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+        with:
+          # Full git history is needed to get a proper list of changed files within `super-linter`
+          fetch-depth: 0
+      - name: Super-Linter
+        uses: github/super-linter@v4.9.4
+        env:
+          VALIDATE_ALL_CODEBASE: true
