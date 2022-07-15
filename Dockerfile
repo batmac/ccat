@@ -6,7 +6,7 @@ COPY . .
 ENV CGO_ENABLED 1
 RUN go version && ./build.sh
 
-FROM alpine:20220328
+FROM alpine:20220715
 RUN apk add --no-cache libcurl
 COPY --from=build /usr/src/app/ccat /usr/bin/ccat
 
