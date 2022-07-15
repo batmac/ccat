@@ -19,4 +19,3 @@ cd cmd/ccat || exit 1
 go build -v  -ldflags "-s -w $VARS" -tags $TAGS .
 
 mv ccat ../../ccat
-
