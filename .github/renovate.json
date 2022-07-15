@@ -6,23 +6,22 @@
   "labels": [
     "renovate"
   ],
-  "prHourlyLimit": 0,
-  
+  "lockFileMaintenance": {
+    "automerge": true,
+    "automergeType": "pr",
+    "enabled": true,
+    "platformAutomerge": true
+  },
   "packageRules": [
     {
+      "automerge": true,
       "matchUpdateTypes": [
         "minor",
         "patch",
         "pin",
         "digest"
-      ],
-      "automerge": true
+      ]
     }
   ],
-  "lockFileMaintenance": {
-    "enabled": true,
-    "automerge": true,
-    "automergeType": "pr",
-    "platformAutomerge": true
-  }
+  "prHourlyLimit": 0
 }
