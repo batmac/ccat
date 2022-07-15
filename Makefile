@@ -19,25 +19,15 @@ tests: ccat
 
 janitor:
 	golangci-lint --go=1.17 run --disable-all -E misspell --fix ./...
+	golangci-lint --go=1.17 run ./...
 	gofumpt -w -l .
 	gosec -severity high ./...
-	golangci-lint --go=1.17 run ./...
 	govulncheck ./...
-	go list -json -deps ./... | nancy sleuth --skip-update-check
-	go test -cover -coverprofile coverage.out ./...
-	echo gocovsh --profile coverage.out
+	go list -json -deps ./... | nancy sleuth
 
 docker-local: tests
 	-rm ccat
 	docker build --compress -t batmac/ccat:${VERSION} .
-
-docker: tests
-	-rm ccat
-	docker buildx build --compress -t batmac/ccat:${VERSION} --platform=linux/arm,linux/amd64,linux/arm64 -f Dockerfile . --push
-
-docker-release: tests
-	-rm ccat
-	docker buildx build --compress -t batmac/ccat:latest -t batmac/ccat:${VERSION} --platform=linux/arm,linux/amd64,linux/arm64 -f Dockerfile . --push
 
 thanks:
 	gothanks
