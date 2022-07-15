@@ -17,7 +17,7 @@ func mt(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 	mimetype.SetLimit(1024)
 	mtype, err := mimetype.DetectReader(r)
 	if err != nil {
-		return 0, nil
+		return 0, err
 	}
 	log.Debugf("detected mimetype is %s (%s)\n", mtype.String(), mtype.Extension())
 
