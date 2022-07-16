@@ -4,6 +4,7 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/batmac/ccat)](https://goreportcard.com/report/github.com/batmac/ccat)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fbatmac%2Fccat.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fbatmac%2Fccat?ref=badge_shield)
 [![codecov](https://codecov.io/gh/batmac/ccat/branch/main/graph/badge.svg?token=PCD6DM6S75)](https://codecov.io/gh/batmac/ccat)
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/batmac/ccat/main.svg)](https://results.pre-commit.ci/latest/github/batmac/ccat/main)
 
 cat on steroids.
 Leveraging great go modules to ease my CLI life.
@@ -58,7 +59,7 @@ kubectl run -i --tty ccat --image=batmac/ccat:latest -- /bin/sh
 
 ## help
 ```
-version v0.9.16-4-g0da46b5 [libcurl,crappy], commit 0da46b59fbae0cb0671cfb3d85603a38db2ed7ad, built at 2022-07-13@17:04:46 by build.sh (go1.18.4 darwin/arm64)
+version v0.9.17-14-g2ce2723 [libcurl,crappy], commit 2ce272308e7f3f6f1ad7d2f6f184ea04b67c2a7e, built at 2022-07-16@22:33:39 by build.sh (go1.18.4 darwin/arm64)
   -t, --tokens string      comma-separated list of tokens
   -i, --ignore-case        tokens given with -t are case-insensitive
   -o, --only               don't display lines without at least one token
