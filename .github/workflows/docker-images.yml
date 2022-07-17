@@ -22,6 +22,11 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
+      - name: Install Cosign
+        # if: github.event_name != 'pull_request'
+        uses: sigstore/cosign-installer@main
+      - run: cosign version
+
       - name: Login to DockerHub
         uses: docker/login-action@v2
         with:
@@ -59,3 +64,8 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      - name: Sign the published Docker image
+        env:
+          COSIGN_EXPERIMENTAL: "true"
+        run: cosign sign ${{ steps.meta.outputs.tags }}@${{ steps.build-and-push.outputs.digest }}
