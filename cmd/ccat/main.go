@@ -141,11 +141,17 @@ func main() {
 	}
 
 	log.Debugln("processing...")
+	process := processFile
+	if !term.IsStdoutTerminal() && (flag.NFlag() == 0 || (flag.NFlag() == 1 && *argDebug)) {
+		log.Debugln("no option given, trying to be as fast as possible")
+		process = processFileAsIs
+	}
 	for _, path := range fileList {
 		globalctx.Reset()
 		globalctx.Set("fileList", fileList)
 		globalctx.Set("insecure", *argInsecure)
-		processFile(path)
+
+		process(path)
 	}
 
 	if globalctx.IsErrored() {
