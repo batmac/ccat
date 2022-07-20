@@ -1,6 +1,7 @@
 package openers
 
 import (
+	"errors"
 	"io"
 	"os"
 	"strings"
@@ -36,8 +37,15 @@ func (f fileOpener) Description() string {
 func (f fileOpener) Open(s string, lock bool) (io.ReadCloser, error) {
 	s = parsePath(s)
 	var from io.ReadCloser = os.Stdin
-	var err error
+	// var err error
 	if s != "-" {
+		fileInfo, err := os.Stat(s)
+		if err != nil {
+			return nil, err
+		}
+		if fileInfo.IsDir() {
+			return nil, errors.New("Is a directory")
+		}
 		from, err = lockable.FileOpen(s, lock)
 		if err != nil {
 			log.Println(err)
