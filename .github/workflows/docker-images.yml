@@ -30,6 +30,8 @@ jobs:
       - name: Install Cosign
         # if: github.event_name != 'pull_request'
         uses: sigstore/cosign-installer@main
+        with:
+          cosign-release: 'v1.10.0'
       - run: cosign version
 
       - name: Login to DockerHub
@@ -73,4 +75,4 @@ jobs:
       - name: Sign the published Docker image
         env:
           COSIGN_EXPERIMENTAL: "true"
-        run: cosign sign ${{ steps.meta.outputs.tags }}@${{ steps.build-and-push.outputs.digest }}
+        run: cosign sign ${{ steps.meta.outputs.tags }}
