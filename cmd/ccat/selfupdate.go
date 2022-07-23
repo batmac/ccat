@@ -6,10 +6,16 @@ import (
 	"os"
 	"runtime"
 	"strings"
+	"time"
 
 	"github.com/batmac/ccat/pkg/log"
 	"github.com/creativeprojects/go-selfupdate"
 )
+
+// build tags for the github releases
+const githubTags = ""
+
+var tagsAreCompatible bool = false
 
 func update(version string, checkOnly bool) {
 	log.Debugf("Trying to self-update %v...\n", version)
@@ -41,8 +47,33 @@ func update(version string, checkOnly bool) {
 
 	fmt.Printf("Update to version %v is available\n", latest.Version())
 
+	if tags != githubTags {
+		fmt.Printf("Warning: your current binary is built with tags '%s', GitHub releases are built with '%s'.\n", tags, githubTags)
+		tagsAreCompatible = false
+	} else {
+		tagsAreCompatible = true
+	}
+
 	if checkOnly {
 		return
+	}
+
+	if !tagsAreCompatible {
+		fmt.Println("I'm about to update your binary with the last one available from GitHub, " +
+			"which doesn't have the same build tags, this may not be what you want, " +
+			"hit Ctrl-C to abort or Enter to continue.")
+		input := make(chan string)
+
+		go func() {
+			_, _ = fmt.Scanln()
+			close(input)
+		}()
+		select {
+		case <-input:
+		case <-time.After(300 * time.Second):
+			fmt.Println("timed out, aborting.")
+			os.Exit(97)
+		}
 	}
 
 	exe, err := os.Executable()

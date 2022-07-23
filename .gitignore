@@ -17,6 +17,10 @@
 *.py
 
 
+# build artifact
 /ccat
-
+# goreleaser dir
 dist/
+
+
+.vscode/
