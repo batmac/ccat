@@ -83,7 +83,7 @@ func processFile(path string) {
 	}
 
 	if *argHuman {
-		if term.IsArt(path) {
+		if term.IsArt(path) && len(*argMutators) == 0 {
 			log.Debugf("is art, displaying directly...\n")
 			term.PrintArt(from)
 			return
