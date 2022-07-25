@@ -19,7 +19,8 @@ import (
 	flag "github.com/spf13/pflag"
 )
 
-//go:generate go run gen.go
+//go:generate go run gen_licence.go
+//go:generate go run gen_gomod.go
 
 var (
 	argTokens       = flag.StringP("tokens", "t", "", "comma-separated list of tokens")

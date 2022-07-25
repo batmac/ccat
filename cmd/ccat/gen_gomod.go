@@ -17,8 +17,8 @@ import (
 )
 
 var (
-	path   = "../../LICENSE"
-	target = "generated.go"
+	path   = "../../go.mod"
+	target = "generated_gomod.go"
 )
 
 func main() {
@@ -42,10 +42,6 @@ func main() {
 		log.Fatal(err)
 	}
 
-	/* 	if err = ioutil.WriteFile(path+".gz", b.Bytes(), 0644); err != nil {
-		log.Fatal(err)
-	} */
-
 	gzData := fmt.Sprintf("%#v\n", b.Bytes())
 	gzData = mutators.Run("wrap", gzData)
 	b.Reset()
@@ -58,8 +54,8 @@ func main() {
 		"io"
 		"log"
 	)
-	var data = {{ . }}
-	func printLicense(w io.Writer) {
+	func printGomod(w io.Writer) {
+		var data = {{ . }}
 		zr, err := gzip.NewReader(bytes.NewReader(data))
 		if err != nil {
 			log.Fatal(err)
