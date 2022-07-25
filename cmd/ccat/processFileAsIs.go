@@ -4,6 +4,7 @@ import (
 	"io"
 	"os"
 
+	"github.com/batmac/ccat/pkg/globalctx"
 	"github.com/batmac/ccat/pkg/log"
 	"github.com/batmac/ccat/pkg/openers"
 )
@@ -14,6 +15,7 @@ func processFileAsIs(s string) {
 	if s != "-" {
 		from, err = openers.Open(s, false)
 		if err != nil {
+			globalctx.SetErrored()
 			log.Println(err)
 			return
 		}
@@ -21,6 +23,7 @@ func processFileAsIs(s string) {
 	}
 	_, err = io.Copy(os.Stdout, from)
 	if err != nil {
+		globalctx.SetErrored()
 		log.Println(err)
 		return
 	}
