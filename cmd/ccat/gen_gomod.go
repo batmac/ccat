@@ -8,10 +8,10 @@ import (
 	"compress/gzip"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"os/exec"
 	"text/template"
 
+	"github.com/batmac/ccat/pkg/log"
 	"github.com/batmac/ccat/pkg/mutators"
 	_ "github.com/batmac/ccat/pkg/mutators/simple"
 )
@@ -41,6 +41,9 @@ func main() {
 	if err = gz.Close(); err != nil {
 		log.Fatal(err)
 	}
+
+	dataSize := len(data)
+	gzDataSize := b.Len()
 
 	gzData := fmt.Sprintf("%#v\n", b.Bytes())
 	gzData = mutators.Run("wrap", gzData)
@@ -82,4 +85,6 @@ func main() {
 	if len(stdoutStderr) > 0 {
 		log.Printf("%s\n", stdoutStderr)
 	}
+
+	log.Printf("size:%v bytes, compressed:%v bytes\n", dataSize, gzDataSize)
 }
