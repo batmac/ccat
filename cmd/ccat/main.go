@@ -1,12 +1,12 @@
 package main
 
 import (
-	"bytes"
 	"fmt"
 	"io/ioutil"
 	"os"
 	"regexp"
 	"runtime"
+	"runtime/debug"
 	"strings"
 
 	"github.com/batmac/ccat/pkg/color"
@@ -88,19 +88,23 @@ func main() {
 		os.Exit(0)
 	}
 	if *argGomod {
-		fmt.Println(buildLine())
-
-		b := bytes.Buffer{}
-		printGomod(&b)
-
+		b := strings.Builder{}
+		b.WriteString("# " + buildLine())
+		bi, ok := debug.ReadBuildInfo()
+		if !ok {
+			log.Printf("failed to read build info")
+		}
+		b.WriteString("\n\n## Modules used:\n")
+		for _, d := range bi.Deps {
+			fmt.Fprintf(&b, "\n- %v %v (%v)", d.Path, d.Version, d.Sum)
+		}
 		var s string
 		if *argHuman {
-			s = highlighter.Run(b.String(), highlighter.Options{
-				FileName:      "go.mod",
-				StyleHint:     strings.ToLower(*argStyle),
-				FormatterHint: strings.ToLower(*argFormatter),
-				LexerHint:     "go",
-			})
+			s = highlighter.Run(b.String(), highlighter.NewOptions(
+				"",
+				strings.ToLower(*argStyle),
+				strings.ToLower(*argFormatter),
+				"go"))
 		} else {
 			s = b.String()
 		}

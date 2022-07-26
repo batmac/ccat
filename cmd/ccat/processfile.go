@@ -98,12 +98,12 @@ func processFile(path string) {
 			}
 
 			r, w := io.Pipe()
-			err := highlighter.Go(w, from, highlighter.Options{
-				FileName:      path,
-				StyleHint:     strings.ToLower(*argStyle),
-				FormatterHint: strings.ToLower(*argFormatter),
-				LexerHint:     strings.ToLower(*argLexer),
-			})
+			err := highlighter.Go(w, from, *highlighter.NewOptions(
+				path,
+				strings.ToLower(*argStyle),
+				strings.ToLower(*argFormatter),
+				*argLexer,
+			))
 			if err != nil {
 				setErrored()
 				log.Printf("error while highlighting: %v", err)

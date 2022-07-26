@@ -11,13 +11,6 @@ import (
 	"github.com/batmac/ccat/pkg/log"
 )
 
-type Options struct {
-	FileName      string
-	StyleHint     string
-	LexerHint     string
-	FormatterHint string
-}
-
 type highlighter interface {
 	highLight(w io.WriteCloser, r io.ReadCloser, o Options) error
 	help() string
@@ -40,10 +33,13 @@ func Help() string {
 	return c.help()
 }
 
-func Run(input string, o Options) string {
+func Run(input string, o *Options) string {
 	in := ioutil.NopCloser(strings.NewReader(input))
 	r, w := io.Pipe()
-	if err := Go(w, in, o); err != nil {
+	if o == nil {
+		o = NewOptions("", "", "", "")
+	}
+	if err := Go(w, in, *o); err != nil {
 		log.Printf("error while highlighting: %v", err)
 	}
 	reply, err := io.ReadAll(r)

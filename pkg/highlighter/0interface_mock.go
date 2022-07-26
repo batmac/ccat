@@ -7,12 +7,6 @@ import (
 	"io"
 )
 
-type Options struct {
-	FileName      string
-	StyleHint     string
-	LexerHint     string
-	FormatterHint string
-}
 
 func Go(w io.WriteCloser, r io.ReadCloser, _ Options) error {
 	go func() {
