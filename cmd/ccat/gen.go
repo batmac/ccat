@@ -58,8 +58,8 @@ func main() {
 		"io"
 		"log"
 	)
-	var data = {{ . }}
 	func printLicense(w io.Writer) {
+		var data = {{ . }}
 		zr, err := gzip.NewReader(bytes.NewReader(data))
 		if err != nil {
 			log.Fatal(err)
