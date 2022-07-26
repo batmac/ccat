@@ -3,6 +3,7 @@ package scanners_test
 import (
 	//. "bufio"
 	"bufio"
+	"bytes"
 	"io"
 	"strings"
 	"testing"
@@ -121,4 +122,52 @@ func TestBlankLines(t *testing.T) {
 	if s.Err() != nil {
 		t.Fatal("after scan:", s.Err())
 	}
+}
+
+func testScanWords(t *testing.T, text string, tokens []string) {
+	t.Helper()
+	buf := strings.NewReader(text)
+	s := bufio.NewScanner(&slowReader{7, buf})
+	s.Split(scanners.ScanWords)
+	for tokNum := 0; s.Scan(); tokNum++ {
+		token := tokens[tokNum]
+		if s.Text() != token {
+			t.Errorf("%d: bad token: %d %d\n%.100q\n%.100q\n", tokNum, len(s.Bytes()), len(token), s.Bytes(), token)
+		}
+	}
+	if err := s.Err(); err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestScanWords(t *testing.T) {
+	const text = "a beautiful day"
+	words := []string{
+		"a ",
+		"beautiful ",
+		"day",
+	}
+	testScanWords(t, text, words)
+}
+
+func testScanBytes(t *testing.T, text []byte, tokens []byte) {
+	t.Helper()
+	buf := bytes.NewReader(text)
+	s := bufio.NewScanner(&slowReader{7, buf})
+	s.Split(scanners.ScanBytes)
+	for tokNum := 0; s.Scan(); tokNum++ {
+		token := tokens[tokNum]
+		if s.Bytes()[0] != token {
+			t.Errorf("%d: bad token: %d %d\n%.100q\n%.100q\n", tokNum, len(s.Bytes()), 1, s.Bytes(), token)
+		}
+	}
+	if err := s.Err(); err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestScanBytes(t *testing.T) {
+	text := []byte("a beautiful day")
+	bytes := []byte{'a', ' ', 'b', 'e', 'a', 'u', 't', 'i', 'f', 'u', 'l', ' ', 'd', 'a', 'y'}
+	testScanBytes(t, text, bytes)
 }
