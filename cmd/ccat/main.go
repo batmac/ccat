@@ -42,7 +42,7 @@ var (
 	argMutators     = flag.StringP("mutators", "m", "", "mutators to use (comma-separated), --fullhelp for the list")
 	argVersion      = flag.BoolP("version", "V", false, "print version on stdout")
 	argLicense      = flag.Bool("license", false, "print license on stdout")
-	argGomod        = flag.Bool("gomod", false, "print used go.mod on stdout")
+	argGomod        = flag.Bool("gomod", false, "print used go modules on stdout")
 	argHelp         = flag.BoolP("help", "h", false, "print usage")
 	argFullHelp     = flag.BoolP("fullhelp", "", false, "print full usage")
 	argSelfUpdate   = flag.Bool("selfupdate", false, "Update to latest Github release")
