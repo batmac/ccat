@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"os"
 	"strings"
 	"testing"
 
@@ -12,11 +13,14 @@ import (
 )
 
 var (
-	taint       bool
-	emptyReader = strings.NewReader("")
-	hello       = "hello"
-	helloReader = strings.NewReader(hello)
-	ErrHello    = errors.New(hello)
+	taint bool
+	// emptyReader = strings.NewReader("")
+	emptyReader   = strings.NewReader("")
+	hello         = "hello"
+	helloReader   = strings.NewReader(hello)
+	ErrHello      = errors.New(hello)
+	self, _       = os.Executable()
+	selfReader, _ = os.Open(self)
 )
 
 func TestNewReadCloser(t *testing.T) {
@@ -36,6 +40,10 @@ func TestNewReadCloser(t *testing.T) {
 			return nil
 		}}, nil, true},
 		{"hello", args{helloReader, func() error {
+			taint = true
+			return ErrHello
+		}}, ErrHello, true},
+		{"self", args{selfReader, func() error {
 			taint = true
 			return ErrHello
 		}}, ErrHello, true},
@@ -64,6 +72,7 @@ func Test_newCloser_Close(t *testing.T) {
 	}{
 		{"empty", fields{emptyReader, func() error { return nil }}, false},
 		{"simple", fields{helloReader, func() error { return fmt.Errorf(hello) }}, true},
+		{"self", fields{selfReader, func() error { return nil }}, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -88,6 +97,7 @@ func Test_newCloserWriterTo_Close(t *testing.T) {
 	}{
 		{"empty", fields{emptyReader, func() error { return nil }}, false},
 		{"simple", fields{helloReader, func() error { return fmt.Errorf(hello) }}, true},
+		{"simple2", fields{utils.NewReadCloser(helloReader, func() error { return nil }), func() error { return nil }}, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
