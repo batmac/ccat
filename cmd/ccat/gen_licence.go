@@ -8,17 +8,17 @@ import (
 	"compress/gzip"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"os/exec"
 	"text/template"
 
+	"github.com/batmac/ccat/pkg/log"
 	"github.com/batmac/ccat/pkg/mutators"
 	_ "github.com/batmac/ccat/pkg/mutators/simple"
 )
 
 var (
 	path   = "../../LICENSE"
-	target = "generated.go"
+	target = "generated_licence.go"
 )
 
 func main() {
@@ -42,9 +42,8 @@ func main() {
 		log.Fatal(err)
 	}
 
-	/* 	if err = ioutil.WriteFile(path+".gz", b.Bytes(), 0644); err != nil {
-		log.Fatal(err)
-	} */
+	dataSize := len(data)
+	gzDataSize := b.Len()
 
 	gzData := fmt.Sprintf("%#v\n", b.Bytes())
 	gzData = mutators.Run("wrap", gzData)
@@ -59,7 +58,7 @@ func main() {
 		"log"
 	)
 	func printLicense(w io.Writer) {
-		var data = {{ . }}
+	    var data = {{ . }}
 		zr, err := gzip.NewReader(bytes.NewReader(data))
 		if err != nil {
 			log.Fatal(err)
@@ -86,4 +85,6 @@ func main() {
 	if len(stdoutStderr) > 0 {
 		log.Printf("%s\n", stdoutStderr)
 	}
+
+	log.Printf("size:%v bytes, compressed:%v bytes\n", dataSize, gzDataSize)
 }

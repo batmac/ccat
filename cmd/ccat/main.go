@@ -6,6 +6,7 @@ import (
 	"os"
 	"regexp"
 	"runtime"
+	"runtime/debug"
 	"strings"
 
 	"github.com/batmac/ccat/pkg/color"
@@ -19,7 +20,9 @@ import (
 	flag "github.com/spf13/pflag"
 )
 
-//go:generate go run gen.go
+//go:generate go run gen_licence.go
+//go:generate go mod tidy
+//go:generate go run gen_gomod.go
 
 var (
 	argTokens       = flag.StringP("tokens", "t", "", "comma-separated list of tokens")
@@ -39,6 +42,7 @@ var (
 	argMutators     = flag.StringP("mutators", "m", "", "mutators to use (comma-separated), --fullhelp for the list")
 	argVersion      = flag.BoolP("version", "V", false, "print version on stdout")
 	argLicense      = flag.Bool("license", false, "print license on stdout")
+	argGomod        = flag.Bool("gomod", false, "print used go.mod on stdout")
 	argHelp         = flag.BoolP("help", "h", false, "print usage")
 	argFullHelp     = flag.BoolP("fullhelp", "", false, "print full usage")
 	argSelfUpdate   = flag.Bool("selfupdate", false, "Update to latest Github release")
@@ -81,6 +85,30 @@ func main() {
 	if *argLicense {
 		fmt.Println(buildLine())
 		printLicense(os.Stdout)
+		os.Exit(0)
+	}
+	if *argGomod {
+		b := strings.Builder{}
+		b.WriteString("# " + buildLine())
+		bi, ok := debug.ReadBuildInfo()
+		if !ok {
+			log.Printf("failed to read build info")
+		}
+		b.WriteString("\n\n## Modules used:\n")
+		for _, d := range bi.Deps {
+			fmt.Fprintf(&b, "\n- %v %v (%v)", d.Path, d.Version, d.Sum)
+		}
+		var s string
+		if *argHuman {
+			s = highlighter.Run(b.String(), highlighter.NewOptions(
+				"",
+				strings.ToLower(*argStyle),
+				strings.ToLower(*argFormatter),
+				"go"))
+		} else {
+			s = b.String()
+		}
+		fmt.Println(s)
 		os.Exit(0)
 	}
 	if *argHelp {

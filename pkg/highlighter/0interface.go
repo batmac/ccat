@@ -5,16 +5,11 @@ package highlighter
 
 import (
 	"io"
+	"io/ioutil"
+	"strings"
 
 	"github.com/batmac/ccat/pkg/log"
 )
-
-type Options struct {
-	FileName      string
-	StyleHint     string
-	LexerHint     string
-	FormatterHint string
-}
 
 type highlighter interface {
 	highLight(w io.WriteCloser, r io.ReadCloser, o Options) error
@@ -36,4 +31,21 @@ func Go(w io.WriteCloser, r io.ReadCloser, o Options) error {
 func Help() string {
 	c := new(Chroma)
 	return c.help()
+}
+
+func Run(input string, o *Options) string {
+	in := ioutil.NopCloser(strings.NewReader(input))
+	r, w := io.Pipe()
+	if o == nil {
+		o = NewOptions("", "", "", "")
+	}
+	if err := Go(w, in, *o); err != nil {
+		log.Printf("error while highlighting: %v", err)
+	}
+	reply, err := io.ReadAll(r)
+	if err != nil {
+		log.Printf("failed to read the highlighted string %v", err)
+		return input
+	}
+	return string(reply)
 }

@@ -40,3 +40,23 @@ func TestHelp(t *testing.T) {
 		}
 	})
 }
+
+func TestRun(t *testing.T) {
+	type args struct {
+		input string
+	}
+	tests := []struct {
+		name string
+		args args
+	}{
+		{"empty", args{""}},
+		{"simple", args{"simple"}},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := highlighter.Run(tt.args.input, nil); len(got) > 100 {
+				t.Errorf("Run() = %v", got)
+			}
+		})
+	}
+}
