@@ -59,7 +59,7 @@ kubectl run -i --tty ccat --image=batmac/ccat:latest -- /bin/sh
 
 ## help
 ```
-version v0.9.19-12-g0ed004d [libcurl,crappy], commit 0ed004d76d74d47a604b451864e5222afd2341ea, built at 2022-07-26@06:06:39 by build.sh (go1.18.4 darwin/arm64)
+version v0.9.19-17-ge7bbdc5 [libcurl,crappy], commit e7bbdc59300ea2754b02d3eab52db274a424600e, built at 2022-07-26@13:21:07 by build.sh (go1.18.4 darwin/arm64)
   -t, --tokens string      comma-separated list of tokens
   -i, --ignore-case        tokens given with -t are case-insensitive
   -o, --only               don't display lines without at least one token
@@ -77,6 +77,7 @@ version v0.9.19-12-g0ed004d [libcurl,crappy], commit 0ed004d76d74d47a604b451864e
   -m, --mutators string    mutators to use (comma-separated), --fullhelp for the list
   -V, --version            print version on stdout
       --license            print license on stdout
+      --gomod              print used go.mod on stdout
   -h, --help               print usage
       --fullhelp           print full usage
       --selfupdate         Update to latest Github release
