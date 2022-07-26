@@ -6,6 +6,9 @@ on:
     tags:
       - '**'
   pull_request:
+    branches: ["main"]
+    tags:
+      - '**'
 
 concurrency:
   group: buildx-${{ github.event.pull_request.number || github.ref_name }}
