@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"io/ioutil"
 	"os"
@@ -41,6 +42,7 @@ var (
 	argMutators     = flag.StringP("mutators", "m", "", "mutators to use (comma-separated), --fullhelp for the list")
 	argVersion      = flag.BoolP("version", "V", false, "print version on stdout")
 	argLicense      = flag.Bool("license", false, "print license on stdout")
+	argGomod        = flag.Bool("gomod", false, "print used go.mod on stdout")
 	argHelp         = flag.BoolP("help", "h", false, "print usage")
 	argFullHelp     = flag.BoolP("fullhelp", "", false, "print full usage")
 	argSelfUpdate   = flag.Bool("selfupdate", false, "Update to latest Github release")
@@ -83,6 +85,26 @@ func main() {
 	if *argLicense {
 		fmt.Println(buildLine())
 		printLicense(os.Stdout)
+		os.Exit(0)
+	}
+	if *argGomod {
+		fmt.Println(buildLine())
+
+		b := bytes.Buffer{}
+		printGomod(&b)
+
+		var s string
+		if *argHuman {
+			s = highlighter.Run(b.String(), highlighter.Options{
+				FileName:      "go.mod",
+				StyleHint:     strings.ToLower(*argStyle),
+				FormatterHint: strings.ToLower(*argFormatter),
+				LexerHint:     "go",
+			})
+		} else {
+			s = b.String()
+		}
+		fmt.Println(s)
 		os.Exit(0)
 	}
 	if *argHelp {

@@ -25,3 +25,7 @@ func Go(w io.WriteCloser, r io.ReadCloser, _ Options) error {
 func Help() string {
 	return "not supported (compiled with nohl)\n"
 }
+
+func Run(input string, _ Options) string {
+	return input
+}
