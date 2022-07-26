@@ -41,7 +41,7 @@ func TestPrintArt(t *testing.T) {
 		t.Fatal(err)
 	}
 	type args struct {
-		r io.Reader
+		r io.ReadSeekCloser
 	}
 	tests := []struct {
 		name string

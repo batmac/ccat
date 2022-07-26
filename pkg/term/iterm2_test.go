@@ -11,7 +11,15 @@ import (
 
 func TestIsITerm2(t *testing.T) {
 	t.Run("donotpanicplease", func(t *testing.T) {
-		_ = term.IsITerm2()
+		// will always be false as stdout is not what we want, but this allows more coverage.
+		t.Setenv("TERM_PROGRAM", "iTerm.app")
+		if term.IsITerm2() {
+			t.Fail()
+		}
+		t.Setenv("TERM_PROGRAM", "NOTiTerm.app")
+		if term.IsITerm2() {
+			t.Fail()
+		}
 	})
 }
 

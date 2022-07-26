@@ -39,7 +39,7 @@ func IsArt(path string) bool {
 }
 
 func PrintArt(r io.Reader) {
-	fmt.Println()
+	// fmt.Println()
 	if IsITerm2() {
 		log.Debugf("  art: printITerm2Art\n")
 		_ = PrintITerm2Art(r)
