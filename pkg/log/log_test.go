@@ -60,3 +60,14 @@ func TestPp(t *testing.T) {
 		})
 	}
 }
+
+func TestDontPanic(t *testing.T) {
+	_ = log.Default()
+	log.Debugf("hi")
+	log.Debugln("hi")
+	log.Print("hi")
+	log.Printf("hi")
+	log.Println("hi")
+	log.SetContinueOnFatal()
+	log.Fatal("hi")
+}

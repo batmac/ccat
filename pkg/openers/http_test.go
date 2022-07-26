@@ -7,6 +7,7 @@ import (
 	"math/rand"
 	"net/http"
 	"strconv"
+	"sync"
 	"testing"
 	"time"
 
@@ -16,6 +17,7 @@ import (
 var (
 	hostTest = "127.0.0.1"
 	portTest int
+	m        sync.Mutex
 )
 
 func init() {
@@ -23,7 +25,9 @@ func init() {
 		rand.Seed(time.Now().UnixNano())
 		// find an available port
 		for {
+			m.Lock()
 			portTest = 10000 + rand.Intn(55000) //#nosec G404
+			m.Unlock()
 			_ = http.ListenAndServe(hostTest+":"+strconv.Itoa(portTest), SimpleHandler())
 		}
 	}()
@@ -32,6 +36,7 @@ func init() {
 }
 
 func Test_http(t *testing.T) {
+	m.Lock()
 	type args struct {
 		s    string
 		lock bool
@@ -43,6 +48,7 @@ func Test_http(t *testing.T) {
 	}{
 		{"exe", args{"http://" + hostTest + ":" + strconv.Itoa(portTest), false}, false},
 	}
+	m.Unlock()
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			_, err := openers.Open(tt.args.s, tt.args.lock)

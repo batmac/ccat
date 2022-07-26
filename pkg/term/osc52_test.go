@@ -7,8 +7,8 @@ import (
 )
 
 func TestOsc52(t *testing.T) {
-	empty := []byte{0x0}
+	something := []byte("This is a test string from ccat testing (TestOsc52)")
 	t.Run("donotpanicplease", func(t *testing.T) {
-		term.Osc52(empty)
+		term.Osc52(something)
 	})
 }
