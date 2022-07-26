@@ -28,10 +28,13 @@ func TestFileOpen(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			_, err := lockable.FileOpen(tt.args.path, tt.args.lock)
+			f, err := lockable.FileOpen(tt.args.path, tt.args.lock)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("FileOpen() error = %v, wantErr %v", err, tt.wantErr)
 				return
+			}
+			if f != nil {
+				lockable.FileClose(f, tt.args.lock)
 			}
 		})
 	}
