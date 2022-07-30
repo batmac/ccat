@@ -19,7 +19,6 @@ then, you can update to the latest github release with `ccat --selfupdate`
 you need a recent go, available build tags:
 - `libcurl`: build with the libcurl opener.
 - `fileonly`: build with the local file opener only.
-- `nomd`: build without the markdown interpreter (glamour).
 - `nohl`: build without the syntax-highlighter.
 - `crappy`: build with some crappy (but useful) openers/mutators (needs a recent go version).
 
@@ -59,7 +58,7 @@ kubectl run -i --tty ccat --image=batmac/ccat:latest -- /bin/sh
 
 ## help
 ```
-version v0.9.19-17-ge7bbdc5 [libcurl,crappy], commit e7bbdc59300ea2754b02d3eab52db274a424600e, built at 2022-07-26@13:21:07 by build.sh (go1.18.4 darwin/arm64)
+version v0.9.19-23-g5ecc3ce [libcurl,crappy], commit 5ecc3ce19a65706aa766e56bae9e652053d2e6b9, built at 2022-07-30@19:53:54 by build.sh (go1.18.4 darwin/arm64)
   -t, --tokens string      comma-separated list of tokens
   -i, --ignore-case        tokens given with -t are case-insensitive
   -o, --only               don't display lines without at least one token
@@ -77,7 +76,7 @@ version v0.9.19-17-ge7bbdc5 [libcurl,crappy], commit e7bbdc59300ea2754b02d3eab52
   -m, --mutators string    mutators to use (comma-separated), --fullhelp for the list
   -V, --version            print version on stdout
       --license            print license on stdout
-      --gomod              print used go.mod on stdout
+      --gomod              print used go modules on stdout
   -h, --help               print usage
       --fullhelp           print full usage
       --selfupdate         Update to latest Github release
@@ -110,7 +109,6 @@ ccat <files>...
         indent: indent the text with 4 chars
         j: JSON Re-indent
         jcs: JSON Canonicalization (RFC 8785)
-        md: Render Markdown (with glamour)
         mimetype: detect mimetype
         translate: translate to $TARGET_LANGUAGE with google translate (need a valid key in $GOOGLE_API_KEY)
         wrap: word-wrap the text to 80 chars maximum
