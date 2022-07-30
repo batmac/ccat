@@ -7,7 +7,7 @@ VERSION="$GIT"
 COMMIT=$(git rev-parse HEAD)
 DATE=$(date +%Y-%m-%d@%H:%M:%S)
 BUILTBY="build.minimal.sh"
-TAGS=fileonly,nohl,nomd
+TAGS=fileonly,nohl
 VARS="-X main.version=$VERSION -X main.commit=$COMMIT -X main.date=$DATE -X main.builtBy=$BUILTBY -X main.tags=$TAGS"
 
 go test -tags $TAGS ./...

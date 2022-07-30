@@ -30,12 +30,6 @@ func processFile(path string) {
 		setErrored()
 		return
 	}
-	if *argHuman {
-		if len(*argMutators) == 0 && (strings.HasSuffix(path, ".md") || strings.HasSuffix(path, ".MD")) {
-			log.Debugf("%s is .md, adding the md mutator", path)
-			*argMutators = "md"
-		}
-	}
 	if len(*argMutators) > 0 {
 		r, w := io.Pipe()
 		err := pipeline.NewPipeline(*argMutators, w, from)
