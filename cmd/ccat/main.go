@@ -21,8 +21,6 @@ import (
 )
 
 //go:generate go run gen_licence.go
-//go:generate go mod tidy
-//go:generate go run gen_gomod.go
 
 var (
 	argTokens       = flag.StringP("tokens", "t", "", "comma-separated list of tokens")
