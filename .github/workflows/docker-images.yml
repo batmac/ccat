@@ -59,6 +59,7 @@ jobs:
             ghcr.io/batmac/ccat
           tags: |
             type=ref,event=branch
+            type=raw,test
             type=edge,branch=main
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
