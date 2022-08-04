@@ -8,9 +8,8 @@ RUN go version && ./build.sh
 
 FROM alpine:20220715
 RUN apk add --no-cache libcurl
-COPY --from=build /usr/src/app/ccat /usr/bin/ccat
-
 COPY "entrypoint.sh" "/entrypoint.sh"
+COPY --from=build /usr/src/app/ccat /usr/bin/ccat
 CMD ["ccat"]
 ENTRYPOINT ["/entrypoint.sh"]
 HEALTHCHECK CMD /usr/bin/true
