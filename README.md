@@ -46,7 +46,7 @@ KLUv/WQwA+UUAGKyjCQQi1gA+Mu1uPH4trE1CdEhIptwP1oghhOOOP5rTRkCAKACAAdroEXGmA2Uz10i
 ```
 
 ## docker image
-multi-arch container images with tags `libcurl,crappy` are automatically built by [Github Actions](https://github.com/batmac/ccat/actions/workflows/docker-images.yml) and made available on [Dockerhub](https://hub.docker.com/r/batmac/ccat) and [Github Packages](https://github.com/batmac/ccat/pkgs/container/ccat). <br/>
+multi-arch container images with tags `libcurl,crappy` are automatically built by [GitHub Actions](https://github.com/batmac/ccat/actions/workflows/docker-images.yml) and made available on [Dockerhub](https://hub.docker.com/r/batmac/ccat) and [GitHub Packages](https://github.com/batmac/ccat/pkgs/container/ccat). <br/>
 for instance:
 ```
 docker run --rm ghcr.io/batmac/ccat:latest -h
@@ -79,8 +79,8 @@ version v0.9.19-25-g9772db3 [libcurl,crappy], commit 9772db305167ec4fa4dda51b1a5
       --gomod              print used go modules on stdout
   -h, --help               print usage
       --fullhelp           print full usage
-      --selfupdate         Update to latest Github release
-      --check              Check version with the latest Github release
+      --selfupdate         Update to latest GitHub release
+      --check              Check version with the latest GitHub release
   -d, --debug              debug what we are doing
   -k, --insecure           get files insecurely (globally)
 

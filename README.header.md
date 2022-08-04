@@ -47,7 +47,7 @@ KLUv/WQwA+UUAGKyjCQQi1gA+Mu1uPH4trE1CdEhIptwP1oghhOOOP5rTRkCAKACAAdroEXGmA2Uz10i
 
 ## docker image
 multi-arch container images with tags `libcurl,crappy` are automatically built by [
-Actions](https://github.com/batmac/ccat/actions/workflows/docker-images.yml) and made available on [Dockerhub](https://hub.docker.com/r/batmac/ccat) and [Github Packages](https://github.com/batmac/ccat/pkgs/container/ccat). <br/>
+Actions](https://github.com/batmac/ccat/actions/workflows/docker-images.yml) and made available on [Dockerhub](https://hub.docker.com/r/batmac/ccat) and [GitHub Packages](https://github.com/batmac/ccat/pkgs/container/ccat). <br/>
 for instance:
 ```shell
 docker run --rm ghcr.io/batmac/ccat:latest -h

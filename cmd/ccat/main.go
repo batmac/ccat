@@ -43,8 +43,8 @@ var (
 	argGomod        = flag.Bool("gomod", false, "print used go modules on stdout")
 	argHelp         = flag.BoolP("help", "h", false, "print usage")
 	argFullHelp     = flag.BoolP("fullhelp", "", false, "print full usage")
-	argSelfUpdate   = flag.Bool("selfupdate", false, "Update to latest Github release")
-	argCheckUpdate  = flag.Bool("check", false, "Check version with the latest Github release")
+	argSelfUpdate   = flag.Bool("selfupdate", false, "Update to latest GitHub release")
+	argCheckUpdate  = flag.Bool("check", false, "Check version with the latest GitHub release")
 	argDebug        = flag.BoolP("debug", "d", false, "debug what we are doing")
 	argInsecure     = flag.BoolP("insecure", "k", false, "get files insecurely (globally)")
 
