@@ -1,0 +1,25 @@
+name: Trivy Cron
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  trivy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          ignore-unfixed: true
+          image-ref: "ghcr.io/batmac/ccat:edge"
+          format: "sarif"
+          output: "trivy-results.sarif"
+          severity: "CRITICAL"
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v2
+        if: always()
+        with:
+          sarif_file: "trivy-results.sarif"
