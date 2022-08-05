@@ -10,14 +10,16 @@ jobs:
   trivy:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
         with:
           ignore-unfixed: true
-          image-ref: "ghcr.io/batmac/ccat:edge"
+          image-ref: "ghcr.io/batmac/ccat:latest"
           format: "sarif"
           output: "trivy-results.sarif"
-          severity: "CRITICAL"
+          severity: "HIGH"
       - name: Upload Trivy scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v2
         if: always()
