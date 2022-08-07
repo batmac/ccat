@@ -12,7 +12,7 @@ import (
 	"github.com/batmac/ccat/pkg/log"
 )
 
-const postUrl = "https://translation.googleapis.com/language/translate/v2"
+const postURL = "https://translation.googleapis.com/language/translate/v2"
 
 func init() {
 	simpleRegister("translate", translate,
@@ -55,7 +55,7 @@ func translate(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 	v.Set("q", string(msg))
 	v.Set("target", targetLanguage)
 
-	res, err := http.PostForm(postUrl, v)
+	res, err := http.PostForm(postURL, v)
 	if err != nil {
 		return 0, err
 	}

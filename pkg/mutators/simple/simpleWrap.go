@@ -11,22 +11,22 @@ import (
 )
 
 const (
-	WRAP_MAX_CHARS = 80
-	INDENT_CHARS   = 4
+	WrapMaxChars = 80
+	IndentChars  = 4
 )
 
 func init() {
 	simpleRegister("wrap", wordWrap, withDescription(
-		fmt.Sprintf("word-wrap the text to %d chars maximum", WRAP_MAX_CHARS)))
+		fmt.Sprintf("word-wrap the text to %d chars maximum", WrapMaxChars)))
 	simpleRegister("wrapU", unconditionalyWrap, withDescription(
-		fmt.Sprintf("unconditionally wrap the text to %d chars maximum", WRAP_MAX_CHARS)))
+		fmt.Sprintf("unconditionally wrap the text to %d chars maximum", WrapMaxChars)))
 
 	simpleRegister("indent", simpleIndent, withDescription(
-		fmt.Sprintf("indent the text with %d chars", INDENT_CHARS)))
+		fmt.Sprintf("indent the text with %d chars", IndentChars)))
 }
 
 func wordWrap(w io.WriteCloser, r io.ReadCloser) (int64, error) {
-	ww := wordwrap.NewWriter(WRAP_MAX_CHARS)
+	ww := wordwrap.NewWriter(WrapMaxChars)
 	if _, err := io.Copy(ww, r); err != nil { // streamable?
 		return 0, err
 	}
@@ -35,7 +35,7 @@ func wordWrap(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 }
 
 func unconditionalyWrap(w io.WriteCloser, r io.ReadCloser) (int64, error) {
-	ww := uwrap.NewWriter(WRAP_MAX_CHARS)
+	ww := uwrap.NewWriter(WrapMaxChars)
 	if _, err := io.Copy(ww, r); err != nil { // streamable?
 		return 0, err
 	}
@@ -44,7 +44,7 @@ func unconditionalyWrap(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 }
 
 func simpleIndent(w io.WriteCloser, r io.ReadCloser) (int64, error) {
-	f := indent.NewWriter(INDENT_CHARS, nil)
+	f := indent.NewWriter(IndentChars, nil)
 	if _, err := io.Copy(f, r); err != nil { // streamable?
 		return 0, err
 	}

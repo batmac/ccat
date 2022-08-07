@@ -8,6 +8,6 @@ import (
 
 func TestIsSsh(t *testing.T) {
 	t.Run("donotpanicplease", func(t *testing.T) {
-		_ = term.IsSsh()
+		_ = term.IsSSH()
 	})
 }

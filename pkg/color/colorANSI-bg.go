@@ -2,10 +2,10 @@ package color
 
 import "strconv"
 
-type ColorANSIbg int
+type ANSIbg int
 
 const (
-	Blackbg ColorANSIbg = iota
+	Blackbg ANSIbg = iota
 	Redbg
 	Greenbg
 	Yellowbg
@@ -17,21 +17,21 @@ const (
 
 const Resetbg = "\x1b[0m"
 
-var cachedbg = make(map[ColorANSIbg]string)
+var cachedbg = make(map[ANSIbg]string)
 
-func (c ColorANSIbg) String() string {
+func (c ANSIbg) String() string {
 	if _, ok := cachedbg[c]; !ok {
 		cachedbg[c] = "\x1b[" + strconv.Itoa(40+int(c)) + "m"
 	}
 	return cachedbg[c]
 }
 
-func (c ColorANSIbg) Sprint(s string) string {
+func (c ANSIbg) Sprint(s string) string {
 	return (c.String() + s + Resetbg)
 }
 
-func (c *ColorANSIbg) Next() Color {
-	var n ColorANSIbg
+func (c *ANSIbg) Next() Color {
+	var n ANSIbg
 	if *c == Cyanbg {
 		n = Blackbg
 	} else {

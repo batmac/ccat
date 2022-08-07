@@ -4,30 +4,21 @@ run:
 
 linters:
   enable:
-    - bodyclose
     - deadcode
     - errcheck
-    - exportloopref
     - goimports
-    - gosec
     - gosimple
     - govet
     - ineffassign
-    - nilerr
-    - predeclared
-    - rowserrcheck
-    - sqlclosecheck
     - staticcheck
-    - structcheck
-    - tparallel
     - typecheck
-    - unconvert
     - unused
     - varcheck
     - whitespace
-
+    - asasalint
     - asciicheck
     - bidichk
+    - bodyclose
     # - containedctx
     - contextcheck
     # - cyclop
@@ -43,6 +34,7 @@ linters:
     - exhaustive
     # - exhaustivestruct [deprecated]
     # - exhaustruct
+    - exportloopref
     # - forbidigo
     # - forcetypeassert
     # - funlen
@@ -64,8 +56,9 @@ linters:
     - gomoddirectives
     - gomodguard
     - goprintffuncname
+    - gosec
     - grouper
-    - ifshort
+    # - ifshort [deprecated]
     - importas
     # - interfacer [deprecated]
     # - ireturn
@@ -76,23 +69,32 @@ linters:
     - misspell
     - nakedret
     # - nestif
+    - nilerr
     - nilnil
     # - nlreturn
     # - noctx
     - nolintlint
     - nonamedreturns
+    # - nosnakecase
     - nosprintfhostport
     # - paralleltest
     # - prealloc
+    - predeclared
     - promlinter
-    # - revive
+    - revive
+    - rowserrcheck
     # - scopelint [deprecated]
-    # - stylecheck
+    - sqlclosecheck
+    - structcheck
+    - stylecheck
     - tagliatelle
     - tenv
     - testpackage
     - thelper
+    - tparallel
+    - unconvert
     - unparam
+    - usestdlibvars
     # - varnamelen
     - wastedassign
     # - wrapcheck
@@ -102,3 +104,8 @@ issues:
   exclude-use-default: true
   exclude:
     - 'package should be `main_test` instead of `main`'
+    - 'ST1018:'
+    - 'Using the variable on range scope `tt` in function literal'
+linter-settings:
+  gofumpt:
+    extra-rules: true

@@ -47,9 +47,8 @@ func GetBool(k string) bool {
 	bi := globalCtx.ctx.Value(key(k))
 	if b, ok := bi.(bool); ok {
 		return b
-	} else {
-		return false
 	}
+	return false
 }
 
 func Reset() {

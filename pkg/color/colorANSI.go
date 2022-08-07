@@ -2,10 +2,10 @@ package color
 
 import "strconv"
 
-type ColorANSI int
+type ANSI int
 
 const (
-	Black ColorANSI = iota
+	Black ANSI = iota
 	Red
 	Green
 	Yellow
@@ -17,21 +17,21 @@ const (
 
 const Reset = "\x1b[0m"
 
-var cached = make(map[ColorANSI]string)
+var cached = make(map[ANSI]string)
 
-func (c ColorANSI) String() string {
+func (c ANSI) String() string {
 	if _, ok := cached[c]; !ok {
 		cached[c] = "\x1b[" + strconv.Itoa(30+int(c)) + "m"
 	}
 	return cached[c]
 }
 
-func (c ColorANSI) Sprint(s string) string {
+func (c ANSI) Sprint(s string) string {
 	return (c.String() + s + Reset)
 }
 
-func (c *ColorANSI) Next() Color {
-	var n ColorANSI
+func (c *ANSI) Next() Color {
+	var n ANSI
 	if *c == Cyan {
 		n = Black
 	} else {

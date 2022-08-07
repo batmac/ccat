@@ -44,7 +44,7 @@ func (f fileOpener) Open(s string, lock bool) (io.ReadCloser, error) {
 			return nil, err
 		}
 		if fileInfo.IsDir() {
-			return nil, errors.New("Is a directory")
+			return nil, errors.New("is a directory")
 		}
 		from, err = lockable.FileOpen(s, lock)
 		if err != nil {

@@ -143,9 +143,9 @@ func main() {
 		tmap = make(map[string]color.Color)
 		var c color.Color
 		if *argBG {
-			c = new(color.ColorANSIbg)
+			c = new(color.ANSIbg)
 		} else {
-			c = new(color.ColorANSI)
+			c = new(color.ANSI)
 		}
 		for _, s := range tokens {
 			c = c.Next()

@@ -21,9 +21,9 @@ import (
 )
 
 const (
-	DEFAULT_STYLE = "monokai"
+	DefaultStyle = "monokai"
 	// DEFAULT_FORMATTER = "terminal16m"
-	MAX_READ_SIZE = 10_000_000
+	MaxReadSize = 10_000_000
 )
 
 type Chroma struct {
@@ -36,10 +36,10 @@ func (h *Chroma) highLight(w io.WriteCloser, r io.ReadCloser, o Options) error {
 	log.Debugln(" highlighter: start chroma Highlighter")
 	// log.Debugln(log.Pp(o))
 
-	var filename string = o.FileName
+	filename := o.FileName
 
 	// MAX_READ_SIZE Bytes max
-	someSourceCode, err := io.ReadAll(&io.LimitedReader{R: r, N: MAX_READ_SIZE})
+	someSourceCode, err := io.ReadAll(&io.LimitedReader{R: r, N: MaxReadSize})
 	if err != nil {
 		return err
 	}
@@ -88,7 +88,7 @@ func (h *Chroma) highLight(w io.WriteCloser, r io.ReadCloser, o Options) error {
 	} else if checkWithFuzzy(o.StyleHint, stylesList) {
 		h.style = o.StyleHint
 	} else {
-		h.style = DEFAULT_STYLE
+		h.style = DefaultStyle
 	}
 
 	style := styles.Get(h.style)
@@ -145,17 +145,16 @@ func checkWithFuzzy(s string, list []string) bool {
 	// log.Printf("%v\n", list)
 	if utils.IsStringInSlice(s, list) {
 		return true
-	} else {
-		fs, err := utils.FuzzySearch(s, list, 0.5)
-		if err != nil {
-			log.Fatal(err)
-		}
-		if len(fs) == 0 {
-			return false
-		}
-		fmt.Fprintf(os.Stderr, "'%s' does not exist, did you mean %s?\n", s, fs)
-		os.Exit(1)
 	}
+	fs, err := utils.FuzzySearch(s, list, 0.5)
+	if err != nil {
+		log.Fatal(err)
+	}
+	if len(fs) == 0 {
+		return false
+	}
+	fmt.Fprintf(os.Stderr, "'%s' does not exist, did you mean %s?\n", s, fs)
+	os.Exit(1)
 	return false
 }
 

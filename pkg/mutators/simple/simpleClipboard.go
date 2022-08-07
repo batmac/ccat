@@ -20,7 +20,7 @@ func teeClipboard(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 		return 0, err
 	}
 	log.Debugf("readall %d bytes\n", len(d))
-	if term.IsSsh() || utils.IsRunningInContainer() {
+	if term.IsSSH() || utils.IsRunningInContainer() {
 		term.Osc52(d)
 	} else {
 		cbLocal(d)
