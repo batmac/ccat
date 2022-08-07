@@ -24,6 +24,7 @@ janitor:
 	gosec -severity high ./...
 	govulncheck ./...
 	go list -json -deps ./... | nancy sleuth
+	pre-commit autoupdate
 
 docker-local: tests
 	-rm ccat
