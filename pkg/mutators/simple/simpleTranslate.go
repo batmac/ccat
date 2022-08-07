@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"html"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"net/url"
 	"os"
@@ -31,7 +30,7 @@ type Response struct {
 }
 
 func translate(w io.WriteCloser, r io.ReadCloser) (int64, error) {
-	msg, err := ioutil.ReadAll(r) // NOT streamable
+	msg, err := io.ReadAll(r) // NOT streamable
 	if err != nil {
 		return 0, err
 	}
@@ -60,7 +59,7 @@ func translate(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 	if err != nil {
 		return 0, err
 	}
-	data, err := ioutil.ReadAll(res.Body)
+	data, err := io.ReadAll(res.Body)
 	if err != nil {
 		return 0, err
 	}

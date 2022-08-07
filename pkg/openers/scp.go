@@ -5,7 +5,6 @@ package openers
 
 import (
 	"io"
-	"io/ioutil"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -69,17 +68,17 @@ func (f *localShellScpOpener) Open(s string, _ bool) (io.ReadCloser, error) {
 		log.Fatal(err)
 	}
 
-	so, err := ioutil.ReadAll(stdout)
+	so, err := io.ReadAll(stdout)
 	if err != nil {
 		log.Fatal(err)
 	}
-	se, err := ioutil.ReadAll(stderr)
+	se, err := io.ReadAll(stderr)
 	if err != nil {
 		log.Fatal(err)
 	}
 	log.Debugln(string(so), string(se))
 	log.Debugf(" localShellScp ended\n")
-	re, err := ioutil.ReadAll(tmpfile)
+	re, err := io.ReadAll(tmpfile)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -95,7 +94,7 @@ func (f *localShellScpOpener) Open(s string, _ bool) (io.ReadCloser, error) {
 		log.Fatal(err)
 	}
 
-	return ioutil.NopCloser(strings.NewReader(string(re))), nil
+	return io.NopCloser(strings.NewReader(string(re))), nil
 }
 
 func (f localShellScpOpener) Evaluate(s string) float32 {

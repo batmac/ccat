@@ -7,7 +7,7 @@ import (
 	"bytes"
 	"compress/gzip"
 	"fmt"
-	"io/ioutil"
+	"os"
 	"os/exec"
 	"text/template"
 
@@ -23,7 +23,7 @@ var (
 
 func main() {
 	var b bytes.Buffer
-	data, err := ioutil.ReadFile(path)
+	data, err := os.ReadFile(path)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -75,7 +75,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	ioutil.WriteFile(target, b.Bytes(), 0o644)
+	os.WriteFile(target, b.Bytes(), 0o644)
 
 	cmd := exec.Command("gofmt", "-s", "-w", target)
 	stdoutStderr, err := cmd.CombinedOutput()

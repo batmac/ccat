@@ -3,7 +3,6 @@ package mutators
 import (
 	"bytes"
 	"io"
-	"io/ioutil"
 
 	"github.com/batmac/ccat/pkg/log"
 
@@ -20,7 +19,7 @@ func init() {
 }
 
 /* func unlzfse(out io.WriteCloser, in io.ReadCloser) (int64, error) {
-	dat, err := ioutil.ReadAll(in)
+	dat, err := io.ReadAll(in)
 	if err != nil {
 		log.Fatal("failed to read compressed file: ", err)
 	}
@@ -30,7 +29,7 @@ func init() {
 } */
 
 func unlzfseGo(out io.WriteCloser, in io.ReadCloser) (int64, error) {
-	dat, err := ioutil.ReadAll(in) // NOT streamable
+	dat, err := io.ReadAll(in) // NOT streamable
 	if err != nil {
 		log.Fatal("failed to read compressed file: ", err)
 	}

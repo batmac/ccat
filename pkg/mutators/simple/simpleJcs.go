@@ -3,7 +3,6 @@ package mutators
 import (
 	"bytes"
 	"io"
-	"io/ioutil"
 
 	// "github.com/go-json-experiment/json"
 	json "github.com/gowebpki/jcs"
@@ -14,7 +13,7 @@ func init() {
 }
 
 func jcs(w io.WriteCloser, r io.ReadCloser) (int64, error) {
-	j, err := ioutil.ReadAll(r) // NOT streamable
+	j, err := io.ReadAll(r) // NOT streamable
 	if err != nil {
 		return 0, err
 	}

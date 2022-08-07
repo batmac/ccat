@@ -3,7 +3,6 @@ package mutators
 import (
 	"fmt"
 	"io"
-	"io/ioutil"
 	"os"
 	"sort"
 	"strings"
@@ -125,7 +124,7 @@ func AvailableMutatorsHelp() string {
 }
 
 func Run(mutatorName, input string) string {
-	in := ioutil.NopCloser(strings.NewReader(input))
+	in := io.NopCloser(strings.NewReader(input))
 	out := new(utils.NopStringWriteCloser)
 	m, err := New(mutatorName)
 	if err != nil {

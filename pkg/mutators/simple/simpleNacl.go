@@ -8,7 +8,6 @@ package mutators
 import (
 	"encoding/hex"
 	"io"
-	"io/ioutil"
 	"os"
 
 	"github.com/batmac/ccat/pkg/log"
@@ -27,7 +26,7 @@ func init() {
 }
 
 func easyseal(w io.WriteCloser, r io.ReadCloser) (int64, error) {
-	u, err := ioutil.ReadAll(r) // NOT streamable
+	u, err := io.ReadAll(r) // NOT streamable
 	if err != nil {
 		return 0, err
 	}
@@ -44,7 +43,7 @@ func easyseal(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 }
 
 func easyopen(w io.WriteCloser, r io.ReadCloser) (int64, error) {
-	u, err := ioutil.ReadAll(r) // NOT streamable
+	u, err := io.ReadAll(r) // NOT streamable
 	if err != nil {
 		return 0, err
 	}

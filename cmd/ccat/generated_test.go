@@ -2,13 +2,13 @@ package main
 
 import (
 	"bytes"
-	"io/ioutil"
+	"os"
 	"reflect"
 	"testing"
 )
 
 func Test_printLicense(t *testing.T) {
-	l, err := ioutil.ReadFile("../../LICENSE")
+	l, err := os.ReadFile("../../LICENSE")
 	if err != nil {
 		t.Fatal(err)
 	}

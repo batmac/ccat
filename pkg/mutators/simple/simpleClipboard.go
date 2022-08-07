@@ -3,7 +3,6 @@ package mutators
 import (
 	"bytes"
 	"io"
-	"io/ioutil"
 
 	"github.com/atotto/clipboard"
 	"github.com/batmac/ccat/pkg/log"
@@ -16,7 +15,7 @@ func init() {
 }
 
 func teeClipboard(w io.WriteCloser, r io.ReadCloser) (int64, error) {
-	d, err := ioutil.ReadAll(r) // NOT streamable
+	d, err := io.ReadAll(r) // NOT streamable
 	if err != nil {
 		return 0, err
 	}

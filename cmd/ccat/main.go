@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
+	"io"
 	"os"
 	"regexp"
 	"runtime"
@@ -66,7 +66,7 @@ func init() {
 	flag.Parse()
 
 	if !*argDebug {
-		log.SetDebug(ioutil.Discard)
+		log.SetDebug(io.Discard)
 	} else {
 		log.SetDebug(os.Stderr)
 	}

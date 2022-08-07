@@ -50,16 +50,18 @@ func PrintArt(r io.Reader) {
 	fmt.Println()
 }
 
-/* func PrintArtFromURL(url string) {
-	fmt.Println()
-	if IsITerm2() {
-		printITerm2ArtFromURL(url)
-	} else {
-		printANSIArtFromURL(url)
-	}
-	fmt.Println()
+/*
+	 func PrintArtFromURL(url string) {
+		fmt.Println()
+		if IsITerm2() {
+			printITerm2ArtFromURL(url)
+		} else {
+			printANSIArtFromURL(url)
+		}
+		fmt.Println()
 
-} */
+}
+*/
 func PrintANSIArt(r io.Reader) error {
 	tx, ty, err := GetTerminalSize()
 	if err != nil {

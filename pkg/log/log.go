@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"log"
 	"os"
 	"sync/atomic"
@@ -12,7 +11,7 @@ import (
 
 var (
 	flags  = log.Ldate | log.Ltime | log.Lmicroseconds | log.Lshortfile
-	Debug  = &Logger{Logger: log.New(ioutil.Discard, "", flags)}
+	Debug  = &Logger{Logger: log.New(io.Discard, "", flags)}
 	Stderr = &Logger{Logger: log.New(os.Stderr, "", flags)}
 
 	DebugIsDiscard  int32
@@ -32,7 +31,7 @@ func Default() *Logger {
 
 func SetDebug(w io.Writer) {
 	var isDiscard int32 = 0
-	if w == ioutil.Discard {
+	if w == io.Discard {
 		isDiscard = 1
 	}
 	atomic.StoreInt32(&DebugIsDiscard, isDiscard)

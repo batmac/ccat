@@ -8,7 +8,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/url"
 	"os"
 	"path/filepath"
@@ -155,7 +154,7 @@ func getConfigFromMCFile(alias string) Config {
 		Aliases map[string]Config `json:"aliases"`
 	}
 
-	confJ, err := ioutil.ReadFile(filepath.Clean(home + mcConfigPath))
+	confJ, err := os.ReadFile(filepath.Clean(home + mcConfigPath))
 	if err != nil {
 		log.Debugln(err)
 		return Config{}

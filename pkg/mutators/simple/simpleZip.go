@@ -5,7 +5,6 @@ import (
 	"bytes"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"path/filepath"
 
 	"github.com/batmac/ccat/pkg/globalctx"
@@ -22,7 +21,7 @@ func init() {
 }
 
 func unzip(out io.WriteCloser, in io.ReadCloser) (int64, error) {
-	dat, err := ioutil.ReadAll(in)
+	dat, err := io.ReadAll(in)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -52,7 +51,7 @@ func unzip(out io.WriteCloser, in io.ReadCloser) (int64, error) {
 }
 
 func czip(out io.WriteCloser, in io.ReadCloser) (int64, error) {
-	/* 	dat, err := ioutil.ReadAll(in)
+	/* 	dat, err := io.ReadAll(in)
 	   	if err != nil {
 	   		log.Fatal(err)
 	   	} */

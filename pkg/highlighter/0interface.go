@@ -5,7 +5,6 @@ package highlighter
 
 import (
 	"io"
-	"io/ioutil"
 	"strings"
 
 	"github.com/batmac/ccat/pkg/log"
@@ -34,7 +33,7 @@ func Help() string {
 }
 
 func Run(input string, o *Options) string {
-	in := ioutil.NopCloser(strings.NewReader(input))
+	in := io.NopCloser(strings.NewReader(input))
 	r, w := io.Pipe()
 	if o == nil {
 		o = NewOptions("", "", "", "")

@@ -6,7 +6,6 @@ package highlighter
 import (
 	"fmt"
 	"io"
-	"io/ioutil"
 	"math/rand"
 	"os"
 	"time"
@@ -40,7 +39,7 @@ func (h *Chroma) highLight(w io.WriteCloser, r io.ReadCloser, o Options) error {
 	var filename string = o.FileName
 
 	// MAX_READ_SIZE Bytes max
-	someSourceCode, err := ioutil.ReadAll(&io.LimitedReader{R: r, N: MAX_READ_SIZE})
+	someSourceCode, err := io.ReadAll(&io.LimitedReader{R: r, N: MAX_READ_SIZE})
 	if err != nil {
 		return err
 	}
