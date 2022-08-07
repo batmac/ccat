@@ -7,9 +7,9 @@ ENV CGO_ENABLED 1
 RUN go version && ./build.sh
 
 FROM alpine:20220715
-RUN apk upgrade --no-cache && apk add --no-cache libcurl
+RUN apk upgrade --no-cache && apk add --no-cache libcurl tini
 COPY "entrypoint.sh" "/entrypoint.sh"
 COPY --from=build /usr/src/app/ccat /usr/bin/ccat
 CMD ["ccat"]
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["tini", "-wg", "--", "/entrypoint.sh"]
 HEALTHCHECK CMD /usr/bin/true
