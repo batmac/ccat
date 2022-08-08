@@ -8,7 +8,7 @@ require (
 	github.com/alecthomas/chroma/v2 v2.2.0
 	github.com/andelf/go-curl v0.0.0-20200630032108-fd49ff24ed97
 	github.com/atotto/clipboard v0.1.4
-	github.com/aws/aws-sdk-go-v2 v1.16.8
+	github.com/aws/aws-sdk-go-v2 v1.16.9
 	github.com/aws/aws-sdk-go-v2/config v1.15.15
 	github.com/aws/aws-sdk-go-v2/service/s3 v1.27.2
 	github.com/aws/aws-sdk-go-v2/service/sts v1.16.10
