@@ -60,14 +60,14 @@ release:
     ## NOTE
     these builds are without libcurl
 brews:
-  - name: ccatng
+  - name: ccatos
     tap:
       owner: batmac
-      name: ccat
+      name: homebrew-tap
       branch: main
     description: cat on steroids.
     license: MIT
-    folder: Formula
+    # folder: Formula
     skip_upload: "false"
     dependencies: []
     conflicts:
