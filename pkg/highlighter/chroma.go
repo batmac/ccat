@@ -8,6 +8,7 @@ import (
 	"io"
 	"math/rand"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/batmac/ccat/pkg/log"
@@ -159,9 +160,13 @@ func checkWithFuzzy(s string, list []string) bool {
 }
 
 func (h *Chroma) help() string {
+	lexers, styles, formatters := lexers.Names(true), styles.Names(), formatters.Names()
+	utils.SortStringsCaseInsensitive(lexers)
+	utils.SortStringsCaseInsensitive(styles)
+	utils.SortStringsCaseInsensitive(formatters)
 	return fmt.Sprintf("  - Lexers: %v\n  - Styles: %v\n  - Formatters: %v\n",
-		lexers.Names(true),
-		styles.Names(),
-		formatters.Names(),
+		strings.Join(lexers, ", "),
+		strings.Join(styles, ", "),
+		strings.Join(formatters, ", "),
 	)
 }
