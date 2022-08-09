@@ -40,7 +40,7 @@ var (
 	argMutators     = flag.StringP("mutators", "m", "", "mutators to use (comma-separated), --fullhelp for the list")
 	argVersion      = flag.BoolP("version", "V", false, "print version on stdout")
 	argLicense      = flag.Bool("license", false, "print license on stdout")
-	argGomod        = flag.Bool("gomod", false, "print used go modules on stdout")
+	argBuildInfo    = flag.BoolP("buildinfo", "B", false, "print build info on stdout")
 	argHelp         = flag.BoolP("help", "h", false, "print usage")
 	argFullHelp     = flag.BoolP("fullhelp", "", false, "print full usage")
 	argSelfUpdate   = flag.Bool("selfupdate", false, "Update to latest Github release")
@@ -85,17 +85,15 @@ func main() {
 		printLicense(os.Stdout)
 		os.Exit(0)
 	}
-	if *argGomod {
+	if *argBuildInfo {
 		b := strings.Builder{}
-		b.WriteString("# " + buildLine())
+		b.WriteString(buildLine())
 		bi, ok := debug.ReadBuildInfo()
 		if !ok {
 			log.Printf("failed to read build info")
 		}
-		b.WriteString("\n\n## Modules used:\n")
-		for _, d := range bi.Deps {
-			fmt.Fprintf(&b, "\n- %v %v (%v)", d.Path, d.Version, d.Sum)
-		}
+		b.WriteString(bi.String())
+
 		var s string
 		if *argHuman {
 			s = highlighter.Run(b.String(), highlighter.NewOptions(
