@@ -9,14 +9,24 @@
 cat on steroids.
 Leveraging great go modules to ease my CLI life.
 
-## install
-- get the latest release from https://github.com/batmac/ccat/releases/latest
-- or `go install github.com/batmac/ccat/cmd/ccat@latest`
+## Install
 
-then, you can update to the latest github release with `ccat --selfupdate`
+### Homebrew
+`brew install batmac/tap/ccatos`
 
-## build
-you need a recent go, available build tags:
+### Manually
+Get the latest release from https://github.com/batmac/ccat/releases/latest
+
+### Build from source
+You need a recent version of go.
+`go install github.com/batmac/ccat/cmd/ccat@latest` (please see below about the available tags).
+
+## Update
+- You can update to the latest github release with `ccat --selfupdate`.
+- You can check against your current installed version with `ccat --check`.
+
+## Build tags
+available build tags:
 - `libcurl`: build with the libcurl opener.
 - `fileonly`: build with the local file opener only.
 - `nohl`: build without the syntax-highlighter.
@@ -25,7 +35,7 @@ you need a recent go, available build tags:
 for instance:
 `go build --tags libcurl,crappy .`
 
-## examples
+## Examples
 ```
 cat -X "kubectl get all" -i -w -t ready,Running --bg
 NAME           READY   STATUS    RESTARTS   AGE
@@ -45,7 +55,7 @@ $ cat -m zstd LICENSE | cat -m base64
 KLUv/WQwA+UUAGKyjCQQi1gA+Mu1uPH4trE1CdEhIptwP1oghhOOOP5rTRkCAKACAAdroEXGmA2Uz10inntYY97kIsI70zHae3CBb+DnAi4lAWNzxHPSRXalSceYEc4rc2FxPri8gX/QzYX9sT/32JzZHMbds2JzJmwIlmDMlYRjz/LGa8+BueftcBkb80Dn00G42FDA5RFeRujMBVvNmX8e5sjP1xLa4ftzH5ivJRriudg89+A789ibhIq4UDyyZ7G4GZni7BE2l7K96ZqlNKZ73IHNx5wltsQbeNlcc+bhPNOmS7jnE77PxeGI55jFszx3hWnuUSTcivBStqhQaFeY5xDeeOwNfGM+FiNjfC6gMx3jCoB0lwzgTGNcAoyKS/cWGWM2UL45c60B6ko+0c6WZuyo8Cl6249qdXyaqIRxSxnqfO0rw3XQV2mudYDt7dyRvdAhthvuNN3Hzc9QXbj4N6oSbktVj4U7cqWG33ycO0JVyW/+cW3JhdY0VXzqEkSWXpkcFb5Sc+VoKuOOrki4J0clqZErk0dHN3JFqbj6zQu/SrkjPUFsR9UE2b5ib2eoqYwr9VxdKXfDX6V822uiNRIAkACvUg44rlM/bm9nmm2NVNCNHtVMG7oY00eWvlK0IT8uPm4p/3HXRHKh00Ns26bZcW8vpqrkE0t/85UKoagE/XFfK/W4EtVsKQX5xFGpKh337W2MO0JVxVr2ZkuX14w7S+jhBgYFBheAAp4lSFMTyV3WqthWqJ9PlwgmAGYTiQo1Zi5cSUcnOBoEX3ev5YUMcVnvUrgx5HaCOLWhPcddUjOGZmX2yZFNAyB+ELmdEtsBPE17UsXU4fTV1jdNHpPl8KiAkC34tsZqWhxaa3RlIgn25jJkslDF+VBC8cW5mikplMUF0g==
 ```
 
-## docker image
+## Docker image
 multi-arch container images with tags `libcurl,crappy` are automatically built by [Github Actions](https://github.com/batmac/ccat/actions/workflows/docker-images.yml) and made available on [Dockerhub](https://hub.docker.com/r/batmac/ccat) and [Github Packages](https://github.com/batmac/ccat/pkgs/container/ccat). <br/>
 for instance:
 ```
@@ -58,7 +68,7 @@ kubectl run -i --tty ccat --image=batmac/ccat:latest -- /bin/sh
 
 ## help
 ```
-version v0.9.21-4-g8f38016 [libcurl,crappy], commit 8f38016ef7bca402e55f391e5066ed5c18d8d6ea, built at 2022-08-07@19:30:31 by build.sh (go1.19 darwin/arm64)
+version v0.9.22-1-g3a41e5b [libcurl,crappy], commit 3a41e5bbddf26e4a09c91f46460bfcc7d7b8d214, built at 2022-08-09@15:20:59 by build.sh (go1.19 darwin/arm64)
   -t, --tokens string      comma-separated list of tokens
   -i, --ignore-case        tokens given with -t are case-insensitive
   -o, --only               don't display lines without at least one token
