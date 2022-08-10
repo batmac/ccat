@@ -9,7 +9,7 @@ require (
 	github.com/andelf/go-curl v0.0.0-20200630032108-fd49ff24ed97
 	github.com/atotto/clipboard v0.1.4
 	github.com/aws/aws-sdk-go-v2 v1.16.10
-	github.com/aws/aws-sdk-go-v2/config v1.15.17
+	github.com/aws/aws-sdk-go-v2/config v1.16.0
 	github.com/aws/aws-sdk-go-v2/service/s3 v1.27.4
 	github.com/aws/aws-sdk-go-v2/service/sts v1.16.12
 	github.com/cespare/xxhash/v2 v2.1.2
