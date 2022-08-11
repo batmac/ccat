@@ -21,16 +21,13 @@ func getCompletionData(opts []string) completionData {
 	utils.SortStringsCaseInsensitive(lexers)
 	utils.SortStringsCaseInsensitive(styles)
 	utils.SortStringsCaseInsensitive(formatters)
-
-	data := completionData{
+	return completionData{
 		Options:    strings.Join(opts, " "),
 		Mutators:   strings.Join(mutators.ListAvailableMutators(), " "),
 		Formatters: strings.Join(formatters, " "),
 		Styles:     strings.Join(styles, " "),
 		Lexers:     strings.Join(lexers, " "),
 	}
-
-	return data
 }
 
 func filter(list []string, chars string) []string {

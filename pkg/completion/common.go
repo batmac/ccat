@@ -15,17 +15,16 @@ type completionData struct {
 }
 
 func Print(shell string, opts []string) {
+	data := getCompletionData(opts)
 	switch shell {
 	case "bash":
-		printBash(opts)
+		printBash(data)
 	default:
 		log.Fatal("completion is currently only available for bash")
 	}
 }
 
-func printBash(opts []string) {
-	data := getCompletionData(opts)
-
+func printBash(data completionData) {
 	c, err := template.New("completion").Parse(tmpl)
 	if err != nil {
 		panic(err)

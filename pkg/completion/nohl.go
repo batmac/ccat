@@ -13,13 +13,11 @@ import (
 )
 
 func getCompletionData(opts []string) completionData {
-	data := completionData{
+	return completionData{
 		Options:    strings.Join(opts, " "),
 		Mutators:   strings.Join(mutators.ListAvailableMutators(), " "),
 		Formatters: "",
 		Styles:     "",
 		Lexers:     "",
 	}
-
-	return data
 }
