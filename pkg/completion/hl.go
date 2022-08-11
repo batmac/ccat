@@ -1,11 +1,10 @@
+//go:build !nohl
+// +build !nohl
+
 package completion
 
 import (
-	_ "embed"
-	"log"
-	"os"
 	"strings"
-	"text/template"
 
 	"github.com/alecthomas/chroma/v2/formatters"
 	"github.com/alecthomas/chroma/v2/lexers"
@@ -17,23 +16,13 @@ import (
 	_ "github.com/batmac/ccat/pkg/mutators/simple"
 )
 
-//go:embed  ccat.tmpl
-var tmpl string
-
-type Completion struct {
-	Options, Mutators, Formatters, Styles, Lexers string
-}
-
-func Print(shell string, opts []string) {
-	if shell != "bash" {
-		log.Fatal("completion is currently only available for bash")
-	}
+func getCompletionData(opts []string) completionData {
 	lexers, styles, formatters := filter(lexers.Names(true), " '"), filter(styles.Names(), " '"), filter(formatters.Names(), " '")
 	utils.SortStringsCaseInsensitive(lexers)
 	utils.SortStringsCaseInsensitive(styles)
 	utils.SortStringsCaseInsensitive(formatters)
 
-	data := Completion{
+	data := completionData{
 		Options:    strings.Join(opts, " "),
 		Mutators:   strings.Join(mutators.ListAvailableMutators(), " "),
 		Formatters: strings.Join(formatters, " "),
@@ -41,14 +30,7 @@ func Print(shell string, opts []string) {
 		Lexers:     strings.Join(lexers, " "),
 	}
 
-	c, err := template.New("completion").Parse(tmpl)
-	if err != nil {
-		panic(err)
-	}
-	err = c.Execute(os.Stdout, data)
-	if err != nil {
-		panic(err)
-	}
+	return data
 }
 
 func filter(list []string, chars string) []string {
