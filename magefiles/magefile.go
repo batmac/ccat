@@ -99,10 +99,24 @@ func Clean() {
 }
 
 // go test ./...
-func Test() error {
+func TestGo() error {
 	mg.Deps(InstallDeps)
-	fmt.Println("Testing...")
+	fmt.Println("Testing Go...")
 	return sh.RunV("go", "test", "./...")
+}
+
+// test_compression_e2e
+func TestCompression() error {
+	mg.Deps(InstallDeps)
+	fmt.Println("Testing compression...")
+	return sh.RunV("scripts/test_compression_e2e.sh", "testdata/compression/")
+}
+
+// test all
+func Test() error {
+	mg.SerialDeps(TestGo)
+	mg.SerialDeps(TestCompression)
+	return nil
 }
 
 // buildDefault,test
@@ -110,4 +124,23 @@ func BuildAndTest() error {
 	mg.SerialDeps(BuildDefault)
 	mg.SerialDeps(Test)
 	return nil
+}
+
+func UpdateREADME() error {
+	fmt.Println("Updating README.md...")
+
+	data, err := os.ReadFile("README.header.md")
+	if err != nil {
+		return err
+	}
+	data = append(data, "```\n"...)
+	cmd := exec.Command("./ccat", "--fullhelp")
+	out, err := cmd.CombinedOutput()
+	data = append(data, out...)
+	if err != nil {
+		return err
+	}
+	data = append(data, "```\n"...)
+
+	return os.WriteFile("README.md", data, 0o600)
 }
