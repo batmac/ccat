@@ -1,5 +1,5 @@
 ci:
-  skip: ["golangci-lint", "go-mod-tidy"]
+  skip: ["golangci-lint"]
 exclude: testdata/|generated
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
