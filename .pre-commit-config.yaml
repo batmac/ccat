@@ -64,7 +64,7 @@ repos:
         args: ['.']
       # - id: go-mod-tidy
       - id: golangci-lint # requires github.com/golangci/golangci-lint
-        args: ["--allow-parallel-runners", "--config=.golangci.yml"]
+        args: ["--allow-parallel-runners", "--go=1.17", "--config=.golangci.yml"]
   - repo: https://github.com/renovatebot/pre-commit-hooks
     rev: 32.154.9
     hooks:
