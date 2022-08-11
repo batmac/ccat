@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/batmac/ccat/pkg/color"
+	"github.com/batmac/ccat/pkg/completion"
 	"github.com/batmac/ccat/pkg/globalctx"
 	"github.com/batmac/ccat/pkg/highlighter"
 	"github.com/batmac/ccat/pkg/log"
@@ -47,6 +48,7 @@ var (
 	argCheckUpdate  = flag.Bool("check", false, "Check version with the latest Github release")
 	argDebug        = flag.BoolP("debug", "d", false, "debug what we are doing")
 	argInsecure     = flag.BoolP("insecure", "k", false, "get files insecurely (globally)")
+	argCompletion   = flag.StringP("completion", "C", "", "print shell completion script")
 
 	tmap   map[string]color.Color
 	tokens []string
@@ -105,6 +107,17 @@ func main() {
 			s = b.String()
 		}
 		fmt.Println(s)
+		os.Exit(0)
+	}
+	if len(*argCompletion) > 0 {
+		var opts []string
+		flag.VisitAll(func(f *flag.Flag) {
+			if len(f.Shorthand) > 0 {
+				opts = append(opts, "-"+f.Shorthand)
+			}
+			opts = append(opts, "--"+f.Name)
+		})
+		completion.Print(*argCompletion, opts)
 		os.Exit(0)
 	}
 	if *argHelp {

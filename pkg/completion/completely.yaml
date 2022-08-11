@@ -1,0 +1,23 @@
+ccat:
+  - <file>
+  - "{{.Options}}"
+
+ccat *--mutators: &mutators
+  - "{{.Mutators}}"
+ccat *-m: *mutators
+
+ccat *--formatter: &formaters
+  - "{{.Formatters}}"
+ccat *-F: *formaters
+
+ccat *--style: &styles
+  - "{{.Styles}}"
+ccat *-S: *styles
+
+ccat *--lexer: &lexers
+  - "{{.Lexers}}"
+ccat *-P: *lexers
+
+ccat *--completion: &completion
+  - bash
+ccat *-C: *completion
