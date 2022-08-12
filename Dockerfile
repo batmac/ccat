@@ -1,10 +1,12 @@
 FROM golang:1.19-alpine as build
 WORKDIR /usr/src/app
 COPY go.mod go.sum ./
-RUN apk upgrade --no-cache && apk add --no-cache build-base pkgconf curl-dev git bash
+RUN apk upgrade --no-cache \
+    && apk add --no-cache build-base pkgconf curl-dev git bash \
+    && go install github.com/magefile/mage@latest
 COPY . .
 ENV CGO_ENABLED 1
-RUN go version && make
+RUN go version && mage
 
 FROM alpine:20220715
 RUN apk upgrade --no-cache && apk add --no-cache libcurl tini

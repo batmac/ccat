@@ -46,7 +46,7 @@ func build(tags string) error {
 	if err := os.Chdir("cmd/ccat"); err != nil {
 		return err
 	}
-	buildArgs := append(defaultBuildArgs, "-ldflags", ldFlags(tags))
+	buildArgs := append(defaultBuildArgs, "-ldflags", ldFlags(tags), "-tags", tags)
 
 	if err := sh.RunWithV(nil, "go", buildArgs...); err != nil {
 		return err
