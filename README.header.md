@@ -1,5 +1,6 @@
 # ccat
 
+[![Built with Mage](https://magefile.org/badge.svg)](https://magefile.org)
 [![Go](https://github.com/batmac/ccat/actions/workflows/go.yml/badge.svg)](https://github.com/batmac/ccat/actions/workflows/go.yml)
 ![GitHub](https://img.shields.io/github/license/batmac/ccat)
 [![Go Report Card](https://goreportcard.com/badge/github.com/batmac/ccat)](https://goreportcard.com/report/github.com/batmac/ccat)

@@ -1,5 +1,6 @@
 # ccat
 
+[![Built with Mage](https://magefile.org/badge.svg)](https://magefile.org)
 [![Go](https://github.com/batmac/ccat/actions/workflows/go.yml/badge.svg)](https://github.com/batmac/ccat/actions/workflows/go.yml)
 ![GitHub](https://img.shields.io/github/license/batmac/ccat)
 [![Go Report Card](https://goreportcard.com/badge/github.com/batmac/ccat)](https://goreportcard.com/report/github.com/batmac/ccat)
@@ -85,7 +86,7 @@ $ kubectl run -i --tty ccat --image=batmac/ccat:latest -- /bin/sh
 ## help
 
 ```
-version v0.9.22-18-g5af23f9 [libcurl,crappy], commit 5af23f9ca47e101ed36726ccb87a1b72d9cd141a, built at 2022-08-12@01:57:04 by build.sh (go1.19 darwin/arm64)
+version v0.9.22-28-gb22a8ca [libcurl,crappy], commit b22a8ca0edc8e4db42c649ecfb8515aa97f53287, built at 2022-08-12@04:41:55+0200 by Mage (go1.19 darwin/arm64)
   -t, --tokens string       comma-separated list of tokens
   -i, --ignore-case         tokens given with -t are case-insensitive
   -o, --only                don't display lines without at least one token
