@@ -8,6 +8,7 @@ import (
 
 	"github.com/batmac/ccat/pkg/lockable"
 	"github.com/batmac/ccat/pkg/log"
+	"github.com/batmac/ccat/pkg/utils"
 )
 
 var (
@@ -59,7 +60,7 @@ func (f fileOpener) Open(s string, lock bool) (io.ReadCloser, error) {
 
 func (f fileOpener) Evaluate(s string) float32 {
 	path := parsePath(s)
-	// log.Debugf("returning %v", path)
+	log.Debugf("parsed path is %v", path)
 	if path == "-" {
 		return 1.0
 	}
@@ -73,7 +74,7 @@ func parsePath(s string) string {
 	if strings.HasPrefix(s, "file://") {
 		after := s[7:]
 		// log.Debugf("before=%v after=%v, found=%v", before, after, found)
-		return after
+		return utils.ExpandPath(after)
 	}
-	return s
+	return utils.ExpandPath(s)
 }
