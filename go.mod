@@ -3,7 +3,7 @@ module github.com/batmac/ccat
 go 1.19
 
 require (
-	cloud.google.com/go/storage v1.24.0
+	cloud.google.com/go/storage v1.25.0
 	github.com/aixiansheng/lzfse v0.2.4
 	github.com/alecthomas/chroma/v2 v2.2.0
 	github.com/andelf/go-curl v0.0.0-20200630032108-fd49ff24ed97
