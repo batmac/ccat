@@ -11,7 +11,7 @@ require (
 	github.com/aws/aws-sdk-go-v2 v1.16.11
 	github.com/aws/aws-sdk-go-v2/config v1.16.0
 	github.com/aws/aws-sdk-go-v2/service/s3 v1.27.5
-	github.com/aws/aws-sdk-go-v2/service/sts v1.16.12
+	github.com/aws/aws-sdk-go-v2/service/sts v1.16.13
 	github.com/cespare/xxhash/v2 v2.1.2
 	github.com/creativeprojects/go-selfupdate v0.6.1
 	github.com/dsnet/compress v0.0.1
