@@ -95,7 +95,7 @@ func VerifyDeps() error {
 
 func Clean() {
 	fmt.Println("Cleaning...")
-	os.RemoveAll("ccat")
+	_ = os.RemoveAll("ccat")
 }
 
 // go test ./...
