@@ -1,11 +1,9 @@
 
-all: bootstrap build
-
 build:
 	@mage
 
-bootstrap:
-	@go install github.com/magefile/mage@latest
+thanks:
+	gothanks
 
 janitor:
 	golangci-lint --go=1.19 run --disable-all -E misspell --fix ./...
@@ -15,6 +13,3 @@ janitor:
 	govulncheck ./...
 	go list -json -deps ./... | nancy sleuth
 	pre-commit autoupdate
-
-thanks:
-	gothanks
