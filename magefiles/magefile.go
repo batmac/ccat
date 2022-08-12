@@ -133,7 +133,7 @@ func UpdateREADME() error {
 	if err != nil {
 		return err
 	}
-	data = append(data, "```\n"...)
+	data = append(data, "\n```\n"...)
 	cmd := exec.Command("./ccat", "--fullhelp")
 	out, err := cmd.CombinedOutput()
 	data = append(data, out...)
