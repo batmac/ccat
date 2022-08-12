@@ -21,10 +21,27 @@ Leveraging great go modules to ease my CLI life.
 
 Get the latest release from <https://github.com/batmac/ccat/releases/latest>
 
-### Build from source
+### Build from source with Mage
 
-You need a recent version of go.
-`go install github.com/batmac/ccat/cmd/ccat@latest` (please see below about the available tags).
+```shell
+$ git clone https://github.com/batmac/ccat
+$ mage -l # or go run magefiles/build.go -l
+Targets:
+  buildAndTest*      buildDefault,test
+  buildDefault       tags: libcurl,crappy
+  buildMinimal       tags: nohl,fileonly
+  clean
+  install            put ccat to $GOPATH/bin/ccat
+  installDeps        go mod download
+  test               all
+  testCompression    test_compression_e2e
+  testGo             go test ./...
+  updateREADME
+  verifyDeps         go mod verify
+
+* default target
+$ mage # or go run magefiles/build.go
+```
 
 ## Update
 
@@ -38,10 +55,7 @@ available build tags:
 - `libcurl`: build with the libcurl opener.
 - `fileonly`: build with the local file opener only.
 - `nohl`: build without the syntax-highlighter.
-- `crappy`: build with some crappy (but useful) openers/mutators (needs a recent go version).
-
-for instance:
-`go build --tags libcurl,crappy .`
+- `crappy`: build with some crappy (but useful) openers/mutators.
 
 ## Examples
 
@@ -86,7 +100,7 @@ $ kubectl run -i --tty ccat --image=batmac/ccat:latest -- /bin/sh
 ## help
 
 ```
-version v0.9.22-28-gb22a8ca [libcurl,crappy], commit b22a8ca0edc8e4db42c649ecfb8515aa97f53287, built at 2022-08-12@04:41:55+0200 by Mage (go1.19 darwin/arm64)
+version v0.9.22-29-gf05a1b5 [libcurl,crappy], commit f05a1b53b3556029d4acd99880f522a24b99fec0, built at 2022-08-12@10:27:14+0200 by Mage (go1.19 darwin/arm64)
   -t, --tokens string       comma-separated list of tokens
   -i, --ignore-case         tokens given with -t are case-insensitive
   -o, --only                don't display lines without at least one token
