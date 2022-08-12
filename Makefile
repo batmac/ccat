@@ -1,7 +1,8 @@
-GIT=$(shell git tag|tail -n1)
-VERSION="post-${GIT}-dev"
 
-all:  readme tests
+all: bootstrap build
+
+build:
+	@mage
 
 bootstrap:
 	@go install github.com/magefile/mage@latest

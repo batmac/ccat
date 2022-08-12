@@ -123,6 +123,7 @@ func Test() error {
 func BuildAndTest() error {
 	mg.SerialDeps(BuildDefault)
 	mg.SerialDeps(Test)
+	fmt.Println("Done.")
 	return nil
 }
 
