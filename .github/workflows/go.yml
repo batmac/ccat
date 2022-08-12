@@ -47,7 +47,7 @@ jobs:
           linux: libcurl4-openssl-dev
 
       - name: Build
-        run: go build -v -tags libcurl ./...
+        run: go build -v -tags libcurl ./cmd/ccat
 
       - name: Test
         run: go test -v -tags libcurl  ./...
@@ -84,5 +84,5 @@ jobs:
             ${{ runner.os }}-go-${{ matrix.go }}-
 
       - run: printenv|sort
-      - run: go build -v ./...
+      - run: go build -v ./cmd/ccat
       #- run: go test -v ./...
