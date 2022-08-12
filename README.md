@@ -1,4 +1,5 @@
 # ccat
+
 [![Go](https://github.com/batmac/ccat/actions/workflows/go.yml/badge.svg)](https://github.com/batmac/ccat/actions/workflows/go.yml)
 ![GitHub](https://img.shields.io/github/license/batmac/ccat)
 [![Go Report Card](https://goreportcard.com/badge/github.com/batmac/ccat)](https://goreportcard.com/report/github.com/batmac/ccat)
@@ -12,21 +13,27 @@ Leveraging great go modules to ease my CLI life.
 ## Install
 
 ### Homebrew
+
 `brew install batmac/tap/ccatos`
 
 ### Manually
-Get the latest release from https://github.com/batmac/ccat/releases/latest
+
+Get the latest release from <https://github.com/batmac/ccat/releases/latest>
 
 ### Build from source
+
 You need a recent version of go.
 `go install github.com/batmac/ccat/cmd/ccat@latest` (please see below about the available tags).
 
 ## Update
+
 - You can update to the latest github release with `ccat --selfupdate`.
 - You can check against your current installed version with `ccat --check`.
 
 ## Build tags
+
 available build tags:
+
 - `libcurl`: build with the libcurl opener.
 - `fileonly`: build with the local file opener only.
 - `nohl`: build without the syntax-highlighter.
@@ -36,70 +43,81 @@ for instance:
 `go build --tags libcurl,crappy .`
 
 ## Examples
-```
-cat -X "kubectl get all" -i -w -t ready,Running --bg
+
+```shell
+$ cat -X "kubectl get all" -i -w -t ready,Running --bg
 NAME           READY   STATUS    RESTARTS   AGE
 pod/busybox3   1/1     Running   1          17m
 
 NAME                 TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
 service/kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   21d
 ```
+
 ( "READY and "Running" have different background colors )
 
-```
+```shell
 $ echo Hello: | cat -m y2j,j2y,base64,hexdump
 00000000  53 47 56 73 62 47 38 36  49 47 35 31 62 47 77 4b  |SGVsbG86IG51bGwK|
 ```
-```
+
+```shell
 $ cat -m zstd LICENSE | cat -m base64
 KLUv/WQwA+UUAGKyjCQQi1gA+Mu1uPH4trE1CdEhIptwP1oghhOOOP5rTRkCAKACAAdroEXGmA2Uz10inntYY97kIsI70zHae3CBb+DnAi4lAWNzxHPSRXalSceYEc4rc2FxPri8gX/QzYX9sT/32JzZHMbds2JzJmwIlmDMlYRjz/LGa8+BueftcBkb80Dn00G42FDA5RFeRujMBVvNmX8e5sjP1xLa4ftzH5ivJRriudg89+A789ibhIq4UDyyZ7G4GZni7BE2l7K96ZqlNKZ73IHNx5wltsQbeNlcc+bhPNOmS7jnE77PxeGI55jFszx3hWnuUSTcivBStqhQaFeY5xDeeOwNfGM+FiNjfC6gMx3jCoB0lwzgTGNcAoyKS/cWGWM2UL45c60B6ko+0c6WZuyo8Cl6249qdXyaqIRxSxnqfO0rw3XQV2mudYDt7dyRvdAhthvuNN3Hzc9QXbj4N6oSbktVj4U7cqWG33ycO0JVyW/+cW3JhdY0VXzqEkSWXpkcFb5Sc+VoKuOOrki4J0clqZErk0dHN3JFqbj6zQu/SrkjPUFsR9UE2b5ib2eoqYwr9VxdKXfDX6V822uiNRIAkACvUg44rlM/bm9nmm2NVNCNHtVMG7oY00eWvlK0IT8uPm4p/3HXRHKh00Ns26bZcW8vpqrkE0t/85UKoagE/XFfK/W4EtVsKQX5xFGpKh337W2MO0JVxVr2ZkuX14w7S+jhBgYFBheAAp4lSFMTyV3WqthWqJ9PlwgmAGYTiQo1Zi5cSUcnOBoEX3ev5YUMcVnvUrgx5HaCOLWhPcddUjOGZmX2yZFNAyB+ELmdEtsBPE17UsXU4fTV1jdNHpPl8KiAkC34tsZqWhxaa3RlIgn25jJkslDF+VBC8cW5mikplMUF0g==
 ```
 
 ## Docker image
+
 multi-arch container images with tags `libcurl,crappy` are automatically built by [Github Actions](https://github.com/batmac/ccat/actions/workflows/docker-images.yml) and made available on [Dockerhub](https://hub.docker.com/r/batmac/ccat) and [Github Packages](https://github.com/batmac/ccat/pkgs/container/ccat). <br/>
 for instance:
+
+```shell
+$ docker run --rm ghcr.io/batmac/ccat:latest -h
+...
 ```
-docker run --rm ghcr.io/batmac/ccat:latest -h
-```
+
 or
-```
-kubectl run -i --tty ccat --image=batmac/ccat:latest -- /bin/sh
+
+```shell
+$ kubectl run -i --tty ccat --image=batmac/ccat:latest -- /bin/sh
+...
 ```
 
 ## help
+
 ```
-version v0.9.22-1-g3a41e5b [libcurl,crappy], commit 3a41e5bbddf26e4a09c91f46460bfcc7d7b8d214, built at 2022-08-09@15:20:59 by build.sh (go1.19 darwin/arm64)
-  -t, --tokens string      comma-separated list of tokens
-  -i, --ignore-case        tokens given with -t are case-insensitive
-  -o, --only               don't display lines without at least one token
-  -r, --raw                don't treat tokens as regexps
-  -n, --line-number        number the output lines, starting at 1.
-  -L, --flock-in           exclusively flock each file before reading
-  -l, --flock-out          exclusively flock stdout
-  -w, --word               read word by word instead of line by line (only works with utf8)
-  -X, --exec string        command to exec on each file before processing it
-  -b, --bg                 colorize the background instead of the font
-  -H, --humanize           try to do what is needed to help (syntax-highlight, autodetect, etc.)
-  -S, --style string       style to use (only used if -H, --fullhelp for the list)
-  -F, --formatter string   formatter to use (only used if -H, --fullhelp for the list)
-  -P, --lexer string       lexer to use (only used if -H, --fullhelp for the list)
-  -m, --mutators string    mutators to use (comma-separated), --fullhelp for the list
-  -V, --version            print version on stdout
-      --license            print license on stdout
-      --gomod              print used go modules on stdout
-  -h, --help               print usage
-      --fullhelp           print full usage
-      --selfupdate         Update to latest Github release
-      --check              Check version with the latest Github release
-  -d, --debug              debug what we are doing
-  -k, --insecure           get files insecurely (globally)
+version v0.9.22-18-g5af23f9 [libcurl,crappy], commit 5af23f9ca47e101ed36726ccb87a1b72d9cd141a, built at 2022-08-12@01:57:04 by build.sh (go1.19 darwin/arm64)
+  -t, --tokens string       comma-separated list of tokens
+  -i, --ignore-case         tokens given with -t are case-insensitive
+  -o, --only                don't display lines without at least one token
+  -r, --raw                 don't treat tokens as regexps
+  -n, --line-number         number the output lines, starting at 1.
+  -L, --flock-in            exclusively flock each file before reading
+  -l, --flock-out           exclusively flock stdout
+  -w, --word                read word by word instead of line by line (only works with utf8)
+  -X, --exec string         command to exec on each file before processing it
+  -b, --bg                  colorize the background instead of the font
+  -H, --humanize            try to do what is needed to help (syntax-highlight, autodetect, etc.)
+  -S, --style string        style to use (only used if -H, --fullhelp for the list)
+  -F, --formatter string    formatter to use (only used if -H, --fullhelp for the list)
+  -P, --lexer string        lexer to use (only used if -H, --fullhelp for the list)
+  -m, --mutators string     mutators to use (comma-separated), --fullhelp for the list
+  -V, --version             print version on stdout
+      --license             print license on stdout
+  -B, --buildinfo           print build info on stdout
+  -h, --help                print usage
+      --fullhelp            print full usage
+      --selfupdate          Update to latest Github release
+      --check               Check version with the latest Github release
+  -d, --debug               debug what we are doing
+  -k, --insecure            get files insecurely (globally)
+  -C, --completion string   print shell completion script
 
 ---
 ccat <files>...
  - highlighter (used with -H):
-  - Lexers: [1S 1S:Enterprise ABAP ABNF AL ANTLR APL ActionScript ActionScript 3 Ada Angular2 ApacheConf AppleScript Arduino ArmAsm Awk BNF Ballerina Base Makefile Bash BashSession Batchfile BibTeX Bicep BlitzBasic Brainfuck C C# C++ CFEngine3 CMake COBOL CSS Caddyfile Caddyfile Directives Cap'n Proto Cassandra CQL Ceylon ChaiScript Cheetah Clojure CoffeeScript Common Lisp Common Lisp Coq Crystal Cucumber Cython D DTD Dart Diff Django/Jinja Docker Dylan EBNF Elixir Elm EmacsLisp EmacsLisp Erlang FSharp Factor Fennel Fish Forth Fortran FortranFixed GAS GDScript GLSL Genshi Genshi HTML Genshi Text Gherkin Gherkin Gnuplot Go Go HTML Template Go HTML Template Go Text Template GraphQL Groff Groovy HCL HLB HTML HTTP Handlebars Haskell Haxe Hexdump Hy INI Idris Igor Io J JSON Java JavaScript Julia Jungle Kotlin LLVM Lighttpd configuration file Lua MLIR MZN Mako Mason Mathematica Matlab Meson Metal MiniZinc Modula-2 MonkeyC MorrowindScript MySQL Myghty NASM Newspeak Nginx configuration file Nim Nix OCaml Objective-C Octave OnesEnterprise OpenEdge ABL OpenSCAD Org Mode PHP PHTML PL/pgSQL POVRay PacmanConf Perl Pig PkgConfig Plutus Core Pony PostScript PostgreSQL SQL dialect PowerQuery PowerShell Prolog PromQL Protocol Buffer Puppet Python Python 2 QBasic QML R Racket Ragel Raku ReasonML Rexx Ruby Rust SAS SCSS SPARQL SQL SYSTEMD Sass Scala Scheme Scilab Sieve Smalltalk Smarty Snobol Solidity SquidConf Standard ML Stylus Svelte Swift TASM TOML TableGen Tcl Tcsh TeX Termcap Terminfo Terraform Thrift TradingView Transact-SQL Turing Turtle Twig TypeScript TypoScript TypoScriptCssData TypoScriptHtmlData V V shell VB.net VHDL VimL WDTE Whiley XML Xorg YAML YANG Zed Zig abap abl abnf aconf actionscript actionscript3 ada ada2005 ada95 al antlr apache apacheconf apl applescript arduino arexx armasm as as3 asm awk b3d ballerina bash bash-session basic bat batch bf bib bibtex bicep blitzbasic bnf bplus brainfuck bsdmake c c# c++ caddy caddy-d caddyfile caddyfile-d caddyfile-directives capnp cassandra ceylon cf3 cfengine3 cfg cfs cfstatement chai chaiscript cheetah cl cl clj clojure cmake cobol coffee coffee-script coffeescript common-lisp common-lisp console coq cpp cql cr crystal csh csharp css cucumber cython d dart diff django docker dockerfile dosbatch dosini dtd duby dylan ebnf elisp elisp elixir elm emacs emacs emacs-lisp emacs-lisp erlang ex exs factor fennel fish fishshell fnl forth fortran fortranfixed fsharp gas gawk gd gdscript genshi genshitext gherkin glsl gnuplot go go-html-template go-html-template go-text-template golang gql graphql graphqls groff groovy handlebars haskell haxe hbs hcl hexdump hlb hs html html+genshi html+kid http hx hxsl hylang idr idris igor igorpro ini io j java javascript jinja jl js json jsx julia jungle kid kotlin ksh latex lighttpd lighty lisp lisp llvm lua m2 make makefile mako man mariadb markdown mason mathematica matlab mawk mcfunction mcfunction md meson meson.build metal mf minizinc mkd mlir mma modula2 monkeyc morrowind mwscript myghty mysql mzn nasm nawk nb newspeak ng2 nginx nim nimrod nix nixos no-highlight nroff obj-c objc objective-c objectivec ocaml octave ones onesenterprise openedge openedgeabl openscad org orgmode pacmanconf perl perl6 php php3 php4 php5 phtml pig pkgconfig pl pl6 plain plaintext plc plpgsql plutus-core pony posh postgres postgresql postscr postscript pov powerquery powershell pq progress prolog promql proto protobuf ps1 psd1 psm1 puppet py py2 py3 pyrex python python2 python3 pyx qbasic qbs qml r racket ragel raku rb reStructuredText react react reason reasonml reg registry rest restructuredtext rexx rkt rs rst ruby rust s sage sas sass scala scheme scilab scm scss sh shell shell-session sieve smalltalk smarty sml snobol sol solidity sparql spitfire splus sql squeak squid squid.conf squidconf st stylus sv svelte swift systemd systemverilog systemverilog t-sql tablegen tasm tcl tcsh termcap terminfo terraform tex text tf thrift toml tradingview ts tsql tsx turing turtle tv twig typescript typoscript typoscriptcssdata typoscripthtmldata udiff v v vb.net vbnet verilog verilog vhdl vim vlang vsh vshell vue vue vuejs whiley winbatch xml xml+genshi xml+kid xorg.conf yaml yang zed zig zsh]
-  - Styles: [abap algol algol_nu arduino autumn average base16-snazzy borland bw colorful doom-one doom-one2 dracula emacs friendly fruity github gruvbox hr_high_contrast hrdark igor lovelace manni monokai monokailight murphy native nord onesenterprise paraiso-dark paraiso-light pastie perldoc pygments rainbow_dash rrt solarized-dark solarized-dark256 solarized-light swapoff tango trac vim vs vulcan witchhazel xcode xcode-dark]
-  - Formatters: [html json noop svg terminal terminal16 terminal16m terminal256 terminal8 tokens]
+  - Lexers: 1S, 1S:Enterprise, abap, ABAP, abl, ABNF, abnf, aconf, ActionScript, actionscript, ActionScript 3, actionscript3, ada, Ada, ada2005, ada95, al, AL, Angular2, antlr, ANTLR, apache, apacheconf, ApacheConf, apl, APL, applescript, AppleScript, arduino, Arduino, arexx, armasm, ArmAsm, as, as3, asm, Awk, awk, b3d, ballerina, Ballerina, Base Makefile, bash, Bash, bash-session, BashSession, basic, bat, batch, Batchfile, bf, bib, bibtex, BibTeX, bicep, Bicep, blitzbasic, BlitzBasic, bnf, BNF, bplus, brainfuck, Brainfuck, bsdmake, c, C, c#, C#, c++, C++, caddy, caddy-d, Caddyfile, caddyfile, Caddyfile Directives, caddyfile-d, caddyfile-directives, Cap'n Proto, capnp, cassandra, Cassandra CQL, Ceylon, ceylon, cf3, CFEngine3, cfengine3, cfg, cfs, cfstatement, chai, chaiscript, ChaiScript, Cheetah, cheetah, cl, cl, clj, clojure, Clojure, cmake, CMake, cobol, COBOL, coffee, coffee-script, coffeescript, CoffeeScript, Common Lisp, Common Lisp, common-lisp, common-lisp, console, coq, Coq, cpp, cql, cr, crystal, Crystal, csh, csharp, css, CSS, cucumber, Cucumber, Cython, cython, D, d, Dart, dart, Diff, diff, django, Django/Jinja, docker, Docker, dockerfile, dosbatch, dosini, dtd, DTD, duby, Dylan, dylan, EBNF, ebnf, elisp, elisp, elixir, Elixir, elm, Elm, emacs, emacs, emacs-lisp, emacs-lisp, EmacsLisp, EmacsLisp, erlang, Erlang, ex, exs, Factor, factor, Fennel, fennel, Fish, fish, fishshell, fnl, Forth, forth, Fortran, fortran, fortranfixed, FortranFixed, fsharp, FSharp, gas, GAS, gawk, gd, gdscript, GDScript, genshi, Genshi, Genshi HTML, Genshi Text, genshitext, Gherkin, gherkin, Gherkin, GLSL, glsl, gnuplot, Gnuplot, go, Go, Go HTML Template, Go HTML Template, Go Text Template, go-html-template, go-html-template, go-text-template, golang, gql, GraphQL, graphql, graphqls, Groff, groff, groovy, Groovy, handlebars, Handlebars, Haskell, haskell, haxe, Haxe, hbs, HCL, hcl, Hexdump, hexdump, HLB, hlb, hs, html, HTML, html+genshi, html+kid, HTTP, http, hx, hxsl, Hy, hylang, idr, Idris, idris, Igor, igor, igorpro, ini, INI, Io, io, j, J, java, Java, javascript, JavaScript, jinja, jl, js, JSON, json, jsx, Julia, julia, Jungle, jungle, kid, kotlin, Kotlin, ksh, latex, lighttpd, Lighttpd configuration file, lighty, lisp, lisp, LLVM, llvm, Lua, lua, m2, make, makefile, Mako, mako, man, mariadb, markdown, mason, Mason, mathematica, Mathematica, matlab, Matlab, mawk, mcfunction, mcfunction, md, Meson, meson, meson.build, metal, Metal, mf, MiniZinc, minizinc, mkd, MLIR, mlir, mma, Modula-2, modula2, monkeyc, MonkeyC, morrowind, MorrowindScript, mwscript, myghty, Myghty, mysql, MySQL, MZN, mzn, NASM, nasm, nawk, nb, Newspeak, newspeak, ng2, nginx, Nginx configuration file, Nim, nim, nimrod, nix, Nix, nixos, no-highlight, nroff, obj-c, objc, objective-c, Objective-C, objectivec, ocaml, OCaml, octave, Octave, ones, onesenterprise, OnesEnterprise, openedge, OpenEdge ABL, openedgeabl, openscad, OpenSCAD, org, Org Mode, orgmode, PacmanConf, pacmanconf, Perl, perl, perl6, php, PHP, php3, php4, php5, PHTML, phtml, pig, Pig, PkgConfig, pkgconfig, pl, PL/pgSQL, pl6, plain, plaintext, plc, plpgsql, Plutus Core, plutus-core, pony, Pony, posh, postgres, postgresql, PostgreSQL SQL dialect, postscr, postscript, PostScript, pov, POVRay, powerquery, PowerQuery, powershell, PowerShell, pq, progress, Prolog, prolog, PromQL, promql, proto, protobuf, Protocol Buffer, ps1, psd1, psm1, puppet, Puppet, py, py2, py3, pyrex, python, Python, Python 2, python2, python3, pyx, QBasic, qbasic, qbs, qml, QML, R, r, Racket, racket, Ragel, ragel, raku, Raku, rb, react, react, reason, ReasonML, reasonml, reg, registry, rest, reStructuredText, restructuredtext, Rexx, rexx, rkt, rs, rst, ruby, Ruby, rust, Rust, s, sage, sas, SAS, Sass, sass, Scala, scala, Scheme, scheme, scilab, Scilab, scm, scss, SCSS, sh, shell, shell-session, sieve, Sieve, Smalltalk, smalltalk, Smarty, smarty, sml, Snobol, snobol, sol, Solidity, solidity, SPARQL, sparql, spitfire, splus, SQL, sql, squeak, squid, squid.conf, squidconf, SquidConf, st, Standard ML, Stylus, stylus, sv, svelte, Svelte, Swift, swift, SYSTEMD, systemd, systemverilog, systemverilog, t-sql, tablegen, TableGen, tasm, TASM, tcl, Tcl, Tcsh, tcsh, Termcap, termcap, Terminfo, terminfo, Terraform, terraform, TeX, tex, text, tf, thrift, Thrift, toml, TOML, TradingView, tradingview, Transact-SQL, ts, tsql, tsx, turing, Turing, turtle, Turtle, tv, twig, Twig, TypeScript, typescript, TypoScript, typoscript, typoscriptcssdata, TypoScriptCssData, TypoScriptHtmlData, typoscripthtmldata, udiff, v, v, V, V shell, VB.net, vb.net, vbnet, verilog, verilog, vhdl, VHDL, vim, VimL, vlang, vsh, vshell, vue, vue, vuejs, WDTE, whiley, Whiley, winbatch, xml, XML, xml+genshi, xml+kid, Xorg, xorg.conf, yaml, YAML, YANG, yang, Zed, zed, Zig, zig, zsh
+  - Styles: abap, algol, algol_nu, arduino, autumn, average, base16-snazzy, borland, bw, colorful, doom-one, doom-one2, dracula, emacs, friendly, fruity, github, gruvbox, hr_high_contrast, hrdark, igor, lovelace, manni, monokai, monokailight, murphy, native, nord, onesenterprise, paraiso-dark, paraiso-light, pastie, perldoc, pygments, rainbow_dash, rrt, solarized-dark, solarized-dark256, solarized-light, swapoff, tango, trac, vim, vs, vulcan, witchhazel, xcode, xcode-dark
+  - Formatters: html, json, noop, svg, terminal, terminal16, terminal16m, terminal256, terminal8, tokens
  - openers:
     file: open local files
     gcs: get a GCP Cloud Storage object via gs://
@@ -120,6 +138,7 @@ ccat <files>...
         j: JSON Re-indent
         jcs: JSON Canonicalization (RFC 8785)
         mimetype: detect mimetype
+        sponge: soak all input before outputting it.
         translate: translate to $TARGET_LANGUAGE with google translate (need a valid key in $GOOGLE_API_KEY)
         wrap: word-wrap the text to 80 chars maximum
         wrapU: unconditionally wrap the text to 80 chars maximum
