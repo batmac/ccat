@@ -38,7 +38,7 @@ func ldFlags(goTags string) string {
 
 func build(tags string) error {
 	mg.Deps(InstallDeps)
-	fmt.Println("Building...")
+	stepPrintln("Building...")
 	cwd, err := os.Getwd()
 	if err != nil {
 		return err
@@ -75,40 +75,40 @@ func BuildMinimal() error {
 func Install() error {
 	mg.Deps(BuildAndTest)
 	path := os.ExpandEnv("$GOPATH/bin/ccat")
-	fmt.Printf("Installing to '%s'...\n", path)
+	stepPrintf("Installing to '%s'...\n", path)
 
 	return sh.Copy(path, "ccat")
 }
 
 // go mod download
 func InstallDeps() error {
-	fmt.Println("Installing Deps...")
+	stepPrintln("Installing Deps...")
 	return sh.RunV("go", "mod", "download")
 }
 
 // go mod verify
 func VerifyDeps() error {
 	mg.Deps(InstallDeps)
-	fmt.Println("Verifying Deps...")
+	stepPrintln("Verifying Deps...")
 	return sh.Run("go", "mod", "verify")
 }
 
 func Clean() {
-	fmt.Println("Cleaning...")
+	stepPrintln("Cleaning...")
 	_ = os.RemoveAll("ccat")
 }
 
 // go test ./...
 func TestGo() error {
 	mg.Deps(InstallDeps)
-	fmt.Println("Testing Go...")
+	stepPrintln("Testing Go...")
 	return sh.RunV("go", "test", "./...")
 }
 
 // test_compression_e2e
 func TestCompression() error {
 	mg.Deps(InstallDeps)
-	fmt.Println("Testing compression...")
+	stepPrintln("Testing compression...")
 	return sh.RunV("scripts/test_compression_e2e.sh", "testdata/compression/")
 }
 
@@ -123,12 +123,12 @@ func Test() error {
 func BuildAndTest() error {
 	mg.SerialDeps(BuildDefault)
 	mg.SerialDeps(Test)
-	fmt.Println("Done.")
+	stepPrintln("Done.")
 	return nil
 }
 
 func UpdateREADME() error {
-	fmt.Println("Updating README.md...")
+	stepPrintln("Updating README.md...")
 
 	data, err := os.ReadFile("README.header.md")
 	if err != nil {
@@ -144,4 +144,12 @@ func UpdateREADME() error {
 	data = append(data, "```\n"...)
 
 	return os.WriteFile("README.md", data, 0o600)
+}
+
+func stepPrintln(a ...any) {
+	fmt.Println(append([]any{"🚧"}, a...)...)
+}
+
+func stepPrintf(format string, a ...any) {
+	fmt.Printf("🚧 "+format, a...)
 }
