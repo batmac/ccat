@@ -23,9 +23,11 @@ Get the latest release from <https://github.com/batmac/ccat/releases/latest>
 
 ### Build from source with Mage
 
+Run the zero-install code or use your mage binary:
+
 ```shell
 $ git clone https://github.com/batmac/ccat
-$ mage -l # or go run magefiles/build.go -l
+$ go run magefiles/mage.go -l # or 'mage -l'
 Targets:
   buildAndTest*      buildDefault,test
   buildDefault       tags: libcurl,crappy
@@ -40,7 +42,7 @@ Targets:
   verifyDeps         go mod verify
 
 * default target
-$ mage # or go run magefiles/build.go
+$ go run magefiles/mage.go # or 'mage'
 ```
 
 ## Update

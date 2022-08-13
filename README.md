@@ -23,9 +23,11 @@ Get the latest release from <https://github.com/batmac/ccat/releases/latest>
 
 ### Build from source with Mage
 
+Run the zero-install code or use your mage binary:
+
 ```shell
 $ git clone https://github.com/batmac/ccat
-$ mage -l # or go run magefiles/build.go -l
+$ go run magefiles/mage.go -l # or 'mage -l'
 Targets:
   buildAndTest*      buildDefault,test
   buildDefault       tags: libcurl,crappy
@@ -40,7 +42,7 @@ Targets:
   verifyDeps         go mod verify
 
 * default target
-$ mage # or go run magefiles/build.go
+$ go run magefiles/mage.go # or 'mage'
 ```
 
 ## Update
@@ -100,7 +102,7 @@ $ kubectl run -i --tty ccat --image=batmac/ccat:latest -- /bin/sh
 ## help
 
 ```
-version v0.9.22-29-gf05a1b5 [libcurl,crappy], commit f05a1b53b3556029d4acd99880f522a24b99fec0, built at 2022-08-12@10:27:14+0200 by Mage (go1.19 darwin/arm64)
+version v0.9.22-23-g997ef70 [libcurl,crappy], commit 997ef70db667ce73236f713dff4e24713c83b240, built at 2022-08-12@19:44:36 by build.sh (go1.19 darwin/arm64)
   -t, --tokens string       comma-separated list of tokens
   -i, --ignore-case         tokens given with -t are case-insensitive
   -o, --only                don't display lines without at least one token
