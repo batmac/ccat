@@ -1,6 +1,6 @@
 
 build:
-	go run magefiles/build.go
+	go run magefiles/mage.go
 
 thanks:
 	gothanks
