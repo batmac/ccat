@@ -7,6 +7,7 @@ import (
 )
 
 func TestExpandPath(t *testing.T) {
+	t.Setenv("TESTEXPANDPATH", "expandedpath")
 	type args struct {
 		path string
 	}
@@ -19,6 +20,8 @@ func TestExpandPath(t *testing.T) {
 		{"simple", args{"/tmp"}, "/tmp"},
 		{"simple", args{"/tmp/$NOTEXISTINGSTUFF"}, "/tmp/"},
 		{"notStartingTilde", args{"/tmp/~/random"}, "/tmp/~/random"},
+		{"TESTEXPANDPATH", args{"/tmp/$TESTEXPANDPATH"}, "/tmp/expandedpath"},
+		{"TESTEXPANDPATHx2", args{"/tmp/$TESTEXPANDPATH/$TESTEXPANDPATH"}, "/tmp/expandedpath/expandedpath"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
