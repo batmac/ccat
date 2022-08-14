@@ -1,5 +1,6 @@
 ccat:
   - <file>
+  - <directory>
   - "{{.Options}}"
 
 ccat *--mutators: &mutators
