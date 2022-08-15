@@ -1,5 +1,6 @@
 # ccat
 
+[![Built with Mage](https://magefile.org/badge.svg)](https://magefile.org)
 [![Go](https://github.com/batmac/ccat/actions/workflows/go.yml/badge.svg)](https://github.com/batmac/ccat/actions/workflows/go.yml)
 ![GitHub](https://img.shields.io/github/license/batmac/ccat)
 [![Go Report Card](https://goreportcard.com/badge/github.com/batmac/ccat)](https://goreportcard.com/report/github.com/batmac/ccat)
@@ -20,10 +21,29 @@ Leveraging great go modules to ease my CLI life.
 
 Get the latest release from <https://github.com/batmac/ccat/releases/latest>
 
-### Build from source
+### Build from source with Mage
 
-You need a recent version of go.
-`go install github.com/batmac/ccat/cmd/ccat@latest` (please see below about the available tags).
+Run the zero-install code or use your mage binary:
+
+```shell
+$ git clone https://github.com/batmac/ccat
+$ go run magefiles/mage.go -l # or 'mage -l'
+Targets:
+  buildAndTest*      buildDefault,test
+  buildDefault       tags: libcurl,crappy
+  buildMinimal       tags: nohl,fileonly
+  clean
+  install            put ccat to $GOPATH/bin/ccat
+  installDeps        go mod download
+  test               all
+  testCompression    test_compression_e2e
+  testGo             go test ./...
+  updateREADME
+  verifyDeps         go mod verify
+
+* default target
+$ go run magefiles/mage.go # or 'mage'
+```
 
 ## Update
 
@@ -37,10 +57,7 @@ available build tags:
 - `libcurl`: build with the libcurl opener.
 - `fileonly`: build with the local file opener only.
 - `nohl`: build without the syntax-highlighter.
-- `crappy`: build with some crappy (but useful) openers/mutators (needs a recent go version).
-
-for instance:
-`go build --tags libcurl,crappy .`
+- `crappy`: build with some crappy (but useful) openers/mutators.
 
 ## Examples
 
@@ -85,7 +102,7 @@ $ kubectl run -i --tty ccat --image=batmac/ccat:latest -- /bin/sh
 ## help
 
 ```
-version v0.9.22-18-g5af23f9 [libcurl,crappy], commit 5af23f9ca47e101ed36726ccb87a1b72d9cd141a, built at 2022-08-12@01:57:04 by build.sh (go1.19 darwin/arm64)
+version v0.9.22-23-g997ef70 [libcurl,crappy], commit 997ef70db667ce73236f713dff4e24713c83b240, built at 2022-08-12@19:44:36 by build.sh (go1.19 darwin/arm64)
   -t, --tokens string       comma-separated list of tokens
   -i, --ignore-case         tokens given with -t are case-insensitive
   -o, --only                don't display lines without at least one token
