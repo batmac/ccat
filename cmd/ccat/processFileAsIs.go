@@ -9,7 +9,7 @@ import (
 	"github.com/batmac/ccat/pkg/openers"
 )
 
-func processFileAsIs(s string) {
+func processFileAsIs(w io.Writer, s string) {
 	var from io.ReadCloser = os.Stdin
 	var err error
 	if s != "-" {
@@ -21,7 +21,7 @@ func processFileAsIs(s string) {
 		}
 		defer from.Close()
 	}
-	_, err = io.Copy(os.Stdout, from)
+	_, err = io.Copy(w, from)
 	if err != nil {
 		globalctx.SetErrored()
 		log.Println(err)

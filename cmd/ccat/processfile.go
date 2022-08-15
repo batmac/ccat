@@ -20,7 +20,7 @@ import (
 	//_ "net/http/pprof"
 )
 
-func processFile(path string) {
+func processFile(w io.Writer, path string) {
 	log.Debugf("processing %s...\n", path)
 	globalctx.Set("path", path)
 
@@ -152,7 +152,7 @@ func processFile(path string) {
 			lineNumber++
 		}
 		if !*argOnlyMatching || matched && *argOnlyMatching {
-			_, _ = os.Stdout.Write(text)
+			_, _ = w.Write(text)
 		}
 	}
 	if err := scanner.Err(); err != nil {

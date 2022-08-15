@@ -33,8 +33,8 @@ func Test_processFile(t *testing.T) {
 	os.Stdout = discardFile
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			processFile(tt.args.path)
-			processFileAsIs(tt.args.path)
+			processFile(os.Stdout, tt.args.path)
+			processFileAsIs(os.Stdout, tt.args.path)
 		})
 	}
 }

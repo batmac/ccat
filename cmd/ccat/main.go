@@ -49,6 +49,7 @@ var (
 	argDebug        = flag.BoolP("debug", "d", false, "debug what we are doing")
 	argInsecure     = flag.BoolP("insecure", "k", false, "get files insecurely (globally)")
 	argCompletion   = flag.StringP("completion", "C", "", "print shell completion script")
+	argLess         = flag.BoolP("uioutput", "T", false, "display as less does.")
 
 	tmap   map[string]color.Color
 	tokens []string
@@ -188,7 +189,20 @@ func main() {
 		globalctx.Set("fileList", fileList)
 		globalctx.Set("insecure", *argInsecure)
 
-		process(path)
+		var outWriter io.Writer = os.Stdout
+
+		if *argLess {
+			if *argDebug {
+				fmt.Fprintln(os.Stderr, "Ui is not compatible with debug option")
+			}
+			uiSetup(path, &outWriter)
+		}
+
+		process(outWriter, path)
+
+		if *argLess {
+			uiRun()
+		}
 	}
 
 	if globalctx.IsErrored() {
