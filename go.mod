@@ -34,6 +34,8 @@ require (
 	sigs.k8s.io/yaml v1.3.0
 )
 
+require github.com/google/renameio v1.0.1 // indirect
+
 require (
 	cloud.google.com/go v0.103.0 // indirect
 	cloud.google.com/go/compute v1.8.0 // indirect
