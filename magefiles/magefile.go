@@ -62,14 +62,18 @@ func build(tags string) error {
 	return nil
 }
 
-// tags: libcurl,crappy
 func BuildDefault() error {
-	return build("libcurl,crappy")
+	return build("")
 }
 
 // tags: nohl,fileonly
 func BuildMinimal() error {
 	return build("nohl,fileonly")
+}
+
+// tags: libcurl,crappy
+func BuildFull() error {
+	return build("libcurl,crappy")
 }
 
 // put ccat to $GOPATH/bin/ccat
