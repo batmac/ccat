@@ -21,7 +21,7 @@ func uiSetup(title string, w *io.Writer) {
 	textView = tview.NewTextView().SetDynamicColors(true)
 	textView.SetWrap(false).SetBorder(true).SetTitle(title)
 	textView.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
-		if event.Rune() == 'q' || event.Key() == tcell.KeyEscape {
+		if event.Rune() == 'q' || event.Rune() == 'Q' {
 			app.Stop()
 			return nil
 		}
@@ -44,4 +44,13 @@ func uiRun() {
 	<-uiDone
 	setupDone = make(chan struct{})
 	uiDone = make(chan struct{})
+}
+
+func uiWrapProcessFile(process func(_ io.Writer, path string)) func(io.Writer, string) {
+	return func(_ io.Writer, path string) {
+		var outWriter io.Writer
+		uiSetup(path, &outWriter)
+		process(outWriter, path)
+		uiRun()
+	}
 }
