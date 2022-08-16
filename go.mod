@@ -17,6 +17,7 @@ require (
 	github.com/dsnet/compress v0.0.1
 	github.com/eliukblau/pixterm v1.3.1
 	github.com/gabriel-vasile/mimetype v1.4.1
+	github.com/gdamore/tcell/v2 v2.5.2
 	github.com/gowebpki/jcs v1.0.0
 	github.com/hbollon/go-edlib v1.6.0
 	github.com/kevinburke/nacl v0.0.0-20210405173606-cd9060f5f776
@@ -25,6 +26,7 @@ require (
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/muesli/reflow v0.3.0
 	github.com/pierrec/lz4/v4 v4.1.15
+	github.com/rivo/tview v0.0.0-20220812085834-0e6b21a48e96
 	github.com/robert-nix/ansihtml v1.0.1
 	github.com/spf13/pflag v1.0.5
 	github.com/ulikunitz/xz v0.5.10
@@ -34,6 +36,7 @@ require (
 	sigs.k8s.io/yaml v1.3.0
 )
 
+require github.com/gdamore/encoding v1.0.0 // indirect
 require github.com/google/renameio v1.0.1 // indirect
 
 require (

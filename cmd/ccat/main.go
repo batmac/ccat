@@ -49,6 +49,7 @@ var (
 	argDebug        = flag.BoolP("debug", "d", false, "debug what we are doing")
 	argInsecure     = flag.BoolP("insecure", "k", false, "get files insecurely (globally)")
 	argCompletion   = flag.StringP("completion", "C", "", "print shell completion script")
+	argLess         = flag.BoolP("ui", "T", false, "display with a minimal ui")
 
 	tmap   map[string]color.Color
 	tokens []string
@@ -183,12 +184,18 @@ func main() {
 		log.Debugln("no option given, trying to be as fast as possible")
 		process = processFileAsIs
 	}
+	if *argLess {
+		if *argDebug {
+			fmt.Fprintln(os.Stderr, "the ui is not compatible with the debug option")
+		}
+		process = uiWrapProcessFile(process)
+	}
 	for _, path := range fileList {
 		globalctx.Reset()
 		globalctx.Set("fileList", fileList)
 		globalctx.Set("insecure", *argInsecure)
 
-		process(path)
+		process(os.Stdout, path)
 	}
 
 	if globalctx.IsErrored() {
