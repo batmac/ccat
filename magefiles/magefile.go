@@ -15,7 +15,7 @@ import (
 
 // Default target to run when none is specified
 // If not set, running mage will list available targets
-var Default = BuildAndTest
+var Default = BuildDefaultAndTest
 
 var (
 	defaultBuildArgs = []string{"build"}
@@ -89,13 +89,12 @@ func BuildFull() error {
 
 // put ccat to $GOPATH/bin/ccat
 func Install() error {
-	mg.Deps(BuildAndTest)
-
 	path := os.ExpandEnv("$GOPATH/bin/" + binaryName)
 	stepPrintf("Installing to '%s'...\n", path)
 
 	data, err := os.ReadFile(binaryName)
 	if err != nil {
+		fmt.Println("Have you build first?")
 		return err
 	}
 	return maybe.WriteFile(path, data, 0o750)
@@ -128,7 +127,6 @@ func TestGo() error {
 
 // test_compression_e2e
 func TestCompression() error {
-	mg.Deps(InstallDeps)
 	stepPrintln("Testing compression...")
 	return sh.RunV("scripts/test_compression_e2e.sh", "testdata/compression/")
 }
@@ -141,7 +139,7 @@ func Test() error {
 }
 
 // buildDefault,test
-func BuildAndTest() error {
+func BuildDefaultAndTest() error {
 	mg.SerialDeps(BuildDefault)
 	mg.SerialDeps(Test)
 	stepPrintln("Done.")
