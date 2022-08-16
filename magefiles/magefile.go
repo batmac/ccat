@@ -7,6 +7,7 @@ import (
 	"os/exec"
 	"time"
 
+	"github.com/google/renameio/maybe"
 	"github.com/magefile/mage/mg" // mg contains helpful utility functions, like Deps
 	"github.com/magefile/mage/sh"
 )
@@ -74,10 +75,15 @@ func BuildMinimal() error {
 // put ccat to $GOPATH/bin/ccat
 func Install() error {
 	mg.Deps(BuildAndTest)
+
 	path := os.ExpandEnv("$GOPATH/bin/ccat")
 	stepPrintf("Installing to '%s'...\n", path)
 
-	return sh.Copy(path, "ccat")
+	data, err := os.ReadFile("ccat")
+	if err != nil {
+		return err
+	}
+	return maybe.WriteFile(path, data, 0o750)
 }
 
 // go mod download
