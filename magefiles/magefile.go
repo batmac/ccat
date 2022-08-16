@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"runtime"
 	"time"
 
 	"github.com/google/renameio/maybe"
@@ -16,7 +17,16 @@ import (
 // If not set, running mage will list available targets
 var Default = BuildAndTest
 
-var defaultBuildArgs = []string{"build"}
+var (
+	defaultBuildArgs = []string{"build"}
+	binaryName       = "ccat"
+)
+
+func init() {
+	if runtime.GOOS == "windows" {
+		binaryName = "ccat.exe"
+	}
+}
 
 func ldFlags(goTags string) string {
 	version, err := exec.Command("git", "describe", "--tags").Output()
@@ -52,7 +62,8 @@ func build(tags string) error {
 	if err := sh.RunWithV(nil, "go", buildArgs...); err != nil {
 		return err
 	}
-	if err := os.Rename("ccat", "../../ccat"); err != nil {
+
+	if err := os.Rename(binaryName, "../../"+binaryName); err != nil {
 		return err
 	}
 	if err := os.Chdir(cwd); err != nil {
@@ -80,10 +91,10 @@ func BuildFull() error {
 func Install() error {
 	mg.Deps(BuildAndTest)
 
-	path := os.ExpandEnv("$GOPATH/bin/ccat")
+	path := os.ExpandEnv("$GOPATH/bin/" + binaryName)
 	stepPrintf("Installing to '%s'...\n", path)
 
-	data, err := os.ReadFile("ccat")
+	data, err := os.ReadFile(binaryName)
 	if err != nil {
 		return err
 	}
@@ -105,7 +116,7 @@ func VerifyDeps() error {
 
 func Clean() {
 	stepPrintln("Cleaning...")
-	_ = os.RemoveAll("ccat")
+	_ = os.RemoveAll(binaryName)
 }
 
 // go test ./...
@@ -145,7 +156,7 @@ func UpdateREADME() error {
 		return err
 	}
 	data = append(data, "\n```\n"...)
-	cmd := exec.Command("./ccat", "--fullhelp")
+	cmd := exec.Command("./"+binaryName, "--fullhelp")
 	out, err := cmd.CombinedOutput()
 	data = append(data, out...)
 	if err != nil {
