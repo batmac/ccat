@@ -102,7 +102,7 @@ $ kubectl run -i --tty ccat --image=batmac/ccat:latest -- /bin/sh
 ## help
 
 ```
-version v0.9.22-29-ga923fbb [libcurl,crappy], commit a923fbb9b4db42894cd36e3d9a6afdfb84a017b3, built at 2022-08-15@17:51:11+0200 by Mage (go1.19 darwin/arm64)
+version v0.9.23-16-g46d918b [libcurl,crappy], commit 46d918b44f8271a49e71157c6054c861b183e19f, built at 2022-08-16@22:26:17+0200 by Mage (go1.19 darwin/arm64)
   -t, --tokens string       comma-separated list of tokens
   -i, --ignore-case         tokens given with -t are case-insensitive
   -o, --only                don't display lines without at least one token
@@ -128,6 +128,7 @@ version v0.9.22-29-ga923fbb [libcurl,crappy], commit a923fbb9b4db42894cd36e3d9a6
   -d, --debug               debug what we are doing
   -k, --insecure            get files insecurely (globally)
   -C, --completion string   print shell completion script
+  -T, --ui                  display with a minimal ui
 
 ---
 ccat <files>...
