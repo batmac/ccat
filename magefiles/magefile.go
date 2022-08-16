@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"runtime"
 	"time"
 
 	"github.com/google/renameio/maybe"
@@ -14,9 +15,18 @@ import (
 
 // Default target to run when none is specified
 // If not set, running mage will list available targets
-var Default = BuildAndTest
+var Default = BuildDefaultAndTest
 
-var defaultBuildArgs = []string{"build"}
+var (
+	defaultBuildArgs = []string{"build"}
+	binaryName       = "ccat"
+)
+
+func init() {
+	if runtime.GOOS == "windows" {
+		binaryName = "ccat.exe"
+	}
+}
 
 func ldFlags(goTags string) string {
 	version, err := exec.Command("git", "describe", "--tags").Output()
@@ -52,7 +62,8 @@ func build(tags string) error {
 	if err := sh.RunWithV(nil, "go", buildArgs...); err != nil {
 		return err
 	}
-	if err := os.Rename("ccat", "../../ccat"); err != nil {
+
+	if err := os.Rename(binaryName, "../../"+binaryName); err != nil {
 		return err
 	}
 	if err := os.Chdir(cwd); err != nil {
@@ -78,13 +89,12 @@ func BuildFull() error {
 
 // put ccat to $GOPATH/bin/ccat
 func Install() error {
-	mg.Deps(BuildAndTest)
-
-	path := os.ExpandEnv("$GOPATH/bin/ccat")
+	path := os.ExpandEnv("$GOPATH/bin/" + binaryName)
 	stepPrintf("Installing to '%s'...\n", path)
 
-	data, err := os.ReadFile("ccat")
+	data, err := os.ReadFile(binaryName)
 	if err != nil {
+		fmt.Println("Have you build first?")
 		return err
 	}
 	return maybe.WriteFile(path, data, 0o750)
@@ -105,7 +115,7 @@ func VerifyDeps() error {
 
 func Clean() {
 	stepPrintln("Cleaning...")
-	_ = os.RemoveAll("ccat")
+	_ = os.RemoveAll(binaryName)
 }
 
 // go test ./...
@@ -117,7 +127,6 @@ func TestGo() error {
 
 // test_compression_e2e
 func TestCompression() error {
-	mg.Deps(InstallDeps)
 	stepPrintln("Testing compression...")
 	return sh.RunV("scripts/test_compression_e2e.sh", "testdata/compression/")
 }
@@ -130,7 +139,7 @@ func Test() error {
 }
 
 // buildDefault,test
-func BuildAndTest() error {
+func BuildDefaultAndTest() error {
 	mg.SerialDeps(BuildDefault)
 	mg.SerialDeps(Test)
 	stepPrintln("Done.")
@@ -145,7 +154,7 @@ func UpdateREADME() error {
 		return err
 	}
 	data = append(data, "\n```\n"...)
-	cmd := exec.Command("./ccat", "--fullhelp")
+	cmd := exec.Command("./"+binaryName, "--fullhelp")
 	out, err := cmd.CombinedOutput()
 	data = append(data, out...)
 	if err != nil {
