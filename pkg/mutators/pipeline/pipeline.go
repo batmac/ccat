@@ -23,6 +23,7 @@ func NewPipeline(description string, out io.WriteCloser, in io.ReadCloser) error
 		log.Fatal("pipeline is not empty\n")
 	}
 	if len(description) == 0 {
+		globalPipeline.mu.Unlock()
 		return errors.New("empty pipeline requested")
 	}
 	list := strings.Split(description, ",")

@@ -58,6 +58,7 @@ func newCollection(name string, logger *log.Logger) *mutatorCollection {
 func Register(name string, factory Factory) error {
 	globalCollection.mu.Lock()
 	if _, ok := globalCollection.factories[name]; ok {
+		globalCollection.mu.Unlock()
 		return fmt.Errorf("mutators: %s is already registered", name)
 	}
 	globalCollection.factories[name] = factory

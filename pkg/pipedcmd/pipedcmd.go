@@ -27,7 +27,7 @@ func New(cmdline ...string) (*PipedCmd, error) {
 		return nil, exec.ErrNotFound
 	}
 
-	ctx := context.TODO()
+	ctx := context.Background()
 
 	fullCmd, err := exec.LookPath(cmdline[0])
 	if err != nil {
