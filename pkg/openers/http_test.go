@@ -61,7 +61,7 @@ func Test_http(t *testing.T) {
 }
 
 func Simple(w http.ResponseWriter, _ *http.Request) {
-	http.Error(w, "200 hello", 200)
+	http.Error(w, "200 hello", http.StatusOK)
 }
 
 func SimpleHandler() http.Handler {

@@ -30,7 +30,7 @@ func Default() *Logger {
 }
 
 func SetDebug(w io.Writer) {
-	var isDiscard int32 = 0
+	var isDiscard int32
 	if w == io.Discard {
 		isDiscard = 1
 	}

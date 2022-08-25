@@ -99,6 +99,7 @@ func parseS3URI(s string) (string, string) {
 func displayDebugInfoWithSTS(ctx context.Context, cfg aws.Config) error {
 	// Create an Amazon S3 service client
 	log.Debugf(" creating STS client...\n")
+
 	stsClient := sts.NewFromConfig(cfg)
 	log.Debugf("  getting identity...\n")
 	identity, err := stsClient.GetCallerIdentity(ctx, &sts.GetCallerIdentityInput{})

@@ -15,7 +15,7 @@ import (
 // build tags for the github releases
 const githubTags = ""
 
-var tagsAreCompatible bool = false
+var tagsAreCompatible = false
 
 func update(version string, checkOnly bool) {
 	log.Debugf("Trying to self-update %v...\n", version)

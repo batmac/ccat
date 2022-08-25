@@ -1,10 +1,10 @@
-run:
+y4yrun:
   build-tags:
     - crappy
 
 linters:
   enable:
-    - deadcode
+    # - deadcode [deprecated]
     - errcheck
     - goimports
     - gosimple
@@ -13,7 +13,7 @@ linters:
     - staticcheck
     - typecheck
     - unused
-    - varcheck
+    # - varcheck [deprecated]
     - whitespace
     - asasalint
     - asciicheck
@@ -63,6 +63,7 @@ linters:
     # - interfacer [deprecated]
     # - ireturn
     # - lll
+    - logrlint
     - maintidx
     - makezero
     # - maligned [deprecated]
@@ -81,11 +82,12 @@ linters:
     # - prealloc
     - predeclared
     - promlinter
+    - reassign
     - revive
     - rowserrcheck
     # - scopelint [deprecated]
     - sqlclosecheck
-    - structcheck
+    # - structcheck [deprecated]
     - stylecheck
     - tagliatelle
     - tenv
@@ -103,9 +105,11 @@ linters:
 issues:
   exclude-use-default: true
   exclude:
-    - 'package should be `main_test` instead of `main`'
-    - 'ST1018:'
-    - 'Using the variable on range scope `tt` in function literal'
+    - "package should be `main_test` instead of `main`"
+    - "ST1018:"
+    - "Using the variable on range scope `tt` in function literal"
+    - "G114:"
+    - "Function `NewFromConfig->resolveUseFIPSEndpoint->resolveUseDualStackEndpoint->resolveAWSEndpointResolver->resolveAWSRetryMode->resolveAWSRetryMaxAttempts->resolveAWSRetryerProvider` should pass the context parameter"
 linter-settings:
   gofumpt:
     extra-rules: true
