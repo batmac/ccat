@@ -47,7 +47,7 @@ func wrap(f hasher) func(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 		if err != nil {
 			return 0, err
 		}
-		_, err = w.Write([]byte(hex.EncodeToString(h.Sum(nil)) + "\n"))
+		_, err = io.WriteString(w, hex.EncodeToString(h.Sum(nil))+"\n")
 		if err != nil {
 			return 0, err
 		}
