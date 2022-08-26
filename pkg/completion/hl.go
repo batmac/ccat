@@ -16,12 +16,12 @@ import (
 	_ "github.com/batmac/ccat/pkg/mutators/simple"
 )
 
-func getCompletionData(opts []string) completionData {
+func getCompletionData(opts []string) *completionData {
 	lexers, styles, formatters := filter(lexers.Names(true), " '"), filter(styles.Names(), " '"), filter(formatters.Names(), " '")
 	utils.SortStringsCaseInsensitive(lexers)
 	utils.SortStringsCaseInsensitive(styles)
 	utils.SortStringsCaseInsensitive(formatters)
-	return completionData{
+	return &completionData{
 		Options:    strings.Join(opts, " "),
 		Mutators:   strings.Join(mutators.ListAvailableMutators(), " "),
 		Formatters: strings.Join(formatters, " "),

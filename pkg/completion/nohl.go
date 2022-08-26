@@ -12,8 +12,8 @@ import (
 	_ "github.com/batmac/ccat/pkg/mutators/simple"
 )
 
-func getCompletionData(opts []string) completionData {
-	return completionData{
+func getCompletionData(opts []string) *completionData {
+	return &completionData{
 		Options:    strings.Join(opts, " "),
 		Mutators:   strings.Join(mutators.ListAvailableMutators(), " "),
 		Formatters: "",

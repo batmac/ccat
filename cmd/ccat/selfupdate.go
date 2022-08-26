@@ -72,6 +72,7 @@ func update(version string, checkOnly bool) {
 		case <-input:
 		case <-time.After(300 * time.Second):
 			fmt.Println("timed out, aborting.")
+			//nolint:gocritic // exitAfterDefer
 			os.Exit(97)
 		}
 	}

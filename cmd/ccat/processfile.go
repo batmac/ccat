@@ -56,6 +56,7 @@ func processFile(w io.Writer, path string) {
 		// log.Debugf("%s", log.Pp(cmd))
 		if err != nil {
 			setErrored()
+			//nolint:gocritic // exitAfterDefer
 			log.Fatal(err)
 		}
 		defer func() {

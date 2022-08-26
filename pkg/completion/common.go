@@ -24,7 +24,7 @@ func Print(shell string, opts []string) {
 	}
 }
 
-func printBash(data completionData) {
+func printBash(data *completionData) {
 	c, err := template.New("completion").Parse(tmpl)
 	if err != nil {
 		panic(err)

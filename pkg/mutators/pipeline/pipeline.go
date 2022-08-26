@@ -79,6 +79,7 @@ func Wait() {
 
 		err := m.Wait()
 		if err != nil {
+			//nolint:gocritic // exitAfterDefer
 			log.Fatal(err)
 		}
 		log.Debugf("waited %v\n", m)

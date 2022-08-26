@@ -51,15 +51,12 @@ func unzip(out io.WriteCloser, in io.ReadCloser) (int64, error) {
 }
 
 func czip(out io.WriteCloser, in io.ReadCloser) (int64, error) {
-	/* 	dat, err := io.ReadAll(in)
-	   	if err != nil {
-	   		log.Fatal(err)
-	   	} */
 	z := zip.NewWriter(out)
 	defer z.Close()
 
 	f, err := z.Create(filename())
 	if err != nil {
+		//nolint:gocritic // exitAfterDefer
 		log.Fatal(err)
 	}
 	return io.Copy(f, in)

@@ -1,4 +1,4 @@
-//nolint:deadcode
+//nolint:deadcode // obvious for mage
 package main
 
 import (
@@ -57,7 +57,8 @@ func build(tags string) error {
 	if err := os.Chdir("cmd/ccat"); err != nil {
 		return err
 	}
-	buildArgs := append(defaultBuildArgs, "-ldflags", ldFlags(tags), "-tags", tags)
+	buildArgs := defaultBuildArgs
+	buildArgs = append(buildArgs, "-ldflags", ldFlags(tags), "-tags", tags)
 
 	if err := sh.RunWithV(nil, "go", buildArgs...); err != nil {
 		return err
