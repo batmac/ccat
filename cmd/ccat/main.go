@@ -93,7 +93,7 @@ func main() {
 		b.WriteString(buildLine())
 		bi, ok := debug.ReadBuildInfo()
 		if !ok {
-			log.Printf("failed to read build info")
+			log.Fatal("failed to read build info")
 		}
 		b.WriteString(bi.String())
 
