@@ -17,7 +17,7 @@ import (
 	"github.com/batmac/ccat/pkg/pipedcmd"
 	"github.com/batmac/ccat/pkg/scanners"
 	"github.com/batmac/ccat/pkg/term"
-	//_ "net/http/pprof"
+	// _ "net/http/pprof"
 )
 
 func processFile(w io.Writer, path string) {

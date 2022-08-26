@@ -1,7 +1,6 @@
 package scanners_test
 
 import (
-	//. "bufio"
 	"bufio"
 	"bytes"
 	"io"
@@ -12,8 +11,6 @@ import (
 
 	"github.com/batmac/ccat/pkg/scanners"
 )
-
-// const smallMaxTokenSize = 256 // Much smaller for more efficient testing.
 
 // Test white space table matches the Unicode definition.
 func TestSpace(t *testing.T) {

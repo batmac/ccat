@@ -61,7 +61,7 @@ func ScanWords(data []byte, atEOF bool) (int, []byte, error) {
 	}
 	// If we're at EOF, we have a final, non-empty, non-terminated word. Return it.
 	if atEOF && len(data) > 0 {
-		return len(data), data[:], nil
+		return len(data), data, nil
 	}
 	// Request more data.
 	return 0, nil, nil

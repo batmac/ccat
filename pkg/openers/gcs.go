@@ -62,7 +62,7 @@ func (f gcsOpener) Open(s string, _ bool) (io.ReadCloser, error) {
 	// defer client.Close()
 
 	/* 	ctx, cancel := context.WithTimeout(ctx, time.Second*50)
-	 */ //defer cancel()
+	 */ // defer cancel()
 
 	log.Debugf("  Get Object...\n")
 
