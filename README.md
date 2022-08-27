@@ -102,7 +102,7 @@ $ kubectl run -i --tty ccat --image=batmac/ccat:latest -- /bin/sh
 ## help
 
 ```
-version v0.9.23-16-g46d918b [libcurl,crappy], commit 46d918b44f8271a49e71157c6054c861b183e19f, built at 2022-08-16@22:26:17+0200 by Mage (go1.19 darwin/arm64)
+version v1.0.1-5-g8335d05 [libcurl,crappy], commit 8335d051fccc9691c4301f08fd640cfbba16338c, built at 2022-08-27@03:03:21+0200 by Mage (go1.19 darwin/arm64)
   -t, --tokens string       comma-separated list of tokens
   -i, --ignore-case         tokens given with -t are case-insensitive
   -o, --only                don't display lines without at least one token
@@ -185,6 +185,7 @@ ccat <files>...
         plist2Y: display an Apple plist as yaml
         qp: encode quoted-printable data
         unbase64: decode base64
+        unhex: decode hex, ignore all non-hex chars
         unqp: decode quoted-printable data
         y2j: YAML -> JSON
     decompress:
