@@ -7,7 +7,7 @@ import (
 	"text/template"
 )
 
-//go:embed  ccat.tmpl
+//go:embed  bash.tmpl
 var tmpl string
 
 type completionData struct {
