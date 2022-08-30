@@ -21,6 +21,16 @@
         "pin",
         "digest"
       ]
+    },
+    {
+      "groupName": "go aws sdk packages",
+      "groupSlug": "go-aws-sdk",
+      "matchDatasources": [
+        "go"
+      ],
+      "matchPackagePrefixes": [
+        "github.com/aws/aws-sdk-go-v2/"
+      ]
     }
   ],
   "prHourlyLimit": 0
