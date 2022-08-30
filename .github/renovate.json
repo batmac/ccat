@@ -6,12 +6,6 @@
   "labels": [
     "renovate"
   ],
-  "lockFileMaintenance": {
-    "automerge": true,
-    "automergeType": "pr",
-    "enabled": true,
-    "platformAutomerge": true
-  },
   "packageRules": [
     {
       "automerge": true,
@@ -32,6 +26,10 @@
         "github.com/aws/aws-sdk-go-v2/"
       ]
     }
+  ],
+  "postUpdateOptions": [
+    "gomodUpdateImportPaths",
+    "gomodTidy"
   ],
   "prHourlyLimit": 0
 }
