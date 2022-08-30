@@ -17,8 +17,8 @@
       ]
     },
     {
-      "groupName": "go aws sdk packages",
-      "groupSlug": "go-aws-sdk",
+      "groupName": "aws-go-sdk-v2 monorepo",
+      "groupSlug": "aws-go-sdk-v2",
       "matchDatasources": [
         "go"
       ],
