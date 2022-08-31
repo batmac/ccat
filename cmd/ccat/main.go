@@ -186,7 +186,7 @@ func main() {
 	}
 	if *argLess {
 		if *argDebug {
-			fmt.Fprintln(os.Stderr, "the ui is not compatible with the debug option")
+			log.Fatal("aborting, because the ui option is not compatible with the debug option")
 		}
 		process = uiWrapProcessFile(process)
 	}
