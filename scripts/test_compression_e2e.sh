@@ -5,7 +5,7 @@ CAT=/bin/cat
 CKSUM=md5sum
 DIR=$1
 
-for FILE in $DIR/* ; do
+for FILE in "$DIR"/* ; do
 	echo testing "$FILE"
 	EXPECTED=$($CKSUM "$FILE"| cut -d" " -f1)
 	echo expected checksum is "$EXPECTED"
