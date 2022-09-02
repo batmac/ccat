@@ -6,7 +6,7 @@ RUN apk upgrade --no-cache \
     && go install github.com/magefile/mage@latest
 COPY . .
 ENV CGO_ENABLED 1
-RUN go version && mage
+RUN go version && mage buildFull
 
 FROM alpine:20220715
 RUN apk upgrade --no-cache && apk add --no-cache libcurl tini
