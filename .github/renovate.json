@@ -1,5 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "dependencyDashboardAutoclose": true,
   "extends": [
     "config:base"
   ],
@@ -17,6 +18,12 @@
       ]
     },
     {
+      "dependencyDashboardApproval": true,
+      "matchUpdateTypes": [
+        "major"
+      ]
+    },
+    {
       "groupName": "aws-go-sdk-v2 monorepo",
       "groupSlug": "aws-go-sdk-v2",
       "matchDatasources": [
@@ -31,5 +38,6 @@
     "gomodUpdateImportPaths",
     "gomodTidy"
   ],
-  "prHourlyLimit": 0
+  "prHourlyLimit": 0,
+  "stabilityDays": 1
 }
