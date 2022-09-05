@@ -1,17 +1,19 @@
-package main
+package selfupdate_test
 
 import (
 	"testing"
+
+	"github.com/batmac/ccat/pkg/selfupdate"
 )
 
-func Test_update(t *testing.T) {
+func Test_Do(t *testing.T) {
 	t.Run("donotpanicplease", func(t *testing.T) {
-		update("v0+dev", true)
-		update("100", true)
+		selfupdate.Do("v0+dev", "", true)
+		selfupdate.Do("100", "", true)
 	})
 }
 
-func Test_cleanVersion(t *testing.T) {
+func Test_CleanVersion(t *testing.T) {
 	type args struct {
 		s string
 	}
@@ -72,8 +74,8 @@ func Test_cleanVersion(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := cleanVersion(tt.args.s); got != tt.want {
-				t.Errorf("cleanVersion() = %v, want %v", got, tt.want)
+			if got := selfupdate.CleanVersion(tt.args.s); got != tt.want {
+				t.Errorf("CleanVersion() = %v, want %v", got, tt.want)
 			}
 		})
 	}

@@ -16,6 +16,7 @@ import (
 	"github.com/batmac/ccat/pkg/log"
 	"github.com/batmac/ccat/pkg/mutators"
 	"github.com/batmac/ccat/pkg/openers"
+	"github.com/batmac/ccat/pkg/selfupdate"
 	"github.com/batmac/ccat/pkg/term"
 
 	flag "github.com/spf13/pflag"
@@ -130,11 +131,11 @@ func main() {
 		os.Exit(0)
 	}
 	if *argSelfUpdate {
-		update(version, false)
+		selfupdate.Do(version, tags, false)
 		os.Exit(0)
 	}
 	if *argCheckUpdate {
-		update(version, true)
+		selfupdate.Do(version, tags, true)
 		os.Exit(0)
 	}
 

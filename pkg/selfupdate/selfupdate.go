@@ -1,4 +1,4 @@
-package main
+package selfupdate
 
 import (
 	"errors"
@@ -17,7 +17,7 @@ const githubTags = ""
 
 var tagsAreCompatible = false
 
-func update(version string, checkOnly bool) {
+func Do(version, tags string, checkOnly bool) {
 	log.Debugf("Trying to self-update %v...\n", version)
 
 	selfupdate.SetLogger(log.Debug)
@@ -38,7 +38,7 @@ func update(version string, checkOnly bool) {
 		panic(fmt.Errorf("latest version for %s/%s could not be found from github repository", runtime.GOOS, runtime.GOARCH))
 	}
 
-	cleanedVersion := cleanVersion(version)
+	cleanedVersion := CleanVersion(version)
 	log.Debugf("cleaned version is '%v'\n", cleanedVersion)
 	if latest.LessOrEqual(cleanedVersion) {
 		fmt.Printf("Current version (%s) is the latest\n", version)
@@ -88,7 +88,7 @@ func update(version string, checkOnly bool) {
 	fmt.Printf("Successfully updated to version %s\n", latest.Version())
 }
 
-func cleanVersion(v string) string {
+func CleanVersion(v string) string {
 	// only keep the semver string on patch/git version
 	v, _, _ = strings.Cut(v, "-")
 	s := []byte(v)
