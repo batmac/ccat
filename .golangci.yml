@@ -76,7 +76,7 @@ linters:
     # - noctx
     - nolintlint
     - nonamedreturns
-    # - nosnakecase
+    # - nosnakecase [deprecated]
     - nosprintfhostport
     # - paralleltest
     - prealloc
