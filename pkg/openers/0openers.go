@@ -65,7 +65,7 @@ func Open(s string, lock bool) (io.ReadCloser, error) {
 }
 
 func ListOpenersWithDescription() []string {
-	var l []string
+	l := make([]string, 0, len(globalCollection.openers))
 	for _, o := range globalCollection.openers {
 		l = append(l, o.Name()+": "+o.Description())
 	}

@@ -88,7 +88,7 @@ func New(name string) (Mutator, error) {
 }
 
 func ListAvailableMutators() []string {
-	var l []string
+	l := make([]string, 0, len(globalCollection.factories))
 	for _, v := range globalCollection.factories {
 		l = append(l, v.Name())
 	}

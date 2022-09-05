@@ -79,7 +79,7 @@ linters:
     # - nosnakecase
     - nosprintfhostport
     # - paralleltest
-    # - prealloc
+    - prealloc
     - predeclared
     - promlinter
     - reassign
