@@ -29,17 +29,18 @@ Run the zero-install code or use your mage binary:
 $ git clone https://github.com/batmac/ccat
 $ go run magefiles/mage.go -l # or 'mage -l'
 Targets:
-  buildAndTest*      buildDefault,test
-  buildDefault       tags: libcurl,crappy
-  buildMinimal       tags: nohl,fileonly
+  buildDefault
+  buildDefaultAndTest*    buildDefault,test
+  buildFull               tags: libcurl,crappy
+  buildMinimal            tags: nohl,fileonly
   clean
-  install            put ccat to $GOPATH/bin/ccat
-  installDeps        go mod download
-  test               all
-  testCompression    test_compression_e2e
-  testGo             go test ./...
+  install                 put ccat to $GOPATH/bin/ccat
+  installDeps             go mod download
+  test                    all
+  testCompression         test_compression_e2e
+  testGo                  go test ./...
   updateREADME
-  verifyDeps         go mod verify
+  verifyDeps              go mod verify
 
 * default target
 $ go run magefiles/mage.go # or 'mage'
@@ -102,7 +103,7 @@ $ kubectl run -i --tty ccat --image=batmac/ccat:latest -- /bin/sh
 ## help
 
 ```
-version v1.0.1-5-g8335d05 [libcurl,crappy], commit 8335d051fccc9691c4301f08fd640cfbba16338c, built at 2022-08-27@03:03:21+0200 by Mage (go1.19 darwin/arm64)
+version v1.1.1-9-g1843b7a [libcurl,crappy], commit 1843b7af353d94040ba61463b14b6f83c9b3ab02, built at 2022-09-06@13:41:48+0200 by Mage (go1.19 darwin/arm64)
   -t, --tokens string       comma-separated list of tokens
   -i, --ignore-case         tokens given with -t are case-insensitive
   -o, --only                don't display lines without at least one token
@@ -182,6 +183,7 @@ ccat <files>...
         base64: encode to base64
         hex: dump in lowercase hex
         j2y: JSON -> YAML
+        j5j: JSON5 -> JSON
         plist2Y: display an Apple plist as yaml
         qp: encode quoted-printable data
         unbase64: decode base64

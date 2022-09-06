@@ -29,17 +29,18 @@ Run the zero-install code or use your mage binary:
 $ git clone https://github.com/batmac/ccat
 $ go run magefiles/mage.go -l # or 'mage -l'
 Targets:
-  buildAndTest*      buildDefault,test
-  buildDefault       tags: libcurl,crappy
-  buildMinimal       tags: nohl,fileonly
+  buildDefault
+  buildDefaultAndTest*    buildDefault,test
+  buildFull               tags: libcurl,crappy
+  buildMinimal            tags: nohl,fileonly
   clean
-  install            put ccat to $GOPATH/bin/ccat
-  installDeps        go mod download
-  test               all
-  testCompression    test_compression_e2e
-  testGo             go test ./...
+  install                 put ccat to $GOPATH/bin/ccat
+  installDeps             go mod download
+  test                    all
+  testCompression         test_compression_e2e
+  testGo                  go test ./...
   updateREADME
-  verifyDeps         go mod verify
+  verifyDeps              go mod verify
 
 * default target
 $ go run magefiles/mage.go # or 'mage'
