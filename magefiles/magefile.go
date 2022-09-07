@@ -71,6 +71,7 @@ func build(tags string) error {
 		return err
 	}
 
+	stepOKPrintln("Building OK")
 	return nil
 }
 
@@ -91,51 +92,75 @@ func BuildFull() error {
 // put ccat to $GOPATH/bin/ccat
 func Install() error {
 	path := os.ExpandEnv("$GOPATH/bin/" + binaryName)
-	stepPrintf("Installing to '%s'...\n", path)
+	stepPrintf("Installing... (%s)\n", path)
 
 	data, err := os.ReadFile(binaryName)
 	if err != nil {
 		fmt.Println("Have you build first?")
 		return err
 	}
-	return maybe.WriteFile(path, data, 0o750)
+	if err := maybe.WriteFile(path, data, 0o750); err != nil {
+		return err
+	}
+	stepOKPrintln("Installing OK")
+	return nil
 }
 
 // go mod download
 func InstallDeps() error {
 	stepPrintln("Installing Deps...")
-	return sh.RunV("go", "mod", "download")
+	if err := sh.RunV("go", "mod", "download"); err != nil {
+		return err
+	}
+	stepOKPrintln("Installing Deps OK")
+	return nil
 }
 
 // go mod verify
 func VerifyDeps() error {
 	mg.Deps(InstallDeps)
 	stepPrintln("Verifying Deps...")
-	return sh.Run("go", "mod", "verify")
+	if err := sh.Run("go", "mod", "verify"); err != nil {
+		return err
+	}
+	stepOKPrintln("Verifying Deps OK")
+	return nil
 }
 
-func Clean() {
+func Clean() error {
 	stepPrintln("Cleaning...")
-	_ = os.RemoveAll(binaryName)
+	if err := os.RemoveAll(binaryName); err != nil {
+		return err
+	}
+	stepOKPrintln("Cleaning OK")
+	return nil
 }
 
 // go test ./...
 func TestGo() error {
 	mg.Deps(InstallDeps)
 	stepPrintln("Testing Go...")
-	return sh.RunV("go", "test", "./...")
+	r, err := sh.Output("go", "test", "./...")
+	if mg.Debug() {
+		fmt.Println(r, "\n ")
+	}
+	if err != nil {
+		return err
+	}
+	stepOKPrintln("Testing Go OK")
+	return nil
 }
 
 // test_compression_e2e
-func TestCompression() error {
+/* func TestCompression() error {
 	stepPrintln("Testing compression...")
 	return sh.RunV("scripts/test_compression_e2e.sh", "testdata/compression/")
-}
+} */
 
 // test all
 func Test() error {
 	mg.SerialDeps(TestGo)
-	mg.SerialDeps(TestCompression)
+	mg.SerialDeps(TestCompressionGo)
 	return nil
 }
 
@@ -143,7 +168,6 @@ func Test() error {
 func BuildDefaultAndTest() error {
 	mg.SerialDeps(BuildDefault)
 	mg.SerialDeps(Test)
-	stepPrintln("Done.")
 	return nil
 }
 
@@ -163,7 +187,11 @@ func UpdateREADME() error {
 	}
 	data = append(data, "```\n"...)
 
-	return os.WriteFile("README.md", data, 0o600)
+	if err := os.WriteFile("README.md", data, 0o600); err != nil {
+		return err
+	}
+	stepOKPrintln("Updating README.md OK")
+	return nil
 }
 
 func stepPrintln(a ...any) {
@@ -172,4 +200,8 @@ func stepPrintln(a ...any) {
 
 func stepPrintf(format string, a ...any) {
 	fmt.Printf("🚧 "+format, a...)
+}
+
+func stepOKPrintln(a ...any) {
+	fmt.Println(append([]any{"\x1bM✅"}, a...)...)
 }
