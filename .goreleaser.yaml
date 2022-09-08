@@ -72,6 +72,7 @@ brews:
     dependencies: []
     conflicts:
       - ccat
+      - ccrypt
     test: |
       system "#{bin}/ccat --version"
     install: |
