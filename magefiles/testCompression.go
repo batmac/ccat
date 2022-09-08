@@ -34,7 +34,6 @@ func TestCompressionGo() error {
 		}
 		for _, alg := range compressionAlgs() {
 			opts := []string{"-m", alg + ",un" + alg + ",sha256", filePath}
-			// does this work on windows ?
 			cksum, err := sh.Output("./"+binaryName, opts...)
 			if err != nil {
 				return err
