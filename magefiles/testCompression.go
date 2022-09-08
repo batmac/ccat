@@ -29,18 +29,19 @@ func TestCompressionGo() error {
 		if err != nil {
 			return err
 		}
-		if mg.Debug() {
+		if mg.Verbose() {
 			fmt.Printf("%v %v\n", expectedCksum, file.Name())
 		}
 		for _, alg := range compressionAlgs() {
 			opts := []string{"-m", alg + ",un" + alg + ",sha256", filePath}
+			// does this work on windows ?
 			cksum, err := sh.Output("./"+binaryName, opts...)
 			if err != nil {
 				return err
 			}
 			if cksum != expectedCksum {
 				failure = true
-				if mg.Debug() {
+				if mg.Verbose() {
 					fmt.Printf("%v (%v) failed ! (%v != %v)\n",
 						file.Name(), alg, cksum, expectedCksum)
 				}

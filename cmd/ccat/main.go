@@ -43,8 +43,8 @@ var (
 	argVersion      = flag.BoolP("version", "V", false, "print version on stdout")
 	argLicense      = flag.Bool("license", false, "print license on stdout")
 	argBuildInfo    = flag.BoolP("buildinfo", "B", false, "print build info on stdout")
-	argHelp         = flag.BoolP("help", "h", false, "print usage")
-	argFullHelp     = flag.BoolP("fullhelp", "", false, "print full usage")
+	argHelp         = flag.BoolP("help", "h", false, "print usage on stderr")
+	argFullHelp     = flag.BoolP("fullhelp", "", false, "print full usage on stdout")
 	argSelfUpdate   = flag.Bool("selfupdate", false, "Update to latest Github release")
 	argCheckUpdate  = flag.Bool("check", false, "Check version with the latest Github release")
 	argDebug        = flag.BoolP("debug", "d", false, "debug what we are doing")
@@ -209,27 +209,28 @@ func buildLine() string {
 }
 
 func Usage() {
-	usage(false)
+	usage(os.Stderr, false)
 }
 
 func FullUsage() {
-	usage(true)
+	usage(os.Stdout, true)
 }
 
-func usage(full bool) {
+func usage(w io.Writer, full bool) {
 	flag.CommandLine.SortFlags = false
-	fmt.Fprintln(os.Stderr, buildLine())
+	flag.CommandLine.SetOutput(w)
+	fmt.Fprintln(w, buildLine())
 	flag.PrintDefaults()
-	fmt.Fprintln(os.Stderr, "")
+	fmt.Fprintln(w, "")
 
 	if !full {
 		return
 	}
 
-	fmt.Fprintln(os.Stderr, "---")
-	fmt.Fprint(os.Stderr, "ccat <files>...\n")
-	fmt.Fprint(os.Stderr, " - highlighter (used with -H):\n")
-	fmt.Fprint(os.Stderr, highlighter.Help())
-	fmt.Fprintf(os.Stderr, " - openers:\n    %v\n", strings.Join(openers.ListOpenersWithDescription(), "\n    "))
-	fmt.Fprintf(os.Stderr, " - mutators:\n%v\n", mutators.AvailableMutatorsHelp())
+	fmt.Fprintln(w, "---")
+	fmt.Fprint(w, "ccat <files>...\n")
+	fmt.Fprint(w, " - highlighter (used with -H):\n")
+	fmt.Fprint(w, highlighter.Help())
+	fmt.Fprintf(w, " - openers:\n    %v\n", strings.Join(openers.ListOpenersWithDescription(), "\n    "))
+	fmt.Fprintf(w, " - mutators:\n%v\n", mutators.AvailableMutatorsHelp())
 }

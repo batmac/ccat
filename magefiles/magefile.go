@@ -4,7 +4,7 @@ package main
 import (
 	"fmt"
 	"os"
-	"os/exec"
+	"path/filepath"
 	"runtime"
 	"time"
 
@@ -29,18 +29,18 @@ func init() {
 }
 
 func ldFlags(goTags string) string {
-	version, err := exec.Command("git", "describe", "--tags").Output()
+	version, err := sh.Output("git", "describe", "--tags")
 	if err != nil {
 		_ = mg.Fatal(1, err)
 	}
-	commit, err := exec.Command("git", "rev-parse", "HEAD").Output()
+	commit, err := sh.Output("git", "rev-parse", "HEAD")
 	if err != nil {
 		_ = mg.Fatal(1, err)
 	}
 
 	return fmt.Sprintf("-s -w -X main.version=%s -X main.commit=%s -X main.date=%s -X main.builtBy=%s -X main.tags=%s",
-		string(version),
-		string(commit),
+		version,
+		commit,
 		time.Now().Format("2006-01-02@15:04:05-0700"),
 		"Mage",
 		goTags,
@@ -54,7 +54,7 @@ func build(tags string) error {
 	if err != nil {
 		return err
 	}
-	if err := os.Chdir("cmd/ccat"); err != nil {
+	if err := os.Chdir(filepath.FromSlash("cmd/ccat")); err != nil {
 		return err
 	}
 	buildArgs := defaultBuildArgs
@@ -64,7 +64,7 @@ func build(tags string) error {
 		return err
 	}
 
-	if err := os.Rename(binaryName, "../../"+binaryName); err != nil {
+	if err := os.Rename(binaryName, filepath.Join(cwd, binaryName)); err != nil {
 		return err
 	}
 	if err := os.Chdir(cwd); err != nil {
@@ -91,11 +91,12 @@ func BuildFull() error {
 
 // put ccat to $GOPATH/bin/ccat
 func Install() error {
-	path := os.ExpandEnv("$GOPATH/bin/" + binaryName)
+	path := os.ExpandEnv(filepath.Join("$GOPATH", "bin", binaryName))
 	stepPrintf("Installing... (%s)\n", path)
 
 	data, err := os.ReadFile(binaryName)
 	if err != nil {
+		// detect this
 		fmt.Println("Have you build first?")
 		return err
 	}
@@ -129,7 +130,7 @@ func VerifyDeps() error {
 
 func Clean() error {
 	stepPrintln("Cleaning...")
-	if err := os.RemoveAll(binaryName); err != nil {
+	if err := sh.Rm(binaryName); err != nil {
 		return err
 	}
 	stepOKPrintln("Cleaning OK")
@@ -141,7 +142,7 @@ func TestGo() error {
 	mg.Deps(InstallDeps)
 	stepPrintln("Testing Go...")
 	r, err := sh.Output("go", "test", "./...")
-	if mg.Debug() {
+	if mg.Verbose() {
 		fmt.Println(r, "\n ")
 	}
 	if err != nil {
@@ -179,8 +180,8 @@ func UpdateREADME() error {
 		return err
 	}
 	data = append(data, "\n```\n"...)
-	cmd := exec.Command("./"+binaryName, "--fullhelp")
-	out, err := cmd.CombinedOutput()
+	out, err := sh.Output("./"+binaryName, "--fullhelp")
+
 	data = append(data, out...)
 	if err != nil {
 		return err
@@ -203,5 +204,9 @@ func stepPrintf(format string, a ...any) {
 }
 
 func stepOKPrintln(a ...any) {
-	fmt.Println(append([]any{"\x1bM✅"}, a...)...)
+	prefix := ""
+	if !mg.Verbose() {
+		prefix = "\x1bM" // go on the previous line
+	}
+	fmt.Println(append([]any{prefix + "✅"}, a...)...)
 }
