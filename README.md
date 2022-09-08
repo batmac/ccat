@@ -103,7 +103,7 @@ $ kubectl run -i --tty ccat --image=batmac/ccat:latest -- /bin/sh
 ## help
 
 ```
-version v1.1.1-9-g1843b7a [libcurl,crappy], commit 1843b7af353d94040ba61463b14b6f83c9b3ab02, built at 2022-09-06@13:41:48+0200 by Mage (go1.19 darwin/arm64)
+version v1.1.1-14-gb9bd57d [libcurl,crappy], commit b9bd57dd693d712711bb056f73beb3d437ef3d46, built at 2022-09-08@17:43:28+0200 by Mage (go1.19.1 darwin/arm64)
   -t, --tokens string       comma-separated list of tokens
   -i, --ignore-case         tokens given with -t are case-insensitive
   -o, --only                don't display lines without at least one token
@@ -122,8 +122,8 @@ version v1.1.1-9-g1843b7a [libcurl,crappy], commit 1843b7af353d94040ba61463b14b6
   -V, --version             print version on stdout
       --license             print license on stdout
   -B, --buildinfo           print build info on stdout
-  -h, --help                print usage
-      --fullhelp            print full usage
+  -h, --help                print usage on stderr
+      --fullhelp            print full usage on stdout
       --selfupdate          Update to latest Github release
       --check               Check version with the latest Github release
   -d, --debug               debug what we are doing
@@ -210,5 +210,4 @@ ccat <files>...
     filter:
         filterUTF8: remove non-utf8
         removeANSI: remove ANSI codes
-
 ```
