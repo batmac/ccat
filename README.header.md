@@ -37,7 +37,7 @@ Targets:
   install                 put ccat to $GOPATH/bin/ccat
   installDeps             go mod download
   test                    all
-  testCompression         test_compression_e2e
+  testCompressionGo
   testGo                  go test ./...
   updateREADME
   verifyDeps              go mod verify
