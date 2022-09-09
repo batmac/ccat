@@ -1,24 +1,20 @@
-//go:build ignore
-// +build ignore
-
 package main
 
 import (
 	"bytes"
 	"compress/gzip"
 	"fmt"
+	"log"
 	"os"
-	"os/exec"
+	"strings"
 	"text/template"
 
-	"github.com/batmac/ccat/pkg/log"
-	"github.com/batmac/ccat/pkg/mutators"
-	_ "github.com/batmac/ccat/pkg/mutators/simple"
+	"mvdan.cc/gofumpt/format"
 )
 
 var (
-	path   = "../../LICENSE"
-	target = "generated_licence.go"
+	path   = "../../../LICENSE"
+	target = "../generated_licence.go"
 )
 
 func main() {
@@ -45,8 +41,7 @@ func main() {
 	dataSize := len(data)
 	gzDataSize := b.Len()
 
-	gzData := fmt.Sprintf("%#v\n", b.Bytes())
-	gzData = mutators.Run("wrap", gzData)
+	gzData := printBuffer(&b)
 	b.Reset()
 	err = template.Must(template.New("").Parse(`
 	// Code generated automatically. DO NOT EDIT.
@@ -74,17 +69,29 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	os.WriteFile(target, b.Bytes(), 0o644)
-
-	cmd := exec.Command("gofmt", "-s", "-w", target)
-	stdoutStderr, err := cmd.CombinedOutput()
+	src, err := format.Source(b.Bytes(), format.Options{})
 	if err != nil {
-		log.Print(err)
+		log.Fatal(err)
 	}
-	if len(stdoutStderr) > 0 {
-		log.Printf("%s\n", stdoutStderr)
+	err = os.WriteFile(target, src, 0o600)
+	if err != nil {
+		log.Fatal(err)
 	}
-
 	log.Printf("size:%v bytes, compressed:%v bytes\n", dataSize, gzDataSize)
+}
+
+func printBuffer(data *bytes.Buffer) string {
+	var count int
+	var b strings.Builder
+	b.Grow(data.Len()*6 + 9)
+	b.WriteString("[]byte{\n")
+	for _, byte := range data.Bytes() {
+		fmt.Fprintf(&b, "0x%02x, ", byte)
+		count++
+		if count%12 == 0 {
+			b.WriteString("\n")
+		}
+	}
+	b.WriteString("}")
+	return b.String()
 }

@@ -22,8 +22,6 @@ import (
 	flag "github.com/spf13/pflag"
 )
 
-//go:generate go run gen_licence.go
-
 var (
 	argTokens       = flag.StringP("tokens", "t", "", "comma-separated list of tokens")
 	argInsensitive  = flag.BoolP("ignore-case", "i", false, "tokens given with -t are case-insensitive")
