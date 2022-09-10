@@ -26,6 +26,15 @@
 			"settings": {
 				"go.toolsManagement.checkForUpdates": "local",
 				"go.useLanguageServer": true,
+				"go.autocompleteUnimportedPackages": true,
+				"editor.formatOnSave": true,
+				"git.autofetch": true,
+				"go.lintTool": "golangci-lint",
+				"go.formatTool": "gofumpt",
+				"gopls": {
+					"ui.semanticTokens": true,
+					"formatting.gofumpt": true
+				},
 				"go.gopath": "/go"
 			},
 			// Add the IDs of extensions you want installed when the container is created.
