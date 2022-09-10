@@ -7,9 +7,9 @@ ccat *--mutators: &mutators
   - "{{.Mutators}}"
 ccat *-m: *mutators
 
-ccat *--formatter: &formaters
+ccat *--formatter: &formatters
   - "{{.Formatters}}"
-ccat *-F: *formaters
+ccat *-F: *formatters
 
 ccat *--style: &styles
   - "{{.Styles}}"
