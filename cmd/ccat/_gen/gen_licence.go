@@ -12,6 +12,8 @@ import (
 	"mvdan.cc/gofumpt/format"
 )
 
+//go:generate go run gen_licence.go
+
 var (
 	path   = "../../../LICENSE"
 	target = "../generated_licence.go"
