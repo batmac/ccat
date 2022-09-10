@@ -78,3 +78,9 @@ repos:
   # rev: v2.10.0
   # hooks:
   # - id: hadolint
+  - repo: https://github.com/python-jsonschema/check-jsonschema
+    rev: 0.18.1
+    hooks:
+      - id: check-github-workflows
+      - id: check-dependabot
+      - id: check-metaschema
