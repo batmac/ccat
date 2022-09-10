@@ -1,0 +1,5 @@
+* -text
+LICENSE text eol=lf
+*.go -text diff=golang
+*.gif binary
+testdata/** -text linguist-vendored
