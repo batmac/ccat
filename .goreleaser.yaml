@@ -77,4 +77,4 @@ brews:
       system "#{bin}/ccat --version"
     install: |
       bin.install "ccat"
-      (bash_completion/"ccat").write `#{bin}/ccat --completion bash`
+      (bash_completion/"ccatos").write `#{bin}/ccat --completion bash`
