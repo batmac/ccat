@@ -23,7 +23,7 @@ _ccat_completions() {
       ;;
 
     ''*'--style')
-      while read; do COMPREPLY+=( "$REPLY" ); done < <( compgen -W "{{.Styles}}" -- "$cur" )
+      while read; do COMPREPLY+=( "$REPLY" ); done < <( compgen -W "random {{.Styles}}" -- "$cur" )
       ;;
 
     ''*'--lexer')
@@ -43,7 +43,7 @@ _ccat_completions() {
       ;;
 
     ''*'-S')
-      while read; do COMPREPLY+=( "$REPLY" ); done < <( compgen -W "{{.Styles}}" -- "$cur" )
+      while read; do COMPREPLY+=( "$REPLY" ); done < <( compgen -W "random {{.Styles}}" -- "$cur" )
       ;;
 
     ''*'-P')

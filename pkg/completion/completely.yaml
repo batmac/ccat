@@ -12,6 +12,7 @@ ccat *--formatter: &formatters
 ccat *-F: *formatters
 
 ccat *--style: &styles
+  - random
   - "{{.Styles}}"
 ccat *-S: *styles
 
