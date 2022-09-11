@@ -21,6 +21,3 @@
 /ccat
 # goreleaser dir
 dist/
-
-
-.vscode/

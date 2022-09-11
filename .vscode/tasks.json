@@ -1,0 +1,18 @@
+{
+  "tasks": [
+    {
+      "args": [
+        "build",
+        "-gcflags=all=-N -l",
+        "-o",
+        "${fileDirname}/__debug_bin"
+      ],
+      "command": "go",
+      "label": "go: build (debug)",
+      "options": {
+        "cwd": "${fileDirname}"
+      },
+      "type": "shell"
+    }
+  ]
+}

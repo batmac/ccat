@@ -1,0 +1,17 @@
+{
+  "configurations": [
+    {
+      "args": [
+        "-d"
+      ],
+      "buildFlags": "-tags=crappy",
+      "mode": "auto",
+      "name": "Launch Package",
+      "program": "${fileDirname}",
+      "request": "launch",
+      "showGlobalVariables": true,
+      "type": "go"
+    }
+  ],
+  "version": "0.2.0"
+}

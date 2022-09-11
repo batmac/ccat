@@ -1,0 +1,6 @@
+{
+  "files.associations": {
+    "*.tmpl": "shellscript"
+  },
+  "go.buildTags": "libcurl,crappy"
+}
