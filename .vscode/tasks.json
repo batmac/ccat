@@ -8,9 +8,29 @@
         "${fileDirname}/__debug_bin"
       ],
       "command": "go",
+      "group": {
+        "isDefault": false,
+        "kind": "build"
+      },
       "label": "go: build (debug)",
       "options": {
         "cwd": "${fileDirname}"
+      },
+      "type": "shell"
+    },
+    {
+      "args": [
+        "run",
+        "${workspaceFolder}/magefiles/mage.go"
+      ],
+      "command": "go",
+      "group": {
+        "isDefault": true,
+        "kind": "build"
+      },
+      "label": "go: buildDefault (Mage)",
+      "options": {
+        "cwd": "${workspaceFolder}"
       },
       "type": "shell"
     }
