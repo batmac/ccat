@@ -22,7 +22,7 @@ func mt(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 	// exhaust reader
 	_, err = io.Copy(io.Discard, r)
 	if err != nil {
-		log.Println("mimetype failed to exhaust its reader")
+		log.Println("mimetype failed to exhaust its reader:", err)
 	}
 	return io.Copy(w, strings.NewReader(mtype.String()+"\n"))
 }
