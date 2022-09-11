@@ -13,13 +13,16 @@ func init() {
 }
 
 func mt(w io.WriteCloser, r io.ReadCloser) (int64, error) {
-	// we want to be able to end early, so we limit the read
-	mimetype.SetLimit(1024)
-	mtype, err := mimetype.DetectReader(r)
+	mtype, err := mimetype.DetectReader(io.NopCloser(r))
 	if err != nil {
 		return 0, err
 	}
 	log.Debugf("detected mimetype is %s (%s)\n", mtype.String(), mtype.Extension())
 
+	// exhaust reader
+	_, err = io.Copy(io.Discard, r)
+	if err != nil {
+		log.Println("mimetype failed to exhaust its reader")
+	}
 	return io.Copy(w, strings.NewReader(mtype.String()+"\n"))
 }

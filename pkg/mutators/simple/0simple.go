@@ -91,10 +91,10 @@ func (m *simpleMutator) Start(w io.WriteCloser, r io.ReadCloser) error {
 	go func() {
 		m.Logger.Printf("%s: dumping from %v to %v\n", m.Name(), r, w)
 		written, err := m.factory.fn(w, r)
-		m.Logger.Printf("%s: done\n", m.Name())
 		if err != nil {
 			log.Fatal(err)
 		}
+		m.Logger.Printf("%s: done\n", m.Name())
 		m.Logger.Printf("%s: written %d bytes\n", m.Name(), written)
 		m.Logger.Printf("%s: closing %v\n", m.Name(), w)
 		err = r.Close()
