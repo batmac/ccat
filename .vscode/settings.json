@@ -2,7 +2,6 @@
   "files.associations": {
     "*.tmpl": "shellscript"
   },
-  "go.buildTags": "libcurl,crappy",
   "go.formatTool": "gofumpt",
   "go.lintTool": "golangci-lint",
   "gopls": {
