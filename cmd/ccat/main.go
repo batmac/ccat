@@ -203,7 +203,8 @@ func main() {
 }
 
 func buildLine() string {
-	return fmt.Sprintf("version %s [%s], commit %s, built at %s by %s (%s %s/%s)", version, tags, commit, date, builtBy, runtime.Version(), runtime.GOOS, runtime.GOARCH)
+	return fmt.Sprintf("version %s [%s], commit %s, built at %s by %s (%s %s/%s)",
+		version, tags, commit, date, builtBy, runtime.Version(), runtime.GOOS, runtime.GOARCH)
 }
 
 func Usage() {
