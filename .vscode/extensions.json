@@ -1,0 +1,9 @@
+{
+  "recommendations": [
+    "golang.go",
+    "EditorConfig.EditorConfig",
+    "bierner.github-markdown-preview",
+    "elagil.pre-commit-helper",
+    "timonwong.shellcheck"
+  ]
+}
