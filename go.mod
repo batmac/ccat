@@ -24,7 +24,7 @@ require (
 	github.com/hbollon/go-edlib v1.6.0
 	github.com/kevinburke/nacl v0.0.0-20210405173606-cd9060f5f776
 	github.com/klauspost/compress v1.15.9
-	github.com/kofalt/go-memoize v0.0.0-20210721235729-46a601ff34b8
+	github.com/kofalt/go-memoize v0.0.0-20220914132407-0b5d6a304579
 	github.com/magefile/mage v1.13.0
 	github.com/minio/minio-go/v7 v7.0.36
 	github.com/mitchellh/go-homedir v1.1.0
