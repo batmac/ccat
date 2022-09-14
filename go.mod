@@ -4,6 +4,7 @@ go 1.19
 
 require (
 	cloud.google.com/go/storage v1.26.0
+	github.com/OneOfOne/xxhash v1.2.8
 	github.com/aixiansheng/lzfse v0.2.4
 	github.com/alecthomas/chroma/v2 v2.2.0
 	github.com/andelf/go-curl v0.0.0-20200630032108-fd49ff24ed97
@@ -12,7 +13,6 @@ require (
 	github.com/aws/aws-sdk-go-v2/config v1.17.5
 	github.com/aws/aws-sdk-go-v2/service/s3 v1.27.9
 	github.com/aws/aws-sdk-go-v2/service/sts v1.16.17
-	github.com/cespare/xxhash/v2 v2.1.2
 	github.com/creativeprojects/go-selfupdate v0.6.1
 	github.com/dsnet/compress v0.0.1
 	github.com/eliukblau/pixterm v1.3.1

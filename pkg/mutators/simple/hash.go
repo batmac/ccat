@@ -9,8 +9,7 @@ import (
 	"crypto/md5"  //#nosec
 	"crypto/sha1" //#nosec
 
-	"github.com/cespare/xxhash/v2"
-	//  ssha256 "github.com/minio/sha256-simd"
+	"github.com/OneOfOne/xxhash"
 	"github.com/zeebo/xxh3"
 )
 
@@ -22,7 +21,8 @@ var list = []struct {
 }{
 	{"sha256", "compute the sha256 checksum", sha256.New},
 	// {"sha256", "compute the sha256 checksum", ssha256.New()},
-	{"xxhash", "compute the xxhash (xxh64) checksum", xxhashNew},
+	{"xxh64", "compute the xxhash64 checksum", xxh64New},
+	{"xxh32", "compute the xxhash32 checksum", xxh32New},
 	{"xxh3", "compute the xxh3 checksum", xxh3New},
 	// useful but avoid them
 	//#nosec
@@ -55,5 +55,6 @@ func wrap(f hasher) func(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 	}
 }
 
-func xxhashNew() hash.Hash { return xxhash.New() }
-func xxh3New() hash.Hash   { return xxh3.New() }
+func xxh3New() hash.Hash  { return xxh3.New() }
+func xxh32New() hash.Hash { return xxhash.New32() }
+func xxh64New() hash.Hash { return xxhash.New64() }

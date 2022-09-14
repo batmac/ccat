@@ -29,7 +29,7 @@ func Test_simpleSha256(t *testing.T) {
 	}
 }
 
-func Test_simpleXxhash(t *testing.T) {
+func Test_simpleXxh64(t *testing.T) {
 	tests := []struct {
 		name, decoded, encoded string
 	}{
@@ -41,7 +41,29 @@ func Test_simpleXxhash(t *testing.T) {
 		{"indented4", "  \n\n { \n\n \n  \n \"hi\"  \n: \n   1 \n}", "f165adb16aa69b92"},
 	}
 
-	f := "xxhash"
+	f := "xxh64"
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := mutators.Run(f, tt.decoded); strings.TrimSuffix(got, "\n") != tt.encoded {
+				t.Errorf("%s = %v, want %v", f, strings.TrimSuffix(got, "\n"), tt.encoded)
+			}
+		})
+	}
+}
+
+func Test_simpleXxh32(t *testing.T) {
+	tests := []struct {
+		name, decoded, encoded string
+	}{
+		{"empty", "", "02cc5d05"},
+		{"simple", "{}", "18473489"},
+		{"indented", `{"hi":"hi"}`, "980ceffc"},
+		{"indented2", `{"hi": 1}`, "d1b0f9e8"},
+		{"indented3", "   { \n \"hi\" :    1 \n    }", "e43b79fc"},
+		{"indented4", "  \n\n { \n\n \n  \n \"hi\"  \n: \n   1 \n}", "8c1e37fa"},
+	}
+
+	f := "xxh32"
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := mutators.Run(f, tt.decoded); strings.TrimSuffix(got, "\n") != tt.encoded {
