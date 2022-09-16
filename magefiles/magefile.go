@@ -24,7 +24,7 @@ var (
 )
 
 func init() {
-	if term.IsStdoutTerminal() {
+	if term.IsStdoutTerminal() && runtime.GOOS != "windows" {
 		os.Setenv("MAGEFILE_ENABLE_COLOR", "1")
 	}
 	if runtime.GOOS == "windows" {
