@@ -8,6 +8,7 @@ import (
 	"runtime"
 	"time"
 
+	"github.com/batmac/ccat/pkg/term"
 	"github.com/google/renameio/maybe"
 	"github.com/magefile/mage/mg" // mg contains helpful utility functions, like Deps
 	"github.com/magefile/mage/sh"
@@ -23,6 +24,9 @@ var (
 )
 
 func init() {
+	if term.IsStdoutTerminal() {
+		os.Setenv("MAGEFILE_ENABLE_COLOR", "1")
+	}
 	if runtime.GOOS == "windows" {
 		binaryName = "ccat.exe"
 	}
