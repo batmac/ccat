@@ -31,6 +31,9 @@
       ],
       "matchPackagePrefixes": [
         "github.com/aws/aws-sdk-go-v2"
+      ],
+      "schedule": [
+        "every weekend"
       ]
     }
   ],
