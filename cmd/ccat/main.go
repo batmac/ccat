@@ -46,6 +46,7 @@ var (
 	argSelfUpdate   = flag.Bool("selfupdate", false, "Update to latest Github release")
 	argCheckUpdate  = flag.Bool("check", false, "Check version with the latest Github release")
 	argDebug        = flag.BoolP("debug", "d", false, "debug what we are doing")
+	argMemUsage     = flag.BoolP("mem-usage", "M", false, "print memory usage on stderr at the end")
 	argInsecure     = flag.BoolP("insecure", "k", false, "get files insecurely (globally)")
 	argCompletion   = flag.StringP("completion", "C", "", "print shell completion script")
 	argLess         = flag.BoolP("ui", "T", false, "display with a minimal ui")
@@ -195,6 +196,10 @@ func main() {
 		globalctx.Set("insecure", *argInsecure)
 
 		process(os.Stdout, path)
+	}
+
+	if *argMemUsage {
+		PrintMemUsage()
 	}
 
 	if globalctx.IsErrored() {
