@@ -23,7 +23,11 @@ func TestIsArt(t *testing.T) {
 		{"gif", args{"xxx.gif"}, true},
 		{"png", args{"xxx.png"}, true},
 		{"jpg", args{"xxx.jpg"}, true},
-		{"heic", args{"xxx.heic"}, true},
+		{"jpeg", args{"xxx.jpeg"}, true},
+		{"tiff", args{"xxx.tiff"}, true},
+		{"tif", args{"xxx.tif"}, true},
+		{"bmp", args{"xxx.bmp"}, true},
+		{"webp", args{"xxx.webp"}, true},
 	}
 
 	for _, tt := range tests {

@@ -18,7 +18,7 @@ const (
 
 var (
 	ext = []string{
-		"jpeg", "jpg", "gif", "png", "heic", "tiff", "svg",
+		"jpeg", "jpg", "gif", "png", "tiff", "tif", "bmp", "webp",
 	}
 	extMap = make(map[string]bool)
 )
