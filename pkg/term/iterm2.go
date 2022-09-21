@@ -10,7 +10,7 @@ import (
 func IsITerm2() bool {
 	// LC_TERMINAL = iTerm2
 	// TERM_PROGRAM = iTerm.app
-	if os.Getenv("TERM_PROGRAM") == "iTerm.app" {
+	if os.Getenv("TERM_PROGRAM") == "iTerm.app" && os.Getenv("IGNORE_ITERM2") == "" {
 		return IsStdoutTerminal()
 	}
 	return false
