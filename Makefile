@@ -2,6 +2,11 @@
 build:
 	go run magefiles/mage.go
 
+test:
+	go run magefiles/mage.go
+	go run magefiles/mage.go buildfull test
+	go run magefiles/mage.go buildminimal test
+
 thanks:
 	gothanks
 
