@@ -55,10 +55,10 @@ func (f s3Opener) Open(s string, _ bool) (io.ReadCloser, error) {
 	log.Debugf("request to get %s in %s\n", object, bucket)
 
 	if !isAWSEnvSet() {
-		log.Debugf("  nothing found in env, setting a default profile\n")
+		log.Debugf("  nothing found in env, setting a default profile and region\n")
 		os.Setenv("AWS_PROFILE", "default")
+		os.Setenv("AWS_REGION", "us-east-1")
 	}
-	// os.Setenv("AWS_PROFILE", "splio-sandbox")
 
 	// Load the Shared AWS Configuration (~/.aws/config)``
 	log.Debugf(" LoadDefaultConfig...\n")
