@@ -2,4 +2,5 @@
 LICENSE text eol=lf
 *.go -text diff=golang
 *.gif binary
+*.lzfse binary
 testdata/** -text linguist-vendored
