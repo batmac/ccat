@@ -59,8 +59,6 @@ func TestCompressionGo() error {
 }
 
 func compressionAlgs() []string {
-	// this should be automated
-	// algs := "bzip2 gzip lz4 lzma2 lzma s2 snap xz zip zlib zstd"
 	algs := mutators.ListAvailableMutators("compress")
 	// sanity check
 	if len(algs) < 10 {
