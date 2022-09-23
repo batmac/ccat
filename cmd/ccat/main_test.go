@@ -7,4 +7,5 @@ func Test_main(_ *testing.T) {
 	buildLine()
 	Usage()
 	FullUsage()
+	main()
 }
