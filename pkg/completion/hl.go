@@ -23,7 +23,7 @@ func getCompletionData(opts []string) *completionData {
 	utils.SortStringsCaseInsensitive(formatters)
 	return &completionData{
 		Options:    strings.Join(opts, " "),
-		Mutators:   strings.Join(mutators.ListAvailableMutators(), " "),
+		Mutators:   strings.Join(mutators.ListAvailableMutators("ALL"), " "),
 		Formatters: strings.Join(formatters, " "),
 		Styles:     strings.Join(styles, " "),
 		Lexers:     strings.Join(lexers, " "),
