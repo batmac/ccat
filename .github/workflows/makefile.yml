@@ -21,4 +21,4 @@ jobs:
       - name: Install cURL Headers
         run: sudo apt-get install libcurl4-openssl-dev
       - name: Run
-        run: make
+        run: make test
