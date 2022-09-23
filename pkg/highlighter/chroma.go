@@ -12,8 +12,8 @@ import (
 	"time"
 
 	"github.com/batmac/ccat/pkg/log"
+	"github.com/batmac/ccat/pkg/stringutils"
 	"github.com/batmac/ccat/pkg/term"
-	"github.com/batmac/ccat/pkg/utils"
 
 	"github.com/alecthomas/chroma/v2"
 	"github.com/alecthomas/chroma/v2/formatters"
@@ -145,10 +145,10 @@ func checkWithFuzzy(s string, list []string) bool {
 		return false
 	}
 	// log.Printf("%v\n", list)
-	if utils.IsStringInSlice(s, list) {
+	if stringutils.IsStringInSlice(s, list) {
 		return true
 	}
-	fs, err := utils.FuzzySearch(s, list, 0.5)
+	fs, err := stringutils.FuzzySearch(s, list, 0.5)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -162,9 +162,9 @@ func checkWithFuzzy(s string, list []string) bool {
 
 func (h *Chroma) help() string {
 	lexers, styles, formatters := lexers.Names(true), styles.Names(), formatters.Names()
-	utils.SortStringsCaseInsensitive(lexers)
-	utils.SortStringsCaseInsensitive(styles)
-	utils.SortStringsCaseInsensitive(formatters)
+	stringutils.SortStringsCaseInsensitive(lexers)
+	stringutils.SortStringsCaseInsensitive(styles)
+	stringutils.SortStringsCaseInsensitive(formatters)
 	return fmt.Sprintf("  - Lexers: %v\n  - Styles: %v\n  - Formatters: %v\n",
 		strings.Join(lexers, ", "),
 		strings.Join(styles, ", "),

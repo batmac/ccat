@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/batmac/ccat/pkg/mutators"
-	"github.com/batmac/ccat/pkg/utils"
+	"github.com/batmac/ccat/pkg/stringutils"
 )
 
 var testsYJ = []struct {
@@ -23,8 +23,8 @@ func Test_simpleY2J(t *testing.T) {
 	f := "y2j"
 	for _, tt := range testsYJ {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := mutators.Run(f, tt.decoded); utils.DeleteSpaces(got) != tt.encoded {
-				t.Errorf("%s = %v, want %v", f, utils.DeleteSpaces(got), tt.encoded)
+			if got := mutators.Run(f, tt.decoded); stringutils.DeleteSpaces(got) != tt.encoded {
+				t.Errorf("%s = %v, want %v", f, stringutils.DeleteSpaces(got), tt.encoded)
 			}
 		})
 	}

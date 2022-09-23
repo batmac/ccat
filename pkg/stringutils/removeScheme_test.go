@@ -1,9 +1,9 @@
-package utils_test
+package stringutils_test
 
 import (
 	"testing"
 
-	"github.com/batmac/ccat/pkg/utils"
+	"github.com/batmac/ccat/pkg/stringutils"
 )
 
 func TestRemoveScheme(t *testing.T) {
@@ -26,7 +26,7 @@ func TestRemoveScheme(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := utils.RemoveScheme(tt.args.s); got != tt.want {
+			if got := stringutils.RemoveScheme(tt.args.s); got != tt.want {
 				t.Errorf("RemoveScheme() = %v, want %v", got, tt.want)
 			}
 		})

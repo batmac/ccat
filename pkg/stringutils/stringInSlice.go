@@ -1,4 +1,4 @@
-package utils
+package stringutils
 
 func IsStringInSlice(a string, list []string) bool {
 	for _, b := range list {

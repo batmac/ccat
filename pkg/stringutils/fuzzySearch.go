@@ -1,4 +1,4 @@
-package utils
+package stringutils
 
 import (
 	"github.com/batmac/ccat/pkg/log"

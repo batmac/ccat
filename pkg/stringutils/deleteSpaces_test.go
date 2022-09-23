@@ -1,9 +1,9 @@
-package utils_test
+package stringutils_test
 
 import (
 	"testing"
 
-	"github.com/batmac/ccat/pkg/utils"
+	"github.com/batmac/ccat/pkg/stringutils"
 )
 
 func TestDeleteSpaces(t *testing.T) {
@@ -28,7 +28,7 @@ func TestDeleteSpaces(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := utils.DeleteSpaces(tt.args.str); got != tt.want {
+			if got := stringutils.DeleteSpaces(tt.args.str); got != tt.want {
 				t.Errorf("DeleteSpaces() = %v, want %v", got, tt.want)
 			}
 		})

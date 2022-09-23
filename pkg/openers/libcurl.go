@@ -11,7 +11,7 @@ import (
 
 	"github.com/batmac/ccat/pkg/globalctx"
 	"github.com/batmac/ccat/pkg/log"
-	"github.com/batmac/ccat/pkg/utils"
+	"github.com/batmac/ccat/pkg/stringutils"
 
 	curl "github.com/andelf/go-curl"
 )
@@ -150,7 +150,7 @@ func (f curlOpener) Evaluate(s string) float32 {
 	arr := strings.SplitN(s, "://", 2)
 	before := arr[0]
 	// log.Printf("before=%s found=%v s=%v", before, found, s)
-	if utils.IsStringInSlice(before, curl.VersionInfo(0).Protocols) {
+	if stringutils.IsStringInSlice(before, curl.VersionInfo(0).Protocols) {
 		return 0.1
 	}
 	return 0

@@ -1,16 +1,17 @@
 package main
 
 import (
-	"crypto/sha256"
 	"errors"
 	"fmt"
-	"io"
 	"os"
 	"path/filepath"
-	"strings"
 
 	"github.com/magefile/mage/mg"
 	"github.com/magefile/mage/sh"
+
+	"github.com/batmac/ccat/pkg/mutators"
+	_ "github.com/batmac/ccat/pkg/mutators/simple"
+	"github.com/batmac/ccat/pkg/utils"
 )
 
 func TestCompressionGo() error {
@@ -25,7 +26,7 @@ func TestCompressionGo() error {
 	}
 	for _, file := range files {
 		filePath := filepath.Join(dir, file.Name())
-		expectedCksum, err := fileChecksum(filePath)
+		expectedCksum, err := utils.FileChecksum(filePath)
 		if err != nil {
 			return err
 		}
@@ -37,6 +38,9 @@ func TestCompressionGo() error {
 			cksum, err := sh.Output("./"+binaryName, opts...)
 			if err != nil {
 				return err
+			}
+			if mg.Debug() {
+				fmt.Printf("%v %v\n", cksum, alg)
 			}
 			if cksum != expectedCksum {
 				failure = true
@@ -54,21 +58,13 @@ func TestCompressionGo() error {
 	return nil
 }
 
-func fileChecksum(path string) (string, error) {
-	file, err := os.Open(path)
-	if err != nil {
-		return "", err
-	}
-	defer file.Close()
-	hash := sha256.New()
-	if _, err := io.Copy(hash, file); err != nil {
-		return "", err
-	}
-	return fmt.Sprintf("%x", hash.Sum(nil)), nil
-}
-
 func compressionAlgs() []string {
 	// this should be automated
-	algs := "bzip2 gzip lz4 lzma2 lzma s2 snap xz zip zlib zstd"
-	return strings.Split(algs, " ")
+	// algs := "bzip2 gzip lz4 lzma2 lzma s2 snap xz zip zlib zstd"
+	algs := mutators.ListAvailableMutators("compress")
+	// sanity check
+	if len(algs) < 10 {
+		panic("not enough compression algorithms")
+	}
+	return algs
 }

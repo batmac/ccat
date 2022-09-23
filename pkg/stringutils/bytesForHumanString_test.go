@@ -1,9 +1,9 @@
-package utils_test
+package stringutils_test
 
 import (
 	"testing"
 
-	"github.com/batmac/ccat/pkg/utils"
+	"github.com/batmac/ccat/pkg/stringutils"
 )
 
 func TestBytesForHumanString(t *testing.T) {
@@ -67,7 +67,7 @@ func TestBytesForHumanString(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := utils.BytesForHumanString(tt.args.b); got != tt.want {
+			if got := stringutils.BytesForHumanString(tt.args.b); got != tt.want {
 				t.Errorf("BytesForHumanString() = %v, want %v", got, tt.want)
 			}
 		})

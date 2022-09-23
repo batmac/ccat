@@ -1,10 +1,10 @@
-package utils_test
+package stringutils_test
 
 import (
 	"reflect"
 	"testing"
 
-	"github.com/batmac/ccat/pkg/utils"
+	"github.com/batmac/ccat/pkg/stringutils"
 )
 
 func TestSortStringsCaseInsensitive(t *testing.T) {
@@ -30,7 +30,7 @@ func TestSortStringsCaseInsensitive(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			utils.SortStringsCaseInsensitive(tt.data)
+			stringutils.SortStringsCaseInsensitive(tt.data)
 			if !reflect.DeepEqual(tt.data, tt.expected) {
 				t.Fatalf("%v failed: got %#v, expected %#v", tt.name, tt.data, tt.expected)
 			}

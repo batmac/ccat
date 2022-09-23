@@ -1,9 +1,9 @@
-package utils_test
+package stringutils_test
 
 import (
 	"testing"
 
-	"github.com/batmac/ccat/pkg/utils"
+	"github.com/batmac/ccat/pkg/stringutils"
 )
 
 func TestFuzzySearch(t *testing.T) {
@@ -25,7 +25,7 @@ func TestFuzzySearch(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := utils.FuzzySearch(tt.args.str, tt.args.strList, tt.args.threshold)
+			got, err := stringutils.FuzzySearch(tt.args.str, tt.args.strList, tt.args.threshold)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("FuzzySearch() error = %v, wantErr %v", err, tt.wantErr)
 				return

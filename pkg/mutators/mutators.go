@@ -9,7 +9,7 @@ import (
 	"sync"
 
 	"github.com/batmac/ccat/pkg/log"
-	"github.com/batmac/ccat/pkg/utils"
+	"github.com/batmac/ccat/pkg/stringutils"
 )
 
 var (
@@ -128,7 +128,7 @@ func AvailableMutatorsHelp() string {
 
 func Run(mutatorName, input string) string {
 	in := io.NopCloser(strings.NewReader(input))
-	out := new(utils.NopStringWriteCloser)
+	out := new(stringutils.NopStringWriteCloser)
 	m, err := New(mutatorName)
 	if err != nil {
 		log.Fatal(err)
@@ -145,7 +145,7 @@ func Run(mutatorName, input string) string {
 
 func TryFuzzySearch(name string) {
 	list := ListAvailableMutators("ALL")
-	f, err := utils.FuzzySearch(name, list, 0.5)
+	f, err := stringutils.FuzzySearch(name, list, 0.5)
 	if err != nil {
 		log.Debugln(err)
 		return

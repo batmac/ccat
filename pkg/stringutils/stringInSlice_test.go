@@ -1,9 +1,9 @@
-package utils_test
+package stringutils_test
 
 import (
 	"testing"
 
-	"github.com/batmac/ccat/pkg/utils"
+	"github.com/batmac/ccat/pkg/stringutils"
 )
 
 func TestStringInSlice(t *testing.T) {
@@ -24,7 +24,7 @@ func TestStringInSlice(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := utils.IsStringInSlice(tt.args.a, tt.args.list); got != tt.want {
+			if got := stringutils.IsStringInSlice(tt.args.a, tt.args.list); got != tt.want {
 				t.Errorf("StringInSlice() = %v, want %v", got, tt.want)
 			}
 		})

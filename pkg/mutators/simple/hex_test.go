@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/batmac/ccat/pkg/mutators"
-	"github.com/batmac/ccat/pkg/utils"
+	"github.com/batmac/ccat/pkg/stringutils"
 )
 
 func Test_simpleHexDump(t *testing.T) {
@@ -37,7 +37,7 @@ func Test_simpleHexDump(t *testing.T) {
 	f := "hexdump"
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := mutators.Run(f, tt.input); utils.DeleteSpaces(got) != utils.DeleteSpaces(tt.want) {
+			if got := mutators.Run(f, tt.input); stringutils.DeleteSpaces(got) != stringutils.DeleteSpaces(tt.want) {
 				t.Errorf("%s = %v, want %v", f, got, tt.want)
 			}
 		})

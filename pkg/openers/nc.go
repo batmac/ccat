@@ -10,7 +10,7 @@ import (
 	"strings"
 
 	"github.com/batmac/ccat/pkg/log"
-	"github.com/batmac/ccat/pkg/utils"
+	"github.com/batmac/ccat/pkg/stringutils"
 )
 
 var (
@@ -38,11 +38,11 @@ func (f tcpOpener) Description() string {
 }
 
 func (f tcpOpener) Open(s string, _ bool) (io.ReadCloser, error) {
-	l, err := net.Listen("tcp", utils.RemoveScheme(s))
+	l, err := net.Listen("tcp", stringutils.RemoveScheme(s))
 	if err != nil {
 		return nil, fmt.Errorf("error listening: %v", err)
 	}
-	log.Debugln("Listening on " + utils.RemoveScheme(s))
+	log.Debugln("Listening on " + stringutils.RemoveScheme(s))
 
 	conn, err := l.Accept()
 	if err != nil {

@@ -15,7 +15,7 @@ import (
 
 	"github.com/batmac/ccat/pkg/globalctx"
 	"github.com/batmac/ccat/pkg/log"
-	"github.com/batmac/ccat/pkg/utils"
+	"github.com/batmac/ccat/pkg/stringutils"
 
 	"github.com/minio/minio-go/v7"
 	"github.com/minio/minio-go/v7/pkg/credentials"
@@ -168,7 +168,7 @@ func getConfigFromMCFile(alias string) Config {
 
 	if a, ok := conf.Aliases[alias]; ok {
 		log.Debugf("found a config for '%s' in mc config (version %s)\n", alias, conf.Version)
-		return Config{utils.RemoveScheme(a.Endpoint), a.AccessKeyID, a.SecretAccessKey}
+		return Config{stringutils.RemoveScheme(a.Endpoint), a.AccessKeyID, a.SecretAccessKey}
 	}
 
 	return Config{}

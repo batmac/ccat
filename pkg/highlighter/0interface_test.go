@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	"github.com/batmac/ccat/pkg/highlighter"
-	"github.com/batmac/ccat/pkg/utils"
+	"github.com/batmac/ccat/pkg/stringutils"
 )
 
 func TestGo(t *testing.T) {
@@ -20,8 +20,8 @@ func TestGo(t *testing.T) {
 		args    args
 		wantErr bool
 	}{
-		{"empty", args{&utils.NopStringWriteCloser{}, io.NopCloser(&bytes.Buffer{}), highlighter.Options{"", "", "", ""}}, false},
-		{"simple", args{&utils.NopStringWriteCloser{}, io.NopCloser(bytes.NewBufferString("hello")), highlighter.Options{"", "", "", ""}}, false},
+		{"empty", args{&stringutils.NopStringWriteCloser{}, io.NopCloser(&bytes.Buffer{}), highlighter.Options{"", "", "", ""}}, false},
+		{"simple", args{&stringutils.NopStringWriteCloser{}, io.NopCloser(bytes.NewBufferString("hello")), highlighter.Options{"", "", "", ""}}, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

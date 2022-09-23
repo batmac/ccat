@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/batmac/ccat/pkg/mutators"
-	"github.com/batmac/ccat/pkg/utils"
+	"github.com/batmac/ccat/pkg/stringutils"
 )
 
 func Test_simplePlist(t *testing.T) {
@@ -39,7 +39,7 @@ func Test_simplePlist(t *testing.T) {
 	f := "plist2Y"
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := mutators.Run(f, tt.decoded); utils.DeleteSpaces(got) != utils.DeleteSpaces(tt.encoded) {
+			if got := mutators.Run(f, tt.decoded); stringutils.DeleteSpaces(got) != stringutils.DeleteSpaces(tt.encoded) {
 				t.Errorf("%s = %v, want %v", f, got, tt.encoded)
 			}
 		})
