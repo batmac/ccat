@@ -23,6 +23,7 @@ func TestNewPipeline(t *testing.T) {
 		args    args
 		wantErr bool
 	}{
+		{"empty", args{"", "", ""}, true},
 		{"dummy", args{"dummy", "in", "in"}, false},
 		{"dummy,dummy", args{"dummy,dummy", "in 2", "in 2"}, false},
 		{"dummy,dummy,dummy", args{"dummy,dummy,dummy", "in 3", "in 3"}, false},
