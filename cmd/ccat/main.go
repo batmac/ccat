@@ -224,6 +224,7 @@ func usage(w io.Writer, full bool) {
 	flag.CommandLine.SortFlags = false
 	flag.CommandLine.SetOutput(w)
 	fmt.Fprintln(w, buildLine())
+	fmt.Fprintln(w, "usage: ccat [options] [file ...]")
 	flag.PrintDefaults()
 	fmt.Fprintln(w, "")
 
