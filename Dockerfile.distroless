@@ -1,0 +1,16 @@
+FROM golang:1.19-alpine as build
+WORKDIR /usr/src/app
+# install git for go buildinfo (-B)
+# hadolint ignore=DL3018
+RUN apk upgrade --no-cache \
+    && apk add --no-cache git \
+    && go install github.com/magefile/mage@latest
+COPY . .
+ENV CGO_ENABLED 0
+RUN go version && mage
+
+# hadolint ignore=DL3006
+FROM gcr.io/distroless/static-debian11
+COPY --from=build /usr/src/app/ccat /usr/bin/ccat
+USER 1000
+ENTRYPOINT ["/usr/bin/ccat"]
