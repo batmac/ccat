@@ -42,7 +42,7 @@ repos:
   # - id: forbid-crlf
   # - id: remove-crlf
   - repo: https://github.com/zricethezav/gitleaks
-    rev: v8.12.0
+    rev: v8.13.0
     hooks:
       - id: gitleaks
   - repo: https://github.com/Bahjat/pre-commit-golang
@@ -67,7 +67,7 @@ repos:
         args:
           ["--allow-parallel-runners", "--go=1.17", "--config=.golangci.yml"]
   - repo: https://github.com/renovatebot/pre-commit-hooks
-    rev: 32.199.1
+    rev: 32.204.4
     hooks:
       - id: renovate-config-validator
   - repo: https://github.com/pre-commit-ci/pre-commit-ci-config
