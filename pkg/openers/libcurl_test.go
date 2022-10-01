@@ -1,5 +1,5 @@
-//go:build !fileonly
-// +build !fileonly
+//go:build cgo && libcurl && !fileonly
+// +build cgo,libcurl,!fileonly
 
 package openers_test
 
@@ -18,42 +18,42 @@ import (
 )
 
 var (
-	hostTest         = "127.0.0.1"
-	portTest         int
-	insecurePortTest int
-	m                sync.Mutex
+	curlHostTest         = "127.0.0.1"
+	curlPortTest         int
+	curlInsecurePortTest int
+
+	curlm sync.Mutex
 )
 
 func init() {
-	rand.Seed(time.Now().UnixNano())
-
 	go func() {
+		rand.Seed(time.Now().UnixNano())
 		// find an available port
-		for i := 0; i < 100; i++ {
-			m.Lock()
-			portTest = 10000 + rand.Intn(55000) //#nosec G404
-			m.Unlock()
-			_ = http.ListenAndServe(hostTest+":"+strconv.Itoa(portTest), SimpleHandler())
+		for {
+			curlm.Lock()
+			curlPortTest = 10000 + rand.Intn(55000) //#nosec G404
+			curlm.Unlock()
+			_ = http.ListenAndServe(curlHostTest+":"+strconv.Itoa(curlPortTest), curlSimpleHandler())
 		}
 	}()
 	go func() {
 		// find an available port
 		for i := 0; i < 100; i++ {
 			m.Lock()
-			insecurePortTest = 10000 + rand.Intn(55000) //#nosec G404
+			curlInsecurePortTest = 10000 + rand.Intn(55000) //#nosec G404
 			m.Unlock()
-			err := http.ListenAndServeTLS(hostTest+":"+strconv.Itoa(insecurePortTest), "testdata/server.crt", "testdata/server.bin", SimpleHandler())
+			err := http.ListenAndServeTLS(curlHostTest+":"+strconv.Itoa(curlInsecurePortTest), "testdata/server.crt", "testdata/server.bin", curlSimpleHandler())
 			if err != nil {
 				fmt.Println(err)
 			}
 		}
 	}()
-	// give the routines some time to find available ports.
+	// give the routine some time to find an available port.
 	time.Sleep(1 * time.Second)
 }
 
-func Test_http(t *testing.T) {
-	m.Lock()
+func Test_libcurlHttp(t *testing.T) {
+	curlm.Lock()
 	type args struct {
 		s    string
 		lock bool
@@ -63,10 +63,10 @@ func Test_http(t *testing.T) {
 		args    args
 		wantErr bool
 	}{
-		{"ok", args{"http://" + hostTest + ":" + strconv.Itoa(portTest), false}, false},
-		{"fake", args{"http://fakefakefake", false}, true},
+		{"ok", args{"curlhttp://" + curlHostTest + ":" + strconv.Itoa(curlPortTest), false}, false},
+		{"fake", args{"curlhttp://fakefakefake", false}, true},
 	}
-	m.Unlock()
+	curlm.Unlock()
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			f, err := openers.Open(tt.args.s, tt.args.lock)
@@ -83,7 +83,7 @@ func Test_http(t *testing.T) {
 	}
 }
 
-func Test_https(t *testing.T) {
+func Test_libcurlHttps(t *testing.T) {
 	m.Lock()
 	type args struct {
 		s    string
@@ -95,8 +95,8 @@ func Test_https(t *testing.T) {
 		insecure bool
 		wantErr  bool
 	}{
-		{"ko", args{s: "https://" + hostTest + ":" + strconv.Itoa(insecurePortTest), lock: false}, false, true},
-		{"ok", args{s: "https://" + hostTest + ":" + strconv.Itoa(insecurePortTest), lock: false}, true, false},
+		{"ko", args{s: "curlhttps://" + curlHostTest + ":" + strconv.Itoa(curlInsecurePortTest), lock: false}, false, true},
+		{"ok", args{s: "curlhttps://" + curlHostTest + ":" + strconv.Itoa(curlInsecurePortTest), lock: false}, true, false},
 		{"fake", args{"https://fakefakefake", false}, false, true},
 		{"fake", args{"https://fakefakefake", false}, true, true},
 	}
@@ -118,10 +118,10 @@ func Test_https(t *testing.T) {
 	}
 }
 
-func Simple(w http.ResponseWriter, _ *http.Request) {
+func curlSimple(w http.ResponseWriter, _ *http.Request) {
 	http.Error(w, "200 hello", http.StatusOK)
 }
 
-func SimpleHandler() http.Handler {
-	return http.HandlerFunc(Simple)
+func curlSimpleHandler() http.Handler {
+	return http.HandlerFunc(curlSimple)
 }
