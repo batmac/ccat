@@ -103,7 +103,7 @@ $ kubectl run -i --tty ccat --image=batmac/ccat:latest -- /bin/sh
 ## help
 
 ```
-version v1.3.1-22-g9fce554 [libcurl,crappy], commit 9fce554215f95badf07a48a961cf7383760e7001, built at 2022-09-29@15:34:19+0200 by Mage (go1.19.1 darwin/arm64)
+version v1.3.2-2-gfbfdca8 [libcurl,crappy], commit fbfdca8c865ab4623db88ccb2291b27ec9b3d057, built at 2022-10-01@14:59:16+0200 by Mage (go1.19.1 darwin/arm64)
 usage: ccat [options] [file ...]
   -t, --tokens string       comma-separated list of tokens
   -i, --ignore-case         tokens given with -t are case-insensitive
@@ -142,6 +142,7 @@ ccat <files>...
  - openers:
     file: open local files
     gcs: get a GCP Cloud Storage object via gs://
+    http: get URL via HTTP(S)
     curl: get URL via libcurl bindings
            libcurl/7.79.1 SecureTransport (LibreSSL/3.3.6) zlib/1.2.11 nghttp2/1.45.1
            protocols: dict,file,ftp,ftps,gopher,gophers,http,https,imap,imaps,ldap,ldaps,mqtt,pop3,pop3s,rtsp,smb,smbs,smtp,smtps,telnet,tftp
