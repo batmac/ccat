@@ -53,7 +53,7 @@ func (f rcloneOpener) Open(s string, _ bool) (io.ReadCloser, error) {
 		if err != nil {
 			log.Println(err)
 		}
-		w.Close()
+		_ = w.Close()
 	}()
 
 	return r, nil
