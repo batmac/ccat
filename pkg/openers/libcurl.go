@@ -153,6 +153,9 @@ func (f curlOpener) Evaluate(s string) float32 {
 	if stringutils.IsStringInSlice(before, curl.VersionInfo(0).Protocols) {
 		return 0.1
 	}
+	if before == "curlhttp" || before == "curlhttps" {
+		return 1.0
+	}
 	return 0
 }
 
@@ -166,6 +169,10 @@ func tryTransformURL(s string) string {
 		url := "https://raw.githubusercontent.com/" + matches[1] + matches[2]
 		log.Debugf("%s looks like a github url, transforming it to get the raw version: %s", s, url)
 		return url
+	}
+
+	if strings.HasPrefix(s, "curlhttp://") || strings.HasPrefix(s, "curlhttps://") {
+		return strings.TrimPrefix(s, "curl")
 	}
 	return s
 }

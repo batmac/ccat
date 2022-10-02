@@ -23,14 +23,14 @@ require (
 	github.com/gowebpki/jcs v1.0.0
 	github.com/hbollon/go-edlib v1.6.0
 	github.com/kevinburke/nacl v0.0.0-20210405173606-cd9060f5f776
-	github.com/klauspost/compress v1.15.10
+	github.com/klauspost/compress v1.15.11
 	github.com/kofalt/go-memoize v0.0.0-20220914132407-0b5d6a304579
 	github.com/magefile/mage v1.14.0
-	github.com/minio/minio-go/v7 v7.0.38
+	github.com/minio/minio-go/v7 v7.0.39
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/muesli/reflow v0.3.0
 	github.com/patrickmn/go-cache v2.1.0+incompatible
-	github.com/pierrec/lz4/v4 v4.1.16
+	github.com/pierrec/lz4/v4 v4.1.17
 	github.com/rclone/rclone v1.59.2
 	github.com/rivo/tview v0.0.0-20220916081518-2e69b7385a37
 	github.com/robert-nix/ansihtml v1.0.1
