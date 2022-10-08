@@ -33,7 +33,7 @@ func init() {
 			m.Lock()
 			portTest = 10000 + rand.Intn(55000) //#nosec G404
 			m.Unlock()
-			_ = http.ListenAndServe(hostTest+":"+strconv.Itoa(portTest), SimpleHandler())
+			_ = http.ListenAndServe(hostTest+":"+strconv.Itoa(portTest), SimpleHandler()) //nolint:gosec
 		}
 	}()
 	go func() {
@@ -42,7 +42,7 @@ func init() {
 			m.Lock()
 			insecurePortTest = 10000 + rand.Intn(55000) //#nosec G404
 			m.Unlock()
-			err := http.ListenAndServeTLS(hostTest+":"+strconv.Itoa(insecurePortTest), "testdata/server.crt", "testdata/server.bin", SimpleHandler())
+			err := http.ListenAndServeTLS(hostTest+":"+strconv.Itoa(insecurePortTest), "testdata/server.crt", "testdata/server.bin", SimpleHandler()) //nolint:gosec
 			if err != nil {
 				fmt.Println(err)
 			}
