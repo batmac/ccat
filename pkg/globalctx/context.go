@@ -28,14 +28,14 @@ func init() {
 	Reset()
 }
 
-func Set(k string, v interface{}) {
+func Set(k string, v any) {
 	globalCtx.mu.Lock()
 	defer globalCtx.mu.Unlock()
 	log.Debugf("globalctx: setting %v=%v\n", k, v)
 	globalCtx.ctx = context.WithValue(globalCtx.ctx, key(k), v)
 }
 
-func Get(k string) interface{} {
+func Get(k string) any {
 	globalCtx.mu.Lock()
 	defer globalCtx.mu.Unlock()
 	return globalCtx.ctx.Value(key(k))

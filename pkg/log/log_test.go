@@ -39,7 +39,7 @@ func TestSetDebug(t *testing.T) {
 
 func TestPp(t *testing.T) {
 	type args struct {
-		data interface{}
+		data any
 	}
 	tests := []struct {
 		name string

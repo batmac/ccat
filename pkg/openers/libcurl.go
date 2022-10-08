@@ -54,7 +54,7 @@ func (f *curlOpener) easyHandlerInit() {
 	if err := f.easy.Setopt(curl.OPT_CONNECTTIMEOUT, 10); err != nil {
 		log.Println(" curl ERROR", err.Error())
 	}
-	if err := f.easy.Setopt(curl.OPT_WRITEFUNCTION, func(ptr []byte, userdata interface{}) bool {
+	if err := f.easy.Setopt(curl.OPT_WRITEFUNCTION, func(ptr []byte, userdata any) bool {
 		pipe := userdata.(*io.PipeWriter)
 		if _, err := pipe.Write(ptr); err != nil {
 			return false
@@ -69,7 +69,7 @@ func (f *curlOpener) easyHandlerInit() {
 	if err := f.easy.Setopt(curl.OPT_NOPROGRESS, false); err != nil {
 		log.Println(" curl ERROR", err.Error())
 	}
-	if err := f.easy.Setopt(curl.OPT_PROGRESSFUNCTION, func(dltotal, dlnow, ultotal, ulnow float64, _ interface{}) bool {
+	if err := f.easy.Setopt(curl.OPT_PROGRESSFUNCTION, func(dltotal, dlnow, ultotal, ulnow float64, _ any) bool {
 		if time.Now().Unix()-step > 2 {
 			log.Debugf("downloaded: %3.2f%%, speed: %.1fKiB/s \r", dlnow/dltotal*100, (dlnow-dlstep)/1000/float64((time.Now().Unix()-step)))
 			step = time.Now().Unix()

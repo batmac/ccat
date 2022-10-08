@@ -21,7 +21,7 @@ func unplist(out io.WriteCloser, in io.ReadCloser) (int64, error) {
 	if err != nil {
 		return 0, err
 	}
-	var data interface{}
+	var data any
 	_, err = plist.Unmarshal(d, &data)
 	if err != nil {
 		return 0, err

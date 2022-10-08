@@ -38,33 +38,33 @@ func SetDebug(w io.Writer) {
 	Debug.SetOutput(w)
 }
 
-func Debugf(format string, v ...interface{}) {
+func Debugf(format string, v ...any) {
 	if atomic.LoadInt32(&DebugIsDiscard) != 0 {
 		return
 	}
 	_ = Debug.Output(2, fmt.Sprintf(format, v...))
 }
 
-func Debugln(v ...interface{}) {
+func Debugln(v ...any) {
 	if atomic.LoadInt32(&DebugIsDiscard) != 0 {
 		return
 	}
 	_ = Debug.Output(2, fmt.Sprint(v...))
 }
 
-func Printf(format string, v ...interface{}) {
+func Printf(format string, v ...any) {
 	Stderr.Output(2, fmt.Sprintf(format, v...))
 }
 
-func Print(v ...interface{}) {
+func Print(v ...any) {
 	Stderr.Output(2, fmt.Sprintln(v...))
 }
 
-func Println(v ...interface{}) {
+func Println(v ...any) {
 	Stderr.Output(2, fmt.Sprint(v...))
 }
 
-func Fatal(v ...interface{}) {
+func Fatal(v ...any) {
 	Stderr.Output(2, fmt.Sprint(v...))
 	if atomic.LoadInt32(&continueOnFatal) <= 0 {
 		os.Exit(1)
@@ -72,7 +72,7 @@ func Fatal(v ...interface{}) {
 }
 
 // pretty print stuff
-func Pp(data interface{}) string {
+func Pp(data any) string {
 	var j []byte
 	//    var err := error
 	j, err := json.MarshalIndent(data, "", "\t")
