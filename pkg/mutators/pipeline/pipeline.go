@@ -13,8 +13,8 @@ import (
 var globalPipeline pipeline
 
 type pipeline struct {
-	mu     sync.Mutex
 	stages []mutators.Mutator
+	mu     sync.Mutex
 }
 
 func NewPipeline(description string, out io.WriteCloser, in io.ReadCloser) error {

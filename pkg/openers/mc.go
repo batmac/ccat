@@ -150,8 +150,8 @@ func getConfigFromMCFile(alias string) Config {
 	}
 
 	type ConfFileData struct {
-		Version string
 		Aliases map[string]Config `json:"aliases"`
+		Version string
 	}
 
 	confJ, err := os.ReadFile(filepath.Clean(home + mcConfigPath))

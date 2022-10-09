@@ -16,19 +16,20 @@ import (
 type hasher func() hash.Hash
 
 var list = []struct {
-	name, description string
-	newHash           hasher
+	newHash     hasher
+	name        string
+	description string
 }{
-	{"sha256", "compute the sha256 checksum", sha256.New},
+	{name: "sha256", description: "compute the sha256 checksum", newHash: sha256.New},
 	// {"sha256", "compute the sha256 checksum", ssha256.New()},
-	{"xxh64", "compute the xxhash64 checksum", xxh64New},
-	{"xxh32", "compute the xxhash32 checksum", xxh32New},
-	{"xxh3", "compute the xxh3 checksum", xxh3New},
+	{name: "xxh64", description: "compute the xxhash64 checksum", newHash: xxh64New},
+	{name: "xxh32", description: "compute the xxhash32 checksum", newHash: xxh32New},
+	{name: "xxh3", description: "compute the xxh3 checksum", newHash: xxh3New},
 	// useful but avoid them
 	//#nosec
-	{"md5", "compute the md5 checksum", md5.New},
+	{name: "md5", description: "compute the md5 checksum", newHash: md5.New},
 	//#nosec
-	{"sha1", "compute the sha1 checksum", sha1.New},
+	{name: "sha1", description: "compute the sha1 checksum", newHash: sha1.New},
 }
 
 func init() {

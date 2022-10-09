@@ -21,9 +21,9 @@ type Opener interface {
 }
 
 type OpenerCollection struct {
-	mu      sync.Mutex
 	Name    string
 	openers []Opener
+	mu      sync.Mutex
 }
 
 func newCollection(name string) *OpenerCollection {
