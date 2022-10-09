@@ -74,9 +74,6 @@ func (f s3Opener) Open(s string, _ bool) (io.ReadCloser, error) {
 
 	log.Debugf(" creating S3 client...\n")
 	s3Client := s3.NewFromConfig(cfg)
-	if err != nil {
-		return nil, err
-	}
 	log.Debugf("  GetObject...\n")
 	o, err := s3Client.GetObject(ctx,
 		&s3.GetObjectInput{
