@@ -12,7 +12,7 @@ var (
 	testsGlobalCtx = []struct {
 		name string
 		k    string
-		v    interface{}
+		v    any
 	}{
 		{"bool", "bool", true},
 		{"string", "string", "hi"},

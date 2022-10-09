@@ -4,17 +4,6 @@ run:
 
 linters:
   enable:
-    # - deadcode [deprecated]
-    - errcheck
-    - goimports
-    - gosimple
-    - govet
-    - ineffassign
-    - staticcheck
-    - typecheck
-    - unused
-    # - varcheck [deprecated]
-    - whitespace
     - asasalint
     - asciicheck
     - bidichk
@@ -22,17 +11,22 @@ linters:
     # - containedctx
     - contextcheck
     # - cyclop
+    # deprecated
+    # - deadcode
     - decorder
     - depguard
     - dogsled
     - dupl
+    - dupword
     - durationcheck
+    - errcheck
     - errchkjson
     - errname
     # - errorlint
     - execinquery
     - exhaustive
-    # - exhaustivestruct [deprecated]
+    # deprecated
+    # - exhaustivestruct
     # - exhaustruct
     - exportloopref
     # - forbidigo
@@ -51,22 +45,31 @@ linters:
     - gofmt
     - gofumpt
     - goheader
-    # - golint [deprecated]
+    - goimports
+    # deprecated
+    # - golint
     # - gomnd
     - gomoddirectives
     - gomodguard
     - goprintffuncname
     - gosec
+    - gosimple
+    - govet
     - grouper
-    # - ifshort [deprecated]
+    # deprecated
+    # - ifshort
     - importas
-    # - interfacer [deprecated]
+    - ineffassign
+    - interfacebloat
+    # deprecated
+    # - interfacer
     # - ireturn
     # - lll
-    - logrlint
+    - loggercheck
     - maintidx
     - makezero
-    # - maligned [deprecated]
+    # deprecated
+    # - maligned
     - misspell
     - nakedret
     # - nestif
@@ -76,7 +79,8 @@ linters:
     # - noctx
     - nolintlint
     - nonamedreturns
-    # - nosnakecase [deprecated]
+    # deprecated
+    # - nosnakecase
     - nosprintfhostport
     # - paralleltest
     - prealloc
@@ -85,31 +89,35 @@ linters:
     - reassign
     - revive
     - rowserrcheck
-    # - scopelint [deprecated]
+    # deprecated
+    # - scopelint
     - sqlclosecheck
-    # - structcheck [deprecated]
+    - staticcheck
+    # deprecated
+    # - structcheck
     - stylecheck
     - tagliatelle
     - tenv
+    - testableexamples
     - testpackage
     - thelper
     - tparallel
+    - typecheck
     - unconvert
     - unparam
+    - unused
     - usestdlibvars
+    # deprecated
+    # - varcheck
     # - varnamelen
     - wastedassign
+    - whitespace
     # - wrapcheck
     # - wsl
-
 issues:
   exclude-use-default: true
   exclude:
-    - "package should be `main_test` instead of `main`"
-    - "ST1018:"
-    - "Using the variable on range scope `tt` in function literal"
-    - "G114:"
-    - "Function `NewFromConfig->resolveUseFIPSEndpoint->resolveUseDualStackEndpoint->resolveAWSEndpointResolver->resolveAWSRetryMode->resolveAWSRetryMaxAttempts->resolveAWSRetryerProvider` should pass the context parameter"
+    - "ST1018: string literal contains Unicode format characters, consider using escape sequences instead"
 linter-settings:
   gofumpt:
     extra-rules: true

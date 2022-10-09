@@ -1,3 +1,4 @@
+//nolint:dupword
 package mutators_test
 
 import (
