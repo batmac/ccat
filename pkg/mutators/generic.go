@@ -7,12 +7,11 @@ import (
 )
 
 type GenericMutator struct {
-	Mu     sync.Mutex
-	Logger *log.Logger
-
+	Logger  *log.Logger
+	Done    chan struct{}
+	Mu      sync.Mutex
 	Started bool
 	Waited  bool
-	Done    chan struct{}
 }
 
 func NewGeneric(logger *log.Logger) GenericMutator {
