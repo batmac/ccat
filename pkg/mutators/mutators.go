@@ -35,12 +35,11 @@ type Factory interface {
 }
 
 type mutatorCollection struct {
-	mu       sync.Mutex
-	Name     string
-	mutators []Mutator
-	// Mutators  map[string]Mutator
 	factories map[string]Factory
 	logger    *log.Logger
+	Name      string
+	mutators  []Mutator
+	mu        sync.Mutex
 }
 
 func newCollection(name string, logger *log.Logger) *mutatorCollection {

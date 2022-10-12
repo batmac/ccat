@@ -84,7 +84,7 @@ func processFile(w io.Writer, path string) {
 			return
 		}
 		expectingBinary := globalctx.Get("expectingBinary")
-		if expectingBinary == nil || expectingBinary != nil && !expectingBinary.(bool) {
+		if expectingBinary == nil || !expectingBinary.(bool) {
 			log.Debugln("highlighting...")
 			hl := globalctx.Get("hintLexer")
 			if len(*argLexer) == 0 && hl != nil && len(hl.(string)) != 0 {
