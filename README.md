@@ -103,7 +103,7 @@ $ kubectl run -i --tty ccat --image=batmac/ccat:latest -- /bin/sh
 ## help
 
 ```
-version v1.3.2-2-gfbfdca8 [libcurl,crappy], commit fbfdca8c865ab4623db88ccb2291b27ec9b3d057, built at 2022-10-01@14:59:16+0200 by Mage (go1.19.1 darwin/arm64)
+version v1.3.2-14-g06c7ef3 [], commit 06c7ef3dff1026ed345c2c66add14c375d952a46, built at 2022-10-13@00:05:33+0200 by Mage (go1.19.2 darwin/arm64)
 usage: ccat [options] [file ...]
   -t, --tokens string       comma-separated list of tokens
   -i, --ignore-case         tokens given with -t are case-insensitive
@@ -143,14 +143,9 @@ ccat <files>...
     file: open local files
     gcs: get a GCP Cloud Storage object via gs://
     http: get URL via HTTP(S)
-    curl: get URL via libcurl bindings
-           libcurl/7.79.1 SecureTransport (LibreSSL/3.3.6) zlib/1.2.11 nghttp2/1.45.1
-           protocols: dict,file,ftp,ftps,gopher,gophers,http,https,imap,imaps,ldap,ldaps,mqtt,pop3,pop3s,rtsp,smb,smbs,smtp,smtps,telnet,tftp
     mc: get a Minio-compatible object via mc:// (use ~/.mc/config.json or env for credentials)
     tcp: get data from listening on tcp://[HOST]:<PORT>
     s3: get an AWS s3 object via s3://
-    ShellScp: get scp:// via local scp
-
  - mutators:
         cb: put a copy in the clipboard
         dummy: a simple fifo
@@ -184,6 +179,7 @@ ccat <files>...
         zstd: compress to zstd data
     convert:
         base64: encode to base64
+        feed2y: rss/atom/json feed -> YAML
         hex: dump in lowercase hex
         j2y: JSON -> YAML
         j5j: JSON5 -> JSON
@@ -207,10 +203,6 @@ ccat <files>...
         unzip: decompress the first file in a zip archive
         unzlib: decompress zlib data
         unzstd: decompress zstd data
-    decrypt:
-        easyopen: decrypt with Nacl EasyOpen, get the key from env (KEY)
-    encrypt:
-        easyseal: encrypt with Nacl EasySeal, key used is printed on stderr
     filter:
         filterUTF8: remove non-utf8
         removeANSI: remove ANSI codes
