@@ -10,9 +10,9 @@ require (
 	github.com/andelf/go-curl v0.0.0-20200630032108-fd49ff24ed97
 	github.com/atotto/clipboard v0.1.4
 	github.com/aws/aws-sdk-go-v2 v1.17.1
-	github.com/aws/aws-sdk-go-v2/config v1.17.10
-	github.com/aws/aws-sdk-go-v2/service/s3 v1.29.1
-	github.com/aws/aws-sdk-go-v2/service/sts v1.17.1
+	github.com/aws/aws-sdk-go-v2/config v1.17.11
+	github.com/aws/aws-sdk-go-v2/service/s3 v1.29.2
+	github.com/aws/aws-sdk-go-v2/service/sts v1.17.2
 	github.com/creativeprojects/go-selfupdate v0.6.1
 	github.com/dsnet/compress v0.0.1
 	github.com/eliukblau/pixterm v1.3.1
@@ -51,7 +51,7 @@ require (
 	github.com/PuerkitoBio/goquery v1.8.0 // indirect
 	github.com/andybalholm/cascadia v1.3.1 // indirect
 	github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream v1.4.9 // indirect
-	github.com/aws/aws-sdk-go-v2/credentials v1.12.23 // indirect
+	github.com/aws/aws-sdk-go-v2/credentials v1.12.24 // indirect
 	github.com/aws/aws-sdk-go-v2/feature/ec2/imds v1.12.19 // indirect
 	github.com/aws/aws-sdk-go-v2/internal/configsources v1.1.25 // indirect
 	github.com/aws/aws-sdk-go-v2/internal/endpoints/v2 v2.4.19 // indirect
