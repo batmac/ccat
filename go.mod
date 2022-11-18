@@ -6,7 +6,7 @@ require (
 	cloud.google.com/go/storage v1.27.0
 	github.com/OneOfOne/xxhash v1.2.8
 	github.com/aixiansheng/lzfse v0.2.4
-	github.com/alecthomas/chroma/v2 v2.3.0
+	github.com/alecthomas/chroma/v2 v2.4.0
 	github.com/andelf/go-curl v0.0.0-20200630032108-fd49ff24ed97
 	github.com/atotto/clipboard v0.1.4
 	github.com/aws/aws-sdk-go-v2 v1.17.1
