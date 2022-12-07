@@ -19,7 +19,7 @@ require (
 	github.com/flynn/json5 v0.0.0-20160717195620-7620272ed633
 	github.com/gabriel-vasile/mimetype v1.4.1
 	github.com/gdamore/tcell/v2 v2.5.3
-	github.com/google/renameio v1.0.1
+	github.com/google/renameio/v2 v2.0.0
 	github.com/gowebpki/jcs v1.0.0
 	github.com/hbollon/go-edlib v1.6.0
 	github.com/kevinburke/nacl v0.0.0-20210405173606-cd9060f5f776

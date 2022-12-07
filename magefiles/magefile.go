@@ -9,7 +9,7 @@ import (
 	"time"
 
 	"github.com/batmac/ccat/pkg/term"
-	"github.com/google/renameio/maybe"
+	"github.com/google/renameio/v2/maybe"
 	"github.com/magefile/mage/mg" // mg contains helpful utility functions, like Deps
 	"github.com/magefile/mage/sh"
 )
