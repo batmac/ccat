@@ -46,7 +46,7 @@ func (h *Chroma) highLight(w io.WriteCloser, r io.ReadCloser, o Options) error {
 	}
 
 	_, err = r.Read(make([]byte, 1))
-	if err != io.EOF {
+	if err == nil {
 		log.Fatal("highlighter: should read too much (file is too large for me)")
 	}
 
