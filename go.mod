@@ -48,6 +48,7 @@ require (
 	cloud.google.com/go/compute/metadata v0.2.2 // indirect
 	cloud.google.com/go/iam v0.8.0 // indirect
 	code.gitea.io/sdk/gitea v0.15.1 // indirect
+	git.sr.ht/~adnano/go-gemini v0.2.3
 	github.com/Masterminds/semver/v3 v3.2.0 // indirect
 	github.com/PuerkitoBio/goquery v1.8.0 // indirect
 	github.com/andybalholm/cascadia v1.3.1 // indirect
