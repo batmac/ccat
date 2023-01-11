@@ -8,7 +8,7 @@ import (
 )
 
 func init() {
-	simpleRegister("help", printHelp, withDescription("display mutators help"),
+	simplestRegister("help", printHelp, withDescription("display mutators help"),
 		withHintLexer("YAML"),
 	)
 }

@@ -10,7 +10,7 @@ import (
 )
 
 func init() {
-	simpleRegister("plist2Y", unplist, withDescription("display an Apple plist as yaml"),
+	simplestRegister("plist2Y", unplist, withDescription("display an Apple plist as yaml"),
 		withHintLexer("YAML"),
 		withCategory("convert"),
 	)

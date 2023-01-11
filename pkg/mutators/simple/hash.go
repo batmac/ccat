@@ -34,7 +34,7 @@ var list = []struct {
 
 func init() {
 	for _, h := range list {
-		simpleRegister(h.name, wrap(h.newHash),
+		simplestRegister(h.name, wrap(h.newHash),
 			withDescription(h.description),
 			withCategory("checksum"))
 	}

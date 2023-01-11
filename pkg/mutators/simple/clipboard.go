@@ -11,7 +11,7 @@ import (
 )
 
 func init() {
-	simpleRegister("cb", teeClipboard, withDescription("put a copy in the clipboard"))
+	simplestRegister("cb", teeClipboard, withDescription("put a copy in the clipboard"))
 }
 
 func teeClipboard(w io.WriteCloser, r io.ReadCloser) (int64, error) {

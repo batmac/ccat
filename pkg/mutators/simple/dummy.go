@@ -5,7 +5,7 @@ import (
 )
 
 func init() {
-	simpleRegister("dummy", dummy, withDescription("a simple fifo"))
+	simplestRegister("dummy", dummy, withDescription("a simple fifo"))
 }
 
 func dummy(w io.WriteCloser, r io.ReadCloser) (int64, error) {

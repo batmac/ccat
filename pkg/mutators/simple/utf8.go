@@ -7,7 +7,7 @@ import (
 
 func init() {
 	// we want the output to be as-is
-	simpleRegister("filterUTF8", filterUTF8, withDescription("remove non-utf8"),
+	simplestRegister("filterUTF8", filterUTF8, withDescription("remove non-utf8"),
 		withCategory("filter"),
 		withExpectingBinary(true))
 }

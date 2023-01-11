@@ -9,10 +9,10 @@ import (
 )
 
 func init() {
-	simpleRegister("hexdump", hexDump, withDescription("dump in hex as xxd"), withHintLexer("hexdump"))
-	simpleRegister("hex", hexRaw, withDescription("dump in lowercase hex"),
+	simplestRegister("hexdump", hexDump, withDescription("dump in hex as xxd"), withHintLexer("hexdump"))
+	simplestRegister("hex", hexRaw, withDescription("dump in lowercase hex"),
 		withCategory("convert"))
-	simpleRegister("unhex", unhex, withDescription("decode hex, ignore all non-hex chars"),
+	simplestRegister("unhex", unhex, withDescription("decode hex, ignore all non-hex chars"),
 		withCategory("convert"))
 }
 

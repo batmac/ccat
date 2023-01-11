@@ -9,10 +9,10 @@ import (
 )
 
 func init() {
-	simpleRegister("j2y", J2Y, withDescription("JSON -> YAML"),
+	simplestRegister("j2y", J2Y, withDescription("JSON -> YAML"),
 		withHintLexer("YAML"),
 		withCategory("convert"))
-	simpleRegister("y2j", Y2J, withDescription("YAML -> JSON"),
+	simplestRegister("y2j", Y2J, withDescription("YAML -> JSON"),
 		withHintLexer("JSON"),
 		withCategory("convert"))
 }

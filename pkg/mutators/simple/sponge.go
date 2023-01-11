@@ -8,7 +8,7 @@ import (
 )
 
 func init() {
-	simpleRegister("sponge", sponge, withDescription("soak all input before outputting it."))
+	simplestRegister("sponge", sponge, withDescription("soak all input before outputting it."))
 }
 
 func sponge(w io.WriteCloser, r io.ReadCloser) (int64, error) {

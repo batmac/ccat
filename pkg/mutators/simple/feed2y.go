@@ -9,7 +9,7 @@ import (
 )
 
 func init() {
-	simpleRegister("feed2y", feed2Y, withDescription("rss/atom/json feed -> YAML"),
+	simplestRegister("feed2y", feed2Y, withDescription("rss/atom/json feed -> YAML"),
 		withHintLexer("YAML"),
 		withCategory("convert"))
 }
