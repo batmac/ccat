@@ -9,17 +9,17 @@ import (
 )
 
 func init() {
-	simpleRegister("uns2", uns2, withDescription("decompress s2 data"),
+	simplestRegister("uns2", uns2, withDescription("decompress s2 data"),
 		withCategory("decompress"),
 	)
-	simpleRegister("s2", cs2, withDescription("compress to s2 data"),
+	simplestRegister("s2", cs2, withDescription("compress to s2 data"),
 		withCategory("compress"),
 	)
 
-	simpleRegister("unsnap", uns2, withDescription("decompress snappy data"),
+	simplestRegister("unsnap", uns2, withDescription("decompress snappy data"),
 		withCategory("decompress"),
 	)
-	simpleRegister("snap", csnappy, withDescription("compress to snappy data"),
+	simplestRegister("snap", csnappy, withDescription("compress to snappy data"),
 		withCategory("compress"),
 	)
 }

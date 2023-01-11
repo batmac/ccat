@@ -9,7 +9,7 @@ import (
 )
 
 func init() {
-	simpleRegister("mimetype", mt, withDescription("detect mimetype"))
+	simplestRegister("mimetype", mt, withDescription("detect mimetype"))
 }
 
 func mt(w io.WriteCloser, r io.ReadCloser) (int64, error) {

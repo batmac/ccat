@@ -11,11 +11,16 @@ import (
 
 // launch a mutator in its dedicated goroutine
 
-type simpleFn func(w io.WriteCloser, r io.ReadCloser) (int64, error)
+type (
+	simpleFn func(w io.WriteCloser, r io.ReadCloser, args ...string) (int64, error)
+	// use this if you don't need to pass args
+	simplestFn func(w io.WriteCloser, r io.ReadCloser) (int64, error)
+)
 
 type simpleMutator struct {
 	factory *simpleFactory
 	mutators.GenericMutator
+	args []string
 }
 
 type simpleFactory struct {
@@ -58,7 +63,9 @@ func withExpectingBinary(b bool) simpleOption {
 func simpleRegister(name string, f simpleFn, opts ...simpleOption) {
 	factory := new(simpleFactory)
 	factory.name = name
-	factory.fn = f
+	factory.fn = func(w io.WriteCloser, r io.ReadCloser, args ...string) (int64, error) {
+		return f(w, r, args...)
+	}
 	for _, o := range opts {
 		o(factory)
 	}
@@ -67,7 +74,13 @@ func simpleRegister(name string, f simpleFn, opts ...simpleOption) {
 	}
 }
 
-func (f *simpleFactory) NewMutator(logger *log.Logger) (mutators.Mutator, error) {
+func simplestRegister(name string, f simplestFn, opts ...simpleOption) {
+	simpleRegister(name, func(w io.WriteCloser, r io.ReadCloser, _ ...string) (int64, error) {
+		return f(w, r)
+	}, opts...)
+}
+
+func (f *simpleFactory) NewMutator(logger *log.Logger, args []string) (mutators.Mutator, error) {
 	logger.Printf("%s: new", f.Name())
 	globalctx.Set("hintLexer", f.hintLexer)
 	globalctx.Set("expectingBinary", f.expectingBinary)
@@ -75,6 +88,7 @@ func (f *simpleFactory) NewMutator(logger *log.Logger) (mutators.Mutator, error)
 	return &simpleMutator{
 		GenericMutator: mutators.NewGeneric(logger),
 		factory:        f,
+		args:           args,
 	}, nil
 }
 
@@ -90,7 +104,7 @@ func (m *simpleMutator) Start(w io.WriteCloser, r io.ReadCloser) error {
 
 	go func() {
 		m.Logger.Printf("%s: dumping from %v to %v\n", m.Name(), r, w)
-		written, err := m.factory.fn(w, r)
+		written, err := m.factory.fn(w, r, m.args...)
 		if err != nil {
 			log.Fatal(err)
 		}

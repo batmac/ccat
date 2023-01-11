@@ -9,7 +9,7 @@ import (
 )
 
 func init() {
-	simpleRegister("jcs", jcs, withDescription("JSON -> JSON Canonicalization (RFC 8785)"),
+	simplestRegister("jcs", jcs, withDescription("JSON -> JSON Canonicalization (RFC 8785)"),
 		withHintLexer("JSON"),
 		withCategory("convert"),
 	)

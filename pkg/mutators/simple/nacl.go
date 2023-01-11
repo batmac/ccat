@@ -18,10 +18,10 @@ import (
 
 func init() {
 	// we want the output to be as-is
-	simpleRegister("easyseal", easyseal, withDescription("encrypt with Nacl EasySeal, key used is printed on stderr"),
+	simplestRegister("easyseal", easyseal, withDescription("encrypt with Nacl EasySeal, key used is printed on stderr"),
 		withCategory("encrypt"),
 		withExpectingBinary(true))
-	simpleRegister("easyopen", easyopen, withDescription("decrypt with Nacl EasyOpen, get the key from env (KEY)"),
+	simplestRegister("easyopen", easyopen, withDescription("decrypt with Nacl EasyOpen, get the key from env (KEY)"),
 		withCategory("decrypt"))
 }
 

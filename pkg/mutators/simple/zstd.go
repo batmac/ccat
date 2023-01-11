@@ -10,10 +10,10 @@ import (
 func init() {
 	registerAsZipDecompressor()
 
-	simpleRegister("unzstd", unzstd, withDescription("decompress zstd data"),
+	simplestRegister("unzstd", unzstd, withDescription("decompress zstd data"),
 		withCategory("decompress"),
 	)
-	simpleRegister("zstd", czstd, withDescription("compress to zstd data"),
+	simplestRegister("zstd", czstd, withDescription("compress to zstd data"),
 		withCategory("compress"),
 	)
 }

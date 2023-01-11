@@ -16,12 +16,12 @@ const (
 )
 
 func init() {
-	simpleRegister("wrap", wordWrap, withDescription(
+	simplestRegister("wrap", wordWrap, withDescription(
 		fmt.Sprintf("word-wrap the text to %d chars maximum", WrapMaxChars)))
-	simpleRegister("wrapU", unconditionalyWrap, withDescription(
+	simplestRegister("wrapU", unconditionalyWrap, withDescription(
 		fmt.Sprintf("unconditionally wrap the text to %d chars maximum", WrapMaxChars)))
 
-	simpleRegister("indent", simpleIndent, withDescription(
+	simplestRegister("indent", simpleIndent, withDescription(
 		fmt.Sprintf("indent the text with %d chars", IndentChars)))
 }
 
