@@ -76,7 +76,10 @@ func New(fullName string) (Mutator, error) {
 
 	name, argsString, argsFound := strings.Cut(fullName, argSeparator)
 
-	args := strings.Split(argsString, argSeparator)
+	var args []string
+	if argsString != "" {
+		args = strings.Split(argsString, argSeparator)
+	}
 
 	factory, ok := globalCollection.factories[name]
 	if !ok {

@@ -12,7 +12,9 @@ import (
 // launch a mutator in its dedicated goroutine
 
 type (
-	simpleFn func(w io.WriteCloser, r io.ReadCloser, args ...string) (int64, error)
+	argsValidator func(args []string) error
+	simpleOption  func(*simpleFactory)
+	simpleFn      func(w io.WriteCloser, r io.ReadCloser, args ...string) (int64, error)
 	// use this if you don't need to pass args
 	simplestFn func(w io.WriteCloser, r io.ReadCloser) (int64, error)
 )
@@ -29,9 +31,12 @@ type simpleFactory struct {
 	fn                simpleFn
 	hintLexer         string
 	expectingBinary   bool
+	argsValidator     argsValidator
 }
 
-type simpleOption func(*simpleFactory)
+func ErrWrongNumberOfArgs(expected, got int) error {
+	return fmt.Errorf("wrong number of arguments, expected %d, got %d", expected, got)
+}
 
 func withHintLexer(s string) simpleOption {
 	return func(f *simpleFactory) {
@@ -60,12 +65,16 @@ func withExpectingBinary(b bool) simpleOption {
 	}
 }
 
+func withArgsValidator(fn argsValidator) simpleOption {
+	return func(f *simpleFactory) {
+		f.argsValidator = fn
+	}
+}
+
 func simpleRegister(name string, f simpleFn, opts ...simpleOption) {
 	factory := new(simpleFactory)
 	factory.name = name
-	factory.fn = func(w io.WriteCloser, r io.ReadCloser, args ...string) (int64, error) {
-		return f(w, r, args...)
-	}
+	factory.fn = f
 	for _, o := range opts {
 		o(factory)
 	}
@@ -75,6 +84,13 @@ func simpleRegister(name string, f simpleFn, opts ...simpleOption) {
 }
 
 func simplestRegister(name string, f simplestFn, opts ...simpleOption) {
+	opts = append(opts, withArgsValidator(func(args []string) error {
+		if len(args) != 0 {
+			// log.Printf("args (%v): %#v\n", len(args), args)
+			return ErrWrongNumberOfArgs(0, len(args))
+		}
+		return nil
+	}))
 	simpleRegister(name, func(w io.WriteCloser, r io.ReadCloser, _ ...string) (int64, error) {
 		return f(w, r)
 	}, opts...)
@@ -84,6 +100,13 @@ func (f *simpleFactory) NewMutator(logger *log.Logger, args []string) (mutators.
 	logger.Printf("%s: new", f.Name())
 	globalctx.Set("hintLexer", f.hintLexer)
 	globalctx.Set("expectingBinary", f.expectingBinary)
+
+	// validate args
+	if f.argsValidator != nil {
+		if err := f.argsValidator(args); err != nil {
+			return nil, err
+		}
+	}
 
 	return &simpleMutator{
 		GenericMutator: mutators.NewGeneric(logger),
