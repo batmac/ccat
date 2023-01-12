@@ -9,7 +9,7 @@ import (
 )
 
 func init() {
-	simpleRegister("limit", limit, withDescription("a simple limiting fifo"),
+	simpleRegister("limit", limit, withDescription("a simple limiting fifo (max size in bytes, for instance 'limit:1k')"),
 		withArgsValidator(limitValidator))
 }
 
@@ -18,9 +18,7 @@ func limit(w io.WriteCloser, r io.ReadCloser, args ...string) (int64, error) {
 	if err != nil {
 		return 0, err
 	}
-
 	log.Debugf("limiting to %d bytes\n", bytes)
-
 	lr := io.LimitReader(r, bytes)
 
 	return io.Copy(w, lr) // streamable
