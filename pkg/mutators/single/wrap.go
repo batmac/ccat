@@ -16,16 +16,19 @@ const (
 )
 
 func init() {
-	singleNoConfRegister("wrap", wordWrap, withDescription(
-		fmt.Sprintf("word-wrap the text to %d chars maximum", WrapMaxChars)))
-	singleNoConfRegister("wrapU", unconditionalyWrap, withDescription(
-		fmt.Sprintf("unconditionally wrap the text to %d chars maximum", WrapMaxChars)))
-
-	singleNoConfRegister("indent", singleIndent, withDescription(
-		fmt.Sprintf("indent the text with %d chars", IndentChars)))
+	singleRegister("wrap", wordWrap, withDescription(
+		fmt.Sprintf("word-wrap the text (to %d chars maximum by default)", WrapMaxChars)),
+		withConfigBuilder(stdConfigUint64WithDefault(WrapMaxChars)))
+	singleRegister("wrapU", unconditionalyWrap, withDescription(
+		fmt.Sprintf("unconditionally wrap the text (to %d chars maximum by default)", WrapMaxChars)),
+		withConfigBuilder(stdConfigUint64WithDefault(WrapMaxChars)))
+	singleRegister("indent", singleIndent, withDescription(
+		fmt.Sprintf("indent the text (with %d chars by default)", IndentChars)),
+		withConfigBuilder(stdConfigUint64WithDefault(IndentChars)))
 }
 
-func wordWrap(w io.WriteCloser, r io.ReadCloser) (int64, error) {
+func wordWrap(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
+	WrapMaxChars := int(config.(uint64))
 	ww := wordwrap.NewWriter(WrapMaxChars)
 	if _, err := io.Copy(ww, r); err != nil { // streamable?
 		return 0, err
@@ -34,7 +37,8 @@ func wordWrap(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 	return io.Copy(w, bytes.NewReader(ww.Bytes()))
 }
 
-func unconditionalyWrap(w io.WriteCloser, r io.ReadCloser) (int64, error) {
+func unconditionalyWrap(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
+	WrapMaxChars := int(config.(uint64))
 	ww := uwrap.NewWriter(WrapMaxChars)
 	if _, err := io.Copy(ww, r); err != nil { // streamable?
 		return 0, err
@@ -43,7 +47,8 @@ func unconditionalyWrap(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 	return io.Copy(w, bytes.NewReader(ww.Bytes()))
 }
 
-func singleIndent(w io.WriteCloser, r io.ReadCloser) (int64, error) {
+func singleIndent(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
+	IndentChars := uint(config.(uint64))
 	f := indent.NewWriter(IndentChars, nil)
 	if _, err := io.Copy(f, r); err != nil { // streamable?
 		return 0, err
