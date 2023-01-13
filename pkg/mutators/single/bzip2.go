@@ -8,13 +8,13 @@ import (
 )
 
 func init() {
-	singleNoConfRegister("bzip2", cbzip2, withDescription("compress to bzip2 data"),
+	singleRegister("bzip2", cbzip2, withDescription("compress to bzip2 data"),
 		withCategory("compress"),
 	)
 	// singleRegister("unbzip2alt", bunzip2Alt, withDescription("decompress bzip2 data (alt)"))
 }
 
-func cbzip2(w io.WriteCloser, r io.ReadCloser) (int64, error) {
+func cbzip2(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 	zw, err := bzip2.NewWriter(w, &bzip2.WriterConfig{Level: bzip2.BestCompression})
 	if err != nil {
 		log.Fatal(err)

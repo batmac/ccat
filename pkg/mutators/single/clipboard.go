@@ -11,10 +11,10 @@ import (
 )
 
 func init() {
-	singleNoConfRegister("cb", teeClipboard, withDescription("put a copy in the clipboard"))
+	singleRegister("cb", teeClipboard, withDescription("put a copy in the clipboard"))
 }
 
-func teeClipboard(w io.WriteCloser, r io.ReadCloser) (int64, error) {
+func teeClipboard(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 	d, err := io.ReadAll(r) // NOT streamable
 	if err != nil {
 		return 0, err

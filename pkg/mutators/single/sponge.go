@@ -8,10 +8,10 @@ import (
 )
 
 func init() {
-	singleNoConfRegister("sponge", sponge, withDescription("soak all input before outputting it."))
+	singleRegister("sponge", sponge, withDescription("soak all input before outputting it."))
 }
 
-func sponge(w io.WriteCloser, r io.ReadCloser) (int64, error) {
+func sponge(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 	d, err := io.ReadAll(r) // NOT streamable (that the point :p)
 	if err != nil {
 		return 0, err

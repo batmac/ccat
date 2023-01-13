@@ -18,14 +18,14 @@ import (
 
 func init() {
 	// we want the output to be as-is
-	singleNoConfRegister("easyseal", easyseal, withDescription("encrypt with Nacl EasySeal, key used is printed on stderr"),
+	singleRegister("easyseal", easyseal, withDescription("encrypt with Nacl EasySeal, key used is printed on stderr"),
 		withCategory("encrypt"),
 		withExpectingBinary(true))
-	singleNoConfRegister("easyopen", easyopen, withDescription("decrypt with Nacl EasyOpen, get the key from env (KEY)"),
+	singleRegister("easyopen", easyopen, withDescription("decrypt with Nacl EasyOpen, get the key from env (KEY)"),
 		withCategory("decrypt"))
 }
 
-func easyseal(w io.WriteCloser, r io.ReadCloser) (int64, error) {
+func easyseal(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 	u, err := io.ReadAll(r) // NOT streamable
 	if err != nil {
 		return 0, err
@@ -42,7 +42,7 @@ func easyseal(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 	return int64(len(box)), nil
 }
 
-func easyopen(w io.WriteCloser, r io.ReadCloser) (int64, error) {
+func easyopen(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 	u, err := io.ReadAll(r) // NOT streamable
 	if err != nil {
 		return 0, err

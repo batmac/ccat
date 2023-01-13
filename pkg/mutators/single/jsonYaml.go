@@ -9,15 +9,15 @@ import (
 )
 
 func init() {
-	singleNoConfRegister("j2y", J2Y, withDescription("JSON -> YAML"),
+	singleRegister("j2y", J2Y, withDescription("JSON -> YAML"),
 		withHintLexer("YAML"),
 		withCategory("convert"))
-	singleNoConfRegister("y2j", Y2J, withDescription("YAML -> JSON"),
+	singleRegister("y2j", Y2J, withDescription("YAML -> JSON"),
 		withHintLexer("JSON"),
 		withCategory("convert"))
 }
 
-func J2Y(w io.WriteCloser, r io.ReadCloser) (int64, error) {
+func J2Y(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 	j, err := io.ReadAll(r) // NOT streamable
 	if err != nil {
 		return 0, err
@@ -35,7 +35,7 @@ func J2Y(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 	return int64(len(j)), nil
 }
 
-func Y2J(w io.WriteCloser, r io.ReadCloser) (int64, error) {
+func Y2J(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 	y, err := io.ReadAll(r) // NOT streamable
 	if err != nil {
 		return 0, err

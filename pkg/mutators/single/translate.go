@@ -15,7 +15,7 @@ import (
 const postURL = "https://translation.googleapis.com/language/translate/v2"
 
 func init() {
-	singleNoConfRegister("translate", translate,
+	singleRegister("translate", translate,
 		withDescription("translate to $TARGET_LANGUAGE with google translate (need a valid key in $GOOGLE_API_KEY)"),
 	)
 }
@@ -29,7 +29,7 @@ type Response struct {
 	}
 }
 
-func translate(w io.WriteCloser, r io.ReadCloser) (int64, error) {
+func translate(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 	msg, err := io.ReadAll(r) // NOT streamable
 	if err != nil {
 		return 0, err

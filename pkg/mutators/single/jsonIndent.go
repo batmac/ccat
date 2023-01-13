@@ -7,10 +7,10 @@ import (
 )
 
 func init() {
-	singleNoConfRegister("j", jsonIndent, withDescription("JSON Re-indent"), withHintLexer("JSON"))
+	singleRegister("j", jsonIndent, withDescription("JSON Re-indent"), withHintLexer("JSON"))
 }
 
-func jsonIndent(w io.WriteCloser, r io.ReadCloser) (int64, error) {
+func jsonIndent(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 	j, err := io.ReadAll(r) // NOT streamable
 	if err != nil {
 		return 0, err
