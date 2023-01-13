@@ -58,3 +58,27 @@ func Test_simpleLimitWithSISize(t *testing.T) {
 		}
 	}
 }
+
+func Test_simpleLimit0(t *testing.T) {
+	tests := []struct {
+		name, decoded, encoded string
+	}{
+		{"hello", "hello", ""},
+		{"empty", "", ""},
+		{"zero", "\x00", ""},
+		{
+			"long",
+			"Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+			"",
+		},
+	}
+
+	f := "limit:0"
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := mutators.Run(f, tt.decoded); got != tt.encoded {
+				t.Errorf("%s = %v, want %v", f, got, tt.encoded)
+			}
+		})
+	}
+}
