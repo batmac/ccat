@@ -9,10 +9,10 @@ import (
 )
 
 func init() {
-	singlestRegister("unlz4", unlz4, withDescription("decompress lz4 data"),
+	singleNoConfRegister("unlz4", unlz4, withDescription("decompress lz4 data"),
 		withCategory("decompress"),
 	)
-	singlestRegister("lz4", clz4, withDescription("compress to lz4 data"),
+	singleNoConfRegister("lz4", clz4, withDescription("compress to lz4 data"),
 		withCategory("compress"),
 	)
 }

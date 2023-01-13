@@ -9,7 +9,7 @@ import (
 )
 
 func init() {
-	singlestRegister("j5j", j5j, withDescription("JSON5 -> JSON"),
+	singleNoConfRegister("j5j", j5j, withDescription("JSON5 -> JSON"),
 		withHintLexer("JSON"),
 		withCategory("convert"),
 	)

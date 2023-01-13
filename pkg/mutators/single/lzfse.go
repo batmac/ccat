@@ -12,7 +12,7 @@ import (
 
 func init() {
 	// singleRegister("unlzfse-c", unlzfse, withDescription("decompress lzfse data"))
-	singlestRegister("unlzfse", unlzfseGo, withDescription("decompress lzfse data"),
+	singleNoConfRegister("unlzfse", unlzfseGo, withDescription("decompress lzfse data"),
 		withCategory("decompress"),
 	)
 	// singleRegister("lzfse", clzfse, withDescription("compress lzfse data"))

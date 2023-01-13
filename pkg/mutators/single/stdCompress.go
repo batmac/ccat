@@ -9,20 +9,20 @@ import (
 )
 
 func init() {
-	singlestRegister("ungzip", ungzip, withDescription("decompress gzip data"),
+	singleNoConfRegister("ungzip", ungzip, withDescription("decompress gzip data"),
 		withCategory("decompress"),
 	)
-	singlestRegister("unbzip2", bunzip2, withDescription("decompress bzip2 data"),
+	singleNoConfRegister("unbzip2", bunzip2, withDescription("decompress bzip2 data"),
 		withCategory("decompress"),
 	)
-	singlestRegister("unzlib", unzlib, withDescription("decompress zlib data"),
+	singleNoConfRegister("unzlib", unzlib, withDescription("decompress zlib data"),
 		withCategory("decompress"),
 	)
 
-	singlestRegister("gzip", cgzip, withDescription("compress to gzip data"),
+	singleNoConfRegister("gzip", cgzip, withDescription("compress to gzip data"),
 		withCategory("compress"),
 	)
-	singlestRegister("zlib", czlib, withDescription("compress to zlib data"),
+	singleNoConfRegister("zlib", czlib, withDescription("compress to zlib data"),
 		withCategory("compress"),
 	)
 }

@@ -51,8 +51,7 @@ func newCollection(name string, logger *log.Logger) *mutatorCollection {
 	defer glog.Printf("mutators: collection %s ready.\n", name)
 
 	return &mutatorCollection{
-		Name: name,
-		// Mutators:  make(map[string]Mutator),
+		Name:      name,
 		factories: make(map[string]Factory),
 		logger:    logger,
 	}

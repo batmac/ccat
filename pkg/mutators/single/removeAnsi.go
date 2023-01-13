@@ -8,7 +8,7 @@ import (
 
 func init() {
 	// we want the output to be as-is
-	singlestRegister("removeANSI", removeANSI, withDescription("remove ANSI codes"),
+	singleNoConfRegister("removeANSI", removeANSI, withDescription("remove ANSI codes"),
 		withCategory("filter"),
 		withExpectingBinary(true))
 }

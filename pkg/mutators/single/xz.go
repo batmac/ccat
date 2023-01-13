@@ -8,24 +8,24 @@ import (
 )
 
 func init() {
-	singlestRegister("unxz", unxz, withDescription("decompress xz data"),
+	singleNoConfRegister("unxz", unxz, withDescription("decompress xz data"),
 		withCategory("decompress"),
 	)
-	singlestRegister("xz", cxz, withDescription("compress to xz data"),
+	singleNoConfRegister("xz", cxz, withDescription("compress to xz data"),
 		withCategory("compress"),
 	)
 
-	singlestRegister("unlzma", unlzma, withDescription("decompress lzma data"),
+	singleNoConfRegister("unlzma", unlzma, withDescription("decompress lzma data"),
 		withCategory("decompress"),
 	)
-	singlestRegister("lzma", clzma, withDescription("compress to lzma data"),
+	singleNoConfRegister("lzma", clzma, withDescription("compress to lzma data"),
 		withCategory("compress"),
 	)
 
-	singlestRegister("unlzma2", unlzma2, withDescription("decompress lzma2 data"),
+	singleNoConfRegister("unlzma2", unlzma2, withDescription("decompress lzma2 data"),
 		withCategory("decompress"),
 	)
-	singlestRegister("lzma2", clzma2, withDescription("compress to lzma2 data"),
+	singleNoConfRegister("lzma2", clzma2, withDescription("compress to lzma2 data"),
 		withCategory("compress"),
 	)
 }
