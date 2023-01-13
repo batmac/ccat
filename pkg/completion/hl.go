@@ -13,7 +13,7 @@ import (
 	"github.com/batmac/ccat/pkg/stringutils"
 
 	// needed to init the list
-	_ "github.com/batmac/ccat/pkg/mutators/simple"
+	_ "github.com/batmac/ccat/pkg/mutators/single"
 )
 
 func getCompletionData(opts []string) *completionData {
