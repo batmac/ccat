@@ -12,7 +12,7 @@ import (
 	"github.com/batmac/ccat/pkg/highlighter"
 	"github.com/batmac/ccat/pkg/log"
 	"github.com/batmac/ccat/pkg/mutators/pipeline"
-	_ "github.com/batmac/ccat/pkg/mutators/simple"
+	_ "github.com/batmac/ccat/pkg/mutators/single"
 	"github.com/batmac/ccat/pkg/openers"
 	"github.com/batmac/ccat/pkg/pipedcmd"
 	"github.com/batmac/ccat/pkg/scanners"

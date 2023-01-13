@@ -4,7 +4,7 @@ import (
 	"os"
 	"testing"
 
-	_ "github.com/batmac/ccat/pkg/mutators/simple"
+	_ "github.com/batmac/ccat/pkg/mutators/single"
 )
 
 func Test_processFile(t *testing.T) {
