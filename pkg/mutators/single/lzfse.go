@@ -12,7 +12,7 @@ import (
 
 func init() {
 	// singleRegister("unlzfse-c", unlzfse, withDescription("decompress lzfse data"))
-	singleNoConfRegister("unlzfse", unlzfseGo, withDescription("decompress lzfse data"),
+	singleRegister("unlzfse", unlzfseGo, withDescription("decompress lzfse data"),
 		withCategory("decompress"),
 	)
 	// singleRegister("lzfse", clzfse, withDescription("compress lzfse data"))
@@ -28,7 +28,7 @@ func init() {
 	return io.Copy(out, d)
 } */
 
-func unlzfseGo(out io.WriteCloser, in io.ReadCloser) (int64, error) {
+func unlzfseGo(out io.WriteCloser, in io.ReadCloser, _ any) (int64, error) {
 	dat, err := io.ReadAll(in) // NOT streamable
 	if err != nil {
 		log.Fatal("failed to read compressed file: ", err)

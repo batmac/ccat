@@ -12,15 +12,15 @@ import (
 )
 
 func init() {
-	singleNoConfRegister("unzip", unzip, withDescription("decompress the first file in a zip archive"),
+	singleRegister("unzip", unzip, withDescription("decompress the first file in a zip archive"),
 		withCategory("decompress"),
 	)
-	singleNoConfRegister("zip", czip, withDescription("compress to zip data"),
+	singleRegister("zip", czip, withDescription("compress to zip data"),
 		withCategory("compress"),
 	)
 }
 
-func unzip(out io.WriteCloser, in io.ReadCloser) (int64, error) {
+func unzip(out io.WriteCloser, in io.ReadCloser, _ any) (int64, error) {
 	dat, err := io.ReadAll(in)
 	if err != nil {
 		log.Fatal(err)
@@ -50,7 +50,7 @@ func unzip(out io.WriteCloser, in io.ReadCloser) (int64, error) {
 	return 0, fmt.Errorf("no extractable File found")
 }
 
-func czip(out io.WriteCloser, in io.ReadCloser) (int64, error) {
+func czip(out io.WriteCloser, in io.ReadCloser, _ any) (int64, error) {
 	z := zip.NewWriter(out)
 	defer z.Close()
 

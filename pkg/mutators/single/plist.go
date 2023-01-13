@@ -10,13 +10,13 @@ import (
 )
 
 func init() {
-	singleNoConfRegister("plist2Y", unplist, withDescription("display an Apple plist as yaml"),
+	singleRegister("plist2Y", unplist, withDescription("display an Apple plist as yaml"),
 		withHintLexer("YAML"),
 		withCategory("convert"),
 	)
 }
 
-func unplist(out io.WriteCloser, in io.ReadCloser) (int64, error) {
+func unplist(out io.WriteCloser, in io.ReadCloser, _ any) (int64, error) {
 	d, err := io.ReadAll(in) // NOT streamable
 	if err != nil {
 		return 0, err

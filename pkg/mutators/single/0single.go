@@ -16,8 +16,6 @@ type (
 	configBuilder func(args []string) (any, error)
 	singleOption  func(*singleFactory)
 	singleFn      func(w io.WriteCloser, r io.ReadCloser, config any) (int64, error)
-	// use this if you don't need to pass a config
-	singleNoConfFn func(w io.WriteCloser, r io.ReadCloser) (int64, error)
 )
 
 type singleMutator struct {
@@ -95,12 +93,6 @@ func singleRegister(name string, f singleFn, opts ...singleOption) {
 	if err := mutators.Register(name, factory); err != nil {
 		log.Debugf("registering %s failed!\n", name)
 	}
-}
-
-func singleNoConfRegister(name string, f singleNoConfFn, opts ...singleOption) {
-	singleRegister(name, func(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
-		return f(w, r)
-	}, opts...)
 }
 
 func (f *singleFactory) NewMutator(logger *log.Logger, args []string) (mutators.Mutator, error) {

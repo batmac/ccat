@@ -34,14 +34,14 @@ var list = []struct {
 
 func init() {
 	for _, h := range list {
-		singleNoConfRegister(h.name, wrap(h.newHash),
+		singleRegister(h.name, wrap(h.newHash),
 			withDescription(h.description),
 			withCategory("checksum"))
 	}
 }
 
-func wrap(f hasher) func(w io.WriteCloser, r io.ReadCloser) (int64, error) {
-	return func(w io.WriteCloser, r io.ReadCloser) (int64, error) {
+func wrap(f hasher) func(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
+	return func(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 		h := f()
 		h.Reset()
 		n, err := io.Copy(h, r)

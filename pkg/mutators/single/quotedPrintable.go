@@ -9,15 +9,15 @@ import (
 )
 
 func init() {
-	singleNoConfRegister("unqp", unqp, withDescription("decode quoted-printable data"),
+	singleRegister("unqp", unqp, withDescription("decode quoted-printable data"),
 		withCategory("convert"),
 	)
-	singleNoConfRegister("qp", cqp, withDescription("encode quoted-printable data"),
+	singleRegister("qp", cqp, withDescription("encode quoted-printable data"),
 		withCategory("convert"),
 	)
 }
 
-func unqp(out io.WriteCloser, in io.ReadCloser) (int64, error) {
+func unqp(out io.WriteCloser, in io.ReadCloser, _ any) (int64, error) {
 	d := qp.NewReader(in)
 	if d == nil {
 		log.Fatal("qp decoder failed to init.")
@@ -26,7 +26,7 @@ func unqp(out io.WriteCloser, in io.ReadCloser) (int64, error) {
 	return n, err
 }
 
-func cqp(out io.WriteCloser, in io.ReadCloser) (int64, error) {
+func cqp(out io.WriteCloser, in io.ReadCloser, _ any) (int64, error) {
 	h := qp.NewWriter(out)
 	if h == nil {
 		log.Fatal("qp encoder failed to init.")

@@ -9,10 +9,10 @@ import (
 )
 
 func init() {
-	singleNoConfRegister("mimetype", mt, withDescription("detect mimetype"))
+	singleRegister("mimetype", mt, withDescription("detect mimetype"))
 }
 
-func mt(w io.WriteCloser, r io.ReadCloser) (int64, error) {
+func mt(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 	mtype, err := mimetype.DetectReader(io.NopCloser(r))
 	if err != nil {
 		return 0, err

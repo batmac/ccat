@@ -8,12 +8,12 @@ import (
 
 func init() {
 	// we want the output to be as-is
-	singleNoConfRegister("removeANSI", removeANSI, withDescription("remove ANSI codes"),
+	singleRegister("removeANSI", removeANSI, withDescription("remove ANSI codes"),
 		withCategory("filter"),
 		withExpectingBinary(true))
 }
 
-func removeANSI(w io.WriteCloser, r io.ReadCloser) (int64, error) {
+func removeANSI(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 	p := ansihtml.NewParser(r, w)
 	if err := p.Parse(nil); err != nil { // streamable
 		return 0, err

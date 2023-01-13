@@ -9,14 +9,14 @@ import (
 )
 
 func init() {
-	singleNoConfRegister("hexdump", hexDump, withDescription("dump in hex as xxd"), withHintLexer("hexdump"))
-	singleNoConfRegister("hex", hexRaw, withDescription("dump in lowercase hex"),
+	singleRegister("hexdump", hexDump, withDescription("dump in hex as xxd"), withHintLexer("hexdump"))
+	singleRegister("hex", hexRaw, withDescription("dump in lowercase hex"),
 		withCategory("convert"))
-	singleNoConfRegister("unhex", unhex, withDescription("decode hex, ignore all non-hex chars"),
+	singleRegister("unhex", unhex, withDescription("decode hex, ignore all non-hex chars"),
 		withCategory("convert"))
 }
 
-func hexDump(w io.WriteCloser, r io.ReadCloser) (int64, error) {
+func hexDump(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 	dumper := hex.Dumper(w)
 	n, err := io.Copy(dumper, r) // streamable
 	log.Debugf("finished\n")
@@ -24,12 +24,12 @@ func hexDump(w io.WriteCloser, r io.ReadCloser) (int64, error) {
 	return n, err
 }
 
-func hexRaw(w io.WriteCloser, r io.ReadCloser) (int64, error) {
+func hexRaw(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 	h := hex.NewEncoder(w)
 	return io.Copy(h, r) // streamable
 }
 
-func unhex(w io.WriteCloser, r io.ReadCloser) (int64, error) {
+func unhex(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 	rp, wp := io.Pipe()
 	decoder := hex.NewDecoder(rp)
 	go func() {

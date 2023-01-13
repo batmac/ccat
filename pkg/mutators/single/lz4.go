@@ -9,15 +9,15 @@ import (
 )
 
 func init() {
-	singleNoConfRegister("unlz4", unlz4, withDescription("decompress lz4 data"),
+	singleRegister("unlz4", unlz4, withDescription("decompress lz4 data"),
 		withCategory("decompress"),
 	)
-	singleNoConfRegister("lz4", clz4, withDescription("compress to lz4 data"),
+	singleRegister("lz4", clz4, withDescription("compress to lz4 data"),
 		withCategory("compress"),
 	)
 }
 
-func unlz4(out io.WriteCloser, in io.ReadCloser) (int64, error) {
+func unlz4(out io.WriteCloser, in io.ReadCloser, _ any) (int64, error) {
 	d := lz4.NewReader(in)
 	if d == nil {
 		log.Fatal("lz4 decompressor failed to init")
@@ -27,7 +27,7 @@ func unlz4(out io.WriteCloser, in io.ReadCloser) (int64, error) {
 	return n, err
 }
 
-func clz4(out io.WriteCloser, in io.ReadCloser) (int64, error) {
+func clz4(out io.WriteCloser, in io.ReadCloser, _ any) (int64, error) {
 	e := lz4.NewWriter(out)
 	if e == nil {
 		log.Fatal("lz4 compressor failed to init")

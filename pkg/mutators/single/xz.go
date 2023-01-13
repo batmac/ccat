@@ -8,29 +8,29 @@ import (
 )
 
 func init() {
-	singleNoConfRegister("unxz", unxz, withDescription("decompress xz data"),
+	singleRegister("unxz", unxz, withDescription("decompress xz data"),
 		withCategory("decompress"),
 	)
-	singleNoConfRegister("xz", cxz, withDescription("compress to xz data"),
+	singleRegister("xz", cxz, withDescription("compress to xz data"),
 		withCategory("compress"),
 	)
 
-	singleNoConfRegister("unlzma", unlzma, withDescription("decompress lzma data"),
+	singleRegister("unlzma", unlzma, withDescription("decompress lzma data"),
 		withCategory("decompress"),
 	)
-	singleNoConfRegister("lzma", clzma, withDescription("compress to lzma data"),
+	singleRegister("lzma", clzma, withDescription("compress to lzma data"),
 		withCategory("compress"),
 	)
 
-	singleNoConfRegister("unlzma2", unlzma2, withDescription("decompress lzma2 data"),
+	singleRegister("unlzma2", unlzma2, withDescription("decompress lzma2 data"),
 		withCategory("decompress"),
 	)
-	singleNoConfRegister("lzma2", clzma2, withDescription("compress to lzma2 data"),
+	singleRegister("lzma2", clzma2, withDescription("compress to lzma2 data"),
 		withCategory("compress"),
 	)
 }
 
-func unxz(out io.WriteCloser, in io.ReadCloser) (int64, error) {
+func unxz(out io.WriteCloser, in io.ReadCloser, _ any) (int64, error) {
 	d, err := xz.NewReader(in)
 	if err != nil {
 		return 0, err
@@ -39,7 +39,7 @@ func unxz(out io.WriteCloser, in io.ReadCloser) (int64, error) {
 	return n, err
 }
 
-func cxz(out io.WriteCloser, in io.ReadCloser) (int64, error) {
+func cxz(out io.WriteCloser, in io.ReadCloser, _ any) (int64, error) {
 	h, err := xz.NewWriter(out)
 	if err != nil {
 		return 0, err
@@ -48,7 +48,7 @@ func cxz(out io.WriteCloser, in io.ReadCloser) (int64, error) {
 	return io.Copy(h, in)
 }
 
-func unlzma(out io.WriteCloser, in io.ReadCloser) (int64, error) {
+func unlzma(out io.WriteCloser, in io.ReadCloser, _ any) (int64, error) {
 	d, err := lzma.NewReader(in)
 	if err != nil {
 		return 0, err
@@ -57,7 +57,7 @@ func unlzma(out io.WriteCloser, in io.ReadCloser) (int64, error) {
 	return n, err
 }
 
-func clzma(out io.WriteCloser, in io.ReadCloser) (int64, error) {
+func clzma(out io.WriteCloser, in io.ReadCloser, _ any) (int64, error) {
 	h, err := lzma.NewWriter(out)
 	if err != nil {
 		return 0, err
@@ -66,7 +66,7 @@ func clzma(out io.WriteCloser, in io.ReadCloser) (int64, error) {
 	return io.Copy(h, in)
 }
 
-func unlzma2(out io.WriteCloser, in io.ReadCloser) (int64, error) {
+func unlzma2(out io.WriteCloser, in io.ReadCloser, _ any) (int64, error) {
 	d, err := lzma.NewReader2(in)
 	if err != nil {
 		return 0, err
@@ -75,7 +75,7 @@ func unlzma2(out io.WriteCloser, in io.ReadCloser) (int64, error) {
 	return n, err
 }
 
-func clzma2(out io.WriteCloser, in io.ReadCloser) (int64, error) {
+func clzma2(out io.WriteCloser, in io.ReadCloser, _ any) (int64, error) {
 	h, err := lzma.NewWriter2(out)
 	if err != nil {
 		return 0, err

@@ -9,13 +9,13 @@ import (
 )
 
 func init() {
-	singleNoConfRegister("j5j", j5j, withDescription("JSON5 -> JSON"),
+	singleRegister("j5j", j5j, withDescription("JSON5 -> JSON"),
 		withHintLexer("JSON"),
 		withCategory("convert"),
 	)
 }
 
-func j5j(w io.WriteCloser, r io.ReadCloser) (int64, error) {
+func j5j(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 	j, err := io.ReadAll(r) // NOT streamable
 	if err != nil {
 		return 0, err

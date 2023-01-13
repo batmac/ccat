@@ -10,10 +10,10 @@ import (
 func init() {
 	registerAsZipDecompressor()
 
-	singleNoConfRegister("unzstd", unzstd, withDescription("decompress zstd data"),
+	singleRegister("unzstd", unzstd, withDescription("decompress zstd data"),
 		withCategory("decompress"),
 	)
-	singleNoConfRegister("zstd", czstd, withDescription("compress to zstd data"),
+	singleRegister("zstd", czstd, withDescription("compress to zstd data"),
 		withCategory("compress"),
 	)
 }
@@ -24,7 +24,7 @@ func registerAsZipDecompressor() {
 	zip.RegisterDecompressor(zstd.ZipMethodPKWare, decomp)
 }
 
-func unzstd(out io.WriteCloser, in io.ReadCloser) (int64, error) {
+func unzstd(out io.WriteCloser, in io.ReadCloser, _ any) (int64, error) {
 	d, err := zstd.NewReader(in)
 	if err != nil {
 		return 0, err
@@ -35,7 +35,7 @@ func unzstd(out io.WriteCloser, in io.ReadCloser) (int64, error) {
 	return n, err
 }
 
-func czstd(out io.WriteCloser, in io.ReadCloser) (int64, error) {
+func czstd(out io.WriteCloser, in io.ReadCloser, _ any) (int64, error) {
 	e, err := zstd.NewWriter(out)
 	if err != nil {
 		return 0, err

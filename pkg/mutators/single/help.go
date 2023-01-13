@@ -8,11 +8,11 @@ import (
 )
 
 func init() {
-	singleNoConfRegister("help", printHelp, withDescription("display mutators help"),
+	singleRegister("help", printHelp, withDescription("display mutators help"),
 		withHintLexer("YAML"),
 	)
 }
 
-func printHelp(out io.WriteCloser, in io.ReadCloser) (int64, error) {
+func printHelp(out io.WriteCloser, in io.ReadCloser, _ any) (int64, error) {
 	return io.Copy(out, strings.NewReader(mutators.AvailableMutatorsHelp()))
 }

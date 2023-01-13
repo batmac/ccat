@@ -9,12 +9,12 @@ import (
 )
 
 func init() {
-	singleNoConfRegister("feed2y", feed2Y, withDescription("rss/atom/json feed -> YAML"),
+	singleRegister("feed2y", feed2Y, withDescription("rss/atom/json feed -> YAML"),
 		withHintLexer("YAML"),
 		withCategory("convert"))
 }
 
-func feed2Y(w io.WriteCloser, r io.ReadCloser) (int64, error) {
+func feed2Y(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 	// convert feed to yaml
 	feed, err := gofeed.NewParser().Parse(r)
 	if err != nil {
