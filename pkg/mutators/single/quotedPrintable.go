@@ -9,10 +9,10 @@ import (
 )
 
 func init() {
-	singlestRegister("unqp", unqp, withDescription("decode quoted-printable data"),
+	singleNoConfRegister("unqp", unqp, withDescription("decode quoted-printable data"),
 		withCategory("convert"),
 	)
-	singlestRegister("qp", cqp, withDescription("encode quoted-printable data"),
+	singleNoConfRegister("qp", cqp, withDescription("encode quoted-printable data"),
 		withCategory("convert"),
 	)
 }

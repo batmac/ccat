@@ -8,7 +8,7 @@ import (
 )
 
 func init() {
-	singlestRegister("bzip2", cbzip2, withDescription("compress to bzip2 data"),
+	singleNoConfRegister("bzip2", cbzip2, withDescription("compress to bzip2 data"),
 		withCategory("compress"),
 	)
 	// singleRegister("unbzip2alt", bunzip2Alt, withDescription("decompress bzip2 data (alt)"))

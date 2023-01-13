@@ -12,10 +12,10 @@ import (
 )
 
 func init() {
-	singlestRegister("unzip", unzip, withDescription("decompress the first file in a zip archive"),
+	singleNoConfRegister("unzip", unzip, withDescription("decompress the first file in a zip archive"),
 		withCategory("decompress"),
 	)
-	singlestRegister("zip", czip, withDescription("compress to zip data"),
+	singleNoConfRegister("zip", czip, withDescription("compress to zip data"),
 		withCategory("compress"),
 	)
 }

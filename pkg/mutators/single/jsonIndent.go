@@ -7,7 +7,7 @@ import (
 )
 
 func init() {
-	singlestRegister("j", jsonIndent, withDescription("JSON Re-indent"), withHintLexer("JSON"))
+	singleNoConfRegister("j", jsonIndent, withDescription("JSON Re-indent"), withHintLexer("JSON"))
 }
 
 func jsonIndent(w io.WriteCloser, r io.ReadCloser) (int64, error) {

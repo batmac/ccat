@@ -3,6 +3,7 @@ package mutators
 import (
 	"fmt"
 	"io"
+	"sync"
 
 	"github.com/batmac/ccat/pkg/globalctx"
 	"github.com/batmac/ccat/pkg/log"
@@ -16,13 +17,17 @@ type (
 	singleOption  func(*singleFactory)
 	singleFn      func(w io.WriteCloser, r io.ReadCloser, config any) (int64, error)
 	// use this if you don't need to pass a config
-	singlestFn func(w io.WriteCloser, r io.ReadCloser) (int64, error)
+	singleNoConfFn func(w io.WriteCloser, r io.ReadCloser) (int64, error)
 )
 
 type singleMutator struct {
 	factory *singleFactory
-	mutators.GenericMutator
-	config any
+	Logger  *log.Logger
+	Done    chan struct{}
+	Mu      sync.Mutex
+	Started bool
+	Waited  bool
+	config  any
 }
 
 type singleFactory struct {
@@ -92,7 +97,7 @@ func singleRegister(name string, f singleFn, opts ...singleOption) {
 	}
 }
 
-func singlestRegister(name string, f singlestFn, opts ...singleOption) {
+func singleNoConfRegister(name string, f singleNoConfFn, opts ...singleOption) {
 	singleRegister(name, func(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 		return f(w, r)
 	}, opts...)
@@ -113,9 +118,10 @@ func (f *singleFactory) NewMutator(logger *log.Logger, args []string) (mutators.
 	}
 
 	return &singleMutator{
-		GenericMutator: mutators.NewGeneric(logger),
-		factory:        f,
-		config:         config,
+		Logger:  logger,
+		Done:    make(chan struct{}),
+		factory: f,
+		config:  config,
 	}, nil
 }
 

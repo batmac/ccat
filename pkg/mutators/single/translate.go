@@ -15,7 +15,7 @@ import (
 const postURL = "https://translation.googleapis.com/language/translate/v2"
 
 func init() {
-	singlestRegister("translate", translate,
+	singleNoConfRegister("translate", translate,
 		withDescription("translate to $TARGET_LANGUAGE with google translate (need a valid key in $GOOGLE_API_KEY)"),
 	)
 }
