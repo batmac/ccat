@@ -2,20 +2,23 @@ package mutators
 
 import (
 	"io"
-	"log"
 
+	"github.com/batmac/ccat/pkg/log"
 	"github.com/dsnet/compress/bzip2"
 )
 
 func init() {
-	singleRegister("bzip2", cbzip2, withDescription("compress to bzip2 data"),
+	singleRegister("bzip2", cbzip2, withDescription("compress to bzip2 data (X:9 is compression level, 0-9)"),
 		withCategory("compress"),
+		withConfigBuilder(stdConfigUint64WithDefault(9)),
 	)
 	// singleRegister("unbzip2alt", bunzip2Alt, withDescription("decompress bzip2 data (alt)"))
 }
 
-func cbzip2(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
-	zw, err := bzip2.NewWriter(w, &bzip2.WriterConfig{Level: bzip2.BestCompression})
+func cbzip2(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
+	lvl := int(config.(uint64))
+	log.Debugf("compression level: %d", lvl)
+	zw, err := bzip2.NewWriter(w, &bzip2.WriterConfig{Level: lvl})
 	if err != nil {
 		log.Fatal(err)
 	}

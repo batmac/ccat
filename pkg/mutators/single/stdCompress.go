@@ -5,7 +5,8 @@ import (
 	"compress/gzip"
 	"compress/zlib"
 	"io"
-	"log"
+
+	"github.com/batmac/ccat/pkg/log"
 )
 
 func init() {
@@ -19,11 +20,13 @@ func init() {
 		withCategory("decompress"),
 	)
 
-	singleRegister("gzip", cgzip, withDescription("compress to gzip data"),
+	singleRegister("gzip", cgzip, withDescription("compress to gzip data (X:6 is compression level, 0-9)"),
 		withCategory("compress"),
+		withConfigBuilder(stdConfigUint64WithDefault(^uint64(0))),
 	)
-	singleRegister("zlib", czlib, withDescription("compress to zlib data"),
+	singleRegister("zlib", czlib, withDescription("compress to zlib data (X:6 is compression level, 0-9)"),
 		withCategory("compress"),
+		withConfigBuilder(stdConfigUint64WithDefault(^uint64(0))),
 	)
 }
 
@@ -56,8 +59,10 @@ func unzlib(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 	return io.Copy(w, z)
 }
 
-func cgzip(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
-	zw, err := gzip.NewWriterLevel(w, gzip.DefaultCompression)
+func cgzip(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
+	lvl := int(config.(uint64))
+	// log.Printf("compression level: %d", lvl)
+	zw, err := gzip.NewWriterLevel(w, lvl)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -66,8 +71,10 @@ func cgzip(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 	return io.Copy(zw, r)
 }
 
-func czlib(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
-	zw, err := zlib.NewWriterLevel(w, zlib.DefaultCompression)
+func czlib(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
+	lvl := int(config.(uint64))
+	log.Debugf("compression level: %d", lvl)
+	zw, err := zlib.NewWriterLevel(w, lvl)
 	if err != nil {
 		log.Fatal(err)
 	}
