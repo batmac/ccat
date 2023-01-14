@@ -7,7 +7,7 @@ import (
 )
 
 func init() {
-	singleRegister("limit", limit, withDescription("a simple limiting fifo (max size in bytes, for instance 'limit:1k')"),
+	singleRegister("limit", limit, withDescription("a simple limiting fifo ( with X max size in bytes, for instance 'limit:1k')"),
 		withConfigBuilder(stdConfigHumanSizeAsInt64))
 }
 

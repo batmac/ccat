@@ -4,6 +4,7 @@ import (
 	"archive/zip"
 	"io"
 
+	"github.com/batmac/ccat/pkg/log"
 	"github.com/klauspost/compress/zstd"
 )
 
@@ -13,8 +14,9 @@ func init() {
 	singleRegister("unzstd", unzstd, withDescription("decompress zstd data"),
 		withCategory("decompress"),
 	)
-	singleRegister("zstd", czstd, withDescription("compress to zstd data"),
+	singleRegister("zstd", czstd, withDescription("compress to zstd data (X:4 is compression level, 1-22)"),
 		withCategory("compress"),
+		withConfigBuilder(stdConfigUint64WithDefault(uint64(zstd.SpeedDefault))),
 	)
 }
 
@@ -35,8 +37,10 @@ func unzstd(out io.WriteCloser, in io.ReadCloser, _ any) (int64, error) {
 	return n, err
 }
 
-func czstd(out io.WriteCloser, in io.ReadCloser, _ any) (int64, error) {
-	e, err := zstd.NewWriter(out)
+func czstd(out io.WriteCloser, in io.ReadCloser, conf any) (int64, error) {
+	encoderLvl := zstd.EncoderLevelFromZstd(int(conf.(uint64)))
+	log.Debugf("zstd compression level: %d (-> %v)\n", conf.(uint64), encoderLvl)
+	e, err := zstd.NewWriter(out, zstd.WithEncoderLevel(encoderLvl))
 	if err != nil {
 		return 0, err
 	}
