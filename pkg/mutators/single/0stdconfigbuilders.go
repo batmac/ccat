@@ -24,6 +24,14 @@ func stdConfigUint64WithDefault(defaultValue uint64) configBuilder {
 			return nil, ErrWrongNumberOfArgs(1, len(args))
 		}
 
+		if args[0][0] == '-' {
+			n, err := strconv.ParseUint(args[0][1:], 10, 64)
+			if err != nil {
+				return nil, err
+			}
+			return ^uint64(0) - n + 1, nil
+		}
+
 		return strconv.ParseUint(args[0], 10, 64)
 	}
 }
