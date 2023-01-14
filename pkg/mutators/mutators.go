@@ -135,6 +135,7 @@ func AvailableMutatorsHelp() string {
 			s.WriteString("        " + mutator + "\n")
 		}
 	}
+	s.WriteString("\n('X:Y' means X is an argument with default value Y)\n")
 	return s.String()
 }
 
