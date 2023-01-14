@@ -31,7 +31,7 @@ func NewPipeline(description string, out io.WriteCloser, in io.ReadCloser) error
 		log.Debugf("creating %v\n", m)
 		mutator, err := mutators.New(m)
 		if err != nil {
-			log.Fatal(err)
+			log.Fatalf("mutator '%s': %s\n", m, err.Error())
 		}
 		globalPipeline.stages = append(globalPipeline.stages, mutator)
 	}

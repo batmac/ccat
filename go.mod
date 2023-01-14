@@ -42,6 +42,8 @@ require (
 	sigs.k8s.io/yaml v1.3.0
 )
 
+require github.com/docker/go-units v0.5.0
+
 require (
 	cloud.google.com/go v0.107.0 // indirect
 	cloud.google.com/go/compute v1.14.0 // indirect
