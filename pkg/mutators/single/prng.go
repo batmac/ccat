@@ -60,6 +60,9 @@ func pcg32(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
 	for {
 		if err := wb.Flush(); err != nil {
 			log.Debugf("flush error: %v", err)
+			if errors.Is(err, io.ErrClosedPipe) {
+				return n, nil
+			}
 			return 0, err
 		}
 		availableBytes := wb.Available()
@@ -69,9 +72,6 @@ func pcg32(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
 		}
 		m, err := wb.Write(b)
 		n += int64(m)
-		if errors.Is(err, io.ErrClosedPipe) {
-			return n, nil
-		}
 		if err != nil {
 			return 0, err
 		}
