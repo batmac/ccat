@@ -20,49 +20,49 @@ func TestBytesForHumanString(t *testing.T) {
 			args: args{
 				b: 1,
 			},
-			want: "1 B",
+			want: "1B",
 		},
 		{
 			name: "KB",
 			args: args{
 				b: 1000,
 			},
-			want: "1.00 kB",
+			want: "1kB",
 		},
 		{
 			name: "MB",
 			args: args{
 				b: 1000 * 1000,
 			},
-			want: "1.00 MB",
+			want: "1MB",
 		},
 		{
 			name: "GB",
 			args: args{
 				b: 1000 * 1000 * 1000,
 			},
-			want: "1.00 GB",
+			want: "1GB",
 		},
 		{
 			name: "TB",
 			args: args{
 				b: 1000 * 1000 * 1000 * 1000,
 			},
-			want: "1.00 TB",
+			want: "1TB",
 		},
 		{
 			name: "PB",
 			args: args{
 				b: 1000 * 1000 * 1000 * 1000 * 1000,
 			},
-			want: "1.00 PB",
+			want: "1PB",
 		},
 		{
 			name: "EB",
 			args: args{
 				b: 1000 * 1000 * 1000 * 1000 * 1000 * 1000,
 			},
-			want: "1.00 EB",
+			want: "1EB",
 		},
 	}
 	for _, tt := range tests {
