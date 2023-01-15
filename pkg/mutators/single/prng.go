@@ -58,7 +58,10 @@ func pcg32(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
 	n := int64(0)
 
 	for {
-		wb.Flush()
+		if err := wb.Flush(); err != nil {
+			log.Debugf("flush error: %v", err)
+			return 0, err
+		}
 		availableBytes := wb.Available()
 		b := wb.AvailableBuffer()
 		for i := 0; i < availableBytes; i += 4 {
