@@ -65,7 +65,7 @@ func pcg32(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
 			}
 			return 0, err
 		}
-		availableBytes := wb.Available()
+		availableBytes := wb.Available() / 4 * 4
 		b := wb.AvailableBuffer()
 		for i := 0; i < availableBytes; i += 4 {
 			b = binary.LittleEndian.AppendUint32(b, pcg.Next())

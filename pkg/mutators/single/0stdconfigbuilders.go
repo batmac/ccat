@@ -15,6 +15,15 @@ func stdConfigHumanSizeAsInt64(args []string) (any, error) {
 	return n, err
 }
 
+func stdConfigHumanSizeAsInt64WithDefault(defaultValue int64) configBuilder {
+	return func(args []string) (any, error) {
+		if len(args) == 0 {
+			return defaultValue, nil
+		}
+		return stdConfigHumanSizeAsInt64(args)
+	}
+}
+
 func stdConfigUint64WithDefault(defaultValue uint64) configBuilder {
 	return func(args []string) (any, error) {
 		if len(args) == 0 {
