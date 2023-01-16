@@ -103,7 +103,7 @@ $ kubectl run -i --tty ccat --image=batmac/ccat:latest -- /bin/sh
 ## help
 
 ```
-version v1.6.0 [libcurl,crappy], commit 80428e5e77f5dfc0ac70365a660e16d69270051f, built at 2022-12-30@16:12:38+0100 by Mage (go1.19.4 darwin/arm64)
+version v1.7.0-18-g62c4837 [libcurl,crappy], commit 62c4837447dae6deadc65d86f91c4d7a0ec279d8, built at 2023-01-16@19:37:58+0100 by Mage (go1.19.5 darwin/arm64)
 usage: ccat [options] [file ...]
   -t, --tokens string       comma-separated list of tokens
   -i, --ignore-case         tokens given with -t are case-insensitive
@@ -127,6 +127,7 @@ usage: ccat [options] [file ...]
       --fullhelp            print full usage on stdout
       --selfupdate          Update to latest Github release
       --check               Check version with the latest Github release
+      --forceupdate         Force overwriting to the latest Github release
   -d, --debug               debug what we are doing
   -M, --mem-usage           print memory usage on stderr at the end
   -k, --insecure            get files insecurely (globally)
@@ -157,13 +158,17 @@ ccat <files>...
         dummy: a simple fifo
         help: display mutators help
         hexdump: dump in hex as xxd
-        indent: indent the text with 4 chars
-        j: JSON Re-indent
+        indent: indent the text (with X:4 chars)
+        j: JSON Re-indent (X:2 space-based)
+        limit: a simple limiting fifo ( with X max size in bytes, for instance 'limit:1k')
         mimetype: detect mimetype
         sponge: soak all input before outputting it.
-        translate: translate to $TARGET_LANGUAGE with google translate (need a valid key in $GOOGLE_API_KEY)
-        wrap: word-wrap the text to 80 chars maximum
-        wrapU: unconditionally wrap the text to 80 chars maximum
+        translate: translate to X:en or $TARGET_LANGUAGE with google translate (needs a valid key in $GOOGLE_API_KEY)
+        wa: query wolfram alpha Short Answers API (APPID in $WA_APPID)
+        wasimple: query wolfram alpha Simple API (output is an image, APPID in $WA_APPID)
+        waspoken: query wolfram alpha Spoken API (APPID in $WA_APPID)
+        wrap: word-wrap the text (to X:80 chars maximum)
+        wrapU: unconditionally wrap the text (to X:80 chars maximum)
     checksum:
         md5: compute the md5 checksum
         sha1: compute the sha1 checksum
@@ -172,17 +177,17 @@ ccat <files>...
         xxh3: compute the xxh3 checksum
         xxh64: compute the xxhash64 checksum
     compress:
-        bzip2: compress to bzip2 data
-        gzip: compress to gzip data
-        lz4: compress to lz4 data
+        bzip2: compress to bzip2 data (X:9 is compression level, 0-9)
+        gzip: compress to gzip data (X:6 is compression level, 0-9)
+        lz4: compress to lz4 data (X:0 is compression level, 0-9)
         lzma2: compress to lzma2 data
         lzma: compress to lzma data
         s2: compress to s2 data
         snap: compress to snappy data
         xz: compress to xz data
         zip: compress to zip data
-        zlib: compress to zlib data
-        zstd: compress to zstd data
+        zlib: compress to zlib data (X:6 is compression level, 0-9)
+        zstd: compress to zstd data (X:4 is compression level, 1-22)
     convert:
         base64: encode to base64
         feed2y: rss/atom/json feed -> YAML
@@ -216,4 +221,9 @@ ccat <files>...
     filter:
         filterUTF8: remove non-utf8
         removeANSI: remove ANSI codes
+    random:
+        crng: generate endless crypto/rand data
+        prng: generate endless pcg rand (don't use for crypto)
+
+('X:Y' means X is an argument with default value Y)
 ```
