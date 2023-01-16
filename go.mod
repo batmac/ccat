@@ -13,7 +13,7 @@ require (
 	github.com/aws/aws-sdk-go-v2/config v1.18.7
 	github.com/aws/aws-sdk-go-v2/service/s3 v1.29.6
 	github.com/aws/aws-sdk-go-v2/service/sts v1.17.7
-	github.com/creativeprojects/go-selfupdate v0.6.1
+	github.com/creativeprojects/go-selfupdate v1.0.0
 	github.com/dsnet/compress v0.0.1
 	github.com/eliukblau/pixterm v1.3.1
 	github.com/flynn/json5 v0.0.0-20160717195620-7620272ed633
@@ -43,6 +43,13 @@ require (
 )
 
 require github.com/docker/go-units v0.5.0
+
+require (
+	github.com/hashicorp/go-cleanhttp v0.5.2 // indirect
+	github.com/hashicorp/go-retryablehttp v0.7.1 // indirect
+	github.com/xanzy/go-gitlab v0.76.0 // indirect
+	golang.org/x/time v0.0.0-20220722155302-e5dcc9cfc0b9 // indirect
+)
 
 require (
 	cloud.google.com/go v0.107.0 // indirect
