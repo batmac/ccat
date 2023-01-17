@@ -103,7 +103,7 @@ $ kubectl run -i --tty ccat --image=batmac/ccat:latest -- /bin/sh
 ## help
 
 ```
-version v1.7.0-18-g62c4837 [libcurl,crappy], commit 62c4837447dae6deadc65d86f91c4d7a0ec279d8, built at 2023-01-16@19:37:58+0100 by Mage (go1.19.5 darwin/arm64)
+version v1.7.0-1-g72282db [libcurl,crappy], commit 72282dbf604eb9afef996284b539351a0fb2eb16, built at 2023-01-17@11:38:44+0100 by Mage (go1.19.5 darwin/arm64)
 usage: ccat [options] [file ...]
   -t, --tokens string       comma-separated list of tokens
   -i, --ignore-case         tokens given with -t are case-insensitive
@@ -220,10 +220,8 @@ ccat <files>...
         easyseal: encrypt with Nacl EasySeal, key used is printed on stderr
     filter:
         filterUTF8: remove non-utf8
+        jsonpath: a jsonpath expression to apply (on $, with all ',' replaced by '|'
         removeANSI: remove ANSI codes
-    random:
-        crng: generate endless crypto/rand data
-        prng: generate endless pcg rand (don't use for crypto)
 
 ('X:Y' means X is an argument with default value Y)
 ```
