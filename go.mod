@@ -6,6 +6,7 @@ require (
 	cloud.google.com/go/storage v1.28.1
 	git.sr.ht/~adnano/go-gemini v0.2.3
 	github.com/OneOfOne/xxhash v1.2.8
+	github.com/PaesslerAG/jsonpath v0.1.1
 	github.com/aixiansheng/lzfse v0.2.4
 	github.com/alecthomas/chroma/v2 v2.4.0
 	github.com/andelf/go-curl v0.0.0-20200630032108-fd49ff24ed97
@@ -51,6 +52,7 @@ require (
 	cloud.google.com/go/iam v0.10.0 // indirect
 	code.gitea.io/sdk/gitea v0.15.1 // indirect
 	github.com/Masterminds/semver/v3 v3.2.0 // indirect
+	github.com/PaesslerAG/gval v1.0.0 // indirect
 	github.com/PuerkitoBio/goquery v1.8.0 // indirect
 	github.com/andybalholm/cascadia v1.3.1 // indirect
 	github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream v1.4.10 // indirect
