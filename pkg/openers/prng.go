@@ -84,8 +84,8 @@ func (f prngOpener) Open(s string, _ bool) (io.ReadCloser, error) {
 	}()
 
 	return utils.NewReadCloser(r, func() error {
-		wb.Flush()
-		w.Close()
+		_ = wb.Flush()
+		_ = w.Close()
 		return nil
 	}), nil
 }
