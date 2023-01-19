@@ -34,8 +34,9 @@ func cborEncode(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 func cborDecode(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 	var fromcbor interface{}
 
-	opts := cbor.DecOptions{}
-	opts.DefaultMapType = reflect.TypeOf(map[string]interface{}(nil))
+	opts := cbor.DecOptions{
+		DefaultMapType: reflect.TypeOf(map[string]interface{}(nil)),
+	}
 	em, err := opts.DecMode()
 	if err != nil {
 		return 0, err
