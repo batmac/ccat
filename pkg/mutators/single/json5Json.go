@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"io"
 
-	"github.com/flynn/json5"
+	"github.com/titanous/json5"
 )
 
 func init() {
