@@ -19,7 +19,6 @@ require (
 	github.com/docker/go-units v0.5.0
 	github.com/dsnet/compress v0.0.1
 	github.com/eliukblau/pixterm v1.3.1
-	github.com/flynn/json5 v0.0.0-20160717195620-7620272ed633
 	github.com/gabriel-vasile/mimetype v1.4.1
 	github.com/gdamore/tcell/v2 v2.5.4
 	github.com/google/renameio/v2 v2.0.0
@@ -38,6 +37,7 @@ require (
 	github.com/rivo/tview v0.0.0-20230104153304-892d1a2eb0da
 	github.com/robert-nix/ansihtml v1.0.1
 	github.com/spf13/pflag v1.0.5
+	github.com/titanous/json5 v1.0.0
 	github.com/ulikunitz/xz v0.5.11
 	github.com/zeebo/xxh3 v1.0.2
 	golang.org/x/term v0.4.0
@@ -86,7 +86,6 @@ require (
 	github.com/hashicorp/go-version v1.6.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/klauspost/cpuid/v2 v2.2.3 // indirect
-	github.com/kylelemons/godebug v1.1.0 // indirect
 	github.com/lucasb-eyer/go-colorful v1.2.0 // indirect
 	github.com/mattn/go-runewidth v0.0.14 // indirect
 	github.com/minio/md5-simd v1.1.2 // indirect
@@ -95,7 +94,6 @@ require (
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/rivo/uniseg v0.4.3 // indirect
-	github.com/robertkrimen/otto v0.2.1 // indirect
 	github.com/rs/xid v1.4.0 // indirect
 	github.com/sirupsen/logrus v1.9.0 // indirect
 	github.com/xanzy/go-gitlab v0.78.0 // indirect
