@@ -13,7 +13,7 @@ import (
 // https://goessner.net/articles/JsonPath/
 
 func init() {
-	singleRegister("jsonpath", jSONPath, withDescription("a jsonpath expression to apply (on $, with all ',' replaced by '|'"),
+	singleRegister("jsonpath", jSONPath, withDescription("a jsonpath expression to apply (on $, with all ',' replaced by '|', all ':' replaced by '£')"),
 		withConfigBuilder(stdConfigStringWithDefault("$")),
 		withCategory("filter"),
 	)
@@ -37,6 +37,8 @@ func jSONPath(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
 	}
 	// replace all "|" with ","
 	jp = strings.ReplaceAll(jp, "|", ",")
+	//
+	jp = strings.ReplaceAll(jp, "£", ":")
 
 	log.Debugf("final jsonpath: %s", jp)
 	values, err := jsonpath.Get(jp, v)
