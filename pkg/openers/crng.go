@@ -9,7 +9,6 @@ import (
 	"strings"
 
 	"github.com/batmac/ccat/pkg/log"
-	"github.com/batmac/ccat/pkg/utils"
 	"github.com/docker/go-units"
 )
 
@@ -53,7 +52,7 @@ func (f crngOpener) Open(s string, _ bool) (io.ReadCloser, error) {
 		R = io.LimitReader(rand.Reader, limit)
 	}
 
-	return utils.NewReadCloser(R, func() error { return nil }), nil
+	return io.NopCloser(R), nil
 }
 
 func (f crngOpener) Evaluate(s string) float32 {
