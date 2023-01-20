@@ -103,7 +103,7 @@ $ kubectl run -i --tty ccat --image=batmac/ccat:latest -- /bin/sh
 ## help
 
 ```
-version v1.7.0-1-g72282db [libcurl,crappy], commit 72282dbf604eb9afef996284b539351a0fb2eb16, built at 2023-01-17@11:38:44+0100 by Mage (go1.19.5 darwin/arm64)
+version v1.7.0-5-g8a37ef4 [libcurl,crappy], commit 8a37ef41712d8c5f1baed55bb6bc3136343ba782, built at 2023-01-20@21:11:29+0100 by Mage (go1.19.5 darwin/arm64)
 usage: ccat [options] [file ...]
   -t, --tokens string       comma-separated list of tokens
   -i, --ignore-case         tokens given with -t are case-insensitive
@@ -141,15 +141,17 @@ ccat <files>...
   - Styles: abap, algol, algol_nu, arduino, autumn, average, base16-snazzy, borland, bw, catppuccin-frappe, catppuccin-latte, catppuccin-macchiato, catppuccin-mocha, colorful, doom-one, doom-one2, dracula, emacs, friendly, fruity, github, github-dark, gruvbox, gruvbox-light, hr_high_contrast, hrdark, igor, lovelace, manni, modus-operandi, modus-vivendi, monokai, monokailight, murphy, native, nord, onedark, onesenterprise, paraiso-dark, paraiso-light, pastie, perldoc, pygments, rainbow_dash, rose-pine, rose-pine-dawn, rose-pine-moon, rrt, solarized-dark, solarized-dark256, solarized-light, swapoff, tango, trac, vim, vs, vulcan, witchhazel, xcode, xcode-dark
   - Formatters: html, json, noop, svg, terminal, terminal16, terminal16m, terminal256, terminal8, tokens
  - openers:
+    crng: get data from crypto/rand (accept a size limit as parameter)
     file: open local files
     gcs: get a GCP Cloud Storage object via gs://
     gemini: get URL via Gemini
     http: get URL via HTTP(S)
     curl: get URL via libcurl bindings
-           libcurl/7.84.0 SecureTransport (LibreSSL/3.3.6) zlib/1.2.11 nghttp2/1.47.0
+           libcurl/7.85.0 SecureTransport (LibreSSL/3.3.6) zlib/1.2.11 nghttp2/1.47.0
            protocols: dict,file,ftp,ftps,gopher,gophers,http,https,imap,imaps,ldap,ldaps,mqtt,pop3,pop3s,rtsp,smb,smbs,smtp,smtps,telnet,tftp
     mc: get a Minio-compatible object via mc:// (use ~/.mc/config.json or env for credentials)
     tcp: get data from listening on tcp://[HOST]:<PORT>
+    prng: generate endless pcg rand (don't use for crypto) (accept a seed as parameter)
     s3: get an AWS s3 object via s3://
     ShellScp: get scp:// via local scp
 
