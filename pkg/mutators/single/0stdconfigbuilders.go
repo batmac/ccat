@@ -50,10 +50,24 @@ func stdConfigStringWithDefault(defaultValue string) configBuilder {
 		if len(args) == 0 {
 			return defaultValue, nil
 		}
-		if len(args) != 1 {
-			return nil, ErrWrongNumberOfArgs(1, len(args))
+		return stdConfigString(args)
+	}
+}
+
+func stdConfigString(args []string) (any, error) {
+	if len(args) != 1 {
+		return nil, ErrWrongNumberOfArgs(1, len(args))
+	}
+
+	return args[0], nil
+}
+
+func stdConfigStrings(n int) configBuilder { //nolint:unused
+	return func(args []string) (any, error) {
+		if len(args) != n {
+			return nil, ErrWrongNumberOfArgs(n, len(args))
 		}
 
-		return args[0], nil
+		return args[0:n], nil
 	}
 }
