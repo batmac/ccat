@@ -2,7 +2,8 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "dependencyDashboardAutoclose": true,
   "extends": [
-    "config:base"
+    "config:base",
+    ":rebaseStalePrs"
   ],
   "labels": [
     "renovate"
@@ -33,7 +34,7 @@
         "github.com/aws/aws-sdk-go-v2"
       ],
       "schedule": [
-        "every weekend"
+        "every month"
       ]
     }
   ],

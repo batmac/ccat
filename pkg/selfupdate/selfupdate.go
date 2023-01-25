@@ -1,6 +1,7 @@
 package selfupdate
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"os"
@@ -12,13 +13,24 @@ import (
 	"github.com/creativeprojects/go-selfupdate"
 )
 
+type Mode int8
+
+const (
+	ModeCheckOnly Mode = iota
+	ModeUpdate
+	ModeForce
+)
+
 // build tags for the github releases
-const githubTags = ""
+var (
+	githubTags        = ""
+	tagsAreCompatible = false
+)
 
-var tagsAreCompatible = false
-
-func Do(version, tags string, checkOnly bool) {
+func Do(version, tags string, mode Mode) {
 	log.Debugf("Trying to self-update %v...\n", version)
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
 
 	selfupdate.SetLogger(log.Debug)
 	defer func() {
@@ -30,7 +42,7 @@ func Do(version, tags string, checkOnly bool) {
 
 	updater, _ := selfupdate.NewUpdater(selfupdate.Config{Validator: &selfupdate.ChecksumValidator{UniqueFilename: "checksums.txt"}})
 
-	latest, found, err := updater.DetectLatest("batmac/ccat")
+	latest, found, err := updater.DetectLatest(ctx, selfupdate.NewRepositorySlug("batmac", "ccat"))
 	if err != nil {
 		panic(fmt.Errorf("error occurred while detecting version: %v", err))
 	}
@@ -42,10 +54,14 @@ func Do(version, tags string, checkOnly bool) {
 	log.Debugf("cleaned version is '%v'\n", cleanedVersion)
 	if latest.LessOrEqual(cleanedVersion) {
 		fmt.Printf("Current version (%s) is the latest\n", version)
-		return
+		if mode == ModeForce {
+			fmt.Println("But you forced me to update, so I will!")
+		} else {
+			return
+		}
 	}
 
-	fmt.Printf("Update to version %v is available\n", latest.Version())
+	fmt.Printf("Version %v is available\n", latest.Version())
 
 	if tags != githubTags {
 		fmt.Printf("Warning: your current binary is built with tags '%s', GitHub releases are built with '%s'.\n", tags, githubTags)
@@ -54,7 +70,7 @@ func Do(version, tags string, checkOnly bool) {
 		tagsAreCompatible = true
 	}
 
-	if checkOnly {
+	if mode == ModeCheckOnly {
 		return
 	}
 
@@ -82,7 +98,7 @@ func Do(version, tags string, checkOnly bool) {
 		panic(errors.New("could not locate executable path"))
 	}
 
-	if err := updater.UpdateTo(latest, exe); err != nil {
+	if err := updater.UpdateTo(ctx, latest, exe); err != nil {
 		panic(fmt.Errorf("error occurred while updating binary: %v", err))
 	}
 	fmt.Printf("Successfully updated to version %s\n", latest.Version())

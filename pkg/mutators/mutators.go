@@ -18,6 +18,10 @@ var (
 	globalCollection = newCollection("globalMutatorsCollection", log.Default())
 )
 
+const (
+	argSeparator = ":"
+)
+
 // Mutator and factory should be totally separate or reentrant as they may be used simultaneously
 
 type Mutator interface {
@@ -28,7 +32,7 @@ type Mutator interface {
 	Category() string
 }
 type Factory interface {
-	NewMutator(logger *log.Logger) (Mutator, error)
+	NewMutator(logger *log.Logger, args []string) (Mutator, error)
 	Name() string
 	Description() string
 	Category() string
@@ -47,8 +51,7 @@ func newCollection(name string, logger *log.Logger) *mutatorCollection {
 	defer glog.Printf("mutators: collection %s ready.\n", name)
 
 	return &mutatorCollection{
-		Name: name,
-		// Mutators:  make(map[string]Mutator),
+		Name:      name,
 		factories: make(map[string]Factory),
 		logger:    logger,
 	}
@@ -66,9 +69,16 @@ func Register(name string, factory Factory) error {
 	return nil
 }
 
-func New(name string) (Mutator, error) {
+func New(fullName string) (Mutator, error) {
 	globalCollection.mu.Lock()
 	defer globalCollection.mu.Unlock()
+
+	name, argsString, argsFound := strings.Cut(fullName, argSeparator)
+
+	var args []string
+	if argsString != "" {
+		args = strings.Split(argsString, argSeparator)
+	}
 
 	factory, ok := globalCollection.factories[name]
 	if !ok {
@@ -76,8 +86,11 @@ func New(name string) (Mutator, error) {
 		return nil, fmt.Errorf("mutators: %s not found", name)
 	}
 	glog.Printf("mutators: instancing %s\n", name)
+	if argsFound {
+		glog.Printf("mutators: with args %v\n", args)
+	}
 
-	m, err := factory.NewMutator(globalCollection.logger)
+	m, err := factory.NewMutator(globalCollection.logger, args)
 	if err != nil {
 		return nil, err
 	}
@@ -122,6 +135,7 @@ func AvailableMutatorsHelp() string {
 			s.WriteString("        " + mutator + "\n")
 		}
 	}
+	s.WriteString("\n('X:Y' means X is an argument with default value Y)\n")
 	return s.String()
 }
 

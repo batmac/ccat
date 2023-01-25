@@ -71,6 +71,13 @@ func Fatal(v ...any) {
 	}
 }
 
+func Fatalf(format string, v ...any) {
+	Stderr.Output(2, fmt.Sprintf(format, v...))
+	if atomic.LoadInt32(&continueOnFatal) <= 0 {
+		os.Exit(1)
+	}
+}
+
 // pretty print stuff
 func Pp(data any) string {
 	var j []byte

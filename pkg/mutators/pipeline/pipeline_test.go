@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/batmac/ccat/pkg/mutators/pipeline"
-	_ "github.com/batmac/ccat/pkg/mutators/simple"
+	_ "github.com/batmac/ccat/pkg/mutators/single"
 
 	"github.com/batmac/ccat/pkg/stringutils"
 )

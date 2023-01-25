@@ -10,7 +10,7 @@ import (
 	"github.com/magefile/mage/sh"
 
 	"github.com/batmac/ccat/pkg/mutators"
-	_ "github.com/batmac/ccat/pkg/mutators/simple"
+	_ "github.com/batmac/ccat/pkg/mutators/single"
 	"github.com/batmac/ccat/pkg/utils"
 )
 

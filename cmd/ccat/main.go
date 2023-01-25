@@ -45,6 +45,7 @@ var (
 	argFullHelp     = flag.BoolP("fullhelp", "", false, "print full usage on stdout")
 	argSelfUpdate   = flag.Bool("selfupdate", false, "Update to latest Github release")
 	argCheckUpdate  = flag.Bool("check", false, "Check version with the latest Github release")
+	argForceUpdate  = flag.Bool("forceupdate", false, "Force overwriting to the latest Github release")
 	argDebug        = flag.BoolP("debug", "d", false, "debug what we are doing")
 	argMemUsage     = flag.BoolP("mem-usage", "M", false, "print memory usage on stderr at the end")
 	argInsecure     = flag.BoolP("insecure", "k", false, "get files insecurely (globally)")
@@ -130,11 +131,15 @@ func main() {
 		os.Exit(0)
 	}
 	if *argSelfUpdate {
-		selfupdate.Do(version, tags, false)
+		selfupdate.Do(version, tags, selfupdate.ModeUpdate)
 		os.Exit(0)
 	}
 	if *argCheckUpdate {
-		selfupdate.Do(version, tags, true)
+		selfupdate.Do(version, tags, selfupdate.ModeCheckOnly)
+		os.Exit(0)
+	}
+	if *argForceUpdate {
+		selfupdate.Do(version, tags, selfupdate.ModeForce)
 		os.Exit(0)
 	}
 
