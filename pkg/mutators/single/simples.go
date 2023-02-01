@@ -6,6 +6,8 @@ import (
 	"io"
 
 	"github.com/batmac/ccat/pkg/log"
+	"github.com/batmac/ccat/pkg/term"
+	"github.com/docker/go-units"
 )
 
 // simple mutators to avoid using pipes and chevrons
@@ -63,7 +65,14 @@ func wc(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
 		return 0, err
 	}
 
-	if _, err := fmt.Fprintf(w, "%d\n", count); err != nil {
+	var c string
+	if term.IsStdoutTerminal() {
+		c = units.CustomSize("%.2f%s", float64(count), 1000, []string{"", "K", "M", "G", "T", "P", "E", "Z", "Y"})
+	} else {
+		c = fmt.Sprintf("%d", count)
+	}
+
+	if _, err := fmt.Fprintf(w, "%s\n", c); err != nil {
 		return 0, err
 	}
 	return count, nil
