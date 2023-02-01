@@ -30,7 +30,7 @@ require (
 	github.com/magefile/mage v1.14.0
 	github.com/minio/minio-go/v7 v7.0.47
 	github.com/mitchellh/go-homedir v1.1.0
-	github.com/mmcdole/gofeed v1.1.3
+	github.com/mmcdole/gofeed v1.2.0
 	github.com/muesli/reflow v0.3.0
 	github.com/patrickmn/go-cache v2.1.0+incompatible
 	github.com/pierrec/lz4/v4 v4.1.17
