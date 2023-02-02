@@ -20,9 +20,6 @@ func Test_SingleExec(t *testing.T) {
 	// search for a command that is available on both windows and linux
 	if _, err := exec.LookPath("cat"); err == nil {
 		f = "x:cat"
-	} else if _, err := exec.LookPath("type"); err == nil {
-		// on windows, "type" is probably available
-		f = "x:type con"
 	} else {
 		t.Skip("no suitable command found")
 	}
