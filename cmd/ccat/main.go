@@ -31,7 +31,6 @@ var (
 	argLockIn       = flag.BoolP("flock-in", "L", false, "exclusively flock each file before reading")
 	argLockOut      = flag.BoolP("flock-out", "l", false, "exclusively flock stdout")
 	argSplitByWords = flag.BoolP("word", "w", false, "read word by word instead of line by line (only works with utf8)")
-	argExec         = flag.StringP("exec", "X", "", "command to exec on each file before processing it")
 	argBG           = flag.BoolP("bg", "b", false, "colorize the background instead of the font")
 	argHuman        = flag.BoolP("humanize", "H", false, "try to do what is needed to help (syntax-highlight, autodetect, etc.)")
 	argStyle        = flag.StringP("style", "S", "", "style to use (only used if -H, --fullhelp for the list)")
