@@ -130,7 +130,7 @@ func (m *singleMutator) Start(w io.WriteCloser, r io.ReadCloser) error {
 	go func() {
 		m.Logger.Printf("%s: dumping from %v to %v\n", m.Name(), r, w)
 		written, err := m.factory.fn(w, r, m.config)
-		if err != nil {
+		if err != nil && err != io.ErrClosedPipe {
 			log.Fatal(err)
 		}
 		m.Logger.Printf("%s: done\n", m.Name())
