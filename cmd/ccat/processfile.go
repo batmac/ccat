@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"io"
-	"os"
 	"regexp"
 	"strings"
 
@@ -14,7 +13,6 @@ import (
 	"github.com/batmac/ccat/pkg/mutators/pipeline"
 	_ "github.com/batmac/ccat/pkg/mutators/single"
 	"github.com/batmac/ccat/pkg/openers"
-	"github.com/batmac/ccat/pkg/pipedcmd"
 	"github.com/batmac/ccat/pkg/scanners"
 	"github.com/batmac/ccat/pkg/term"
 	// _ "net/http/pprof"
@@ -50,32 +48,6 @@ func processFile(w io.Writer, path string) {
 		log.Debugf("final closed %s...\n", path)
 	}()
 	/*************************************/
-	if len(*argExec) > 0 {
-		log.Debugf("creating pipedcmd %v...\n", *argExec)
-		cmd, err := pipedcmd.New(*argExec)
-		// log.Debugf("%s", log.Pp(cmd))
-		if err != nil {
-			setErrored()
-			//nolint:gocritic // exitAfterDefer
-			log.Fatal(err)
-		}
-		defer func() {
-			log.Debugf("waiting pipedcmd %v...\n", *argExec)
-			if err := cmd.Wait(); err != nil {
-				setErrored()
-				log.Println(err)
-			}
-		}()
-
-		log.Debugf("start pipedcmd %s\n", cmd)
-
-		err = cmd.Start(from)
-		if err != nil {
-			setErrored()
-			log.Println(err)
-		}
-		from = cmd.Stdout.(*os.File)
-	}
 
 	if *argHuman {
 		if term.IsArt(path) && len(*argMutators) == 0 {
