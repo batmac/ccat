@@ -103,7 +103,7 @@ $ kubectl run -i --tty ccat --image=batmac/ccat:latest -- /bin/sh
 ## help
 
 ```
-version v1.7.0-10-g9e75f66 [libcurl,crappy], commit 9e75f669c458f937d6ae931315cb14b51c000aab, built at 2023-01-25@22:51:24+0100 by Mage (go1.19.5 darwin/arm64)
+version v1.8.1-5-g9949fb1 [libcurl,crappy], commit 9949fb1964f56a8e7800f79c43e3da4059c3c1ae, built at 2023-02-04@23:57:53+0100 by Mage (go1.19.5 darwin/arm64)
 usage: ccat [options] [file ...]
   -t, --tokens string       comma-separated list of tokens
   -i, --ignore-case         tokens given with -t are case-insensitive
@@ -113,7 +113,6 @@ usage: ccat [options] [file ...]
   -L, --flock-in            exclusively flock each file before reading
   -l, --flock-out           exclusively flock stdout
   -w, --word                read word by word instead of line by line (only works with utf8)
-  -X, --exec string         command to exec on each file before processing it
   -b, --bg                  colorize the background instead of the font
   -H, --humanize            try to do what is needed to help (syntax-highlight, autodetect, etc.)
   -S, --style string        style to use (only used if -H, --fullhelp for the list)
@@ -147,7 +146,7 @@ ccat <files>...
     gemini: get URL via Gemini
     http: get URL via HTTP(S)
     curl: get URL via libcurl bindings
-           libcurl/7.85.0 SecureTransport (LibreSSL/3.3.6) zlib/1.2.11 nghttp2/1.47.0
+           libcurl/7.86.0 SecureTransport (LibreSSL/3.3.6) zlib/1.2.11 nghttp2/1.47.0
            protocols: dict,file,ftp,ftps,gopher,gophers,http,https,imap,imaps,ldap,ldaps,mqtt,pop3,pop3s,rtsp,smb,smbs,smtp,smtps,telnet,tftp
     mc: get a Minio-compatible object via mc:// (use ~/.mc/config.json or env for credentials)
     tcp: get data from listening on tcp://[HOST]:<PORT>
@@ -157,6 +156,7 @@ ccat <files>...
 
  - mutators:
         cb: put a copy in the clipboard
+        d: discard X:0 bytes (0 = all)
         dummy: a simple fifo
         help: display mutators help
         hexdump: dump in hex as xxd
@@ -169,8 +169,10 @@ ccat <files>...
         wa: query wolfram alpha Short Answers API (APPID in $WA_APPID)
         wasimple: query wolfram alpha Simple API (output is an image, APPID in $WA_APPID)
         waspoken: query wolfram alpha Spoken API (APPID in $WA_APPID)
+        wc: count bytes (b, default), runes (r), words (w) or lines (l)
         wrap: word-wrap the text (to X:80 chars maximum)
         wrapU: unconditionally wrap the text (to X:80 chars maximum)
+        x: execute command (e.g. 'x:head -n 10')
     checksum:
         md5: compute the md5 checksum
         sha1: compute the sha1 checksum
