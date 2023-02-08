@@ -41,7 +41,7 @@ require (
 	github.com/traefik/yaegi v0.14.3
 	github.com/ulikunitz/xz v0.5.11
 	github.com/zeebo/xxh3 v1.0.2
-	golang.org/x/term v0.4.0
+	golang.org/x/term v0.5.0
 	howett.net/plist v1.0.0
 	sigs.k8s.io/yaml v1.3.0
 )
@@ -104,7 +104,7 @@ require (
 	golang.org/x/net v0.5.0 // indirect
 	golang.org/x/oauth2 v0.4.0 // indirect
 	golang.org/x/sync v0.1.0 // indirect
-	golang.org/x/sys v0.4.0 // indirect
+	golang.org/x/sys v0.5.0 // indirect
 	golang.org/x/text v0.6.0 // indirect
 	golang.org/x/time v0.3.0 // indirect
 	golang.org/x/xerrors v0.0.0-20220907171357-04be3eba64a2 // indirect
