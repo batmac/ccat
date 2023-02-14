@@ -3,6 +3,7 @@ package yc
 import (
 	"fmt"
 	"io"
+	"os"
 )
 
 // yc is a simple byte count program meant to be used as a yaegi script.
@@ -14,6 +15,12 @@ func Y(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
 		return 0, err
 	}
 	fmt.Fprintln(w, count)
+	// dump the entire environment
+	/* fmt.Fprintln(w, os.Environ()) */
+	// dump the args
+	fmt.Println(os.Args)
+	// dump the config
+	fmt.Println(config)
 
 	return -1, nil
 }
