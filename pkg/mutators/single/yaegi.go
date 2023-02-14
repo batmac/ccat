@@ -1,11 +1,9 @@
-//go:build plugins
-// +build plugins
-
 package mutators
 
 import (
 	"fmt"
 	"io"
+	"os"
 
 	"github.com/traefik/yaegi/interp"
 	"github.com/traefik/yaegi/stdlib"
@@ -15,19 +13,31 @@ import (
 
 func init() {
 	singleRegister("yaegi", applyYaegi, withDescription("a yaegi script to apply (path as first argument, symbol as second argument)"),
-		withConfigBuilder(stdConfigStrings(2)),
+		withConfigBuilder(stdConfigStringsAtLeast(2)),
 		withCategory("plugin"),
 	)
 }
 
-func applyYaegi(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
-	scriptPath := config.([]string)[0]
-	symbol := config.([]string)[1]
+func applyYaegi(w io.WriteCloser, r io.ReadCloser, configUntyped any) (int64, error) {
+	config, ok := configUntyped.([]string)
+	if !ok {
+		return 0, fmt.Errorf("config is not a string slice")
+	}
+	scriptPath := config[0]
+	symbol := config[1]
 
-	i := interp.New(interp.Options{})
+	i := interp.New(interp.Options{
+		Stdin:        r,
+		Stdout:       w,
+		Stderr:       os.Stderr,
+		Args:         os.Args,
+		Env:          os.Environ(),
+		Unrestricted: false,
+	})
 	if err := i.Use(stdlib.Symbols); err != nil {
 		return 0, err
 	}
+
 	if _, err := i.EvalPath(scriptPath); err != nil {
 		return 0, err
 	}
@@ -40,5 +50,5 @@ func applyYaegi(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
 	if !ok {
 		return 0, fmt.Errorf("symbol '%s' does not implement the correct signature", symbol)
 	}
-	return plugin(w, r, config)
+	return plugin(w, r, config[2:])
 }

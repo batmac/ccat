@@ -62,12 +62,12 @@ func stdConfigString(args []string) (any, error) {
 	return args[0], nil
 }
 
-func stdConfigStrings(n int) configBuilder { //nolint:unused
+func stdConfigStringsAtLeast(n int) configBuilder {
 	return func(args []string) (any, error) {
-		if len(args) != n {
+		if len(args) < n {
 			return nil, ErrWrongNumberOfArgs(n, len(args))
 		}
 
-		return args[0:n], nil
+		return args, nil
 	}
 }
