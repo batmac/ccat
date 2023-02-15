@@ -31,7 +31,7 @@ $ go run magefiles/mage.go -l # or 'mage -l'
 Targets:
   buildDefault
   buildDefaultAndTest*    buildDefault,test
-  buildFull               tags: libcurl,crappy
+  buildFull               tags: libcurl,crappy,plugins
   buildMinimal            tags: nohl,fileonly
   clean
   install                 put ccat to $GOPATH/bin/ccat
@@ -56,6 +56,7 @@ $ go run magefiles/mage.go # or 'mage'
 available build tags:
 
 - `libcurl`: build with the libcurl opener.
+- `plugins`: build with the yaegi plugins engine.
 - `fileonly`: build with the local file opener only.
 - `nohl`: build without the syntax-highlighter.
 - `crappy`: build with some crappy (but useful) openers/mutators.
@@ -103,7 +104,7 @@ $ kubectl run -i --tty ccat --image=batmac/ccat:latest -- /bin/sh
 ## help
 
 ```
-version v1.8.1-5-g9949fb1 [libcurl,crappy], commit 9949fb1964f56a8e7800f79c43e3da4059c3c1ae, built at 2023-02-04@23:57:53+0100 by Mage (go1.19.5 darwin/arm64)
+version v1.8.1-52-g244c6e5 [libcurl,crappy,plugins], commit 244c6e53e4f0e7d6780d7dbfcb7137b161ee7ed2, built at 2023-02-15@03:31:25+0100 by Mage (go1.19.5 darwin/arm64)
 usage: ccat [options] [file ...]
   -t, --tokens string       comma-separated list of tokens
   -i, --ignore-case         tokens given with -t are case-insensitive
@@ -226,6 +227,8 @@ ccat <files>...
         filterUTF8: remove non-utf8
         jsonpath: a jsonpath expression to apply (on $, with all ',' replaced by '|', all ':' replaced by '£')
         removeANSI: remove ANSI codes
+    plugin:
+        yaegi: a yaegi script to apply (path as first argument, symbol as second argument)
 
 ('X:Y' means X is an argument with default value Y)
 ```
