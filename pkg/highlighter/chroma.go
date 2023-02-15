@@ -14,6 +14,7 @@ import (
 	"github.com/batmac/ccat/pkg/log"
 	"github.com/batmac/ccat/pkg/stringutils"
 	"github.com/batmac/ccat/pkg/term"
+	"github.com/docker/go-units"
 
 	"github.com/alecthomas/chroma/v2"
 	"github.com/alecthomas/chroma/v2/formatters"
@@ -45,9 +46,22 @@ func (h *Chroma) highLight(w io.WriteCloser, r io.ReadCloser, o Options) error {
 		return err
 	}
 
-	_, err = r.Read(make([]byte, 1))
-	if err == nil {
-		log.Fatal("highlighter: should read too much (file is too large for me)")
+	additionalChar := make([]byte, 1)
+	if _, err := r.Read(additionalChar); err == nil {
+		log.Debugf("highlighter: output is too large for me (> %s), I will not highlight it", units.HumanSize(float64(MaxReadSize)))
+		_, err = w.Write(someSourceCode)
+		if err != nil {
+			log.Printf(" highlighter: %v\n", err)
+		}
+		_, err = w.Write(additionalChar)
+		if err != nil {
+			log.Printf(" highlighter: %v\n", err)
+		}
+		_, err = io.Copy(w, r)
+		if err != nil {
+			log.Printf(" highlighter: %v\n", err)
+		}
+		return nil
 	}
 
 	log.Debugf(" highlighter: read %v bytes\n", len(someSourceCode))
