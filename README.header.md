@@ -31,7 +31,7 @@ $ go run magefiles/mage.go -l # or 'mage -l'
 Targets:
   buildDefault
   buildDefaultAndTest*    buildDefault,test
-  buildFull               tags: libcurl,crappy
+  buildFull               tags: libcurl,crappy,plugins
   buildMinimal            tags: nohl,fileonly
   clean
   install                 put ccat to $GOPATH/bin/ccat
@@ -56,6 +56,7 @@ $ go run magefiles/mage.go # or 'mage'
 available build tags:
 
 - `libcurl`: build with the libcurl opener.
+- `plugins`: build with the yaegi plugins engine.
 - `fileonly`: build with the local file opener only.
 - `nohl`: build without the syntax-highlighter.
 - `crappy`: build with some crappy (but useful) openers/mutators.

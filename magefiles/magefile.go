@@ -53,7 +53,8 @@ func ldFlags(goTags string) string {
 
 func build(tags string) error {
 	mg.Deps(InstallDeps)
-	stepPrintln("Building...")
+	buildMsg := fmt.Sprintf("Building with tags [%s]", tags)
+	stepPrintln(buildMsg + "...")
 	cwd, err := os.Getwd()
 	if err != nil {
 		return err
@@ -75,7 +76,7 @@ func build(tags string) error {
 		return err
 	}
 
-	stepOKPrintln("Building OK")
+	stepOKPrintln(buildMsg + " OK")
 	return nil
 }
 
@@ -90,7 +91,7 @@ func BuildMinimal() error {
 
 // tags: libcurl,crappy
 func BuildFull() error {
-	return build("libcurl,crappy")
+	return build("libcurl,crappy,plugins")
 }
 
 // put ccat to $GOPATH/bin/ccat
