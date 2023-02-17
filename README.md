@@ -104,7 +104,7 @@ $ kubectl run -i --tty ccat --image=batmac/ccat:latest -- /bin/sh
 ## help
 
 ```
-version v1.8.1-52-g244c6e5 [libcurl,crappy,plugins], commit 244c6e53e4f0e7d6780d7dbfcb7137b161ee7ed2, built at 2023-02-15@03:31:25+0100 by Mage (go1.19.5 darwin/arm64)
+version v1.8.1-21-g86e1bfe [libcurl,crappy,plugins], commit 86e1bfec65f23cbb751cbcf8455e5078d2d644ef, built at 2023-02-17@22:50:17+0100 by Mage (go1.19.6 darwin/arm64)
 usage: ccat [options] [file ...]
   -t, --tokens string       comma-separated list of tokens
   -i, --ignore-case         tokens given with -t are case-insensitive
@@ -165,6 +165,7 @@ ccat <files>...
         j: JSON Re-indent (X:2 space-based)
         limit: a simple limiting fifo ( with X max size in bytes, for instance 'limit:1k')
         mimetype: detect mimetype
+        pv: copy in to out, printing the total and the bandwidth (like pv) each X:1000 milliseconds on stderr
         sponge: soak all input before outputting it.
         translate: translate to X:en or $TARGET_LANGUAGE with google translate (needs a valid key in $GOOGLE_API_KEY)
         wa: query wolfram alpha Short Answers API (APPID in $WA_APPID)
