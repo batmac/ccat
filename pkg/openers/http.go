@@ -8,7 +8,6 @@ import (
 	"io"
 	"net/http"
 	"strings"
-	"time"
 
 	"github.com/batmac/ccat/pkg/globalctx"
 	"github.com/batmac/ccat/pkg/log"
@@ -28,7 +27,7 @@ func init() {
 		name:        httpOpenerName,
 		description: httpOpenerDescription,
 	})
-	http.DefaultClient.Timeout = 10 * time.Second
+	// http.DefaultClient.Timeout = 10 * time.Second
 }
 
 func (f httpOpener) Name() string {
