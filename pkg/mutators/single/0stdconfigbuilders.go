@@ -3,7 +3,7 @@ package mutators
 import (
 	"strconv"
 
-	"github.com/docker/go-units"
+	"github.com/batmac/ccat/pkg/stringutils"
 )
 
 func stdConfigHumanSizeAsInt64(args []string) (any, error) {
@@ -11,7 +11,7 @@ func stdConfigHumanSizeAsInt64(args []string) (any, error) {
 		return nil, ErrWrongNumberOfArgs(1, len(args))
 	}
 
-	n, err := units.FromHumanSize(args[0])
+	n, err := stringutils.FromHumanSize[int64](args[0])
 	return n, err
 }
 

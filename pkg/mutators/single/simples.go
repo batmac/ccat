@@ -6,8 +6,8 @@ import (
 	"io"
 
 	"github.com/batmac/ccat/pkg/log"
+	"github.com/batmac/ccat/pkg/stringutils"
 	"github.com/batmac/ccat/pkg/term"
-	"github.com/docker/go-units"
 )
 
 // simple mutators to avoid using pipes and chevrons
@@ -67,7 +67,7 @@ func wc(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
 
 	var c string
 	if term.IsStdoutTerminal() {
-		c = units.CustomSize("%.2f%s", float64(count), 1000, []string{"", "K", "M", "G", "T", "P", "E", "Z", "Y"})
+		c = stringutils.HumanSize(count)
 	} else {
 		c = fmt.Sprintf("%d", count)
 	}

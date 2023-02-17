@@ -9,7 +9,7 @@ import (
 	"strings"
 
 	"github.com/batmac/ccat/pkg/log"
-	"github.com/docker/go-units"
+	"github.com/batmac/ccat/pkg/stringutils"
 )
 
 var (
@@ -44,7 +44,7 @@ func (f crngOpener) Open(s string, _ bool) (io.ReadCloser, error) {
 	var err error
 
 	if len(s) != 0 {
-		limit, err = units.FromHumanSize(s)
+		limit, err = stringutils.FromHumanSize[int64](s)
 		if err != nil {
 			return nil, err
 		}
