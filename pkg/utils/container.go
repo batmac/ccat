@@ -12,12 +12,18 @@ var globalCache = memoize.NewMemoizer(cache.NoExpiration, cache.NoExpiration)
 
 func IsRunningInContainer() bool {
 	log.Debugf("IsRunningInContainer?")
-	return IsRunningInDocker() || IsRunningInK8s()
+	return IsRunningInDocker() || IsRunningInPodman() || IsRunningInK8s()
 }
 
 func IsRunningInDocker() bool {
 	result, _, _ := globalCache.Memoize("isRunningInDocker", isRunningInDocker)
 	// fmt.Printf("isRunningInDocker cached: %v\n", cached)
+	return result.(bool)
+}
+
+func IsRunningInPodman() bool {
+	result, _, _ := globalCache.Memoize("isRunningInPodman", isRunningInPodman)
+	// fmt.Printf("isRunningInPodman cached: %v\n", cached)
 	return result.(bool)
 }
 
@@ -30,6 +36,14 @@ func IsRunningInK8s() bool {
 func isRunningInDocker() (any, error) {
 	if _, err := os.Stat("/.dockerenv"); err == nil {
 		log.Debugf("docker detected.")
+		return true, nil
+	}
+	return false, nil
+}
+
+func isRunningInPodman() (any, error) {
+	if _, err := os.Stat("/run/.containerenv"); err == nil {
+		log.Debugf("podman detected.")
 		return true, nil
 	}
 	return false, nil
