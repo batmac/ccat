@@ -1,4 +1,4 @@
-package yc
+package plugins
 
 import (
 	"fmt"
@@ -7,7 +7,7 @@ import (
 )
 
 // yc is a simple byte count program meant to be used as a yaegi script.
-// (ccat -m yaegi:example/plugins/yc/yc.go:yc.Y)
+// (ccat -m yaegi:example/plugins/yc.go:plugins.Y)
 
 func Y(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
 	count, err := io.Copy(io.Discard, r)
