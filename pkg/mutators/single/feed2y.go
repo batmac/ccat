@@ -26,9 +26,6 @@ func feed2Y(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 	}
 
 	n, err := io.Copy(w, bytes.NewReader(y))
-	if err != nil {
-		return n, err
-	}
 
-	return n, nil
+	return n, err
 }

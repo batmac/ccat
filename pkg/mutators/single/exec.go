@@ -31,9 +31,6 @@ func pipedcmd(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
 	cmd.Stderr = os.Stderr
 
 	err := cmd.Run()
-	if err != nil {
-		return 0, err
-	}
 
-	return 0, nil
+	return 0, err
 }

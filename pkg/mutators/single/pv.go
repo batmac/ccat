@@ -34,12 +34,10 @@ func pv(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
 			case <-done:
 				return
 			case <-time.After(time.Duration(option) * time.Millisecond):
-
 				prefix := ""
 				if term.IsStdoutTerminal() && log.DebugIsDiscard == 1 {
 					prefix = "\x1b[A\x1b[2K" // go on the previous line and erase the line
 				}
-
 				newTotal := totalWritten.Load()
 				computedDiff := stringutils.HumanSize((newTotal - oldTotal) * 1000 / int64(option))
 				oldTotal = newTotal
