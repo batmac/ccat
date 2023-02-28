@@ -20,7 +20,7 @@ func Test_prngOpener_Open(t *testing.T) {
 	}{
 		{name: "ko1", args: "prng://plop", wantErr: true},
 		{name: "ko2", args: "prng://1k", wantErr: true},
-		{name: "ok", args: "prng://", wantErr: false, wantedLength: 10},
+		{name: "ok", args: "prng://", wantErr: false, wantedLength: 100},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
