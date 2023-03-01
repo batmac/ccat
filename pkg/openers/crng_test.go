@@ -20,7 +20,7 @@ func Test_crngOpener_Open(t *testing.T) {
 	}{
 		{name: "ko", args: "crng://plop", wantErr: true},
 		{name: "ko", args: "crng://-1", wantErr: true},
-		{name: "ok", args: "crng://10", wantErr: false, wantedLength: 10},
+		{name: "ok", args: "crng://100", wantErr: false, wantedLength: 100},
 		{name: "ok", args: "crng://1k", wantErr: false, wantedLength: 1000},
 	}
 	for _, tt := range tests {
