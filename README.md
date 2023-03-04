@@ -104,7 +104,7 @@ $ kubectl run -i --tty ccat --image=batmac/ccat:latest -- /bin/sh
 ## help
 
 ```
-version v1.9.1-9-g86e6f84 [libcurl,crappy,plugins], commit 86e6f84c286573e2490cfb70fdf241ddda1a2cf2, built at 2023-02-28@00:38:37+0100 by Mage (go1.20.1 darwin/arm64)
+version v1.9.1-15-gc708c07 [libcurl,crappy,plugins], commit c708c076990090c3a081578854a5ee6943f9b668, built at 2023-03-04@01:28:02+0100 by Mage (go1.20.1 darwin/arm64)
 usage: ccat [options] [file ...]
   -t, --tokens string       comma-separated list of tokens
   -i, --ignore-case         tokens given with -t are case-insensitive
@@ -157,6 +157,7 @@ ccat <files>...
 
  - mutators:
         cb: put a copy in the clipboard
+        chatgpt: ask OpenAI ChatGPT, X:4000 max replied tokens (needs a valid key in $OPENAI_API_KEY)
         d: discard X:0 bytes (0 = all)
         dummy: a simple fifo
         help: display mutators help
