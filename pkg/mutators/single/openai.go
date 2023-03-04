@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"io"
+	"net/http"
 	"os"
 
 	"github.com/batmac/ccat/pkg/log"
@@ -61,6 +62,11 @@ func chatgpt(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 		return 0, err
 	}
 	defer stream.Close()
+	//nolint:bodyclose // body is closed in stream.Close()
+	if stream.GetResponse().StatusCode != http.StatusOK {
+		return 0, errors.New(stream.GetResponse().Status)
+	}
+
 	defer func() {
 		if _, err = w.Write([]byte("\n")); err != nil {
 			log.Println(err)
@@ -72,7 +78,7 @@ func chatgpt(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 	for {
 		response, err := stream.Recv()
 		if errors.Is(err, io.EOF) {
-			log.Debugf("Stream finished after %d steps", steps)
+			log.Debugf("Stream finished after %d steps, response=%#v", steps, response)
 			return totalWritten, nil
 		}
 
