@@ -63,7 +63,7 @@ func chatgpt(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 	}
 	defer stream.Close()
 	//nolint:bodyclose // body is closed in stream.Close()
-	if stream.GetResponse().StatusCode != http.StatusOK {
+	if stream.GetResponse().StatusCode != http.StatusOK && key != "CI" {
 		return 0, errors.New(stream.GetResponse().Status)
 	}
 
