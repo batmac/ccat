@@ -36,7 +36,6 @@ require (
 	github.com/pierrec/lz4/v4 v4.1.17
 	github.com/rivo/tview v0.0.0-20230226195229-47e7db7885b4
 	github.com/robert-nix/ansihtml v1.0.1
-	github.com/sashabaranov/go-gpt3 v1.3.3
 	github.com/spf13/pflag v1.0.5
 	github.com/titanous/json5 v1.0.0
 	github.com/traefik/yaegi v0.15.0
@@ -98,6 +97,7 @@ require (
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/rivo/uniseg v0.4.3 // indirect
 	github.com/rs/xid v1.4.0 // indirect
+	github.com/sashabaranov/go-openai v1.4.1
 	github.com/shopspring/decimal v1.3.1 // indirect
 	github.com/sirupsen/logrus v1.9.0 // indirect
 	github.com/xanzy/go-gitlab v0.80.2 // indirect

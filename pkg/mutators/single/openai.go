@@ -8,7 +8,7 @@ import (
 	"os"
 
 	"github.com/batmac/ccat/pkg/log"
-	gpt "github.com/sashabaranov/go-gpt3"
+	gpt "github.com/sashabaranov/go-openai"
 )
 
 // https://platform.openai.com/docs/guides/chat
