@@ -36,7 +36,7 @@ require (
 	github.com/pierrec/lz4/v4 v4.1.17
 	github.com/rivo/tview v0.0.0-20230226195229-47e7db7885b4
 	github.com/robert-nix/ansihtml v1.0.1
-	github.com/sashabaranov/go-gpt3 v1.3.3
+	github.com/sashabaranov/go-gpt3 v1.4.1
 	github.com/spf13/pflag v1.0.5
 	github.com/titanous/json5 v1.0.0
 	github.com/traefik/yaegi v0.15.0
