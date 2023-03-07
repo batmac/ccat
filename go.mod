@@ -97,7 +97,7 @@ require (
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/rivo/uniseg v0.4.4 // indirect
 	github.com/rs/xid v1.4.0 // indirect
-	github.com/sashabaranov/go-openai v1.4.1
+	github.com/sashabaranov/go-openai v1.4.2
 	github.com/shopspring/decimal v1.3.1 // indirect
 	github.com/sirupsen/logrus v1.9.0 // indirect
 	github.com/xanzy/go-gitlab v0.80.2 // indirect
