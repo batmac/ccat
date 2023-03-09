@@ -13,8 +13,10 @@ import (
 // simple mutators to avoid using pipes and chevrons
 
 func init() {
-	singleRegister("d", discard, withDescription("discard X:0 bytes (0 = all)"),
-		withConfigBuilder(stdConfigHumanSizeAsInt64WithDefault(0)))
+	singleRegister("discard", discard, withDescription("discard X:0 bytes (0 = all)"),
+		withConfigBuilder(stdConfigHumanSizeAsInt64WithDefault(0)),
+		withAliases("d"),
+	)
 
 	singleRegister("wc", wc, withDescription("count bytes (b, default), runes (r), words (w) or lines (l)"),
 		withConfigBuilder(stdConfigStringWithDefault("b")))
