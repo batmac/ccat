@@ -104,7 +104,7 @@ $ kubectl run -i --tty ccat --image=batmac/ccat:latest -- /bin/sh
 ## help
 
 ```
-version v1.9.1-15-gc708c07 [libcurl,crappy,plugins], commit c708c076990090c3a081578854a5ee6943f9b668, built at 2023-03-04@01:28:02+0100 by Mage (go1.20.1 darwin/arm64)
+version v1.10.0-3-g4606e5e [libcurl,crappy,plugins], commit 4606e5e0f531bc4a95f720f72232876a673a3045, built at 2023-03-09@10:16:57+0100 by Mage (go1.20.2 darwin/arm64)
 usage: ccat [options] [file ...]
   -t, --tokens string       comma-separated list of tokens
   -i, --ignore-case         tokens given with -t are case-insensitive
@@ -158,7 +158,7 @@ ccat <files>...
  - mutators:
         cb: put a copy in the clipboard
         chatgpt: ask OpenAI ChatGPT, X:4000 max replied tokens (needs a valid key in $OPENAI_API_KEY)
-        d: discard X:0 bytes (0 = all)
+        discard: discard X:0 bytes (0 = all)
         dummy: a simple fifo
         help: display mutators help
         hexdump: dump in hex as xxd
@@ -232,5 +232,13 @@ ccat <files>...
     plugin:
         yaegi: a yaegi script to apply (path as first argument, symbol as second argument)
 
-('X:Y' means X is an argument with default value Y)
+  ('X:Y' means X is an argument with default value Y)
+
+  mutator aliases:
+    d: discard
+    unb64, ub64: unbase64
+    b64: base64
+    dum, dumm: dummy
+    l: limit
+    cgpt: chatgpt
 ```
