@@ -74,6 +74,14 @@ func withConfigBuilder(fn configBuilder) singleOption {
 	}
 }
 
+func withAliases(aliases ...string) singleOption {
+	return func(f *singleFactory) {
+		for _, alias := range aliases {
+			_ = mutators.RegisterAlias(f.name, alias)
+		}
+	}
+}
+
 func defaultConfigBuilder(args []string) (any, error) {
 	// no config, no args permitted
 	if len(args) != 0 {
@@ -90,7 +98,7 @@ func singleRegister(name string, f singleFn, opts ...singleOption) {
 	for _, o := range opts {
 		o(factory)
 	}
-	if err := mutators.Register(name, factory); err != nil {
+	if err := mutators.RegisterFactory(name, factory); err != nil {
 		log.Debugf("registering %s failed!\n", name)
 	}
 }

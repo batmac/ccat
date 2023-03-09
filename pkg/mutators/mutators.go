@@ -40,6 +40,7 @@ type Factory interface {
 
 type mutatorCollection struct {
 	factories map[string]Factory
+	aliases   map[string]string
 	logger    *log.Logger
 	Name      string
 	mutators  []Mutator
@@ -53,11 +54,12 @@ func newCollection(name string, logger *log.Logger) *mutatorCollection {
 	return &mutatorCollection{
 		Name:      name,
 		factories: make(map[string]Factory),
+		aliases:   make(map[string]string),
 		logger:    logger,
 	}
 }
 
-func Register(name string, factory Factory) error {
+func RegisterFactory(name string, factory Factory) error {
 	globalCollection.mu.Lock()
 	if _, ok := globalCollection.factories[name]; ok {
 		globalCollection.mu.Unlock()
@@ -66,6 +68,18 @@ func Register(name string, factory Factory) error {
 	globalCollection.factories[name] = factory
 	globalCollection.mu.Unlock()
 	// glog.Printf("mutators: %s registered\n", name)
+	return nil
+}
+
+func RegisterAlias(name string, alias string) error {
+	globalCollection.mu.Lock()
+	defer globalCollection.mu.Unlock()
+	// forbid overwriting an existing alias
+	if _, ok := globalCollection.aliases[alias]; ok {
+		return fmt.Errorf("mutators: alising %s is not permitted. It is already an alias", name)
+	}
+	globalCollection.aliases[alias] = name
+	// glog.Printf("mutators: %s aliased as %s\n", name, alias)
 	return nil
 }
 
@@ -80,6 +94,10 @@ func New(fullName string) (Mutator, error) {
 		args = strings.Split(argsString, argSeparator)
 	}
 
+	if factoryName, ok := globalCollection.aliases[name]; ok {
+		glog.Printf("mutators: %s is an alias to %s\n", name, factoryName)
+		name = factoryName
+	}
 	factory, ok := globalCollection.factories[name]
 	if !ok {
 		TryFuzzySearch(name)
@@ -110,6 +128,16 @@ func ListAvailableMutators(category string) []string {
 	return l
 }
 
+func ListAvailableAliases() ([]string, map[string][]string) {
+	detailed := make(map[string][]string)
+	aliases := make([]string, 0, len(globalCollection.aliases))
+	for alias, factory := range globalCollection.aliases {
+		aliases = append(aliases, alias)
+		detailed[factory] = append(detailed[factory], alias)
+	}
+	return aliases, detailed
+}
+
 func listAvailableMutatorsByCategoryWithDescriptions() map[string][]string {
 	listByCategory := make(map[string][]string)
 	for _, v := range globalCollection.factories {
@@ -135,7 +163,16 @@ func AvailableMutatorsHelp() string {
 			s.WriteString("        " + mutator + "\n")
 		}
 	}
-	s.WriteString("\n('X:Y' means X is an argument with default value Y)\n")
+	s.WriteString("\n  ('X:Y' means X is an argument with default value Y)\n")
+	_, d := ListAvailableAliases()
+	if len(d) > 0 {
+		s.WriteString("\n  mutator aliases:\n")
+	}
+	for factory, aliases := range d {
+		fmt.Fprintf(&s, "    %s: %s\n", strings.Join(aliases, ", "), factory)
+	}
+
+	// fmt.Fprintf(&s, "%v\n", globalCollection.aliases)
 	return s.String()
 }
 

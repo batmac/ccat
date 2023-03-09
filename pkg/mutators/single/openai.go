@@ -19,6 +19,7 @@ func init() {
 	singleRegister("chatgpt", chatgpt,
 		withDescription("ask OpenAI ChatGPT, X:4000 max replied tokens (needs a valid key in $OPENAI_API_KEY)"),
 		withConfigBuilder(stdConfigUint64WithDefault(4000)),
+		withAliases("cgpt"),
 	)
 }
 
