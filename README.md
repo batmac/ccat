@@ -104,7 +104,7 @@ $ kubectl run -i --tty ccat --image=batmac/ccat:latest -- /bin/sh
 ## help
 
 ```
-version v1.10.0-3-g4606e5e [libcurl,crappy,plugins], commit 4606e5e0f531bc4a95f720f72232876a673a3045, built at 2023-03-09@10:16:57+0100 by Mage (go1.20.2 darwin/arm64)
+version v1.10.0-12-g739c94b [libcurl,crappy,plugins], commit 739c94b7bb08bc926f804b84d36205aac4aedfff, built at 2023-03-12@15:27:26+0100 by Mage (go1.20.2 darwin/arm64)
 usage: ccat [options] [file ...]
   -t, --tokens string       comma-separated list of tokens
   -i, --ignore-case         tokens given with -t are case-insensitive
@@ -165,6 +165,7 @@ ccat <files>...
         indent: indent the text (with X:4 chars)
         j: JSON Re-indent (X:2 space-based)
         limit: a simple limiting fifo ( with X max size in bytes, for instance 'limit:1k')
+        maxbw: limit the bandwidth to the specified value (bytes per second)
         mimetype: detect mimetype
         pv: copy in to out, printing the total and the bandwidth (like pv) each X:1000 milliseconds on stderr
         sponge: soak all input before outputting it.
@@ -235,10 +236,10 @@ ccat <files>...
   ('X:Y' means X is an argument with default value Y)
 
   mutator aliases:
-    d: discard
-    unb64, ub64: unbase64
+    ub64, unb64: unbase64
     b64: base64
     dum, dumm: dummy
     l: limit
     cgpt: chatgpt
+    d: discard
 ```
