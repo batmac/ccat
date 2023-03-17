@@ -21,25 +21,25 @@ const (
 
 func init() {
 	singleRegister("chatgpt", chatgpt,
-		withDescription("ask OpenAI ChatGPT, X:4000 max replied tokens (needs a valid key in $OPENAI_API_KEY)"),
+		withDescription("ask OpenAI ChatGPT, X:<unlimited> max replied tokens, the optional second arg is the model (needs a valid key in $OPENAI_API_KEY)"),
 		withConfigBuilder(stdConfigStrings(0, 2)),
 		withAliases("cgpt"),
 	)
 }
 
 func chatgpt(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
+	args := conf.([]string)
 	model := defaultChatModel
-	Args := conf.([]string)
 	maxTokens := uint64(defaultMaxTokens)
 	var err error
-	if len(Args) > 0 {
-		maxTokens, err = strconv.ParseUint(Args[0], 10, 64)
+	if len(args) > 0 {
+		maxTokens, err = strconv.ParseUint(args[0], 10, 64)
 		if err != nil {
 			log.Println("first arg: ", err)
 		}
 	}
-	if len(Args) >= 2 {
-		model = Args[1]
+	if len(args) >= 2 {
+		model = args[1]
 	}
 
 	log.Debugln("model: ", model)
