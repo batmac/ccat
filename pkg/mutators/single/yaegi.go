@@ -13,7 +13,7 @@ import (
 
 func init() {
 	singleRegister("yaegi", applyYaegi, withDescription("a yaegi script to apply (path as first argument, symbol as second argument)"),
-		withConfigBuilder(stdConfigStringsAtLeast(2)),
+		withConfigBuilder(stdConfigStrings(2, 2)),
 		withCategory("plugin"),
 	)
 }

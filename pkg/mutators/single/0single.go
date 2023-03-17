@@ -37,8 +37,11 @@ type singleFactory struct {
 	configBuilder     configBuilder
 }
 
-func ErrWrongNumberOfArgs(expected, got int) error {
-	return fmt.Errorf("wrong number of arguments, expected %d, got %d", expected, got)
+func ErrWrongNumberOfArgs(min, max, got int) error {
+	if min == max {
+		return fmt.Errorf("wrong number of arguments, got %d, expected %d", got, min)
+	}
+	return fmt.Errorf("wrong number of arguments, expected between %d and %d, got %d", min, max, got)
 }
 
 func withHintLexer(s string) singleOption {
@@ -62,7 +65,7 @@ func withCategory(s string) singleOption {
 	}
 }
 
-func withExpectingBinary(b bool) singleOption {
+func withExpectingBinary() singleOption {
 	return func(f *singleFactory) {
 		f.expectingBinary = true
 	}
@@ -85,7 +88,7 @@ func withAliases(aliases ...string) singleOption {
 func defaultConfigBuilder(args []string) (any, error) {
 	// no config, no args permitted
 	if len(args) != 0 {
-		return nil, ErrWrongNumberOfArgs(0, len(args))
+		return nil, ErrWrongNumberOfArgs(0, 0, len(args))
 	}
 	return nil, nil
 }

@@ -6,6 +6,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"strconv"
 
 	"github.com/batmac/ccat/pkg/log"
 	gpt "github.com/sashabaranov/go-openai"
@@ -13,19 +14,34 @@ import (
 
 // https://platform.openai.com/docs/guides/chat
 
-var defaultModel = gpt.GPT3Dot5Turbo
+const (
+	defaultChatModel = gpt.GPT3Dot5Turbo
+	defaultMaxTokens = 0 // unlimited
+)
 
 func init() {
 	singleRegister("chatgpt", chatgpt,
 		withDescription("ask OpenAI ChatGPT, X:4000 max replied tokens (needs a valid key in $OPENAI_API_KEY)"),
-		withConfigBuilder(stdConfigUint64WithDefault(4000)),
+		withConfigBuilder(stdConfigStrings(0, 2)),
 		withAliases("cgpt"),
 	)
 }
 
 func chatgpt(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
-	model := defaultModel
-	maxTokens := conf.(uint64)
+	model := defaultChatModel
+	Args := conf.([]string)
+	maxTokens := uint64(defaultMaxTokens)
+	var err error
+	if len(Args) > 0 {
+		maxTokens, err = strconv.ParseUint(Args[0], 10, 64)
+		if err != nil {
+			log.Println("first arg: ", err)
+		}
+	}
+	if len(Args) >= 2 {
+		model = Args[1]
+	}
+
 	log.Debugln("model: ", model)
 	log.Debugln("maxTokens: ", maxTokens)
 	key := os.Getenv("OPENAI_API_KEY")
@@ -35,6 +51,7 @@ func chatgpt(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 
 	client := gpt.NewClient(key)
 	ctx := context.Background()
+	// log.Debugf("models: %+v", listModels(client))
 
 	prompt, err := io.ReadAll(r)
 	if err != nil {
@@ -98,3 +115,19 @@ func chatgpt(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 		steps++
 	}
 }
+
+/* func listModels(c *gpt.Client) string {
+	models, err := c.ListModels(context.Background())
+	if err != nil {
+		log.Debugln("listModels(): ", err)
+		return ""
+	}
+	// convert models to json string
+	modelsJSON, err := json.Marshal(models)
+	if err != nil {
+		log.Debugln("listModels(): ", err)
+		return ""
+	}
+	return string(modelsJSON)
+}
+*/
