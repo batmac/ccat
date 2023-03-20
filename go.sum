@@ -31,8 +31,8 @@ github.com/PuerkitoBio/goquery v1.8.1/go.mod h1:Q8ICL1kNUJ2sXGoAhPGUdYDJvgQgHzJs
 github.com/aixiansheng/lzfse v0.2.4 h1:pnI+nzzakffPlwYjuTVEBmgAAPtY9+pi43ITjMuu0po=
 github.com/aixiansheng/lzfse v0.2.4/go.mod h1:QFcvJcpqVSunO1DVOk9SJSB26/rJHp1+Aa7BJqNl2WQ=
 github.com/alecthomas/assert/v2 v2.2.1 h1:XivOgYcduV98QCahG8T5XTezV5bylXe+lBxLG2K2ink=
-github.com/alecthomas/chroma/v2 v2.5.0 h1:CQCdj1BiBV17sD4Bd32b/Bzuiq/EqoNTrnIhyQAZ+Rk=
-github.com/alecthomas/chroma/v2 v2.5.0/go.mod h1:yrkMI9807G1ROx13fhe1v6PN2DDeaR73L3d+1nmYQtw=
+github.com/alecthomas/chroma/v2 v2.6.0 h1:1L4tjWoEqtLbld6XHdK8ewYY51YMLOGRv21dAFHjLnQ=
+github.com/alecthomas/chroma/v2 v2.6.0/go.mod h1:yrkMI9807G1ROx13fhe1v6PN2DDeaR73L3d+1nmYQtw=
 github.com/alecthomas/repr v0.2.0 h1:HAzS41CIzNW5syS8Mf9UwXhNH1J9aix/BvDRf1Ml2Yk=
 github.com/andelf/go-curl v0.0.0-20200630032108-fd49ff24ed97 h1:Nyfs+rh56aORy2tGMI9GCYEqTfePwL1v47qOzebfv/o=
 github.com/andelf/go-curl v0.0.0-20200630032108-fd49ff24ed97/go.mod h1:WO1d2m1QDzkoPcgn9lgHVMi7qQR5j3jxYjIIvMTHpC0=
