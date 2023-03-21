@@ -3,7 +3,7 @@ module github.com/batmac/ccat
 go 1.19
 
 require (
-	cloud.google.com/go/storage v1.29.0
+	cloud.google.com/go/storage v1.30.0
 	git.sr.ht/~adnano/go-gemini v0.2.3
 	github.com/OneOfOne/xxhash v1.2.8
 	github.com/PaesslerAG/jsonpath v0.1.1
