@@ -75,7 +75,7 @@ func TestScanLineReturn(t *testing.T) {
 // Test for issue 5268.
 type alwaysError struct{}
 
-func (alwaysError) Read(p []byte) (int, error) {
+func (alwaysError) Read(_ []byte) (int, error) {
 	return 0, io.ErrUnexpectedEOF
 }
 
@@ -93,7 +93,7 @@ func TestNonEOFWithEmptyRead(t *testing.T) {
 // Test that Scan finishes if we have endless empty reads.
 type endlessZeros struct{}
 
-func (endlessZeros) Read(p []byte) (int, error) {
+func (endlessZeros) Read(_ []byte) (int, error) {
 	return 0, nil
 }
 
