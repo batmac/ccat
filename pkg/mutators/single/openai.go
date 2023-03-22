@@ -4,7 +4,6 @@ import (
 	"context"
 	"errors"
 	"io"
-	"net/http"
 	"os"
 	"strconv"
 
@@ -80,10 +79,6 @@ func chatgpt(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 		return 0, err
 	}
 	defer stream.Close()
-	//nolint:bodyclose // body is closed in stream.Close()
-	if stream.GetResponse().StatusCode != http.StatusOK && key != "CI" {
-		return 0, errors.New(stream.GetResponse().Status)
-	}
 
 	defer func() {
 		if _, err = w.Write([]byte("\n")); err != nil {
