@@ -6,6 +6,7 @@ import (
 	"io"
 	"os"
 	"strconv"
+	"strings"
 
 	"github.com/batmac/ccat/pkg/log"
 	gpt "github.com/sashabaranov/go-openai"
@@ -46,6 +47,10 @@ func chatgpt(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 	key := os.Getenv("OPENAI_API_KEY")
 	if key == "" {
 		log.Fatal("OPENAI_API_KEY environment variable is not set")
+	}
+	if key == "CI" {
+		log.Println("OPENAI_API_KEY is set to CI, using fake response")
+		return io.Copy(w, strings.NewReader("CI"))
 	}
 
 	client := gpt.NewClient(key)
