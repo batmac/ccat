@@ -79,8 +79,8 @@ github.com/aws/smithy-go v1.13.5/go.mod h1:Tg+OJXh4MB2R/uN61Ko2f6hTZwB/ZYGOtib8J
 github.com/census-instrumentation/opencensus-proto v0.2.1/go.mod h1:f6KPmirojxKA12rnyqOA5BBL4O983OfeGPqjHWSTneU=
 github.com/client9/misspell v0.3.4/go.mod h1:qj6jICC3Q7zFZvVWo7KLAzC3yx5G7kyvSDkc90ppPyw=
 github.com/cncf/udpa/go v0.0.0-20191209042840-269d4d468f6f/go.mod h1:M8M6+tZqaGXZJjfX53e64911xZQV5JYwmTeXPW+k8Sc=
-github.com/creativeprojects/go-selfupdate v1.0.1 h1:5Un4MTv4puCR5GBgkDLC14J72fljGuMC60E63cFGq1o=
-github.com/creativeprojects/go-selfupdate v1.0.1/go.mod h1:nm7AWUJfrfYt/SB97NAcMhR0KEpPqlrVHXkWFti+ezw=
+github.com/creativeprojects/go-selfupdate v1.1.0 h1:OCvJUc7XtEGWSooyYFIQfF3dXD6VZNhaUk6Kd2Y6sqw=
+github.com/creativeprojects/go-selfupdate v1.1.0/go.mod h1:nm7AWUJfrfYt/SB97NAcMhR0KEpPqlrVHXkWFti+ezw=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
