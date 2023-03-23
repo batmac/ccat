@@ -19,8 +19,8 @@
       ]
     },
     {
-      "dependencyDashboardApproval": true,
       "automerge": true,
+      "dependencyDashboardApproval": true,
       "matchUpdateTypes": [
         "major"
       ]
