@@ -1,8 +1,6 @@
 package utils
 
 import (
-	"os"
-
 	"github.com/batmac/ccat/pkg/log"
 	"github.com/kofalt/go-memoize"
 	"github.com/patrickmn/go-cache"
@@ -34,7 +32,7 @@ func IsRunningInK8s() bool {
 }
 
 func isRunningInDocker() (any, error) {
-	if _, err := os.Stat("/.dockerenv"); err == nil {
+	if PathExists("/.dockerenv") {
 		log.Debugf("docker detected.")
 		return true, nil
 	}
@@ -42,7 +40,7 @@ func isRunningInDocker() (any, error) {
 }
 
 func isRunningInPodman() (any, error) {
-	if _, err := os.Stat("/run/.containerenv"); err == nil {
+	if PathExists("/run/.containerenv") {
 		log.Debugf("podman detected.")
 		return true, nil
 	}
@@ -51,7 +49,7 @@ func isRunningInPodman() (any, error) {
 
 func isRunningInK8s() (any, error) {
 	// this does not work if automountServiceAccountToken: false
-	if _, err := os.Stat("/run/secrets/kubernetes.io/"); err == nil {
+	if PathExists("/run/secrets/kubernetes.io/") {
 		log.Debugf("k8s (at least one secret is mounted) detected.")
 		return true, nil
 	}
