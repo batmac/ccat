@@ -6,10 +6,10 @@ import (
 )
 
 type Reader struct {
+	lastUpdate  time.Time
 	r           io.Reader
 	bandwidth   int // Bytes per second
 	freeVoucher int
-	lastUpdate  time.Time
 	totalRead   int
 }
 

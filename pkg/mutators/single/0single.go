@@ -19,22 +19,22 @@ type (
 )
 
 type singleMutator struct {
+	config  any
 	factory *singleFactory
 	Logger  *log.Logger
 	Done    chan struct{}
 	Mu      sync.Mutex
 	Started bool
 	Waited  bool
-	config  any
 }
 
 type singleFactory struct {
+	fn                singleFn
+	configBuilder     configBuilder
 	name, description string
 	category          string
-	fn                singleFn
 	hintLexer         string
 	expectingBinary   bool
-	configBuilder     configBuilder
 }
 
 func ErrWrongNumberOfArgs(min, max, got int) error {
