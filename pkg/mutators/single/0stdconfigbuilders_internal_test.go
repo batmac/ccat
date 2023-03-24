@@ -115,6 +115,7 @@ func Test_stdConfigStringsAtLeast(t *testing.T) {
 	tests := []struct {
 		name    string
 		atLeast int
+		upTo    int
 		args    []string
 		want    []string
 		wantErr bool
@@ -122,12 +123,14 @@ func Test_stdConfigStringsAtLeast(t *testing.T) {
 		{
 			name:    "empty",
 			atLeast: 1,
+			upTo:    1,
 			args:    []string{},
 			wantErr: true,
 		},
 		{
 			name:    "simple",
 			atLeast: 1,
+			upTo:    1,
 			args:    []string{"abc"},
 			want:    []string{"abc"},
 			wantErr: false,
@@ -136,6 +139,7 @@ func Test_stdConfigStringsAtLeast(t *testing.T) {
 		{
 			name:    "number",
 			atLeast: 1,
+			upTo:    1,
 			args:    []string{"10"},
 			want:    []string{"10"},
 			wantErr: false,
@@ -143,12 +147,14 @@ func Test_stdConfigStringsAtLeast(t *testing.T) {
 		{
 			name:    "less than two",
 			atLeast: 2,
+			upTo:    2,
 			args:    []string{"foo"},
 			wantErr: true,
 		},
 		{
 			name:    "two",
 			atLeast: 2,
+			upTo:    2,
 			args:    []string{"foo", "bar"},
 			want:    []string{"foo", "bar"},
 			wantErr: false,
@@ -156,14 +162,23 @@ func Test_stdConfigStringsAtLeast(t *testing.T) {
 		{
 			name:    "more than two",
 			atLeast: 2,
+			upTo:    4,
 			args:    []string{"foo", "bar", "baz", "qux"},
 			want:    []string{"foo", "bar", "baz", "qux"},
 			wantErr: false,
 		},
+		{
+			name:    "too many",
+			atLeast: 2,
+			upTo:    3,
+			args:    []string{"foo", "bar", "baz", "qux"},
+			want:    []string{"foo", "bar", "baz", "qux"},
+			wantErr: true,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			fn := stdConfigStringsAtLeast(tt.atLeast)
+			fn := stdConfigStrings(tt.atLeast, tt.upTo)
 			res, err := fn(tt.args)
 			var got []string
 			var ok bool

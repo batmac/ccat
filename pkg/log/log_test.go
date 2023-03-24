@@ -63,6 +63,7 @@ func TestPp(t *testing.T) {
 
 func TestDontPanic(t *testing.T) {
 	_ = log.Default()
+	t.Log("Start of test")
 	log.Debugf("hi")
 	log.Debugln("hi")
 	log.Print("hi")

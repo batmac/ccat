@@ -8,7 +8,7 @@ import (
 
 func stdConfigHumanSizeAsInt64(args []string) (any, error) {
 	if len(args) != 1 {
-		return nil, ErrWrongNumberOfArgs(1, len(args))
+		return nil, ErrWrongNumberOfArgs(1, 1, len(args))
 	}
 
 	n, err := stringutils.FromHumanSize[int64](args[0])
@@ -30,7 +30,7 @@ func stdConfigUint64WithDefault(defaultValue uint64) configBuilder {
 			return defaultValue, nil
 		}
 		if len(args) != 1 {
-			return nil, ErrWrongNumberOfArgs(1, len(args))
+			return nil, ErrWrongNumberOfArgs(1, 1, len(args))
 		}
 
 		if args[0][0] == '-' {
@@ -56,16 +56,16 @@ func stdConfigStringWithDefault(defaultValue string) configBuilder {
 
 func stdConfigString(args []string) (any, error) {
 	if len(args) != 1 {
-		return nil, ErrWrongNumberOfArgs(1, len(args))
+		return nil, ErrWrongNumberOfArgs(1, 1, len(args))
 	}
 
 	return args[0], nil
 }
 
-func stdConfigStringsAtLeast(n int) configBuilder {
+func stdConfigStrings(min, max int) configBuilder {
 	return func(args []string) (any, error) {
-		if len(args) < n {
-			return nil, ErrWrongNumberOfArgs(n, len(args))
+		if len(args) < min || len(args) > max {
+			return nil, ErrWrongNumberOfArgs(min, max, len(args))
 		}
 
 		return args, nil

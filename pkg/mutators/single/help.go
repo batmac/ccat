@@ -13,6 +13,6 @@ func init() {
 	)
 }
 
-func printHelp(out io.WriteCloser, in io.ReadCloser, _ any) (int64, error) {
+func printHelp(out io.WriteCloser, _ io.ReadCloser, _ any) (int64, error) {
 	return io.Copy(out, strings.NewReader(mutators.AvailableMutatorsHelp()))
 }

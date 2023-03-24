@@ -10,7 +10,7 @@ func init() {
 	// we want the output to be as-is
 	singleRegister("removeANSI", removeANSI, withDescription("remove ANSI codes"),
 		withCategory("filter"),
-		withExpectingBinary(true))
+		withExpectingBinary())
 }
 
 func removeANSI(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {

@@ -15,7 +15,7 @@ func init() {
 	singleRegister("wa", wolframalphashort, withDescription("query wolfram alpha Short Answers API (APPID in $WA_APPID)"))
 	singleRegister("waspoken", wolframalphaspoken, withDescription("query wolfram alpha Spoken API (APPID in $WA_APPID)"))
 	singleRegister("wasimple", wolframalphasimple, withDescription("query wolfram alpha Simple API (output is an image, APPID in $WA_APPID)"),
-		withExpectingBinary(true))
+		withExpectingBinary())
 }
 
 func wolframalphashort(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {

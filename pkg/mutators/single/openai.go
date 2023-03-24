@@ -4,8 +4,9 @@ import (
 	"context"
 	"errors"
 	"io"
-	"net/http"
 	"os"
+	"strconv"
+	"strings"
 
 	"github.com/batmac/ccat/pkg/log"
 	gpt "github.com/sashabaranov/go-openai"
@@ -13,28 +14,48 @@ import (
 
 // https://platform.openai.com/docs/guides/chat
 
-var defaultModel = gpt.GPT3Dot5Turbo
+const (
+	defaultChatModel = gpt.GPT3Dot5Turbo
+	defaultMaxTokens = 0 // unlimited
+)
 
 func init() {
 	singleRegister("chatgpt", chatgpt,
-		withDescription("ask OpenAI ChatGPT, X:4000 max replied tokens (needs a valid key in $OPENAI_API_KEY)"),
-		withConfigBuilder(stdConfigUint64WithDefault(4000)),
+		withDescription("ask OpenAI ChatGPT, X:<unlimited> max replied tokens, the optional second arg is the model (needs a valid key in $OPENAI_API_KEY)"),
+		withConfigBuilder(stdConfigStrings(0, 2)),
 		withAliases("cgpt"),
 	)
 }
 
 func chatgpt(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
-	model := defaultModel
-	maxTokens := conf.(uint64)
+	args := conf.([]string)
+	model := defaultChatModel
+	maxTokens := uint64(defaultMaxTokens)
+	var err error
+	if len(args) > 0 {
+		maxTokens, err = strconv.ParseUint(args[0], 10, 64)
+		if err != nil {
+			log.Println("first arg: ", err)
+		}
+	}
+	if len(args) >= 2 {
+		model = args[1]
+	}
+
 	log.Debugln("model: ", model)
 	log.Debugln("maxTokens: ", maxTokens)
 	key := os.Getenv("OPENAI_API_KEY")
 	if key == "" {
 		log.Fatal("OPENAI_API_KEY environment variable is not set")
 	}
+	if key == "CI" {
+		log.Println("OPENAI_API_KEY is set to CI, using fake response")
+		return io.Copy(w, strings.NewReader("CI"))
+	}
 
 	client := gpt.NewClient(key)
 	ctx := context.Background()
+	// log.Debugf("models: %+v", listModels(client))
 
 	prompt, err := io.ReadAll(r)
 	if err != nil {
@@ -63,10 +84,6 @@ func chatgpt(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 		return 0, err
 	}
 	defer stream.Close()
-	//nolint:bodyclose // body is closed in stream.Close()
-	if stream.GetResponse().StatusCode != http.StatusOK && key != "CI" {
-		return 0, errors.New(stream.GetResponse().Status)
-	}
 
 	defer func() {
 		if _, err = w.Write([]byte("\n")); err != nil {
@@ -98,3 +115,19 @@ func chatgpt(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 		steps++
 	}
 }
+
+/* func listModels(c *gpt.Client) string {
+	models, err := c.ListModels(context.Background())
+	if err != nil {
+		log.Debugln("listModels(): ", err)
+		return ""
+	}
+	// convert models to json string
+	modelsJSON, err := json.Marshal(models)
+	if err != nil {
+		log.Debugln("listModels(): ", err)
+		return ""
+	}
+	return string(modelsJSON)
+}
+*/

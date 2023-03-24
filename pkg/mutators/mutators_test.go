@@ -55,9 +55,11 @@ func Test_Run(t *testing.T) {
 func TestAvailableMutatorsHelp(t *testing.T) {
 	// do not panic please
 	_ = mutators.AvailableMutatorsHelp()
+	t.Log("End of test")
 }
 
 func Test_TryFuzzySearch(t *testing.T) {
 	// do not panic please
 	mutators.TryFuzzySearch("")
+	t.Log("End of test")
 }

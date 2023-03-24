@@ -9,7 +9,6 @@ import (
 
 	"github.com/batmac/ccat/pkg/log"
 	"github.com/batmac/ccat/pkg/stringutils"
-	"github.com/batmac/ccat/pkg/term"
 )
 
 func init() {
@@ -35,7 +34,7 @@ func pv(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
 				return
 			case <-time.After(time.Duration(option) * time.Millisecond):
 				prefix := ""
-				if term.IsStdoutTerminal() && log.DebugIsDiscard == 1 {
+				if log.DebugIsDiscard == 1 {
 					prefix = "\x1b[A\x1b[2K" // go on the previous line and erase the line
 				}
 				newTotal := totalWritten.Load()
