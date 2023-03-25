@@ -39,7 +39,7 @@ require (
 	github.com/sashabaranov/go-openai v1.5.7
 	github.com/spf13/pflag v1.0.5
 	github.com/titanous/json5 v1.0.0
-	github.com/traefik/yaegi v0.15.0
+	github.com/traefik/yaegi v0.15.1
 	github.com/ulikunitz/xz v0.5.11
 	github.com/zeebo/xxh3 v1.0.2
 	golang.org/x/exp v0.0.0-20230321023759-10a507213a29
