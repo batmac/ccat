@@ -64,7 +64,7 @@ func (f fileOpener) Evaluate(s string) float32 {
 	if path == "-" {
 		return 1.0
 	}
-	if _, err := os.Stat(path); err == nil {
+	if utils.PathExists(path) {
 		return 0.99
 	}
 	return 0.0
