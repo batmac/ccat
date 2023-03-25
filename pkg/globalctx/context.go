@@ -25,13 +25,15 @@ type ctx struct {
 type key string
 
 func init() {
-	Reset()
+	globalCtx.mu.Lock()
+	defer globalCtx.mu.Unlock()
+	globalCtx.ctx = context.Background()
 }
 
 func Set(k string, v any) {
 	globalCtx.mu.Lock()
 	defer globalCtx.mu.Unlock()
-	log.Debugf("globalctx: setting %v=%v\n", k, v)
+	log.Debugf("globalctx: setting %v=%#v\n", k, v)
 	globalCtx.ctx = context.WithValue(globalCtx.ctx, key(k), v)
 }
 
@@ -52,10 +54,12 @@ func GetBool(k string) bool {
 }
 
 func Reset() {
-	// doesn't touch globalCtx.err
+	// doesn't touch globalCtx.err, copy the conf key
 	globalCtx.mu.Lock()
 	defer globalCtx.mu.Unlock()
+	conf := globalCtx.ctx.Value(key("conf"))
 	globalCtx.ctx = context.Background()
+	globalCtx.ctx = context.WithValue(globalCtx.ctx, key("conf"), conf)
 }
 
 func SetErrored() {

@@ -6,6 +6,8 @@ import (
 	"strings"
 	"sync"
 
+	"github.com/batmac/ccat/pkg/config"
+	"github.com/batmac/ccat/pkg/globalctx"
 	"github.com/batmac/ccat/pkg/log"
 	"github.com/batmac/ccat/pkg/mutators"
 )
@@ -26,6 +28,7 @@ func NewPipeline(description string, out io.WriteCloser, in io.ReadCloser) error
 		globalPipeline.mu.Unlock()
 		return errors.New("empty pipeline requested")
 	}
+	description = handleAliases(description)
 	list := strings.Split(description, ",")
 	for _, m := range list {
 		log.Debugf("creating %v\n", m)
@@ -85,4 +88,31 @@ func Wait() {
 		log.Debugf("waited %v\n", m)
 	}
 	globalPipeline.stages = nil
+}
+
+func handleAliases(description string) string {
+	c, ok := globalctx.Get("conf").(*config.Config)
+
+	if !ok || len(c.Aliases) == 0 {
+		// no aliases defined
+		return description
+	}
+
+	for alias, definition := range c.Aliases {
+		alias = "@" + alias
+		description = strings.ReplaceAll(description, alias, definition)
+	}
+
+	log.Debugf("pipeline definition => %v\n", description)
+
+	if definition, alias, found := strings.Cut(description, "="); found {
+		for alias[0] == '@' {
+			alias = alias[1:]
+		}
+		c.Aliases[alias] = definition
+		globalctx.Set("conf", c)
+		log.Debugf("added alias %v=%v\n", alias, definition)
+		return definition
+	}
+	return description
 }

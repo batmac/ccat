@@ -11,6 +11,7 @@ import (
 
 	"github.com/batmac/ccat/pkg/color"
 	"github.com/batmac/ccat/pkg/completion"
+	"github.com/batmac/ccat/pkg/config"
 	"github.com/batmac/ccat/pkg/globalctx"
 	"github.com/batmac/ccat/pkg/highlighter"
 	"github.com/batmac/ccat/pkg/log"
@@ -78,6 +79,9 @@ func init() {
 func main() {
 	log.Debugln("STARTING ccat")
 	log.Debugf(buildLine())
+	// try to load the config file
+	log.Debugln("loading config file")
+	globalctx.Set("conf", config.Load())
 
 	if *argVersion {
 		fmt.Println(buildLine())
@@ -205,6 +209,12 @@ func main() {
 	if *argMemUsage {
 		PrintMemUsage()
 	}
+
+	// write the config file
+	log.Debugln("writing config file")
+	conf := globalctx.Get("conf").(*config.Config)
+	log.Debugf("conf: %#v\n", conf)
+	_ = config.Save(conf)
 
 	if globalctx.IsErrored() {
 		os.Exit(1)
