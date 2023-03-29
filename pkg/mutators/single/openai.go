@@ -32,7 +32,7 @@ func chatgpt(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 	model := defaultChatModel
 	maxTokens := uint64(defaultMaxTokens)
 	var err error
-	if len(args) > 0 {
+	if len(args) > 0 && args[0] != "" {
 		maxTokens, err = strconv.ParseUint(args[0], 10, 64)
 		if err != nil {
 			log.Println("first arg: ", err)
