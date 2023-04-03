@@ -13,6 +13,7 @@ import (
 // fileList: the file arguments
 // path: path (url) of the current processed file
 // hintLexer: hint about the lexer the highlighter should probably use
+// hintSlowOutput: hint about the output being slow (so try to output it asap)
 // expectingBinary: the output will have non-displayable char(so don't try to pretty-print/highlight)
 var globalCtx ctx
 

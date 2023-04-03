@@ -24,6 +24,7 @@ func init() {
 		withDescription("ask OpenAI ChatGPT, X:<unlimited> max replied tokens, the optional second arg is the model (needs a valid key in $OPENAI_API_KEY)"),
 		withConfigBuilder(stdConfigStrings(0, 2)),
 		withAliases("cgpt"),
+		withHintSlow(), // output asap (when no other mutator is used)
 	)
 }
 

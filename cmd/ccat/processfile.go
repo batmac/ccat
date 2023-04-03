@@ -90,7 +90,12 @@ func processFile(w io.Writer, path string) {
 		log.Debugln("splitting on Lines...")
 		splitFn = scanners.ScanLines
 	}
-	if *argSplitByWords {
+	hintSlowOutput := globalctx.Get("hintSlowOutput")
+	if *argSplitByWords || hintSlowOutput != nil && hintSlowOutput.(bool) {
+		if *argLineNumber {
+			log.Println("warning: -n is not compatible with -w or your last mutator, ignoring -n")
+			*argLineNumber = false
+		}
 		log.Debugln("splitting on Words...")
 		splitFn = scanners.ScanWords
 	}

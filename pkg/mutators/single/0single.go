@@ -34,6 +34,7 @@ type singleFactory struct {
 	name, description string
 	category          string
 	hintLexer         string
+	hintSlowOutput    bool
 	expectingBinary   bool
 }
 
@@ -67,6 +68,14 @@ func withCategory(s string) singleOption {
 
 func withExpectingBinary() singleOption {
 	return func(f *singleFactory) {
+		f.expectingBinary = true
+	}
+}
+
+func withHintSlow() singleOption {
+	return func(f *singleFactory) {
+		f.hintSlowOutput = true
+		// if slow, we set expectingBinary to true as well not to highlight
 		f.expectingBinary = true
 	}
 }
@@ -109,6 +118,7 @@ func singleRegister(name string, f singleFn, opts ...singleOption) {
 func (f *singleFactory) NewMutator(logger *log.Logger, args []string) (mutators.Mutator, error) {
 	logger.Printf("%s: new", f.Name())
 	globalctx.Set("hintLexer", f.hintLexer)
+	globalctx.Set("hintSlowOutput", f.hintSlowOutput)
 	globalctx.Set("expectingBinary", f.expectingBinary)
 
 	var config any

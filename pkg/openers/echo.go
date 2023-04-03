@@ -11,7 +11,7 @@ import (
 
 var (
 	echoOpenerName        = "echo"
-	echoOpenerDescription = "echo the data given"
+	echoOpenerDescription = "echo the string given"
 )
 
 type echoOpener struct {
