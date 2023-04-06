@@ -136,7 +136,7 @@ func (c *Client) Stream(sp *SamplingParameters) error {
 			previousResponse = r
 			continue
 		}
-		line = strings.TrimSpace(strings.TrimPrefix(line, "data:"))
+		line = strings.TrimPrefix(line, "data: ")
 		if line == MessageDone {
 			log.Debugf("done: %s\n", event.String()+line)
 			if previousResponse.StopReason != "stop_sequence" && previousResponse.StopReason != "max_tokens" {
