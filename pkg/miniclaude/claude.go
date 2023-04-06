@@ -117,6 +117,11 @@ func (c *Client) Stream(sp *SamplingParameters) error {
 	defer resp.Body.Close()
 	defer close(c.C)
 
+	if resp.StatusCode != http.StatusOK {
+		log.Printf("http unexpected status code: %s", resp.Status)
+		return fmt.Errorf("http unexpected status code: %d (%s)", resp.StatusCode, resp.Status)
+	}
+
 	var previousResponse response
 	scanner := bufio.NewScanner(resp.Body)
 	event := bytes.NewBuffer(nil)
