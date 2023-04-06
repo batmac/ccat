@@ -25,7 +25,7 @@ require (
 	github.com/gowebpki/jcs v1.0.0
 	github.com/hbollon/go-edlib v1.6.0
 	github.com/kevinburke/nacl v0.0.0-20210405173606-cd9060f5f776
-	github.com/klauspost/compress v1.16.3
+	github.com/klauspost/compress v1.16.4
 	github.com/kofalt/go-memoize v0.0.0-20220914132407-0b5d6a304579
 	github.com/magefile/mage v1.14.0
 	github.com/minio/minio-go/v7 v7.0.50
@@ -34,16 +34,16 @@ require (
 	github.com/muesli/reflow v0.3.0
 	github.com/patrickmn/go-cache v2.1.0+incompatible
 	github.com/pierrec/lz4/v4 v4.1.17
-	github.com/rivo/tview v0.0.0-20230330183452-5796b0cd5c1f
+	github.com/rivo/tview v0.0.0-20230406072732-e22ce9588bb4
 	github.com/robert-nix/ansihtml v1.0.1
-	github.com/sashabaranov/go-openai v1.5.8
+	github.com/sashabaranov/go-openai v1.6.1
 	github.com/spf13/pflag v1.0.5
 	github.com/titanous/json5 v1.0.0
 	github.com/traefik/yaegi v0.15.1
 	github.com/ulikunitz/xz v0.5.11
 	github.com/zeebo/xxh3 v1.0.2
 	golang.org/x/exp v0.0.0-20230321023759-10a507213a29
-	golang.org/x/term v0.6.0
+	golang.org/x/term v0.7.0
 	howett.net/plist v1.0.0
 	sigs.k8s.io/yaml v1.3.0
 )
@@ -107,7 +107,7 @@ require (
 	golang.org/x/net v0.8.0 // indirect
 	golang.org/x/oauth2 v0.6.0 // indirect
 	golang.org/x/sync v0.1.0 // indirect
-	golang.org/x/sys v0.6.0 // indirect
+	golang.org/x/sys v0.7.0 // indirect
 	golang.org/x/text v0.8.0 // indirect
 	golang.org/x/time v0.3.0 // indirect
 	golang.org/x/xerrors v0.0.0-20220907171357-04be3eba64a2 // indirect
