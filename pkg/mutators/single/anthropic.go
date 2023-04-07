@@ -39,10 +39,6 @@ func claude(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 	if key == "" {
 		log.Fatal("ANTHROPIC_API_KEY environment variable is not set")
 	}
-	/* if key == "CI" {
-		log.Println("ANTHROPIC_API_KEY is set to CI, using fake response")
-		return io.Copy(w, strings.NewReader("CI"))
-	} */
 
 	prompt, err := io.ReadAll(r)
 	if err != nil {
@@ -55,7 +51,16 @@ func claude(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 	}
 	client := miniclaude.New()
 	client.APIKey = key
+
 	go func() {
+		if key == "CI" {
+			log.Println("ANTHROPIC_API_KEY is set to CI, using fake response")
+			client.C <- "fake"
+			client.C <- ""
+			close(client.C)
+			return
+		}
+
 		err := client.Stream(sp)
 		if err != nil {
 			log.Println("client.Stream: ", err)
