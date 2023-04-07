@@ -19,10 +19,10 @@ func init() {
 
 func claude(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 	args := conf.([]string)
-	maxTokens := uint64(defaultMaxTokens)
+	maxTokens := 0
 	var err error
 	if len(args) > 0 && args[0] != "" {
-		maxTokens, err = strconv.ParseUint(args[0], 10, 64)
+		maxTokens, err = strconv.Atoi(args[0])
 		if err != nil {
 			log.Println("first arg: ", err)
 		}
@@ -51,7 +51,7 @@ func claude(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 
 	sp := miniclaude.NewSimpleSamplingParameters(string(prompt), model)
 	if maxTokens > 0 {
-		sp.MaxTokensToSample = int(maxTokens)
+		sp.MaxTokensToSample = maxTokens
 	}
 	client := miniclaude.New()
 	client.APIKey = key
