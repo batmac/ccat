@@ -104,7 +104,7 @@ $ kubectl run -i --tty ccat --image=batmac/ccat:latest -- /bin/sh
 ## help
 
 ```
-version v1.10.0-44-g3bda129 [libcurl,crappy,plugins], commit 3bda1293604c281bd0ea587706ff30e707a2f218, built at 2023-04-03@19:14:43+0200 by Mage (go1.20.2 darwin/arm64)
+version v1.10.0-53-g6464a75 [libcurl,crappy,plugins], commit 6464a756a304c74dd8f80b6abcca346e7d073ac1, built at 2023-04-09@05:25:00+0200 by Mage (go1.20.3 darwin/arm64)
 usage: ccat [options] [file ...]
   -t, --tokens string       comma-separated list of tokens
   -i, --ignore-case         tokens given with -t are case-insensitive
@@ -158,7 +158,6 @@ ccat <files>...
 
  - mutators:
         cb: put a copy in the clipboard
-        chatgpt: ask OpenAI ChatGPT, X:<unlimited> max replied tokens, the optional second arg is the model (needs a valid key in $OPENAI_API_KEY)
         discard: discard X:0 bytes (0 = all)
         dummy: a simple fifo
         help: display mutators help
@@ -170,10 +169,6 @@ ccat <files>...
         mimetype: detect mimetype
         pv: copy in to out, printing the total and the bandwidth (like pv) each X:1000 milliseconds on stderr
         sponge: soak all input before outputting it.
-        translate: translate to X:en or $TARGET_LANGUAGE with google translate (needs a valid key in $GOOGLE_API_KEY)
-        wa: query wolfram alpha Short Answers API (APPID in $WA_APPID)
-        wasimple: query wolfram alpha Simple API (output is an image, APPID in $WA_APPID)
-        waspoken: query wolfram alpha Spoken API (APPID in $WA_APPID)
         wc: count bytes (b, default), runes (r), words (w) or lines (l)
         wrap: word-wrap the text (to X:80 chars maximum)
         wrapU: unconditionally wrap the text (to X:80 chars maximum)
@@ -227,6 +222,13 @@ ccat <files>...
         easyopen: decrypt with Nacl EasyOpen, get the key from env (KEY)
     encrypt:
         easyseal: encrypt with Nacl EasySeal, key used is printed on stderr
+    external APIs:
+        chatgpt: ask OpenAI ChatGPT, X:<unlimited> max replied tokens, the optional second arg is the model (needs a valid key in $OPENAI_API_KEY)
+        claude: ask Anthropic Claude, X:<unlimited> max replied tokens, the optional second arg is the model (needs a valid key in $ANTHROPIC_API_KEY)
+        translate: translate to X:en or $TARGET_LANGUAGE with google translate (needs a valid key in $GOOGLE_API_KEY)
+        wa: query wolfram alpha Short Answers API (APPID in $WA_APPID)
+        wasimple: query wolfram alpha Simple API (output is an image, APPID in $WA_APPID)
+        waspoken: query wolfram alpha Spoken API (APPID in $WA_APPID)
     filter:
         filterUTF8: remove non-utf8
         jsonpath: a jsonpath expression to apply (on $, with all ',' replaced by '|', all ':' replaced by '£')
@@ -237,10 +239,10 @@ ccat <files>...
   ('X:Y' means X is an argument with default value Y)
 
   mutator aliases:
-    dum, dumm: dummy
-    l: limit
-    cgpt: chatgpt
     d: discard
     ub64, unb64: unbase64
     b64: base64
+    dumm, dum: dummy
+    l: limit
+    cgpt: chatgpt
 ```
