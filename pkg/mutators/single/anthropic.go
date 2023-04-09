@@ -13,7 +13,8 @@ func init() {
 	singleRegister("claude", claude,
 		withDescription("ask Anthropic Claude, X:<unlimited> max replied tokens, the optional second arg is the model (needs a valid key in $ANTHROPIC_API_KEY)"),
 		withConfigBuilder(stdConfigStrings(0, 2)),
-		withHintSlow(), // output asap (when no other mutator is used)
+		withHintSlow(), // output asap (when no other mutator is used),
+		withCategory("external APIs"),
 	)
 }
 

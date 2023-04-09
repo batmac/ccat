@@ -159,6 +159,7 @@ func init() {
 	singleRegister("translate", translate,
 		withDescription("translate to X:en or $TARGET_LANGUAGE with google translate (needs a valid key in $GOOGLE_API_KEY)"),
 		withConfigBuilder(stdConfigStringWithDefault(defaultLanguage)),
+		withCategory("external APIs"),
 	)
 }
 

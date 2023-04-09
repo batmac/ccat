@@ -25,6 +25,7 @@ func init() {
 		withConfigBuilder(stdConfigStrings(0, 2)),
 		withAliases("cgpt"),
 		withHintSlow(), // output asap (when no other mutator is used)
+		withCategory("external APIs"),
 	)
 }
 
