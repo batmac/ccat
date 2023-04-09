@@ -49,10 +49,6 @@ func chatgpt(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 	if key == "" {
 		log.Fatal("OPENAI_API_KEY environment variable is not set")
 	}
-	if key == "CI" {
-		log.Println("OPENAI_API_KEY is set to CI, using fake response")
-		return io.Copy(w, strings.NewReader("CI"))
-	}
 
 	client := gpt.NewClient(key)
 	ctx := context.Background()
@@ -80,6 +76,10 @@ func chatgpt(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 		User:             "",
 	}
 	log.Debugf("request: %#v", req)
+	if key == "CI" {
+		log.Println("OPENAI_API_KEY is set to CI, using fake response")
+		return io.Copy(w, strings.NewReader("CI"))
+	}
 	stream, err := client.CreateChatCompletionStream(ctx, req)
 	if err != nil {
 		return 0, err
