@@ -14,11 +14,6 @@ import (
 
 // https://platform.openai.com/docs/guides/chat
 
-const (
-	defaultChatModel = gpt.GPT3Dot5Turbo
-	defaultMaxTokens = 0 // unlimited
-)
-
 func init() {
 	singleRegister("chatgpt", chatgpt,
 		withDescription("ask OpenAI ChatGPT, X:<unlimited> max replied tokens, the optional second arg is the model (needs a valid key in $OPENAI_API_KEY)"),
@@ -31,11 +26,11 @@ func init() {
 
 func chatgpt(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 	args := conf.([]string)
-	model := defaultChatModel
-	maxTokens := uint64(defaultMaxTokens)
+	model := gpt.GPT3Dot5Turbo
+	maxTokens := 0 // unlimited
 	var err error
 	if len(args) > 0 && args[0] != "" {
-		maxTokens, err = strconv.ParseUint(args[0], 10, 64)
+		maxTokens, err = strconv.Atoi(args[0])
 		if err != nil {
 			log.Println("first arg: ", err)
 		}
@@ -65,7 +60,7 @@ func chatgpt(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 		Messages: []gpt.ChatCompletionMessage{
 			{Role: "user", Content: string(prompt)},
 		},
-		MaxTokens:        int(maxTokens),
+		MaxTokens:        maxTokens,
 		Temperature:      0,
 		TopP:             0,
 		N:                0,
