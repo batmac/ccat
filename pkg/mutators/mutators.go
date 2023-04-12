@@ -76,7 +76,7 @@ func RegisterAlias(name string, alias string) error {
 	defer globalCollection.mu.Unlock()
 	// forbid overwriting an existing alias
 	if _, ok := globalCollection.aliases[alias]; ok {
-		return fmt.Errorf("mutators: alising %s is not permitted. It is already an alias", name)
+		return fmt.Errorf("mutators: aliasing %s is not permitted. It is already an alias", name)
 	}
 	globalCollection.aliases[alias] = name
 	// glog.Printf("mutators: %s aliased as %s\n", name, alias)
