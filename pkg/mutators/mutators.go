@@ -194,7 +194,8 @@ func Run(mutatorName, input string) string {
 }
 
 func TryFuzzySearch(name string) {
-	list := ListAvailableMutators("ALL")
+	list, _ := ListAvailableAliases()
+	list = append(list, ListAvailableMutators("ALL")...)
 	f, err := stringutils.FuzzySearch(name, list, 0.5)
 	if err != nil {
 		log.Debugln(err)
