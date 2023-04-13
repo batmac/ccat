@@ -8,6 +8,13 @@
   "labels": [
     "renovate"
   ],
+  "pre-commit": {
+    "enabled": true
+  },
+  "schedule": [
+    "after 7pm on friday",
+    "after 10pm on sunday"
+  ],
   "packageRules": [
     {
       "automerge": true,
