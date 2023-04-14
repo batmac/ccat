@@ -11,8 +11,8 @@ import (
 
 func init() {
 	singleRegister("claude", claude,
-		withDescription("ask Anthropic Claude, X:<unlimited> max replied tokens, the optional second arg is the model (needs a valid key in $ANTHROPIC_API_KEY)"),
-		withConfigBuilder(stdConfigStrings(0, 2)),
+		withDescription("ask Anthropic Claude, X:<unlimited> max replied tokens, optional second arg is the model, optional third arg is the preprompt (needs a valid key in $ANTHROPIC_API_KEY)"),
+		withConfigBuilder(stdConfigStrings(0, 3)),
 		withHintSlow(), // output asap (when no other mutator is used),
 		withCategory("external APIs"),
 	)
@@ -30,12 +30,18 @@ func claude(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 	}
 
 	model := miniclaude.ModelClaudeV12
-	if len(args) >= 2 {
+	if len(args) >= 2 && args[1] != "" {
 		model = args[1]
+	}
+
+	prePrompt := ""
+	if len(args) >= 3 && args[2] != "" {
+		prePrompt = args[2] + ":\n"
 	}
 
 	log.Debugln("model: ", model)
 	log.Debugln("maxTokens: ", maxTokens)
+	log.Debugln("prePrompt: ", prePrompt)
 	key := os.Getenv("ANTHROPIC_API_KEY")
 	if key == "" {
 		log.Fatal("ANTHROPIC_API_KEY environment variable is not set")
@@ -46,7 +52,7 @@ func claude(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 		return 0, err
 	}
 
-	sp := miniclaude.NewSimpleSamplingParameters(string(prompt), model)
+	sp := miniclaude.NewSimpleSamplingParameters(prePrompt+string(prompt), model)
 	if maxTokens > 0 {
 		sp.MaxTokensToSample = maxTokens
 	}

@@ -17,7 +17,7 @@ import (
 func init() {
 	singleRegister("chatgpt", chatgpt,
 		withDescription("ask OpenAI ChatGPT, X:<unlimited> max replied tokens, the optional second arg is the model (needs a valid key in $OPENAI_API_KEY)"),
-		withConfigBuilder(stdConfigStrings(0, 2)),
+		withConfigBuilder(stdConfigStrings(0, 3)),
 		withAliases("cgpt"),
 		withHintSlow(), // output asap (when no other mutator is used)
 		withCategory("external APIs"),
@@ -35,12 +35,18 @@ func chatgpt(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 			log.Println("first arg: ", err)
 		}
 	}
-	if len(args) >= 2 {
+	if len(args) >= 2 && args[1] != "" {
 		model = args[1]
+	}
+
+	prePrompt := ""
+	if len(args) >= 3 && args[2] != "" {
+		prePrompt = args[2] + ":\n"
 	}
 
 	log.Debugln("model: ", model)
 	log.Debugln("maxTokens: ", maxTokens)
+	log.Debugln("prePrompt: ", prePrompt)
 	key := os.Getenv("OPENAI_API_KEY")
 	if key == "" {
 		log.Fatal("OPENAI_API_KEY environment variable is not set")
@@ -58,7 +64,7 @@ func chatgpt(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 	req := gpt.ChatCompletionRequest{
 		Model: model,
 		Messages: []gpt.ChatCompletionMessage{
-			{Role: "user", Content: string(prompt)},
+			{Role: "user", Content: prePrompt + string(prompt)},
 		},
 		MaxTokens:        maxTokens,
 		Temperature:      0,
