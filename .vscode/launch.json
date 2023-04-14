@@ -4,7 +4,7 @@
       "args": [
         "-d"
       ],
-      "buildFlags": "-tags=crappy",
+      "buildFlags": "-tags=crappy,plugins",
       "mode": "auto",
       "name": "Launch Package",
       "program": "${fileDirname}",
