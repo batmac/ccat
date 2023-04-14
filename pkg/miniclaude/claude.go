@@ -20,6 +20,7 @@ const (
 	ModelClaudeV1         string = "claude-v1"
 	ModelClaudeV10        string = "claude-v1.0"
 	ModelClaudeV12        string = "claude-v1.2"
+	ModelClaudeV13        string = "claude-v1.3"
 	ModelClaudeInstantV1  string = "claude-instant-v1"
 	ModelClaudeInstantV10 string = "claude-instant-v1.0"
 )
