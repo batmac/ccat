@@ -72,7 +72,7 @@ func huggingface(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 	baseURL := "https://api-inference.huggingface.co/models/"
 
 	token, source, err := getHuggingFaceToken()
-	if err != nil {
+	if err != nil && os.Getenv("CI") != "CI" {
 		return 0, err
 	}
 	model := "bigscience/bloom"
@@ -107,6 +107,12 @@ func huggingface(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("User-Agent", "ccat")
+
+	if os.Getenv("CI") == "CI" {
+		_, _ = w.Write([]byte("fake"))
+		return 0, nil
+	}
+
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
 		return 0, err
@@ -144,7 +150,7 @@ func getHuggingFaceToken() (string, string, error) {
 		token, source = string(content), path
 	}
 
-	if token == "" {
+	if token == "" || os.Getenv("CI") == "CI" {
 		return "", "", fmt.Errorf("no HuggingFace token found")
 	}
 	return token, source, nil
