@@ -46,7 +46,7 @@ func (f echoOpener) Open(s string, _ bool) (io.ReadCloser, error) {
 		return nil, fmt.Errorf("no data given")
 	}
 
-	datareader := io.NopCloser(io.MultiReader(strings.NewReader(s), strings.NewReader("\n")))
+	datareader := io.NopCloser(strings.NewReader(s))
 	return datareader, nil
 }
 
