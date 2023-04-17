@@ -17,14 +17,14 @@ func Test_echoOpener_Open(t *testing.T) {
 		wantErr bool
 		wanted  string
 	}{
-		{name: "ok", args: "echo://salut", wantErr: false, wanted: "salut\n"},
+		{name: "ok", args: "echo://salut", wantErr: false, wanted: "salut"},
 		{name: "ko", args: "echo://", wantErr: true, wanted: ""},
-		{name: "ok double-quoted", args: "echo://\"salut yo\"", wantErr: false, wanted: "salut yo\n"},
-		{name: "ok single-quoted", args: "echo://'salut again'", wantErr: false, wanted: "salut again\n"},
+		{name: "ok double-quoted", args: "echo://\"salut yo\"", wantErr: false, wanted: "salut yo"},
+		{name: "ok single-quoted", args: "echo://'salut again'", wantErr: false, wanted: "salut again"},
 		{name: "ko double-quoted", args: "echo://\"\"", wantErr: true, wanted: ""},
 		{name: "ko single-quoted", args: "echo://''", wantErr: true, wanted: ""},
-		{name: "emoji", args: "echo://👍 🥳", wantErr: false, wanted: "👍 🥳\n"},
-		{name: "with 'zero' byte in it", args: "echo://salut\x00and again", wantErr: false, wanted: "salut\x00and again\n"},
+		{name: "emoji", args: "echo://👍 🥳", wantErr: false, wanted: "👍 🥳"},
+		{name: "with 'zero' byte in it", args: "echo://salut\x00and again", wantErr: false, wanted: "salut\x00and again"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
