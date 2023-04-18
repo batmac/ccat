@@ -13,7 +13,7 @@ import (
 	"github.com/batmac/ccat/pkg/log"
 	"github.com/batmac/ccat/pkg/stringutils"
 
-	curl "github.com/andelf/go-curl"
+	curl "github.com/batmac/go-curl"
 )
 
 var (

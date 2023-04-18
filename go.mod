@@ -9,12 +9,12 @@ require (
 	github.com/PaesslerAG/jsonpath v0.1.1
 	github.com/aixiansheng/lzfse v0.2.4
 	github.com/alecthomas/chroma/v2 v2.7.0
-	github.com/andelf/go-curl v0.0.0-20200630032108-fd49ff24ed97
 	github.com/atotto/clipboard v0.1.4
 	github.com/aws/aws-sdk-go-v2 v1.17.7
 	github.com/aws/aws-sdk-go-v2/config v1.18.19
 	github.com/aws/aws-sdk-go-v2/service/s3 v1.31.0
 	github.com/aws/aws-sdk-go-v2/service/sts v1.18.7
+	github.com/batmac/go-curl v0.0.1
 	github.com/creativeprojects/go-selfupdate v1.1.0
 	github.com/docker/go-units v0.5.0
 	github.com/dsnet/compress v0.0.1
