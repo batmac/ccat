@@ -51,5 +51,6 @@
     "gomodTidy"
   ],
   "prHourlyLimit": 0,
-  "stabilityDays": 1
+  "stabilityDays": 1,
+  "timezone": "Europe/Paris"
 }
