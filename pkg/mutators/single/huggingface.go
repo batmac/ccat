@@ -51,6 +51,7 @@ var HuggingFaceCommonTasks = map[string]string{
 	"ner":             "dbmdz/bert-large-cased-finetuned-conll03-english",
 	"translation":     "t5-base",
 	"bloom":           "bigscience/bloom",
+	"bloomz":          "bigscience/bloomz",
 }
 
 type HuggingFaceRequest struct {
