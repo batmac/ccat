@@ -42,7 +42,7 @@ repos:
   # - id: forbid-crlf
   # - id: remove-crlf
   - repo: https://github.com/zricethezav/gitleaks
-    rev: v8.16.2
+    rev: v8.16.3
     hooks:
       - id: gitleaks
   - repo: https://github.com/Bahjat/pre-commit-golang
