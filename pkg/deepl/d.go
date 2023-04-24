@@ -29,6 +29,10 @@ func NewDeepLClient(apiKey string) *Client {
 
 func (c *Client) Translate(text string, targetLang string, sourceLang string) (*TranslateResponse, error) {
 	baseURL := "https://api-free.deepl.com/v2/translate"
+	// if apikey doesnt end with ":fx", use paid API
+	if c.apiKey[len(c.apiKey)-3:] != ":fx" {
+		baseURL = "https://api.deepl.com/v2/translate"
+	}
 
 	// Check for text size limit
 	if len(text) > 128*1024 {
