@@ -76,7 +76,7 @@ func deepl(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		log.Println("deepl response status:", resp.Status)
+		log.Debugln("deepl response status:", resp.Status)
 		return 0, errors.New(resp.Status)
 	}
 
