@@ -1,17 +1,18 @@
-package mutators
+package plugins
 
 import (
 	"bytes"
 	"encoding/json"
 	"errors"
 	"io"
+	"log"
 	"net/http"
 	"net/url"
 	"os"
 	"strings"
-
-	"github.com/batmac/ccat/pkg/log"
 )
+
+// ccat -m yaegi:example/plugins/deepl.go:plugins.Deepl echo://"bonjour"
 
 type deeplTranslation struct {
 	DetectedSourceLanguage string `json:"detected_source_language"` //nolint:tagliatelle
@@ -22,20 +23,12 @@ type deeplTranslateResponse struct {
 	Translations []deeplTranslation `json:"translations"`
 }
 
-func init() {
-	defaultLanguage := "en"
-	if t := os.Getenv("TARGET_LANGUAGE"); t != "" {
-		defaultLanguage = t
+func Deepl(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
+	targetLanguage := os.Getenv("TARGET_LANGUAGE")
+	if targetLanguage == "" {
+		targetLanguage = "en"
 	}
-	singleRegister("deepl", deepl,
-		withDescription("translate to X:en or $TARGET_LANGUAGE with deepl (needs a valid key in $DEEPL_API_KEY)"),
-		withConfigBuilder(stdConfigStringWithDefault(defaultLanguage)),
-		withCategory("external APIs"),
-	)
-}
 
-func deepl(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
-	targetLanguage := conf.(string)
 	text, err := io.ReadAll(r) // NOT streamable
 	if err != nil {
 		return 0, err
@@ -76,7 +69,7 @@ func deepl(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		log.Debugln("deepl response status:", resp.Status)
+		log.Println("deepl response status:", resp.Status)
 		return 0, errors.New(resp.Status)
 	}
 
@@ -88,6 +81,6 @@ func deepl(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 		return 0, err
 	}
 
-	log.Debugln("detected source language: ", translateResp.Translations[0].DetectedSourceLanguage)
+	log.Println("detected source language: ", translateResp.Translations[0].DetectedSourceLanguage)
 	return io.Copy(w, strings.NewReader(translateResp.Translations[0].Text))
 }
