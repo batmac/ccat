@@ -7,6 +7,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"strings"
 
 	"github.com/batmac/ccat/pkg/log"
 	"github.com/batmac/ccat/pkg/utils"
@@ -44,6 +45,7 @@ import (
 // Recommended model: t5-base.
 
 var HuggingFaceCommonTasks = map[string]string{
+	// keep the keys in lowercase
 	"fillmask":        "bert-base-uncased",
 	"summarization":   "facebook/bart-large-cnn",
 	"classification":  "distilbert-base-uncased-finetuned-sst-2-english",
@@ -52,6 +54,8 @@ var HuggingFaceCommonTasks = map[string]string{
 	"translation":     "t5-base",
 	"bloom":           "bigscience/bloom",
 	"bloomz":          "bigscience/bloomz",
+	"chat":            "OpenAssistant/oasst-sft-4-pythia-12b-epoch-3.5",
+	"starcoder":       "bigcode/starcoder",
 }
 
 type HuggingFaceRequest struct {
@@ -83,7 +87,8 @@ func huggingface(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 	}
 
 	log.Debugf("task aliases: %v\n", HuggingFaceCommonTasks)
-	if m, ok := HuggingFaceCommonTasks[model]; ok {
+
+	if m, ok := HuggingFaceCommonTasks[strings.ToLower(model)]; ok {
 		model = m
 	}
 
