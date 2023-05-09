@@ -9,7 +9,10 @@
     "renovate"
   ],
   "pre-commit": {
-    "enabled": true
+    "enabled": true,
+    "schedule": [
+      "every month"
+    ]
   },
   "packageRules": [
     {
