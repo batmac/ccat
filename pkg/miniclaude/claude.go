@@ -17,12 +17,17 @@ const (
 	PromptAI    = "\n\nAssistant:"
 	MessageDone = "[DONE]"
 
-	ModelClaudeV1         string = "claude-v1"
-	ModelClaudeV10        string = "claude-v1.0"
-	ModelClaudeV12        string = "claude-v1.2"
-	ModelClaudeV13        string = "claude-v1.3"
-	ModelClaudeInstantV1  string = "claude-instant-v1"
-	ModelClaudeInstantV10 string = "claude-instant-v1.0"
+	ModelClaudeV1              string = "claude-v1"
+	ModelClaudeV1_100K         string = "claude-v1-100k"
+	ModelClaudeV10             string = "claude-v1.0"
+	ModelClaudeV12             string = "claude-v1.2"
+	ModelClaudeV13             string = "claude-v1.3"
+	ModelClaudeV13_100K        string = "claude-v1.3-100k"
+	ModelClaudeInstantV1       string = "claude-instant-v1"
+	ModelClaudeInstantV1_100K  string = "claude-instant-v1-100k"
+	ModelClaudeInstantV10      string = "claude-instant-v1.0"
+	ModelClaudeInstantV11      string = "claude-instant-v1.1"
+	ModelClaudeInstantV11_100K string = "claude-instant-v1.1-100k"
 )
 
 var (
