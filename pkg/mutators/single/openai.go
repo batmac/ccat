@@ -16,7 +16,7 @@ import (
 
 func init() {
 	singleRegister("chatgpt", chatgpt,
-		withDescription("ask OpenAI ChatGPT, X:<unlimited> max replied tokens, the optional second arg is the model (needs a valid key in $OPENAI_API_KEY)"),
+		withDescription("ask OpenAI ChatGPT, X:<unlimited> max replied tokens, the optional second arg is the model (Requires a valid key in $OPENAI_API_KEY, optional custom endpoint in $OPENAI_BASE_URL.)"),
 		withConfigBuilder(stdConfigStrings(0, 3)),
 		withAliases("cgpt"),
 		withHintSlow(), // output asap (when no other mutator is used)
@@ -44,15 +44,24 @@ func chatgpt(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 		prePrompt = args[2] + ":\n"
 	}
 
-	log.Debugln("model: ", model)
-	log.Debugln("maxTokens: ", maxTokens)
-	log.Debugln("prePrompt: ", prePrompt)
 	key := os.Getenv("OPENAI_API_KEY")
 	if key == "" {
 		log.Fatal("OPENAI_API_KEY environment variable is not set")
 	}
 
-	client := gpt.NewClient(key)
+	config := gpt.DefaultConfig(key)
+	customBaseURL := os.Getenv("OPENAI_BASE_URL")
+	if customBaseURL != "" {
+		config.BaseURL = customBaseURL
+	}
+
+	log.Debugln("baseURL: ", config.BaseURL)
+
+	log.Debugln("model: ", model)
+	log.Debugln("maxTokens: ", maxTokens)
+	log.Debugln("prePrompt: ", prePrompt)
+
+	client := gpt.NewClientWithConfig(config)
 	ctx := context.Background()
 	// log.Debugf("models: %+v", listModels(client))
 
