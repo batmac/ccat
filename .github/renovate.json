@@ -9,12 +9,11 @@
     "renovate"
   ],
   "pre-commit": {
-    "enabled": true
+    "enabled": true,
+    "schedule": [
+      "every month"
+    ]
   },
-  "schedule": [
-    "after 7pm on friday",
-    "after 10pm on sunday"
-  ],
   "packageRules": [
     {
       "automerge": true,
@@ -50,6 +49,7 @@
     "gomodUpdateImportPaths",
     "gomodTidy"
   ],
-  "prHourlyLimit": 0,
-  "stabilityDays": 1
+  "prHourlyLimit": 3,
+  "stabilityDays": 1,
+  "timezone": "Europe/Paris"
 }
