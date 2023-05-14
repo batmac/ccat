@@ -143,6 +143,11 @@ func huggingface(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 		return 0, err
 	}
 
+	out, err := getGeneratedTextFromJSON(got)
+	if err == nil {
+		got = out
+	}
+
 	n, err := w.Write(got)
 	return int64(n), err
 }
@@ -170,4 +175,24 @@ func getHuggingFaceToken() (string, string, error) {
 		return "", "", fmt.Errorf("no HuggingFace token found")
 	}
 	return token, source, nil
+}
+
+func getGeneratedTextFromJSON(jsonBytes []byte) ([]byte, error) {
+	type Response struct {
+		GeneratedText string `json:"generated_text"` //nolint:tagliatelle
+	}
+	var data []Response
+
+	log.Debugf("json: %s\n", jsonBytes)
+
+	err := json.Unmarshal(jsonBytes, &data)
+	if err != nil {
+		log.Printf("error: %s\n", err)
+		return nil, err
+	}
+	log.Debugf("data: %v\n", data)
+	if len(data[0].GeneratedText) > 0 {
+		return []byte(data[0].GeneratedText), nil
+	}
+	return nil, fmt.Errorf("no generated_text found in json response")
 }
