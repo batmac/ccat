@@ -6,9 +6,9 @@ import (
 	"io"
 	"net/http"
 	"net/url"
-	"os"
 
 	"github.com/batmac/ccat/pkg/globalctx"
+	"github.com/batmac/ccat/pkg/secretprovider"
 )
 
 func init() {
@@ -49,7 +49,7 @@ func wolframalpha(w io.WriteCloser, r io.ReadCloser, t string) (int64, error) {
 		return 0, nil
 	}
 
-	appID := os.Getenv("WA_APPID")
+	appID, _ := secretprovider.GetSecret("wolphram", "WA_APPID")
 	if appID == "" {
 		return 0, fmt.Errorf("no appid found in $WA_APPID")
 	}

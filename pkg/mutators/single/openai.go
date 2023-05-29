@@ -9,6 +9,7 @@ import (
 	"strings"
 
 	"github.com/batmac/ccat/pkg/log"
+	"github.com/batmac/ccat/pkg/secretprovider"
 	gpt "github.com/sashabaranov/go-openai"
 )
 
@@ -44,7 +45,7 @@ func chatgpt(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 		prePrompt = args[2] + ":\n"
 	}
 
-	key := os.Getenv("OPENAI_API_KEY")
+	key, _ := secretprovider.GetSecret("openai", "OPENAI_API_KEY")
 	if key == "" {
 		log.Fatal("OPENAI_API_KEY environment variable is not set")
 	}

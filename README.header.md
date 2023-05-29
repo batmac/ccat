@@ -60,6 +60,7 @@ available build tags:
 - `fileonly`: build with the local file opener only.
 - `nohl`: build without the syntax-highlighter.
 - `crappy`: build with some crappy (but useful) openers/mutators.
+- `keystore`: build with the OS keyring support (Mac,Linux,Windows).
 
 ## Examples
 

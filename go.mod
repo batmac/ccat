@@ -39,6 +39,7 @@ require (
 	github.com/sashabaranov/go-openai v1.9.4
 	github.com/spf13/pflag v1.0.5
 	github.com/titanous/json5 v1.0.0
+	github.com/tmc/keyring v0.0.0-20230418032330-0c8bdba76fa8
 	github.com/traefik/yaegi v0.15.1
 	github.com/ulikunitz/xz v0.5.11
 	github.com/zeebo/xxh3 v1.0.2
@@ -72,10 +73,12 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/sso v1.12.9 // indirect
 	github.com/aws/aws-sdk-go-v2/service/ssooidc v1.14.9 // indirect
 	github.com/aws/smithy-go v1.13.5 // indirect
+	github.com/danieljoos/wincred v1.1.2 // indirect
 	github.com/disintegration/imaging v1.6.2 // indirect
 	github.com/dlclark/regexp2 v1.8.1 // indirect
 	github.com/dustin/go-humanize v1.0.1 // indirect
 	github.com/gdamore/encoding v1.0.0 // indirect
+	github.com/godbus/dbus/v5 v5.1.0 // indirect
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/google/go-cmp v0.5.9 // indirect

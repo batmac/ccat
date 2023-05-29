@@ -1,6 +1,7 @@
 package term
 
 import (
+	"bufio"
 	"fmt"
 	"os"
 	"strings"
@@ -13,6 +14,10 @@ import (
 
 func IsStdoutTerminal() bool {
 	return term.IsTerminal(int(os.Stdout.Fd()))
+}
+
+func IsStdinTerminal() bool {
+	return term.IsTerminal(int(os.Stdin.Fd()))
 }
 
 func GetTerminalSize() (int, int, error) {
@@ -55,4 +60,27 @@ func SupportedColors() uint {
 	}
 
 	return colors
+}
+
+func ReadPassword(prompt string) (string, error) {
+	fmt.Print(prompt)
+	b, err := term.ReadPassword(int(os.Stdin.Fd()))
+	if err != nil {
+		return "", err
+	}
+	return strings.TrimSpace(string(b)), nil
+}
+
+func ReadLine(prompt string) (string, error) {
+	fmt.Print(prompt)
+
+	// read a line from stdin with echoing it to the terminal
+	reader := bufio.NewReader(os.Stdin)
+	line, err := reader.ReadString('\n')
+	if err != nil {
+		fmt.Println("Error reading input:", err)
+		return "", err
+	}
+
+	return strings.TrimSpace(line), nil
 }

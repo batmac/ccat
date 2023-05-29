@@ -89,9 +89,9 @@ func BuildMinimal() error {
 	return build("nohl,fileonly")
 }
 
-// tags: libcurl,crappy
+// tags: libcurl,crappy,plugins,keystore
 func BuildFull() error {
-	return build("libcurl,crappy,plugins")
+	return build("libcurl,crappy,plugins,keystore")
 }
 
 // put ccat to $GOPATH/bin/ccat
