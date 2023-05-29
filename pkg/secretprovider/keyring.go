@@ -4,21 +4,8 @@
 package secretprovider
 
 import (
-	"sync"
-
 	"github.com/batmac/ccat/pkg/log"
 	"github.com/tmc/keyring"
-)
-
-type (
-	secretSrc struct {
-		name   string
-		envVar string
-	}
-	secretCollection struct {
-		list map[string]secretSrc
-		mu   sync.Mutex
-	}
 )
 
 var IsKeystoreAvailable = true
