@@ -38,15 +38,15 @@ var (
 
 //nolint:tagliatelle
 type SamplingParameters struct {
-	Prompt            string            `json:"prompt"`
-	MaxTokensToSample int               `json:"max_tokens_to_sample"`
-	StopSequences     []string          `json:"stop_sequences"`
-	Model             string            `json:"model"`
-	Stream            bool              `json:"stream"`
 	Temperature       *float64          `json:"temperature,omitempty"`
 	TopK              *int              `json:"top_k,omitempty"`
 	TopP              *float64          `json:"top_p,omitempty"`
 	Tags              map[string]string `json:"tags,omitempty"`
+	Prompt            string            `json:"prompt"`
+	Model             string            `json:"model"`
+	StopSequences     []string          `json:"stop_sequences"`
+	MaxTokensToSample int               `json:"max_tokens_to_sample"`
+	Stream            bool              `json:"stream"`
 }
 
 //nolint:tagliatelle
@@ -54,10 +54,10 @@ type response struct {
 	Completion string `json:"completion"`
 	Stop       string `json:"stop"`
 	StopReason string `json:"stop_reason"`
-	Truncated  bool   `json:"truncated"`
 	LogID      string `json:"log_id"`
 	Model      string `json:"model"`
 	Exception  string `json:"exception"`
+	Truncated  bool   `json:"truncated"`
 }
 
 func WrapPrompt(human, ai string) string {
@@ -78,10 +78,10 @@ func NewSimpleSamplingParameters(prompt string, model string) *SamplingParameter
 }
 
 type Client struct {
-	Endpoint   string
-	APIKey     string
 	HTTPClient *http.Client
 	C          chan string
+	Endpoint   string
+	APIKey     string
 }
 
 func New() *Client {

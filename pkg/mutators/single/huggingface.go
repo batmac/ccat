@@ -59,8 +59,8 @@ var HuggingFaceCommonTasks = map[string]string{
 }
 
 type HuggingFaceRequest struct {
-	Inputs  string         `json:"inputs"`
 	Options map[string]any `json:"options"`
+	Inputs  string         `json:"inputs"`
 }
 
 func init() {
