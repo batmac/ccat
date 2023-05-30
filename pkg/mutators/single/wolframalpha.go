@@ -49,7 +49,7 @@ func wolframalpha(w io.WriteCloser, r io.ReadCloser, t string) (int64, error) {
 		return 0, nil
 	}
 
-	appID, _ := secretprovider.GetSecret("wolphram", "WA_APPID")
+	appID, _ := secretprovider.GetSecret("wolfram", "WA_APPID")
 	if appID == "" {
 		return 0, fmt.Errorf("no appid found in $WA_APPID")
 	}
