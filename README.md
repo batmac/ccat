@@ -104,7 +104,7 @@ $ kubectl run -i --tty ccat --image=batmac/ccat:latest -- /bin/sh
 ## help
 
 ```
-version v1.11.0-21-g880d83a [libcurl,crappy,plugins], commit 880d83aa541d7ba6f7aa2b9f2b56f548c4d2c9f4, built at 2023-05-12@04:50:47+0200 by Mage (go1.20.4 darwin/arm64)
+version v1.12.0-9-g719c3c9 [libcurl,crappy,plugins], commit 719c3c9ab54375860014aaa0b74ef96785d290e9, built at 2023-05-30@07:01:30+0200 by Mage (go1.20.4 darwin/arm64)
 usage: ccat [options] [file ...]
   -t, --tokens string       comma-separated list of tokens
   -i, --ignore-case         tokens given with -t are case-insensitive
@@ -148,7 +148,7 @@ ccat <files>...
     gemini: get URL via Gemini
     http: get URL via HTTP(S)
     curl: get URL via libcurl bindings
-           libcurl/7.87.0 SecureTransport (LibreSSL/3.3.6) zlib/1.2.11 nghttp2/1.51.0
+           libcurl/7.88.1 SecureTransport (LibreSSL/3.3.6) zlib/1.2.11 nghttp2/1.51.0
            protocols: dict,file,ftp,ftps,gopher,gophers,http,https,imap,imaps,ldap,ldaps,mqtt,pop3,pop3s,rtsp,smb,smbs,smtp,smtps,telnet,tftp
     mc: get a Minio-compatible object via mc:// (use ~/.mc/config.json or env for credentials)
     tcp: get data from listening on tcp://[HOST]:<PORT>
@@ -223,7 +223,7 @@ ccat <files>...
     encrypt:
         easyseal: encrypt with Nacl EasySeal, key used is printed on stderr
     external APIs:
-        chatgpt: ask OpenAI ChatGPT, X:<unlimited> max replied tokens, the optional second arg is the model (needs a valid key in $OPENAI_API_KEY)
+        chatgpt: ask OpenAI ChatGPT, X:<unlimited> max replied tokens, the optional second arg is the model (Requires a valid key in $OPENAI_API_KEY, optional custom endpoint in $OPENAI_BASE_URL.)
         claude: ask Anthropic Claude, X:<unlimited> max replied tokens, optional second arg is the model, optional third arg is the preprompt (needs a valid key in $ANTHROPIC_API_KEY)
         huggingface: ask HuggingFace for simple tasks, optional arg is the model (needs a valid key in $HUGGING_FACE_HUB_TOKEN, set HUGGING_FACE_ENDPOINT to use an Inference API endpoint)
         translate: translate to X:en or $TARGET_LANGUAGE with google translate (needs a valid key in $GOOGLE_API_KEY)
@@ -240,11 +240,11 @@ ccat <files>...
   ('X:Y' means X is an argument with default value Y)
 
   mutator aliases:
-    d: discard
-    b64: base64
     l: limit
-    cgpt: chatgpt
-    dumm, dum: dummy
-    hf: huggingface
+    d: discard
     ub64, unb64: unbase64
+    b64: base64
+    dum, dumm: dummy
+    hf: huggingface
+    cgpt: chatgpt
 ```
