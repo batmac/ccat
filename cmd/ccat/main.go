@@ -16,6 +16,7 @@ import (
 	"github.com/batmac/ccat/pkg/log"
 	"github.com/batmac/ccat/pkg/mutators"
 	"github.com/batmac/ccat/pkg/openers"
+	"github.com/batmac/ccat/pkg/secretprovider"
 	"github.com/batmac/ccat/pkg/selfupdate"
 	"github.com/batmac/ccat/pkg/term"
 
@@ -51,12 +52,14 @@ var (
 	argCompletion   = flag.StringP("completion", "C", "", "print shell completion script")
 	argLess         = flag.BoolP("ui", "T", false, "display with a minimal ui")
 
+	argSetKey = new(bool) // set by init()
+
 	tmap   map[string]color.Color
 	tokens []string
 )
 
 var (
-	// these are for the build tool
+	// these are set by the build tool
 	version = "unknown"
 	commit  = "unknown"
 	date    = "unknown"
@@ -65,6 +68,9 @@ var (
 )
 
 func init() {
+	if secretprovider.IsKeystoreAvailable {
+		argSetKey = flag.BoolP("setkey", "", false, "interactively ask and store a secret in the OS keyring")
+	}
 	flag.Usage = Usage
 	flag.Parse()
 
@@ -78,6 +84,11 @@ func init() {
 func main() {
 	log.Debugln("STARTING ccat")
 	log.Debugf(buildLine())
+
+	if *argSetKey {
+		interactivelySetKey()
+		os.Exit(0)
+	}
 
 	if *argVersion {
 		fmt.Println(buildLine())

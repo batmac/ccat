@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/batmac/ccat/pkg/log"
+	"github.com/batmac/ccat/pkg/secretprovider"
 )
 
 const postURL = "https://translation.googleapis.com/language/translate/v2"
@@ -185,7 +186,7 @@ func translate(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 
 	result := strings.Builder{}
 
-	key := os.Getenv("GOOGLE_API_KEY")
+	key, _ := secretprovider.GetSecret("translate", "GOOGLE_API_KEY")
 	if key == "" {
 		log.Fatal("no key found in $GOOGLE_API_KEY")
 	}

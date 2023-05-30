@@ -2,7 +2,7 @@
   "files.associations": {
     "*.tmpl": "shellscript"
   },
-  "go.buildTags": "crappy,libcurl",
+  "go.buildTags": "crappy,libcurl,keystore",
   "go.formatTool": "gofumpt",
   "go.lintTool": "golangci-lint",
   "gopls": {

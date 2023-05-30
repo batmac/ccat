@@ -2,11 +2,11 @@ package mutators
 
 import (
 	"io"
-	"os"
 	"strconv"
 
 	"github.com/batmac/ccat/pkg/log"
 	"github.com/batmac/ccat/pkg/miniclaude"
+	"github.com/batmac/ccat/pkg/secretprovider"
 )
 
 func init() {
@@ -42,7 +42,7 @@ func claude(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 	log.Debugln("model: ", model)
 	log.Debugln("maxTokens: ", maxTokens)
 	log.Debugln("prePrompt: ", prePrompt)
-	key := os.Getenv("ANTHROPIC_API_KEY")
+	key, _ := secretprovider.GetSecret("anthropic", "ANTHROPIC_API_KEY")
 	if key == "" {
 		log.Fatal("ANTHROPIC_API_KEY environment variable is not set")
 	}

@@ -8,9 +8,9 @@ package mutators
 import (
 	"encoding/hex"
 	"io"
-	"os"
 
 	"github.com/batmac/ccat/pkg/log"
+	"github.com/batmac/ccat/pkg/secretprovider"
 
 	"github.com/kevinburke/nacl"
 	"github.com/kevinburke/nacl/secretbox"
@@ -70,7 +70,7 @@ func easyopen(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 
 func getKey() nacl.Key {
 	var key nacl.Key
-	if keyString := os.Getenv("KEY"); len(keyString) == 0 {
+	if keyString, _ := secretprovider.GetSecret("naclKey", "KEY"); len(keyString) == 0 {
 		key = nacl.NewKey()
 	} else {
 		var err error
