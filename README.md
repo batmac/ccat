@@ -60,6 +60,7 @@ available build tags:
 - `fileonly`: build with the local file opener only.
 - `nohl`: build without the syntax-highlighter.
 - `crappy`: build with some crappy (but useful) openers/mutators.
+- `keystore`: build with the OS keyring support (Mac,Linux,Windows).
 
 ## Examples
 
@@ -104,7 +105,7 @@ $ kubectl run -i --tty ccat --image=batmac/ccat:latest -- /bin/sh
 ## help
 
 ```
-version v1.12.0-9-g719c3c9 [libcurl,crappy,plugins], commit 719c3c9ab54375860014aaa0b74ef96785d290e9, built at 2023-05-30@07:01:30+0200 by Mage (go1.20.4 darwin/arm64)
+version v1.12.0-18-g36bf3dd [libcurl,crappy,plugins,keystore], commit 36bf3dd2ac840f349c9bd2146892e50ccfe700fe, built at 2023-06-02@22:15:24+0200 by Mage (go1.20.4 darwin/arm64)
 usage: ccat [options] [file ...]
   -t, --tokens string       comma-separated list of tokens
   -i, --ignore-case         tokens given with -t are case-insensitive
@@ -133,6 +134,7 @@ usage: ccat [options] [file ...]
   -k, --insecure            get files insecurely (globally)
   -C, --completion string   print shell completion script
   -T, --ui                  display with a minimal ui
+      --setkey              interactively ask and store a secret in the OS keyring
 
 ---
 ccat <files>...
@@ -196,6 +198,7 @@ ccat <files>...
         base64: encode to base64
         feed2y: rss/atom/json feed -> YAML
         hex: dump in lowercase hex
+        html2md: html -> markdown
         j2y: JSON -> YAML
         j5j: JSON5 -> JSON
         jcs: JSON -> JSON Canonicalization (RFC 8785)
@@ -240,11 +243,12 @@ ccat <files>...
   ('X:Y' means X is an argument with default value Y)
 
   mutator aliases:
-    l: limit
     d: discard
+    h2m, h2md: html2md
+    hf: huggingface
+    l: limit
     ub64, unb64: unbase64
     b64: base64
     dum, dumm: dummy
-    hf: huggingface
     cgpt: chatgpt
 ```
