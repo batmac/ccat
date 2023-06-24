@@ -24,21 +24,30 @@ func init() {
 		withDescription("query wolfram alpha Simple API (output is an image, APPID in $WA_APPID)"),
 		withCategory("external APIs"),
 		withExpectingBinary())
+
+	// https://products.wolframalpha.com/llm-api/documentation
+	singleRegister("wallm", wolframalphallm,
+		withDescription("query wolfram alpha LLM API (APPID in $WA_APPID)"),
+		withCategory("external APIs"))
 }
 
 func wolframalphashort(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
-	return wolframalpha(w, r, "result")
+	return wolframalpha(w, r, "result", "i")
 }
 
 func wolframalphaspoken(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
-	return wolframalpha(w, r, "spoken")
+	return wolframalpha(w, r, "spoken", "i")
 }
 
 func wolframalphasimple(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
-	return wolframalpha(w, r, "simple")
+	return wolframalpha(w, r, "simple", "i")
 }
 
-func wolframalpha(w io.WriteCloser, r io.ReadCloser, t string) (int64, error) {
+func wolframalphallm(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
+	return wolframalpha(w, r, "llm-api", "input")
+}
+
+func wolframalpha(w io.WriteCloser, r io.ReadCloser, t string, queryField string) (int64, error) {
 	baseURL := "https://api.wolframalpha.com/v1/" + t + "?"
 
 	query, err := io.ReadAll(r) // NOT streamable
@@ -55,8 +64,8 @@ func wolframalpha(w io.WriteCloser, r io.ReadCloser, t string) (int64, error) {
 	}
 	// build query url values
 	q := url.Values{
-		"i":     {string(query)},
-		"appid": {appID},
+		queryField: {string(query)},
+		"appid":    {appID},
 	}
 
 	res, err := http.Get(baseURL + q.Encode())
