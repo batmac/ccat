@@ -51,6 +51,7 @@ var (
 	argInsecure     = flag.BoolP("insecure", "k", false, "get files insecurely (globally)")
 	argCompletion   = flag.StringP("completion", "C", "", "print shell completion script")
 	argLess         = flag.BoolP("ui", "T", false, "display with a minimal ui")
+	argPprof        = flag.Bool("pprof", false, "enable cpu and mem profiling")
 
 	argSetKey = new(bool) // set by init()
 
@@ -84,10 +85,15 @@ func init() {
 func main() {
 	log.Debugln("STARTING ccat")
 	log.Debugf(buildLine())
+	if *argPprof {
+		log.Debugln("pprof enabled")
+		enablePprof()
+		defer endPprof()
+	}
 
 	if *argSetKey {
 		interactivelySetKey()
-		os.Exit(0)
+		os.Exit(0) //nolint
 	}
 
 	if *argVersion {
