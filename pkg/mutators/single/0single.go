@@ -99,7 +99,7 @@ func defaultConfigBuilder(args []string) (any, error) {
 	if len(args) != 0 {
 		return nil, ErrWrongNumberOfArgs(0, 0, len(args))
 	}
-	return nil, nil
+	return nil, nil //nolint:nilnil
 }
 
 func singleRegister(name string, f singleFn, opts ...singleOption) {

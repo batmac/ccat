@@ -114,7 +114,7 @@ func processFile(w io.Writer, path string) {
 
 			// fmt.Println("text ", text)
 			// fmt.Println("token ", token)
-			matched, err = regexp.MatchString(regexpPrefix+token, string(text))
+			matched, err = regexp.Match(regexpPrefix+token, text)
 			if err != nil {
 				setErrored()
 				log.Println(err)
