@@ -14,7 +14,7 @@ linters:
     # deprecated
     # - deadcode
     - decorder
-    - depguard
+    # - depguard
     - dogsled
     - dupl
     - dupword
@@ -33,6 +33,8 @@ linters:
     # - forcetypeassert
     # - funlen
     # - gci
+    - ginkgolinter
+    - gocheckcompilerdirectives
     # - gochecknoglobals
     # - gochecknoinits
     # - gocognit
@@ -54,6 +56,7 @@ linters:
     - goprintffuncname
     - gosec
     - gosimple
+    - gosmopolitan
     - govet
     - grouper
     # deprecated
@@ -70,7 +73,9 @@ linters:
     - makezero
     # deprecated
     # - maligned
+    - mirror
     - misspell
+    - musttag
     - nakedret
     # - nestif
     - nilerr
@@ -96,6 +101,7 @@ linters:
     # deprecated
     # - structcheck
     - stylecheck
+    - tagalign
     - tagliatelle
     - tenv
     - testableexamples
@@ -114,6 +120,7 @@ linters:
     - whitespace
     # - wrapcheck
     # - wsl
+    - zerologlint
 issues:
   exclude-use-default: true
   exclude:
