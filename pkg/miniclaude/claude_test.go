@@ -15,7 +15,7 @@ func TestNewSimpleSamplingParameters(t *testing.T) {
 		name string
 		args args
 	}{
-		{"donotpanicplease", args{"hi", "claude-v1"}},
+		{"donotpanicplease", args{"hi", miniclaude.ModelClaudeLatest}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

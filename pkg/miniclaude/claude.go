@@ -17,17 +17,25 @@ const (
 	PromptAI    = "\n\nAssistant:"
 	MessageDone = "[DONE]"
 
-	ModelClaudeV1              string = "claude-v1"
-	ModelClaudeV1_100K         string = "claude-v1-100k"
-	ModelClaudeV10             string = "claude-v1.0"
-	ModelClaudeV12             string = "claude-v1.2"
-	ModelClaudeV13             string = "claude-v1.3"
-	ModelClaudeV13_100K        string = "claude-v1.3-100k"
-	ModelClaudeInstantV1       string = "claude-instant-v1"
-	ModelClaudeInstantV1_100K  string = "claude-instant-v1-100k"
-	ModelClaudeInstantV10      string = "claude-instant-v1.0"
-	ModelClaudeInstantV11      string = "claude-instant-v1.1"
-	ModelClaudeInstantV11_100K string = "claude-instant-v1.1-100k"
+	// https://docs.anthropic.com/claude/reference/selecting-a-model
+	ModelClaudeLatest        = "claude-2"           // latest model family, manually updated
+	ModelClaude2             = "claude-2"           // latest major version
+	ModelClaude20            = "claude-2.0"         // latest full version
+	ModelClaudeInstantLatest = "claude-instant-1"   // latest instant model family, manually updated
+	ModelClaudeInstant1      = "claude-instant-1"   // latest instant major version
+	ModelClaudeInstant11     = "claude-instant-1.1" // latest instant full version
+
+	// old deprecated models, keeped for compatibility
+	ModelClaudeV1_100K         = "claude-v1-100k"
+	ModelClaudeV10             = "claude-v1.0"
+	ModelClaudeV12             = "claude-v1.2"
+	ModelClaudeV13             = "claude-v1.3"
+	ModelClaudeV13_100K        = "claude-v1.3-100k"
+	ModelClaudeInstantV1       = "claude-instant-v1"
+	ModelClaudeInstantV1_100K  = "claude-instant-v1-100k"
+	ModelClaudeInstantV10      = "claude-instant-v1.0"
+	ModelClaudeInstantV11      = "claude-instant-v1.1"
+	ModelClaudeInstantV11_100K = "claude-instant-v1.1-100k"
 )
 
 var (

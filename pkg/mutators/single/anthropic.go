@@ -29,7 +29,7 @@ func claude(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 		}
 	}
 
-	model := miniclaude.ModelClaudeV1
+	model := miniclaude.ModelClaudeLatest // latest model
 	if len(args) >= 2 && args[1] != "" {
 		model = args[1]
 	}
