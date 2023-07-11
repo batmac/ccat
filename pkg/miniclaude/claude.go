@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"strconv"
 	"strings"
 
 	"github.com/batmac/ccat/pkg/log"
@@ -15,7 +16,6 @@ import (
 const (
 	PromptHuman = "\n\nHuman:"
 	PromptAI    = "\n\nAssistant:"
-	MessageDone = "[DONE]"
 
 	// https://docs.anthropic.com/claude/reference/selecting-a-model
 	ModelClaudeLatest        = "claude-2"           // latest model family, manually updated
@@ -40,9 +40,15 @@ const (
 
 var (
 	BaseURL                  = "https://api.anthropic.com"
+	APIVersion               = "2023-06-01"
 	DefaultMaxTokensToSample = 1200
 	DefaultStopSequences     = []string{PromptHuman}
 )
+
+//nolint:tagliatelle
+type Metadata struct {
+	UserID string `json:"user_id"`
+}
 
 //nolint:tagliatelle
 type SamplingParameters struct {
@@ -55,15 +61,16 @@ type SamplingParameters struct {
 	StopSequences     []string          `json:"stop_sequences"`
 	MaxTokensToSample int               `json:"max_tokens_to_sample"`
 	Stream            bool              `json:"stream"`
+	Metadata          Metadata          `json:"metadata,omitempty"`
 }
 
 //nolint:tagliatelle
 type response struct {
 	Completion string `json:"completion"`
-	Stop       string `json:"stop"`
 	StopReason string `json:"stop_reason"`
-	LogID      string `json:"log_id"`
 	Model      string `json:"model"`
+	Stop       string `json:"stop"`
+	LogID      string `json:"log_id"`
 	Exception  string `json:"exception"`
 	Truncated  bool   `json:"truncated"`
 }
@@ -82,6 +89,7 @@ func NewSimpleSamplingParameters(prompt string, model string) *SamplingParameter
 		StopSequences:     DefaultStopSequences,
 		Model:             model,
 		Stream:            true,
+		Metadata:          Metadata{UserID: "ccat"},
 	}
 }
 
@@ -90,12 +98,14 @@ type Client struct {
 	C          chan string
 	Endpoint   string
 	APIKey     string
+	APIVersion string
 }
 
 func New() *Client {
 	return &Client{
 		Endpoint:   BaseURL + "/v1/complete",
 		APIKey:     os.Getenv("ANTHROPIC_API_KEY"),
+		APIVersion: APIVersion,
 		HTTPClient: &http.Client{},
 		C:          make(chan string, 5), // buffer because we don't want to block the stream
 	}
@@ -107,7 +117,7 @@ func (c *Client) Stream(sp *SamplingParameters) error {
 		return fmt.Errorf("prompt is required")
 	}
 	if sp.Model == "" {
-		sp.Model = ModelClaudeV12
+		sp.Model = ModelClaudeLatest
 	}
 
 	data, err := json.Marshal(sp)
@@ -120,6 +130,7 @@ func (c *Client) Stream(sp *SamplingParameters) error {
 	}
 
 	req.Header.Set("x-api-key", c.APIKey)
+	req.Header.Set("anthropic-version", c.APIVersion)
 	req.Header.Set("Cache-Control", "no-cache")
 	req.Header.Set("Accept", "text/event-stream")
 	req.Header.Set("Connection", "keep-alive")
@@ -136,37 +147,35 @@ func (c *Client) Stream(sp *SamplingParameters) error {
 		return fmt.Errorf("http unexpected status code: %d (%s)", resp.StatusCode, resp.Status)
 	}
 
-	var previousResponse response
 	scanner := bufio.NewScanner(resp.Body)
-	event := bytes.NewBuffer(nil)
-	for scanner.Scan() {
-		line := scanner.Text()
-		// if empty, we have an event in "event"
-		if len(line) == 0 {
-			log.Debugf("event: %s\n", event.String())
-			var r response
-			err = json.Unmarshal(event.Bytes(), &r)
-			event.Reset()
-			if err != nil {
-				log.Debugf("error unmarshalling: %s\n%s\n", err, event.String())
-				continue
-			}
-			c.C <- strings.TrimPrefix(r.Completion, previousResponse.Completion)
-			previousResponse = r
-			continue
+	for {
+		scanner.Scan()
+		eventName := strings.TrimPrefix(scanner.Text(), "event:")
+		scanner.Scan()
+		eventData := strings.TrimPrefix(scanner.Text(), "data:")
+		scanner.Scan()
+		if len(scanner.Text()) != 0 {
+			return fmt.Errorf("unexpected line: %s", scanner.Text())
 		}
-		line = strings.TrimPrefix(line, "data: ")
-		if line == MessageDone {
-			log.Debugf("done: %s\n", event.String()+line)
-			if previousResponse.StopReason != "stop_sequence" && previousResponse.StopReason != "max_tokens" {
-				log.Printf("unexpected stop reason: %s", previousResponse.StopReason)
-			}
+		if scanner.Err() != nil {
+			return fmt.Errorf("error reading from scanner: %s", scanner.Err())
+		}
+		log.Debugf("received event %s: %s", eventName, eventData)
+		var r response
+		err = json.Unmarshal([]byte(eventData), &r)
+		if err != nil {
+			log.Debugf("error unmarshalling: %s\n%s\n", err, eventData)
+			return err
+		}
+		if r.StopReason != "" || r.Exception != "" {
+			log.Debugf("stop reason: %s, stop: %s, exception: %s \n", r.StopReason, strconv.Quote(r.Stop), r.Exception)
+			c.C <- "\n"
 			break
 		}
-		event.WriteString(line)
-	}
-	if err := scanner.Err(); err != nil {
-		log.Println("reading standard input:", err)
+
+		if eventName == "completion" {
+			c.C <- r.Completion
+		}
 	}
 	return nil
 }
