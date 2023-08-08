@@ -8,9 +8,10 @@ import (
 )
 
 func Test_pv(t *testing.T) {
-	// 100M of random data
-	data := make([]byte, 100*1024*1024)
+	// 10M of random data
+	data := make([]byte, 10*1024*1024)
 	_, _ = rand.Read(data)
+	dataStr := string(data)
 
 	tests := []struct {
 		name, input, expected string
@@ -19,7 +20,7 @@ func Test_pv(t *testing.T) {
 		{"byte zero", "\x00", "\x00"},
 		{"simple", "hello world !", "hello world !"},
 		{"alphabet", "abcdef\x00ghijklmn\nopqr\rstuvwxyz", "abcdef\x00ghijklmn\nopqr\rstuvwxyz"},
-		{"random", string(data), string(data)},
+		{"random", dataStr, dataStr},
 	}
 
 	f := "pv:1"
