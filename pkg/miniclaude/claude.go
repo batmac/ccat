@@ -23,19 +23,7 @@ const (
 	ModelClaude20            = "claude-2.0"         // latest full version
 	ModelClaudeInstantLatest = "claude-instant-1"   // latest instant model family, manually updated
 	ModelClaudeInstant1      = "claude-instant-1"   // latest instant major version
-	ModelClaudeInstant11     = "claude-instant-1.1" // latest instant full version
-
-	// old deprecated models, keeped for compatibility
-	ModelClaudeV1_100K         = "claude-v1-100k"
-	ModelClaudeV10             = "claude-v1.0"
-	ModelClaudeV12             = "claude-v1.2"
-	ModelClaudeV13             = "claude-v1.3"
-	ModelClaudeV13_100K        = "claude-v1.3-100k"
-	ModelClaudeInstantV1       = "claude-instant-v1"
-	ModelClaudeInstantV1_100K  = "claude-instant-v1-100k"
-	ModelClaudeInstantV10      = "claude-instant-v1.0"
-	ModelClaudeInstantV11      = "claude-instant-v1.1"
-	ModelClaudeInstantV11_100K = "claude-instant-v1.1-100k"
+	ModelClaudeInstant12     = "claude-instant-1.2" // latest instant full version
 )
 
 var (
@@ -151,6 +139,7 @@ func (c *Client) Stream(sp *SamplingParameters) error {
 	for {
 		scanner.Scan()
 		eventName := strings.TrimPrefix(scanner.Text(), "event:")
+		eventName = strings.TrimSpace(eventName)
 		scanner.Scan()
 		eventData := strings.TrimPrefix(scanner.Text(), "data:")
 		scanner.Scan()
@@ -160,7 +149,14 @@ func (c *Client) Stream(sp *SamplingParameters) error {
 		if scanner.Err() != nil {
 			return fmt.Errorf("error reading from scanner: %s", scanner.Err())
 		}
-		log.Debugf("received event %s: %s", eventName, eventData)
+		log.Debugf("received event '%s': %s", eventName, eventData)
+		if eventName == "error" {
+			log.Printf("error: %s", eventData)
+		}
+		if eventName != "completion" && eventName != "ping" {
+			return fmt.Errorf("unexpected event name '%s'", eventName)
+		}
+
 		var r response
 		err = json.Unmarshal([]byte(eventData), &r)
 		if err != nil {
