@@ -7,6 +7,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"strconv"
 	"strings"
 
 	"github.com/batmac/ccat/pkg/log"
@@ -54,19 +55,27 @@ var HuggingFaceCommonTasks = map[string]string{
 	"translation":     "t5-base",
 	"bloom":           "bigscience/bloom",
 	"bloomz":          "bigscience/bloomz",
-	"chat":            "OpenAssistant/oasst-sft-4-pythia-12b-epoch-3.5",
+	"chatlegacy":      "OpenAssistant/oasst-sft-4-pythia-12b-epoch-3.5",
 	"starcoder":       "bigcode/starcoder",
+	"ll2c7":           "meta-llama/Llama-2-7b-chat-hf",
+	"ll2c13":          "meta-llama/Llama-2-13b-chat-hf",
+	"ll2c70":          "meta-llama/Llama-2-70b-chat-hf",
+	"chat":            "meta-llama/Llama-2-70b-chat-hf",
+	"clb7":            "codellama/CodeLlama-7b-hf",
+	"clb13":           "codellama/CodeLlama-13b-hf",
+	"cli34":           "codellama/CodeLlama-34b-Instruct-hf",
 }
 
 type HuggingFaceRequest struct {
-	Options map[string]any `json:"options"`
-	Inputs  string         `json:"inputs"`
+	Options    map[string]any `json:"options"`
+	Inputs     string         `json:"inputs"`
+	Parameters map[string]any `json:"parameters,omitempty"`
 }
 
 func init() {
 	singleRegister("huggingface", huggingface,
-		withDescription("ask HuggingFace for simple tasks, optional arg is the model (needs a valid key in $HUGGING_FACE_HUB_TOKEN, set HUGGING_FACE_ENDPOINT to use an Inference API endpoint)"),
-		withConfigBuilder(stdConfigStrings(0, 1)),
+		withDescription("ask HuggingFace for simple tasks, optional args are model, max tokens, temperature (needs a valid key in $HUGGING_FACE_HUB_TOKEN, set HUGGING_FACE_ENDPOINT to use an Inference API endpoint)"),
+		withConfigBuilder(stdConfigStrings(0, 3)),
 		withAliases("hf"),
 		withCategory("external APIs"),
 	)
@@ -86,6 +95,21 @@ func huggingface(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 		model = arg[0]
 	}
 
+	parameters := make(map[string]any)
+	if len(arg) >= 2 && arg[1] != "" {
+		parameters["max_new_tokens"], err = strconv.ParseUint(arg[1], 10, 64)
+		if err != nil {
+			log.Debugf("error %s while parsing %s\n", err, arg[1])
+		}
+	}
+
+	if len(arg) >= 3 && arg[2] != "" {
+		parameters["temperature"], err = strconv.ParseFloat(arg[2], 64)
+		if err != nil {
+			log.Debugf("error %s while parsing %s\n", err, arg[2])
+		}
+	}
+
 	log.Debugf("task aliases: %v\n", HuggingFaceCommonTasks)
 
 	if m, ok := HuggingFaceCommonTasks[strings.ToLower(model)]; ok {
@@ -103,12 +127,20 @@ func huggingface(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 	log.Debugln("token: from ", source)
 	log.Debugln("model: ", model)
 	log.Debugln("url: ", url)
+	if len(parameters) > 0 {
+		log.Debugln("parameters: ", parameters)
+	}
 
 	input, err := io.ReadAll(r)
 	if err != nil {
 		return 0, err
 	}
-	request, err := json.Marshal(HuggingFaceRequest{Inputs: string(input), Options: map[string]any{"wait_for_model": true}})
+	request, err := json.Marshal(
+		HuggingFaceRequest{
+			Inputs:     string(input),
+			Parameters: parameters,
+			Options:    map[string]any{"wait_for_model": true},
+		})
 	if err != nil {
 		return 0, err
 	}
