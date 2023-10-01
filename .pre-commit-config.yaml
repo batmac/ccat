@@ -71,7 +71,7 @@ repos:
     hooks:
       - id: renovate-config-validator
   - repo: https://github.com/pre-commit-ci/pre-commit-ci-config
-    rev: v1.5.1
+    rev: v1.6.1
     hooks:
       - id: check-pre-commit-ci-config
   # - repo: https://github.com/hadolint/hadolint
