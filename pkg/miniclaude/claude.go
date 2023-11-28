@@ -20,7 +20,7 @@ const (
 	// https://docs.anthropic.com/claude/reference/selecting-a-model
 	ModelClaudeLatest        = "claude-2"           // latest model family, manually updated
 	ModelClaude2             = "claude-2"           // latest major version
-	ModelClaude20            = "claude-2.0"         // latest full version
+	ModelClaude21            = "claude-2.1"         // latest full version
 	ModelClaudeInstantLatest = "claude-instant-1"   // latest instant model family, manually updated
 	ModelClaudeInstant1      = "claude-instant-1"   // latest instant major version
 	ModelClaudeInstant12     = "claude-instant-1.2" // latest instant full version
