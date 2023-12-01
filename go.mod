@@ -46,7 +46,7 @@ require (
 	github.com/zeebo/xxh3 v1.0.2
 	golang.org/x/exp v0.0.0-20231127185646-65229373498e
 	golang.org/x/term v0.15.0
-	howett.net/plist v1.0.0
+	howett.net/plist v1.0.1
 	sigs.k8s.io/yaml v1.4.0
 )
 
