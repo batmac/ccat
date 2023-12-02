@@ -3,6 +3,7 @@ package mutators
 import (
 	"io"
 
+	"braces.dev/errtrace"
 	"github.com/batmac/ccat/pkg/log"
 	"github.com/dsnet/compress/bzip2"
 )
@@ -23,7 +24,7 @@ func cbzip2(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
 		log.Fatal(err)
 	}
 	defer zw.Close()
-	return io.Copy(zw, r) // streamable
+	return errtrace.Wrap2(io.Copy(zw, r)) // streamable
 }
 
 /* func bunzip2Alt(w io.WriteCloser, r io.ReadCloser) (int64, error) {

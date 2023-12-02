@@ -4,6 +4,7 @@
 package openers
 
 import (
+	"braces.dev/errtrace"
 	"fmt"
 	"io"
 	"strings"
@@ -37,13 +38,13 @@ func (f echoOpener) Open(s string, _ bool) (io.ReadCloser, error) {
 	var found bool
 	_, s, found = strings.Cut(s, "://")
 	if !found {
-		return nil, fmt.Errorf("no protocol given")
+		return nil, errtrace.Wrap(fmt.Errorf("no protocol given"))
 	}
 	// remove quotes from start and end
 	s = strings.Trim(s, "\"'")
 
 	if len(s) == 0 {
-		return nil, fmt.Errorf("no data given")
+		return nil, errtrace.Wrap(fmt.Errorf("no data given"))
 	}
 
 	datareader := io.NopCloser(strings.NewReader(s))

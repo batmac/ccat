@@ -1,6 +1,7 @@
 package plugins
 
 import (
+	"braces.dev/errtrace"
 	"bytes"
 	"encoding/json"
 	"errors"
@@ -31,7 +32,7 @@ func Deepl(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 
 	text, err := io.ReadAll(r) // NOT streamable
 	if err != nil {
-		return 0, err
+		return 0, errtrace.Wrap(err)
 	}
 	if len(text) == 0 {
 		return 0, nil
@@ -55,7 +56,7 @@ func Deepl(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 	// Create request
 	req, err := http.NewRequest(http.MethodPost, baseURL, bytes.NewBufferString(data.Encode()))
 	if err != nil {
-		return 0, err
+		return 0, errtrace.Wrap(err)
 	}
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	req.Header.Set("Authorization", "DeepL-Auth-Key "+key)
@@ -64,13 +65,13 @@ func Deepl(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 	client := http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
-		return 0, err
+		return 0, errtrace.Wrap(err)
 	}
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
 		log.Println("deepl response status:", resp.Status)
-		return 0, errors.New(resp.Status)
+		return 0, errtrace.Wrap(errors.New(resp.Status))
 	}
 
 	// Parse response
@@ -78,9 +79,9 @@ func Deepl(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 	decoder := json.NewDecoder(resp.Body)
 	err = decoder.Decode(&translateResp)
 	if err != nil {
-		return 0, err
+		return 0, errtrace.Wrap(err)
 	}
 
 	log.Println("detected source language: ", translateResp.Translations[0].DetectedSourceLanguage)
-	return io.Copy(w, strings.NewReader(translateResp.Translations[0].Text))
+	return errtrace.Wrap2(io.Copy(w, strings.NewReader(translateResp.Translations[0].Text)))
 }

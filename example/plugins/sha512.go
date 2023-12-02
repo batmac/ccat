@@ -1,6 +1,7 @@
 package plugins
 
 import (
+	"braces.dev/errtrace"
 	"crypto/sha512"
 	"encoding/hex"
 	"io"
@@ -13,8 +14,8 @@ func Sha512(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 	h := sha512.New()
 	_, err := io.Copy(h, r)
 	if err != nil {
-		return 0, err
+		return 0, errtrace.Wrap(err)
 	}
 	n, err := io.WriteString(w, hex.EncodeToString(h.Sum(nil))+"\n")
-	return int64(n), err
+	return int64(n), errtrace.Wrap(err)
 }

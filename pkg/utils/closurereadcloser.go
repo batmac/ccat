@@ -3,6 +3,7 @@ package utils
 import (
 	"io"
 
+	"braces.dev/errtrace"
 	"github.com/batmac/ccat/pkg/log"
 )
 
@@ -36,7 +37,7 @@ func (c newCloser) Close() error {
 			log.Println(err)
 		}
 	}
-	return c.closure()
+	return errtrace.Wrap(c.closure())
 }
 
 type newCloserWriterTo struct {
@@ -53,9 +54,9 @@ func (c newCloserWriterTo) Close() error {
 			log.Println(err)
 		}
 	}
-	return c.closure()
+	return errtrace.Wrap(c.closure())
 }
 
 func (c newCloserWriterTo) WriteTo(w io.Writer) (int64, error) {
-	return c.Reader.(io.WriterTo).WriteTo(w)
+	return errtrace.Wrap2(c.Reader.(io.WriterTo).WriteTo(w))
 }

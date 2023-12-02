@@ -3,6 +3,7 @@ package mutators
 import (
 	"io"
 
+	"braces.dev/errtrace"
 	md "github.com/JohannesKaufmann/html-to-markdown"
 	"github.com/JohannesKaufmann/html-to-markdown/plugin"
 	"github.com/batmac/ccat/pkg/log"
@@ -26,5 +27,5 @@ func h2m(w io.WriteCloser, r io.ReadCloser, c any) (int64, error) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	return markdown.WriteTo(w)
+	return errtrace.Wrap2(markdown.WriteTo(w))
 }

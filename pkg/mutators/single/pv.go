@@ -8,6 +8,7 @@ import (
 	"sync/atomic"
 	"time"
 
+	"braces.dev/errtrace"
 	"github.com/batmac/ccat/pkg/log"
 	"github.com/batmac/ccat/pkg/stringutils"
 )
@@ -65,7 +66,7 @@ func pv(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
 				break
 			}
 			fmt.Fprintf(os.Stderr, "read error: %#v\n", err)
-			return totalWritten.Load(), err
+			return totalWritten.Load(), errtrace.Wrap(err)
 		}
 		if read > maxRead {
 			maxRead = read
@@ -78,7 +79,7 @@ func pv(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
 			if err != nil {
 				fmt.Fprintf(os.Stderr, "write error: %v\n", err)
 
-				return totalWritten.Load(), err
+				return totalWritten.Load(), errtrace.Wrap(err)
 			}
 			read -= m
 			totalWritten.Add(int64(m))

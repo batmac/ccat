@@ -9,6 +9,7 @@ import (
 	"github.com/batmac/ccat/pkg/log"
 	"github.com/batmac/ccat/pkg/utils"
 
+	"braces.dev/errtrace"
 	"golang.org/x/term"
 )
 
@@ -22,7 +23,7 @@ func IsStdinTerminal() bool {
 
 func GetTerminalSize() (int, int, error) {
 	if IsStdoutTerminal() {
-		return term.GetSize(int(os.Stdout.Fd()))
+		return errtrace.Wrap3(term.GetSize(int(os.Stdout.Fd())))
 	}
 	// fallback when piping to a file!
 	return 80, 24, nil // VT100 terminal size
@@ -66,7 +67,7 @@ func ReadPassword(prompt string) (string, error) {
 	fmt.Print(prompt)
 	b, err := term.ReadPassword(int(os.Stdin.Fd()))
 	if err != nil {
-		return "", err
+		return "", errtrace.Wrap(err)
 	}
 	return strings.TrimSpace(string(b)), nil
 }
@@ -79,7 +80,7 @@ func ReadLine(prompt string) (string, error) {
 	line, err := reader.ReadString('\n')
 	if err != nil {
 		fmt.Println("Error reading input:", err)
-		return "", err
+		return "", errtrace.Wrap(err)
 	}
 
 	return strings.TrimSpace(line), nil

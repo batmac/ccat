@@ -6,6 +6,7 @@ import (
 	"os"
 	"strings"
 
+	"braces.dev/errtrace"
 	"github.com/batmac/ccat/pkg/lockable"
 	"github.com/batmac/ccat/pkg/log"
 	"github.com/batmac/ccat/pkg/utils"
@@ -42,15 +43,15 @@ func (f fileOpener) Open(s string, lock bool) (io.ReadCloser, error) {
 	if s != "-" {
 		fileInfo, err := os.Stat(s)
 		if err != nil {
-			return nil, err
+			return nil, errtrace.Wrap(err)
 		}
 		if fileInfo.IsDir() {
-			return nil, errors.New("is a directory")
+			return nil, errtrace.Wrap(errors.New("is a directory"))
 		}
 		from, err = lockable.FileOpen(s, lock)
 		if err != nil {
 			log.Println(err)
-			return nil, err
+			return nil, errtrace.Wrap(err)
 		}
 		// defer lockable.FileClose(from.(*os.File), false)
 	}

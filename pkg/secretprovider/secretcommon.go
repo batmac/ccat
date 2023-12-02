@@ -4,6 +4,7 @@ import (
 	"errors"
 	"os"
 
+	"braces.dev/errtrace"
 	"github.com/batmac/ccat/pkg/log"
 	"github.com/tmc/keyring"
 )
@@ -22,9 +23,9 @@ func GetSecret(name, envVar string) (string, error) {
 		s, err := getSecret(name)
 		if errors.Is(err, keyring.ErrNotFound) {
 			log.Debugf("Secret '%s' not found in keyring", name)
-			return "", ErrNotFound
+			return "", errtrace.Wrap(ErrNotFound)
 		}
-		return s, err
+		return s, errtrace.Wrap(err)
 	}
-	return "", ErrNotFound
+	return "", errtrace.Wrap(ErrNotFound)
 }

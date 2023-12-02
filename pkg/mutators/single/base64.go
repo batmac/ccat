@@ -1,6 +1,7 @@
 package mutators
 
 import (
+	"braces.dev/errtrace"
 	"encoding/base64"
 	"io"
 )
@@ -12,7 +13,7 @@ func init() {
 
 func base64Decode(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 	decoder := base64.NewDecoder(base64.StdEncoding, r)
-	return io.Copy(w, decoder) // streamable
+	return errtrace.Wrap2(io.Copy(w, decoder)) // streamable
 }
 
 func base64Encode(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
@@ -20,5 +21,5 @@ func base64Encode(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 	written, err := io.Copy(encoder, r) // streamable
 	encoder.Close()
 	// fmt.Fprintln(w, "")
-	return written, err
+	return written, errtrace.Wrap(err)
 }

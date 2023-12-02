@@ -6,6 +6,7 @@ import (
 	"io"
 	"sync"
 
+	"braces.dev/errtrace"
 	"github.com/batmac/ccat/pkg/globalctx"
 	"github.com/batmac/ccat/pkg/log"
 	"github.com/batmac/ccat/pkg/mutators"
@@ -41,9 +42,9 @@ type singleFactory struct {
 
 func ErrWrongNumberOfArgs(min, max, got int) error {
 	if min == max {
-		return fmt.Errorf("wrong number of arguments, got %d, expected %d", got, min)
+		return errtrace.Wrap(fmt.Errorf("wrong number of arguments, got %d, expected %d", got, min))
 	}
-	return fmt.Errorf("wrong number of arguments, expected between %d and %d, got %d", min, max, got)
+	return errtrace.Wrap(fmt.Errorf("wrong number of arguments, expected between %d and %d, got %d", min, max, got))
 }
 
 func withHintLexer(s string) singleOption {
@@ -98,7 +99,7 @@ func withAliases(aliases ...string) singleOption {
 func defaultConfigBuilder(args []string) (any, error) {
 	// no config, no args permitted
 	if len(args) != 0 {
-		return nil, ErrWrongNumberOfArgs(0, 0, len(args))
+		return nil, errtrace.Wrap(ErrWrongNumberOfArgs(0, 0, len(args)))
 	}
 	return nil, nil //nolint:nilnil
 }
@@ -127,7 +128,7 @@ func (f *singleFactory) NewMutator(logger *log.Logger, args []string) (mutators.
 	if f.configBuilder != nil {
 		config, err = f.configBuilder(args)
 		if err != nil {
-			return nil, err
+			return nil, errtrace.Wrap(err)
 		}
 	}
 
@@ -143,7 +144,7 @@ func (m *singleMutator) Start(w io.WriteCloser, r io.ReadCloser) error {
 	m.Mu.Lock()
 	if m.Started {
 		m.Mu.Unlock()
-		return fmt.Errorf("%s: mutator has already started", m.Name())
+		return errtrace.Wrap(fmt.Errorf("%s: mutator has already started", m.Name()))
 	}
 	m.Started = true
 	m.Mu.Unlock()
@@ -178,11 +179,11 @@ func (m *singleMutator) Wait() error {
 	m.Mu.Lock()
 	if !m.Started {
 		m.Mu.Unlock()
-		return fmt.Errorf("%s: mutator is not started", m.Name())
+		return errtrace.Wrap(fmt.Errorf("%s: mutator is not started", m.Name()))
 	}
 	if m.Waited {
 		m.Mu.Unlock()
-		return fmt.Errorf("%s: mutator is already waited", m.Name())
+		return errtrace.Wrap(fmt.Errorf("%s: mutator is already waited", m.Name()))
 	}
 	m.Waited = true
 	m.Mu.Unlock()

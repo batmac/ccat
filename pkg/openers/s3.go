@@ -11,6 +11,7 @@ import (
 
 	"github.com/batmac/ccat/pkg/log"
 
+	"braces.dev/errtrace"
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
@@ -65,11 +66,11 @@ func (f s3Opener) Open(s string, _ bool) (io.ReadCloser, error) {
 	// aws.LogRetries|aws.LogRequest|
 	cfg, err := config.LoadDefaultConfig(ctx, config.WithClientLogMode(aws.LogDeprecatedUsage))
 	if err != nil {
-		return nil, err
+		return nil, errtrace.Wrap(err)
 	}
 
 	if err := displayDebugInfoWithSTS(ctx, cfg); err != nil {
-		return nil, err
+		return nil, errtrace.Wrap(err)
 	}
 
 	log.Debugf(" creating S3 client...\n")
@@ -81,7 +82,7 @@ func (f s3Opener) Open(s string, _ bool) (io.ReadCloser, error) {
 			Key:    aws.String(object),
 		})
 	if err != nil {
-		return nil, err
+		return nil, errtrace.Wrap(err)
 	}
 
 	return o.Body, nil
@@ -101,7 +102,7 @@ func displayDebugInfoWithSTS(ctx context.Context, cfg aws.Config) error {
 	log.Debugf("  getting identity...\n")
 	identity, err := stsClient.GetCallerIdentity(ctx, &sts.GetCallerIdentityInput{})
 	if err != nil {
-		return err
+		return errtrace.Wrap(err)
 	}
 	log.Debugf("  Account: %s, Arn: %s\n", aws.ToString(identity.Account), aws.ToString(identity.Arn))
 	return nil

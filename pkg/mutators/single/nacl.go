@@ -12,6 +12,7 @@ import (
 	"github.com/batmac/ccat/pkg/log"
 	"github.com/batmac/ccat/pkg/secretprovider"
 
+	"braces.dev/errtrace"
 	"github.com/kevinburke/nacl"
 	"github.com/kevinburke/nacl/secretbox"
 )
@@ -28,13 +29,13 @@ func init() {
 func easyseal(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 	u, err := io.ReadAll(r) // NOT streamable
 	if err != nil {
-		return 0, err
+		return 0, errtrace.Wrap(err)
 	}
 	key := getKey()
 	box := secretbox.EasySeal(u, key)
 	_, err = w.Write(box)
 	if err != nil {
-		return 0, err
+		return 0, errtrace.Wrap(err)
 	}
 	defer func() {
 		log.Printf("KEY=%s", hex.EncodeToString((*key)[:]))
@@ -45,7 +46,7 @@ func easyseal(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 func easyopen(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 	u, err := io.ReadAll(r) // NOT streamable
 	if err != nil {
-		return 0, err
+		return 0, errtrace.Wrap(err)
 	}
 	key := getKey()
 	box, err := secretbox.EasyOpen(u, key)
@@ -54,7 +55,7 @@ func easyopen(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 	}
 	_, err = w.Write(box)
 	if err != nil {
-		return 0, err
+		return 0, errtrace.Wrap(err)
 	}
 
 	err = r.Close()

@@ -7,6 +7,7 @@ import (
 	"os/exec"
 	"strings"
 
+	"braces.dev/errtrace"
 	"github.com/batmac/ccat/pkg/log"
 )
 
@@ -19,7 +20,7 @@ func pipedcmd(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
 	command := config.(string)
 
 	if command == "" {
-		return 0, fmt.Errorf("no command specified")
+		return 0, errtrace.Wrap(fmt.Errorf("no command specified"))
 	}
 
 	split := strings.Split(command, " ")
@@ -32,5 +33,5 @@ func pipedcmd(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
 
 	err := cmd.Run()
 
-	return 0, err
+	return 0, errtrace.Wrap(err)
 }

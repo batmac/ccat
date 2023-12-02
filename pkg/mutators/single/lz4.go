@@ -5,6 +5,7 @@ import (
 
 	"github.com/batmac/ccat/pkg/log"
 
+	"braces.dev/errtrace"
 	"github.com/pierrec/lz4/v4"
 )
 
@@ -25,7 +26,7 @@ func unlz4(out io.WriteCloser, in io.ReadCloser, _ any) (int64, error) {
 	}
 
 	n, err := io.Copy(out, d)
-	return n, err
+	return n, errtrace.Wrap(err)
 }
 
 func clz4(out io.WriteCloser, in io.ReadCloser, config any) (int64, error) {
@@ -45,5 +46,5 @@ func clz4(out io.WriteCloser, in io.ReadCloser, config any) (int64, error) {
 
 	n, err := io.Copy(e, in)
 	e.Close()
-	return n, err
+	return n, errtrace.Wrap(err)
 }

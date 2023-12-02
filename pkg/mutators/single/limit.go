@@ -3,6 +3,7 @@ package mutators
 import (
 	"io"
 
+	"braces.dev/errtrace"
 	"github.com/batmac/ccat/pkg/log"
 )
 
@@ -18,5 +19,5 @@ func limit(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
 	log.Debugf("limiting to %d bytes\n", bytes)
 	lr := io.LimitReader(r, bytes)
 
-	return io.Copy(w, lr) // streamable
+	return errtrace.Wrap2(io.Copy(w, lr)) // streamable
 }

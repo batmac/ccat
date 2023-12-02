@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"strings"
 
+	"braces.dev/errtrace"
 	"github.com/batmac/ccat/pkg/globalctx"
 	"github.com/batmac/ccat/pkg/log"
 )
@@ -49,7 +50,7 @@ func (f httpOpener) Open(s string, _ bool) (io.ReadCloser, error) {
 	resp, err := http.Get(s)
 	if err != nil {
 		log.Println(err)
-		return nil, err
+		return nil, errtrace.Wrap(err)
 	}
 	nrc := resp.Body
 

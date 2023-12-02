@@ -8,6 +8,7 @@ import (
 	"runtime"
 	"time"
 
+	"braces.dev/errtrace"
 	"github.com/batmac/ccat/pkg/term"
 	"github.com/google/renameio/v2/maybe"
 	"github.com/magefile/mage/mg" // mg contains helpful utility functions, like Deps
@@ -57,23 +58,23 @@ func build(tags string) error {
 	stepPrintln(buildMsg + "...")
 	cwd, err := os.Getwd()
 	if err != nil {
-		return err
+		return errtrace.Wrap(err)
 	}
 	if err := os.Chdir(filepath.FromSlash("cmd/ccat")); err != nil {
-		return err
+		return errtrace.Wrap(err)
 	}
 	buildArgs := defaultBuildArgs
 	buildArgs = append(buildArgs, "-ldflags", ldFlags(tags), "-tags", tags)
 
 	if err := sh.RunWithV(nil, "go", buildArgs...); err != nil {
-		return err
+		return errtrace.Wrap(err)
 	}
 
 	if err := os.Rename(binaryName, filepath.Join(cwd, binaryName)); err != nil {
-		return err
+		return errtrace.Wrap(err)
 	}
 	if err := os.Chdir(cwd); err != nil {
-		return err
+		return errtrace.Wrap(err)
 	}
 
 	stepOKPrintln(buildMsg + " OK")
@@ -81,17 +82,17 @@ func build(tags string) error {
 }
 
 func BuildDefault() error {
-	return build("")
+	return errtrace.Wrap(build(""))
 }
 
 // tags: nohl,fileonly
 func BuildMinimal() error {
-	return build("nohl,fileonly")
+	return errtrace.Wrap(build("nohl,fileonly"))
 }
 
 // tags: libcurl,crappy,plugins,keystore
 func BuildFull() error {
-	return build("libcurl,crappy,plugins,keystore")
+	return errtrace.Wrap(build("libcurl,crappy,plugins,keystore"))
 }
 
 // put ccat to $GOPATH/bin/ccat
@@ -103,10 +104,10 @@ func Install() error {
 	if err != nil {
 		// detect this
 		fmt.Println("Have you build first?")
-		return err
+		return errtrace.Wrap(err)
 	}
 	if err := maybe.WriteFile(path, data, 0o750); err != nil {
-		return err
+		return errtrace.Wrap(err)
 	}
 	stepOKPrintln("Installing OK")
 	return nil
@@ -116,7 +117,7 @@ func Install() error {
 func InstallDeps() error {
 	stepPrintln("Installing Deps...")
 	if err := sh.RunV("go", "mod", "download"); err != nil {
-		return err
+		return errtrace.Wrap(err)
 	}
 	stepOKPrintln("Installing Deps OK")
 	return nil
@@ -127,7 +128,7 @@ func VerifyDeps() error {
 	mg.Deps(InstallDeps)
 	stepPrintln("Verifying Deps...")
 	if err := sh.Run("go", "mod", "verify"); err != nil {
-		return err
+		return errtrace.Wrap(err)
 	}
 	stepOKPrintln("Verifying Deps OK")
 	return nil
@@ -136,7 +137,7 @@ func VerifyDeps() error {
 func Clean() error {
 	stepPrintln("Cleaning...")
 	if err := sh.Rm(binaryName); err != nil {
-		return err
+		return errtrace.Wrap(err)
 	}
 	stepOKPrintln("Cleaning OK")
 	return nil
@@ -151,7 +152,7 @@ func TestGo() error {
 		fmt.Println(r, "\n ")
 	}
 	if err != nil {
-		return err
+		return errtrace.Wrap(err)
 	}
 	stepOKPrintln("Testing Go OK")
 	return nil
@@ -182,19 +183,19 @@ func UpdateREADME() error {
 
 	data, err := os.ReadFile("README.header.md")
 	if err != nil {
-		return err
+		return errtrace.Wrap(err)
 	}
 	data = append(data, "\n```\n"...)
 	out, err := sh.Output("./"+binaryName, "--fullhelp")
 
 	data = append(data, out...)
 	if err != nil {
-		return err
+		return errtrace.Wrap(err)
 	}
 	data = append(data, "```\n"...)
 
 	if err := os.WriteFile("README.md", data, 0o600); err != nil {
-		return err
+		return errtrace.Wrap(err)
 	}
 	stepOKPrintln("Updating README.md OK")
 	return nil

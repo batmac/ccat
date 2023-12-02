@@ -8,6 +8,7 @@ import (
 	"io"
 	"strings"
 
+	"braces.dev/errtrace"
 	"github.com/batmac/ccat/pkg/log"
 	"github.com/batmac/ccat/pkg/stringutils"
 )
@@ -46,7 +47,7 @@ func (f crngOpener) Open(s string, _ bool) (io.ReadCloser, error) {
 	if len(s) != 0 {
 		limit, err = stringutils.FromHumanSize[int64](s)
 		if err != nil {
-			return nil, err
+			return nil, errtrace.Wrap(err)
 		}
 		log.Debugln("limiting to ", limit, " bytes")
 		R = io.LimitReader(rand.Reader, limit)

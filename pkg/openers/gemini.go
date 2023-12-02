@@ -11,6 +11,7 @@ import (
 	"git.sr.ht/~adnano/go-gemini"
 	"git.sr.ht/~adnano/go-gemini/tofu"
 
+	"braces.dev/errtrace"
 	"github.com/batmac/ccat/pkg/log"
 )
 
@@ -50,7 +51,7 @@ func (f geminiOpener) Open(s string, _ bool) (io.ReadCloser, error) {
 	if err != nil {
 		// handle error
 		log.Println(err)
-		return nil, err
+		return nil, errtrace.Wrap(err)
 	}
 
 	return resp.Body, nil

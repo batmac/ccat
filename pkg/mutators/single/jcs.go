@@ -5,6 +5,7 @@ import (
 	"io"
 
 	// "github.com/go-json-experiment/json"
+	"braces.dev/errtrace"
 	json "github.com/gowebpki/jcs"
 )
 
@@ -18,7 +19,7 @@ func init() {
 func jcs(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 	j, err := io.ReadAll(r) // NOT streamable
 	if err != nil {
-		return 0, err
+		return 0, errtrace.Wrap(err)
 	}
 	if len(j) == 0 {
 		return 0, nil
@@ -27,8 +28,8 @@ func jcs(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 	// err = c.Canonicalize()
 	c, err := json.Transform(j)
 	if err != nil {
-		return 0, err
+		return 0, errtrace.Wrap(err)
 	}
 
-	return io.Copy(w, bytes.NewReader(c))
+	return errtrace.Wrap2(io.Copy(w, bytes.NewReader(c)))
 }

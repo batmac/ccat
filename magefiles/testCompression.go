@@ -9,6 +9,7 @@ import (
 	"github.com/magefile/mage/mg"
 	"github.com/magefile/mage/sh"
 
+	"braces.dev/errtrace"
 	"github.com/batmac/ccat/pkg/mutators"
 	_ "github.com/batmac/ccat/pkg/mutators/single"
 	"github.com/batmac/ccat/pkg/utils"
@@ -22,13 +23,13 @@ func TestCompressionGo() error {
 	dir := filepath.FromSlash("testdata/compression")
 	files, err := os.ReadDir(dir)
 	if err != nil {
-		return err
+		return errtrace.Wrap(err)
 	}
 	for _, file := range files {
 		filePath := filepath.Join(dir, file.Name())
 		expectedCksum, err := utils.FileChecksum(filePath)
 		if err != nil {
-			return err
+			return errtrace.Wrap(err)
 		}
 		if mg.Verbose() {
 			fmt.Printf("%v %v\n", expectedCksum, file.Name())
@@ -37,7 +38,7 @@ func TestCompressionGo() error {
 			opts := []string{"-m", alg + ",un" + alg + ",sha256", filePath}
 			cksum, err := sh.Output("./"+binaryName, opts...)
 			if err != nil {
-				return err
+				return errtrace.Wrap(err)
 			}
 			if mg.Debug() {
 				fmt.Printf("%v %v\n", cksum, alg)
@@ -52,7 +53,7 @@ func TestCompressionGo() error {
 		}
 	}
 	if failure {
-		return errors.New("some checksum(s) don't match")
+		return errtrace.Wrap(errors.New("some checksum(s) don't match"))
 	}
 	stepOKPrintln("Testing compression OK")
 	return nil

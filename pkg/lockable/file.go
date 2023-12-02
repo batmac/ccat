@@ -4,6 +4,7 @@ import (
 	"os"
 	"path/filepath"
 
+	"braces.dev/errtrace"
 	"github.com/batmac/ccat/pkg/log"
 )
 
@@ -11,14 +12,14 @@ import (
 func FileOpen(path string, lock bool) (*os.File, error) {
 	file, err := os.Open(filepath.Clean(path))
 	if err != nil {
-		return nil, err
+		return nil, errtrace.Wrap(err)
 	}
 	log.Debugln(" lockable: opened ", file.Name())
 	if lock {
 		err = Flock(file)
 		if err != nil {
 			file.Close()
-			return nil, err
+			return nil, errtrace.Wrap(err)
 		}
 		log.Println(" lockable: locked ", file.Name())
 	}

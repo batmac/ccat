@@ -5,6 +5,7 @@ import (
 
 	"github.com/batmac/ccat/pkg/log"
 
+	"braces.dev/errtrace"
 	qp "mime/quotedprintable"
 )
 
@@ -23,7 +24,7 @@ func unqp(out io.WriteCloser, in io.ReadCloser, _ any) (int64, error) {
 		log.Fatal("qp decoder failed to init.")
 	}
 	n, err := io.Copy(out, d) // streamable
-	return n, err
+	return n, errtrace.Wrap(err)
 }
 
 func cqp(out io.WriteCloser, in io.ReadCloser, _ any) (int64, error) {
@@ -32,5 +33,5 @@ func cqp(out io.WriteCloser, in io.ReadCloser, _ any) (int64, error) {
 		log.Fatal("qp encoder failed to init.")
 	}
 	defer h.Close()
-	return io.Copy(h, in) // streamable
+	return errtrace.Wrap2(io.Copy(h, in)) // streamable
 }

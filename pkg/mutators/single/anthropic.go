@@ -4,6 +4,7 @@ import (
 	"io"
 	"strconv"
 
+	"braces.dev/errtrace"
 	"github.com/batmac/ccat/pkg/log"
 	"github.com/batmac/ccat/pkg/miniclaude"
 	"github.com/batmac/ccat/pkg/secretprovider"
@@ -49,7 +50,7 @@ func claude(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 
 	prompt, err := io.ReadAll(r)
 	if err != nil {
-		return 0, err
+		return 0, errtrace.Wrap(err)
 	}
 
 	sp := miniclaude.NewSimpleSamplingParameters(prePrompt+string(prompt), model)

@@ -15,6 +15,7 @@ import (
 	"github.com/batmac/ccat/pkg/stringutils"
 	"github.com/batmac/ccat/pkg/term"
 
+	"braces.dev/errtrace"
 	"github.com/alecthomas/chroma/v2"
 	"github.com/alecthomas/chroma/v2/formatters"
 	"github.com/alecthomas/chroma/v2/lexers"
@@ -42,7 +43,7 @@ func (h *Chroma) highLight(w io.WriteCloser, r io.ReadCloser, o Options) error {
 	// MAX_READ_SIZE Bytes max
 	someSourceCode, err := io.ReadAll(&io.LimitedReader{R: r, N: MaxReadSize})
 	if err != nil {
-		return err
+		return errtrace.Wrap(err)
 	}
 
 	additionalChar := make([]byte, 1)
@@ -141,12 +142,12 @@ func (h *Chroma) highLight(w io.WriteCloser, r io.ReadCloser, o Options) error {
 
 	iterator, err := lexer.Tokenise(nil, string(someSourceCode))
 	if err != nil {
-		return err
+		return errtrace.Wrap(err)
 	}
 
 	err = formatter.Format(w, style, iterator)
 	if err != nil {
-		return err
+		return errtrace.Wrap(err)
 	}
 
 	log.Debugln(" highlighter: end chroma Highlight")

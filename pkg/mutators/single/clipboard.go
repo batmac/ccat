@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"io"
 
+	"braces.dev/errtrace"
 	"github.com/atotto/clipboard"
 	"github.com/batmac/ccat/pkg/log"
 	"github.com/batmac/ccat/pkg/term"
@@ -17,7 +18,7 @@ func init() {
 func teeClipboard(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 	d, err := io.ReadAll(r) // NOT streamable
 	if err != nil {
-		return 0, err
+		return 0, errtrace.Wrap(err)
 	}
 	log.Debugf("readall %d bytes\n", len(d))
 	if term.IsSSH() || utils.IsRunningInContainer() {
@@ -25,7 +26,7 @@ func teeClipboard(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 	} else {
 		cbLocal(d)
 	}
-	return io.Copy(w, bytes.NewReader(d))
+	return errtrace.Wrap2(io.Copy(w, bytes.NewReader(d)))
 }
 
 func cbLocal(d []byte) {

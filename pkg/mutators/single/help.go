@@ -4,6 +4,7 @@ import (
 	"io"
 	"strings"
 
+	"braces.dev/errtrace"
 	"github.com/batmac/ccat/pkg/mutators"
 )
 
@@ -14,5 +15,5 @@ func init() {
 }
 
 func printHelp(out io.WriteCloser, _ io.ReadCloser, _ any) (int64, error) {
-	return io.Copy(out, strings.NewReader(mutators.AvailableMutatorsHelp()))
+	return errtrace.Wrap2(io.Copy(out, strings.NewReader(mutators.AvailableMutatorsHelp())))
 }

@@ -1,6 +1,7 @@
 package mutators
 
 import (
+	"braces.dev/errtrace"
 	"bytes"
 	"encoding/json"
 	"io"
@@ -17,18 +18,18 @@ func jsonIndent(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
 	indent := int(config.(uint64))
 	j, err := io.ReadAll(r) // NOT streamable
 	if err != nil {
-		return 0, err
+		return 0, errtrace.Wrap(err)
 	}
 	var b bytes.Buffer
 	if len(j) != 0 {
 		err = json.Indent(&b, j, "", strings.Repeat(" ", indent))
 		if err != nil {
-			return 0, err
+			return 0, errtrace.Wrap(err)
 		}
 		b.WriteString("\n")
 		_, err = io.Copy(w, bytes.NewReader(b.Bytes()))
 		if err != nil {
-			return 0, err
+			return 0, errtrace.Wrap(err)
 		}
 	}
 

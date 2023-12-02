@@ -1,6 +1,7 @@
 package mutators
 
 import (
+	"braces.dev/errtrace"
 	"io"
 )
 
@@ -12,5 +13,5 @@ func init() {
 }
 
 func dummy(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
-	return io.Copy(w, r) // streamable
+	return errtrace.Wrap2(io.Copy(w, r)) // streamable
 }

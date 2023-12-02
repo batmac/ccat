@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 
+	"braces.dev/errtrace"
 	"github.com/muesli/reflow/indent"
 	"github.com/muesli/reflow/wordwrap"
 	uwrap "github.com/muesli/reflow/wrap"
@@ -31,28 +32,28 @@ func wordWrap(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
 	WrapMaxChars := int(config.(uint64))
 	ww := wordwrap.NewWriter(WrapMaxChars)
 	if _, err := io.Copy(ww, r); err != nil { // streamable?
-		return 0, err
+		return 0, errtrace.Wrap(err)
 	}
 	ww.Close()
-	return io.Copy(w, bytes.NewReader(ww.Bytes()))
+	return errtrace.Wrap2(io.Copy(w, bytes.NewReader(ww.Bytes())))
 }
 
 func unconditionalyWrap(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
 	WrapMaxChars := int(config.(uint64))
 	ww := uwrap.NewWriter(WrapMaxChars)
 	if _, err := io.Copy(ww, r); err != nil { // streamable?
-		return 0, err
+		return 0, errtrace.Wrap(err)
 	}
 
-	return io.Copy(w, bytes.NewReader(ww.Bytes()))
+	return errtrace.Wrap2(io.Copy(w, bytes.NewReader(ww.Bytes())))
 }
 
 func singleIndent(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
 	IndentChars := uint(config.(uint64))
 	f := indent.NewWriter(IndentChars, nil)
 	if _, err := io.Copy(f, r); err != nil { // streamable?
-		return 0, err
+		return 0, errtrace.Wrap(err)
 	}
 	// f.Close()
-	return io.Copy(w, bytes.NewReader(f.Bytes()))
+	return errtrace.Wrap2(io.Copy(w, bytes.NewReader(f.Bytes())))
 }

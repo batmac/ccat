@@ -48,5 +48,5 @@ func (lr *Reader) Read(p []byte) (int, error) {
 	n, err := lr.r.Read(p[:maxBytes])
 	lr.totalRead += n
 
-	return n, err
+	return n, err //errtrace:skip
 }

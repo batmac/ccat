@@ -5,6 +5,7 @@ import (
 
 	"github.com/batmac/ccat/pkg/log"
 
+	"braces.dev/errtrace"
 	"github.com/klauspost/compress/s2"
 )
 
@@ -30,15 +31,15 @@ func uns2(out io.WriteCloser, in io.ReadCloser, _ any) (int64, error) {
 		log.Fatal("s2 decompressor failed to init")
 	}
 	n, err := io.Copy(out, d)
-	return n, err
+	return n, errtrace.Wrap(err)
 }
 
 func cs2(dst io.WriteCloser, src io.ReadCloser, _ any) (int64, error) {
-	return _cs2(dst, src)
+	return errtrace.Wrap2(_cs2(dst, src))
 }
 
 func csnappy(dst io.WriteCloser, src io.ReadCloser, _ any) (int64, error) {
-	return _cs2(dst, src, s2.WriterSnappyCompat())
+	return errtrace.Wrap2(_cs2(dst, src, s2.WriterSnappyCompat()))
 }
 
 func _cs2(dst io.WriteCloser, src io.ReadCloser, opts ...s2.WriterOption) (int64, error) {
@@ -46,7 +47,7 @@ func _cs2(dst io.WriteCloser, src io.ReadCloser, opts ...s2.WriterOption) (int64
 	n, err := io.Copy(enc, src)
 	if err != nil {
 		enc.Close()
-		return 0, err
+		return 0, errtrace.Wrap(err)
 	}
 	// Blocks until compression is done.
 	enc.Close()

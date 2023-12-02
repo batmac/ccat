@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"io"
 
+	"braces.dev/errtrace"
 	"github.com/mmcdole/gofeed"
 	"sigs.k8s.io/yaml"
 )
@@ -18,14 +19,14 @@ func feed2Y(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 	// convert feed to yaml
 	feed, err := gofeed.NewParser().Parse(r)
 	if err != nil {
-		return 0, err
+		return 0, errtrace.Wrap(err)
 	}
 	y, err := yaml.Marshal(feed)
 	if err != nil {
-		return 0, err
+		return 0, errtrace.Wrap(err)
 	}
 
 	n, err := io.Copy(w, bytes.NewReader(y))
 
-	return n, err
+	return n, errtrace.Wrap(err)
 }

@@ -8,6 +8,7 @@ import (
 	"strconv"
 	"strings"
 
+	"braces.dev/errtrace"
 	"github.com/batmac/ccat/pkg/log"
 	"github.com/batmac/ccat/pkg/secretprovider"
 	gpt "github.com/sashabaranov/go-openai"
@@ -68,7 +69,7 @@ func chatgpt(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 
 	prompt, err := io.ReadAll(r)
 	if err != nil {
-		return 0, err
+		return 0, errtrace.Wrap(err)
 	}
 
 	req := gpt.ChatCompletionRequest{
@@ -90,11 +91,11 @@ func chatgpt(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 	log.Debugf("request: %#v", req)
 	if key == "CI" {
 		log.Println("OPENAI_API_KEY is set to CI, using fake response")
-		return io.Copy(w, strings.NewReader("CI"))
+		return errtrace.Wrap2(io.Copy(w, strings.NewReader("CI")))
 	}
 	stream, err := client.CreateChatCompletionStream(ctx, req)
 	if err != nil {
-		return 0, err
+		return 0, errtrace.Wrap(err)
 	}
 	defer stream.Close()
 
@@ -115,14 +116,14 @@ func chatgpt(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 
 		if err != nil {
 			log.Printf("Stream error after %d steps: %v\n", steps, err)
-			return totalWritten, err
+			return totalWritten, errtrace.Wrap(err)
 		}
 
 		log.Debugf("%#v\n", response)
 		output := response.Choices[0].Delta.Content
 		n, err := w.Write([]byte(output))
 		if err != nil {
-			return totalWritten, err
+			return totalWritten, errtrace.Wrap(err)
 		}
 		totalWritten += int64(n)
 		steps++

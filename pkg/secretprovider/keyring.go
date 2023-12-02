@@ -4,6 +4,7 @@
 package secretprovider
 
 import (
+	"braces.dev/errtrace"
 	"github.com/batmac/ccat/pkg/log"
 	"github.com/tmc/keyring"
 )
@@ -16,7 +17,7 @@ func SetSecret(name, secret string) error {
 	if err != nil {
 		log.Printf("Error setting secret '%s' in keyring: %v", name, err)
 	}
-	return err
+	return errtrace.Wrap(err)
 }
 
 func getSecret(name string) (string, error) {
@@ -25,7 +26,7 @@ func getSecret(name string) (string, error) {
 	if err != nil {
 		log.Debugf("Error getting secret '%s' from keyring: %v", name, err)
 	}
-	return s, err
+	return s, errtrace.Wrap(err)
 }
 
 func secretName(name string) string {

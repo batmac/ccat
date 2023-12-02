@@ -8,6 +8,7 @@ import (
 	"strings"
 	"testing"
 
+	"braces.dev/errtrace"
 	"github.com/batmac/ccat/pkg/utils"
 )
 
@@ -40,11 +41,11 @@ func TestNewReadCloser(t *testing.T) {
 		}}, nil, true},
 		{"hello", args{helloReader, func() error {
 			taint = true
-			return ErrHello
+			return errtrace.Wrap(ErrHello)
 		}}, ErrHello, true},
 		{"self", args{selfReader, func() error {
 			taint = true
-			return ErrHello
+			return errtrace.Wrap(ErrHello)
 		}}, ErrHello, true},
 	}
 	for _, tt := range tests {
@@ -70,7 +71,7 @@ func Test_newCloser_Close(t *testing.T) {
 		wantErr bool
 	}{
 		{"empty", fields{emptyReader, func() error { return nil }}, false},
-		{"simple", fields{helloReader, func() error { return errors.New(hello) }}, true},
+		{"simple", fields{helloReader, func() error { return errtrace.Wrap(errors.New(hello)) }}, true},
 		{"self", fields{selfReader, func() error { return nil }}, false},
 	}
 	for _, tt := range tests {
@@ -95,7 +96,7 @@ func Test_newCloserWriterTo_Close(t *testing.T) {
 		wantErr bool
 	}{
 		{"empty", fields{emptyReader, func() error { return nil }}, false},
-		{"simple", fields{helloReader, func() error { return errors.New(hello) }}, true},
+		{"simple", fields{helloReader, func() error { return errtrace.Wrap(errors.New(hello)) }}, true},
 		{"simple2", fields{utils.NewReadCloser(helloReader, func() error { return nil }), func() error { return nil }}, false},
 	}
 	for _, tt := range tests {

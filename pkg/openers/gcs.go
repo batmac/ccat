@@ -9,6 +9,7 @@ import (
 	"io"
 	"strings"
 
+	"braces.dev/errtrace"
 	"cloud.google.com/go/storage"
 	"github.com/batmac/ccat/pkg/log"
 	"github.com/batmac/ccat/pkg/utils"
@@ -57,7 +58,7 @@ func (f gcsOpener) Open(s string, _ bool) (io.ReadCloser, error) {
 	// or GOOGLE_APPLICATION_CREDENTIALS
 	client, err := storage.NewClient(ctx)
 	if err != nil {
-		return nil, fmt.Errorf("storage.NewClient: %w", err)
+		return nil, errtrace.Wrap(fmt.Errorf("storage.NewClient: %w", err))
 	}
 	// defer client.Close()
 
@@ -68,13 +69,13 @@ func (f gcsOpener) Open(s string, _ bool) (io.ReadCloser, error) {
 
 	rc, err := client.Bucket(bucket).Object(object).NewReader(ctx)
 	if err != nil {
-		return nil, fmt.Errorf("Object(%q).NewReader: %w", object, err)
+		return nil, errtrace.Wrap(fmt.Errorf("Object(%q).NewReader: %w", object, err))
 	}
 	// defer rc.Close()
 
 	return utils.NewReadCloser(rc, func() error {
 		log.Debugf("closing client...\n")
-		return client.Close()
+		return errtrace.Wrap(client.Close())
 	}), nil
 }
 

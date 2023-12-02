@@ -10,6 +10,7 @@ import (
 	"strconv"
 	"strings"
 
+	"braces.dev/errtrace"
 	"github.com/batmac/ccat/pkg/log"
 	"github.com/batmac/ccat/pkg/utils"
 )
@@ -88,7 +89,7 @@ func huggingface(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 
 	token, source, err := getHuggingFaceToken()
 	if err != nil && os.Getenv("CI") != "CI" {
-		return 0, err
+		return 0, errtrace.Wrap(err)
 	}
 	model := "bigscience/bloom"
 	if len(arg) >= 1 && arg[0] != "" {
@@ -133,7 +134,7 @@ func huggingface(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 
 	input, err := io.ReadAll(r)
 	if err != nil {
-		return 0, err
+		return 0, errtrace.Wrap(err)
 	}
 	request, err := json.Marshal(
 		HuggingFaceRequest{
@@ -142,14 +143,14 @@ func huggingface(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 			Options:    map[string]any{"wait_for_model": true},
 		})
 	if err != nil {
-		return 0, err
+		return 0, errtrace.Wrap(err)
 	}
 
 	log.Debugf("request: %s\n", request)
 
 	req, err := http.NewRequest(http.MethodPost, url, bytes.NewReader(request))
 	if err != nil {
-		return 0, err
+		return 0, errtrace.Wrap(err)
 	}
 	req.Header.Set("Authorization", "Bearer "+token)
 	req.Header.Set("Content-Type", "application/json")
@@ -163,16 +164,16 @@ func huggingface(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
-		return 0, err
+		return 0, errtrace.Wrap(err)
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
-		return 0, fmt.Errorf("error: %s", resp.Status)
+		return 0, errtrace.Wrap(fmt.Errorf("error: %s", resp.Status))
 	}
 
 	got, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return 0, err
+		return 0, errtrace.Wrap(err)
 	}
 
 	out, err := getGeneratedTextFromJSON(got)
@@ -181,7 +182,7 @@ func huggingface(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 	}
 
 	n, err := w.Write(got)
-	return int64(n), err
+	return int64(n), errtrace.Wrap(err)
 }
 
 //nolint:gosec
@@ -204,7 +205,7 @@ func getHuggingFaceToken() (string, string, error) {
 	}
 
 	if token == "" || os.Getenv("CI") == "CI" {
-		return "", "", fmt.Errorf("no HuggingFace token found")
+		return "", "", errtrace.Wrap(fmt.Errorf("no HuggingFace token found"))
 	}
 	return token, source, nil
 }
@@ -220,11 +221,11 @@ func getGeneratedTextFromJSON(jsonBytes []byte) ([]byte, error) {
 	err := json.Unmarshal(jsonBytes, &data)
 	if err != nil {
 		log.Printf("error: %s\n", err)
-		return nil, err
+		return nil, errtrace.Wrap(err)
 	}
 	log.Debugf("data: %v\n", data)
 	if len(data[0].GeneratedText) > 0 {
 		return []byte(data[0].GeneratedText), nil
 	}
-	return nil, fmt.Errorf("no generated_text found in json response")
+	return nil, errtrace.Wrap(fmt.Errorf("no generated_text found in json response"))
 }

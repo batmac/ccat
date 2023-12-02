@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"net/url"
 
+	"braces.dev/errtrace"
 	"github.com/batmac/ccat/pkg/globalctx"
 	"github.com/batmac/ccat/pkg/secretprovider"
 )
@@ -32,19 +33,19 @@ func init() {
 }
 
 func wolframalphashort(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
-	return wolframalpha(w, r, "result", "i")
+	return errtrace.Wrap2(wolframalpha(w, r, "result", "i"))
 }
 
 func wolframalphaspoken(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
-	return wolframalpha(w, r, "spoken", "i")
+	return errtrace.Wrap2(wolframalpha(w, r, "spoken", "i"))
 }
 
 func wolframalphasimple(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
-	return wolframalpha(w, r, "simple", "i")
+	return errtrace.Wrap2(wolframalpha(w, r, "simple", "i"))
 }
 
 func wolframalphallm(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
-	return wolframalpha(w, r, "llm-api", "input")
+	return errtrace.Wrap2(wolframalpha(w, r, "llm-api", "input"))
 }
 
 func wolframalpha(w io.WriteCloser, r io.ReadCloser, t string, queryField string) (int64, error) {
@@ -52,7 +53,7 @@ func wolframalpha(w io.WriteCloser, r io.ReadCloser, t string, queryField string
 
 	query, err := io.ReadAll(r) // NOT streamable
 	if err != nil {
-		return 0, err
+		return 0, errtrace.Wrap(err)
 	}
 	if len(query) == 0 {
 		return 0, nil
@@ -60,7 +61,7 @@ func wolframalpha(w io.WriteCloser, r io.ReadCloser, t string, queryField string
 
 	appID, _ := secretprovider.GetSecret("wolfram", "WA_APPID")
 	if appID == "" {
-		return 0, fmt.Errorf("no appid found in $WA_APPID")
+		return 0, errtrace.Wrap(fmt.Errorf("no appid found in $WA_APPID"))
 	}
 	// build query url values
 	q := url.Values{
@@ -70,11 +71,11 @@ func wolframalpha(w io.WriteCloser, r io.ReadCloser, t string, queryField string
 
 	res, err := http.Get(baseURL + q.Encode())
 	if err != nil {
-		return 0, err
+		return 0, errtrace.Wrap(err)
 	}
 	data, err := io.ReadAll(res.Body)
 	if err != nil {
-		return 0, err
+		return 0, errtrace.Wrap(err)
 	}
 	res.Body.Close()
 	// fmt.Println(string(data))
@@ -84,5 +85,5 @@ func wolframalpha(w io.WriteCloser, r io.ReadCloser, t string, queryField string
 	if (expectingBinary == nil || !expectingBinary.(bool)) && data[len(data)-1] != '\n' {
 		data = append(data, '\n')
 	}
-	return io.Copy(w, bytes.NewReader(data))
+	return errtrace.Wrap2(io.Copy(w, bytes.NewReader(data)))
 }

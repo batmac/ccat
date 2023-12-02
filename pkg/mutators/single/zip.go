@@ -7,6 +7,7 @@ import (
 	"io"
 	"path/filepath"
 
+	"braces.dev/errtrace"
 	"github.com/batmac/ccat/pkg/globalctx"
 	"github.com/batmac/ccat/pkg/log"
 )
@@ -47,7 +48,7 @@ func unzip(out io.WriteCloser, in io.ReadCloser, _ any) (int64, error) {
 		rc.Close()
 		return n, nil
 	}
-	return 0, fmt.Errorf("no extractable File found")
+	return 0, errtrace.Wrap(fmt.Errorf("no extractable File found"))
 }
 
 func czip(out io.WriteCloser, in io.ReadCloser, _ any) (int64, error) {
@@ -59,7 +60,7 @@ func czip(out io.WriteCloser, in io.ReadCloser, _ any) (int64, error) {
 		//nolint:gocritic // exitAfterDefer
 		log.Fatal(err)
 	}
-	return io.Copy(f, in)
+	return errtrace.Wrap2(io.Copy(f, in))
 }
 
 func filename() string {

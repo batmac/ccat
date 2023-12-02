@@ -3,6 +3,7 @@ module github.com/batmac/ccat
 go 1.19
 
 require (
+	braces.dev/errtrace v0.2.0
 	cloud.google.com/go/storage v1.35.1
 	git.sr.ht/~adnano/go-gemini v0.2.3
 	github.com/JohannesKaufmann/html-to-markdown v1.4.2

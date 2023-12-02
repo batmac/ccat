@@ -13,6 +13,7 @@ import (
 	"strings"
 	"time"
 
+	"braces.dev/errtrace"
 	"github.com/batmac/ccat/pkg/log"
 	"github.com/batmac/ccat/pkg/pcg"
 	"github.com/batmac/ccat/pkg/utils"
@@ -54,7 +55,7 @@ func (f prngOpener) Open(s string, _ bool) (io.ReadCloser, error) {
 		seed, err = strconv.ParseInt(s, 10, 64)
 		if err != nil {
 			log.Debugf("error parsing seed: %v", err)
-			return nil, err
+			return nil, errtrace.Wrap(err)
 		}
 	}
 	rand.Seed(seed)

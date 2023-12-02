@@ -6,6 +6,7 @@ import (
 	"compress/zlib"
 	"io"
 
+	"braces.dev/errtrace"
 	"github.com/batmac/ccat/pkg/log"
 )
 
@@ -37,7 +38,7 @@ func ungzip(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 	}
 	defer zr.Close()
 	//#nosec
-	return io.Copy(w, zr)
+	return errtrace.Wrap2(io.Copy(w, zr))
 }
 
 func bunzip2(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
@@ -46,7 +47,7 @@ func bunzip2(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 		log.Fatal("bzip2 decompressor failed to init")
 	}
 	//#nosec
-	return io.Copy(w, bzr)
+	return errtrace.Wrap2(io.Copy(w, bzr))
 }
 
 func unzlib(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
@@ -56,7 +57,7 @@ func unzlib(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 	}
 	defer z.Close()
 	//#nosec
-	return io.Copy(w, z)
+	return errtrace.Wrap2(io.Copy(w, z))
 }
 
 func cgzip(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
@@ -68,7 +69,7 @@ func cgzip(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
 	}
 	defer zw.Close()
 	//#nosec
-	return io.Copy(zw, r)
+	return errtrace.Wrap2(io.Copy(zw, r))
 }
 
 func czlib(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
@@ -80,5 +81,5 @@ func czlib(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
 	}
 	defer zw.Close()
 	//#nosec
-	return io.Copy(zw, r)
+	return errtrace.Wrap2(io.Copy(zw, r))
 }

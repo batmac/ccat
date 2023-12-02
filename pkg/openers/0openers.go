@@ -7,6 +7,7 @@ import (
 	"strings"
 	"sync"
 
+	"braces.dev/errtrace"
 	"github.com/batmac/ccat/pkg/log"
 )
 
@@ -56,12 +57,12 @@ func Open(s string, lock bool) (io.ReadCloser, error) {
 	}
 	if eMax == 0.0 {
 		if !strings.Contains(s, "://") {
-			return nil, errors.New("file does not exist")
+			return nil, errtrace.Wrap(errors.New("file does not exist"))
 		}
-		return nil, errors.New("no adequate opener found")
+		return nil, errtrace.Wrap(errors.New("no adequate opener found"))
 	}
 	log.Debugf(" openers: chosen one is \"%s\"\n", oChosen.Name())
-	return oChosen.Open(s, lock)
+	return errtrace.Wrap2(oChosen.Open(s, lock))
 }
 
 func ListOpenersWithDescription() []string {

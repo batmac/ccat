@@ -1,6 +1,7 @@
 package mutators
 
 import (
+	"braces.dev/errtrace"
 	"io"
 	"strings"
 )
@@ -15,10 +16,10 @@ func init() {
 func filterUTF8(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 	u, err := io.ReadAll(r) // NOT streamable
 	if err != nil {
-		return 0, err
+		return 0, errtrace.Wrap(err)
 	}
 
 	s := strings.ToValidUTF8(string(u), "")
 
-	return io.Copy(w, strings.NewReader(s))
+	return errtrace.Wrap2(io.Copy(w, strings.NewReader(s)))
 }

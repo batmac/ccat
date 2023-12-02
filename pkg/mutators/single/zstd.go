@@ -4,6 +4,7 @@ import (
 	"archive/zip"
 	"io"
 
+	"braces.dev/errtrace"
 	"github.com/batmac/ccat/pkg/log"
 	"github.com/klauspost/compress/zstd"
 )
@@ -29,12 +30,12 @@ func registerAsZipDecompressor() {
 func unzstd(out io.WriteCloser, in io.ReadCloser, _ any) (int64, error) {
 	d, err := zstd.NewReader(in)
 	if err != nil {
-		return 0, err
+		return 0, errtrace.Wrap(err)
 	}
 	defer d.Close()
 
 	n, err := io.Copy(out, d)
-	return n, err
+	return n, errtrace.Wrap(err)
 }
 
 func czstd(out io.WriteCloser, in io.ReadCloser, conf any) (int64, error) {
@@ -42,10 +43,10 @@ func czstd(out io.WriteCloser, in io.ReadCloser, conf any) (int64, error) {
 	log.Debugf("zstd compression level: %d (-> %v)\n", conf.(uint64), encoderLvl)
 	e, err := zstd.NewWriter(out, zstd.WithEncoderLevel(encoderLvl))
 	if err != nil {
-		return 0, err
+		return 0, errtrace.Wrap(err)
 	}
 
 	n, err := io.Copy(e, in)
 	e.Close()
-	return n, err
+	return n, errtrace.Wrap(err)
 }

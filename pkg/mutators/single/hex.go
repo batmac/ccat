@@ -5,6 +5,7 @@ import (
 	"encoding/hex"
 	"io"
 
+	"braces.dev/errtrace"
 	"github.com/batmac/ccat/pkg/log"
 )
 
@@ -21,12 +22,12 @@ func hexDump(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 	n, err := io.Copy(dumper, r) // streamable
 	log.Debugf("finished\n")
 	defer dumper.Close()
-	return n, err
+	return n, errtrace.Wrap(err)
 }
 
 func hexRaw(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 	h := hex.NewEncoder(w)
-	return io.Copy(h, r) // streamable
+	return errtrace.Wrap2(io.Copy(h, r)) // streamable
 }
 
 func unhex(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
@@ -50,7 +51,7 @@ func unhex(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 		}
 		_ = wp.Close()
 	}()
-	return io.Copy(w, decoder) // streamable
+	return errtrace.Wrap2(io.Copy(w, decoder)) // streamable
 }
 
 func isBase16Char(c byte) bool {

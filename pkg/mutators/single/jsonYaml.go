@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"io"
 
+	"braces.dev/errtrace"
 	"sigs.k8s.io/yaml"
 )
 
@@ -20,16 +21,16 @@ func init() {
 func J2Y(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 	j, err := io.ReadAll(r) // NOT streamable
 	if err != nil {
-		return 0, err
+		return 0, errtrace.Wrap(err)
 	}
 	y, err := yaml.JSONToYAML(j)
 	if err != nil {
-		return 0, err
+		return 0, errtrace.Wrap(err)
 	}
 
 	_, err = io.Copy(w, bytes.NewReader(y))
 	if err != nil {
-		return 0, err
+		return 0, errtrace.Wrap(err)
 	}
 
 	return int64(len(j)), nil
@@ -38,22 +39,22 @@ func J2Y(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 func Y2J(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 	y, err := io.ReadAll(r) // NOT streamable
 	if err != nil {
-		return 0, err
+		return 0, errtrace.Wrap(err)
 	}
 	j, err := yaml.YAMLToJSON(y)
 	if err != nil {
-		return 0, err
+		return 0, errtrace.Wrap(err)
 	}
 	var b bytes.Buffer
 	err = json.Indent(&b, j, "", "  ")
 	if err != nil {
-		return 0, err
+		return 0, errtrace.Wrap(err)
 	}
 	b.WriteString("\n")
 
 	_, err = io.Copy(w, bytes.NewReader(b.Bytes()))
 	if err != nil {
-		return 0, err
+		return 0, errtrace.Wrap(err)
 	}
 	return int64(len(y)), nil
 }

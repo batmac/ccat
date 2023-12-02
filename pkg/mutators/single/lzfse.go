@@ -6,6 +6,7 @@ import (
 
 	"github.com/batmac/ccat/pkg/log"
 
+	"braces.dev/errtrace"
 	lzfse_go "github.com/aixiansheng/lzfse"
 	// "github.com/blacktop/lzfse-cgo"
 )
@@ -35,5 +36,5 @@ func unlzfseGo(out io.WriteCloser, in io.ReadCloser, _ any) (int64, error) {
 	}
 
 	d := lzfse_go.NewReader(bytes.NewReader(dat))
-	return io.Copy(out, d)
+	return errtrace.Wrap2(io.Copy(out, d))
 }

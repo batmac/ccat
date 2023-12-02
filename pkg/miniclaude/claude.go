@@ -10,6 +10,7 @@ import (
 	"strconv"
 	"strings"
 
+	"braces.dev/errtrace"
 	"github.com/batmac/ccat/pkg/log"
 )
 
@@ -102,7 +103,7 @@ func New() *Client {
 func (c *Client) Stream(sp *SamplingParameters) error {
 	sp.Stream = true
 	if sp.Prompt == "" {
-		return fmt.Errorf("prompt is required")
+		return errtrace.Wrap(fmt.Errorf("prompt is required"))
 	}
 	if sp.Model == "" {
 		sp.Model = ModelClaudeLatest
@@ -110,11 +111,11 @@ func (c *Client) Stream(sp *SamplingParameters) error {
 
 	data, err := json.Marshal(sp)
 	if err != nil {
-		return err
+		return errtrace.Wrap(err)
 	}
 	req, err := http.NewRequest(http.MethodPost, c.Endpoint, bytes.NewReader(data))
 	if err != nil {
-		return err
+		return errtrace.Wrap(err)
 	}
 
 	req.Header.Set("x-api-key", c.APIKey)
@@ -125,14 +126,14 @@ func (c *Client) Stream(sp *SamplingParameters) error {
 
 	resp, err := c.HTTPClient.Do(req)
 	if err != nil {
-		return err
+		return errtrace.Wrap(err)
 	}
 	defer resp.Body.Close()
 	defer close(c.C)
 
 	if resp.StatusCode != http.StatusOK {
 		log.Printf("http unexpected status code: %s", resp.Status)
-		return fmt.Errorf("http unexpected status code: %d (%s)", resp.StatusCode, resp.Status)
+		return errtrace.Wrap(fmt.Errorf("http unexpected status code: %d (%s)", resp.StatusCode, resp.Status))
 	}
 
 	scanner := bufio.NewScanner(resp.Body)
@@ -144,24 +145,24 @@ func (c *Client) Stream(sp *SamplingParameters) error {
 		eventData := strings.TrimPrefix(scanner.Text(), "data:")
 		scanner.Scan()
 		if len(scanner.Text()) != 0 {
-			return fmt.Errorf("unexpected line: %s", scanner.Text())
+			return errtrace.Wrap(fmt.Errorf("unexpected line: %s", scanner.Text()))
 		}
 		if scanner.Err() != nil {
-			return fmt.Errorf("error reading from scanner: %w", scanner.Err())
+			return errtrace.Wrap(fmt.Errorf("error reading from scanner: %w", scanner.Err()))
 		}
 		log.Debugf("received event '%s': %s", eventName, eventData)
 		if eventName == "error" {
 			log.Printf("error: %s", eventData)
 		}
 		if eventName != "completion" && eventName != "ping" {
-			return fmt.Errorf("unexpected event name '%s'", eventName)
+			return errtrace.Wrap(fmt.Errorf("unexpected event name '%s'", eventName))
 		}
 
 		var r response
 		err = json.Unmarshal([]byte(eventData), &r)
 		if err != nil {
 			log.Debugf("error unmarshalling: %s\n%s\n", err, eventData)
-			return err
+			return errtrace.Wrap(err)
 		}
 		if r.StopReason != "" || r.Exception != "" {
 			log.Debugf("stop reason: %s, stop: %s, exception: %s \n", r.StopReason, strconv.Quote(r.Stop), r.Exception)

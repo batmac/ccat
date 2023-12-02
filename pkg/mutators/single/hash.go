@@ -9,6 +9,7 @@ import (
 	"crypto/md5"  //#nosec
 	"crypto/sha1" //#nosec
 
+	"braces.dev/errtrace"
 	"github.com/OneOfOne/xxhash"
 	"github.com/zeebo/xxh3"
 )
@@ -46,11 +47,11 @@ func wrap(f hasher) func(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error
 		h.Reset()
 		n, err := io.Copy(h, r)
 		if err != nil {
-			return 0, err
+			return 0, errtrace.Wrap(err)
 		}
 		_, err = io.WriteString(w, hex.EncodeToString(h.Sum(nil))+"\n")
 		if err != nil {
-			return 0, err
+			return 0, errtrace.Wrap(err)
 		}
 		return n, nil
 	}

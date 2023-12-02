@@ -17,6 +17,7 @@ import (
 	"github.com/batmac/ccat/pkg/log"
 	"github.com/batmac/ccat/pkg/stringutils"
 
+	"braces.dev/errtrace"
 	"github.com/minio/minio-go/v7"
 	"github.com/minio/minio-go/v7/pkg/credentials"
 )
@@ -97,14 +98,14 @@ func (f mcOpener) Open(s string, _ bool) (io.ReadCloser, error) {
 		Secure: useSSL,
 	})
 	if err != nil {
-		return nil, err
+		return nil, errtrace.Wrap(err)
 	}
 
 	log.Debugf("  Get Object %s@%s...\n", object, bucket)
 
 	o, err := minioClient.GetObject(ctx, bucket, object, minio.GetObjectOptions{})
 	if err != nil {
-		return nil, err
+		return nil, errtrace.Wrap(err)
 	}
 
 	return o, nil

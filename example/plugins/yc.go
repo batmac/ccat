@@ -1,6 +1,7 @@
 package plugins
 
 import (
+	"braces.dev/errtrace"
 	"fmt"
 	"io"
 	"os"
@@ -12,7 +13,7 @@ import (
 func Y(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
 	count, err := io.Copy(io.Discard, r)
 	if err != nil {
-		return 0, err
+		return 0, errtrace.Wrap(err)
 	}
 	fmt.Fprintln(w, count)
 	// dump the entire environment

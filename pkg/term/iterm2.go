@@ -1,6 +1,7 @@
 package term
 
 import (
+	"braces.dev/errtrace"
 	"encoding/base64"
 	"fmt"
 	"io"
@@ -31,7 +32,7 @@ func IsITerm2() bool {
 func PrintITerm2Art(r io.Reader) error {
 	data, err := io.ReadAll(r)
 	if err != nil {
-		return err
+		return errtrace.Wrap(err)
 	}
 
 	fmt.Print("\033]1337;")

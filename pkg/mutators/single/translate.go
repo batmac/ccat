@@ -9,6 +9,7 @@ import (
 	"os"
 	"strings"
 
+	"braces.dev/errtrace"
 	"github.com/batmac/ccat/pkg/log"
 	"github.com/batmac/ccat/pkg/secretprovider"
 )
@@ -177,7 +178,7 @@ func translate(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 	targetLanguage := conf.(string)
 	msg, err := io.ReadAll(r) // NOT streamable
 	if err != nil {
-		return 0, err
+		return 0, errtrace.Wrap(err)
 	}
 
 	if len(msg) == 0 {
@@ -198,18 +199,18 @@ func translate(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 
 	res, err := http.PostForm(postURL, v)
 	if err != nil {
-		return 0, err
+		return 0, errtrace.Wrap(err)
 	}
 	data, err := io.ReadAll(res.Body)
 	if err != nil {
-		return 0, err
+		return 0, errtrace.Wrap(err)
 	}
 	res.Body.Close()
 	// fmt.Println(string(data))
 
 	var d Response
 	if err := json.Unmarshal(data, &d); err != nil {
-		return 0, err
+		return 0, errtrace.Wrap(err)
 	}
 	if len(d.Data.Translations) == 0 {
 		log.Printf("didn't get any translation, got %s\n", string(data))
@@ -221,5 +222,5 @@ func translate(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 		log.Debugf("Found an extra translation from language %s: %s\n", txt.DetectedSourceLanguage, txt.TranslatedText)
 	}
 
-	return io.Copy(w, strings.NewReader(result.String()))
+	return errtrace.Wrap2(io.Copy(w, strings.NewReader(result.String())))
 }

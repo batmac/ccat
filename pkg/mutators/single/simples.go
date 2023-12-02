@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 
+	"braces.dev/errtrace"
 	"github.com/batmac/ccat/pkg/log"
 	"github.com/batmac/ccat/pkg/stringutils"
 	"github.com/batmac/ccat/pkg/term"
@@ -28,16 +29,16 @@ func discard(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
 
 	if bytes == 0 {
 		log.Debugf("discarding all bytes\n")
-		return io.Copy(io.Discard, r)
+		return errtrace.Wrap2(io.Copy(io.Discard, r))
 	}
 
 	log.Debugf("discarding %d bytes\n", bytes)
 	_, err := io.CopyN(io.Discard, r, bytes)
 	if err != nil && !errors.Is(err, io.EOF) {
-		return 0, err
+		return 0, errtrace.Wrap(err)
 	}
 
-	return io.Copy(w, r)
+	return errtrace.Wrap2(io.Copy(w, r))
 }
 
 func wc(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
@@ -56,7 +57,7 @@ func wc(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
 	case "b":
 		splitFn = bufio.ScanBytes
 	default:
-		return 0, fmt.Errorf("unknown mode '%s'", mode)
+		return 0, errtrace.Wrap(fmt.Errorf("unknown mode '%s'", mode))
 	}
 	scanner.Split(splitFn)
 
@@ -65,7 +66,7 @@ func wc(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
 		count++
 	}
 	if err := scanner.Err(); err != nil {
-		return 0, err
+		return 0, errtrace.Wrap(err)
 	}
 
 	var c string
@@ -76,7 +77,7 @@ func wc(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
 	}
 
 	if _, err := fmt.Fprintf(w, "%s\n", c); err != nil {
-		return 0, err
+		return 0, errtrace.Wrap(err)
 	}
 	return count, nil
 }

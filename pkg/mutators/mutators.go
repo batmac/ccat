@@ -8,6 +8,7 @@ import (
 	"strings"
 	"sync"
 
+	"braces.dev/errtrace"
 	"github.com/batmac/ccat/pkg/log"
 	"github.com/batmac/ccat/pkg/stringutils"
 )
@@ -63,7 +64,7 @@ func RegisterFactory(name string, factory Factory) error {
 	globalCollection.mu.Lock()
 	if _, ok := globalCollection.factories[name]; ok {
 		globalCollection.mu.Unlock()
-		return fmt.Errorf("mutators: %s is already registered", name)
+		return errtrace.Wrap(fmt.Errorf("mutators: %s is already registered", name))
 	}
 	globalCollection.factories[name] = factory
 	globalCollection.mu.Unlock()
@@ -76,7 +77,7 @@ func RegisterAlias(name string, alias string) error {
 	defer globalCollection.mu.Unlock()
 	// forbid overwriting an existing alias
 	if _, ok := globalCollection.aliases[alias]; ok {
-		return fmt.Errorf("mutators: aliasing %s is not permitted. It is already an alias", name)
+		return errtrace.Wrap(fmt.Errorf("mutators: aliasing %s is not permitted. It is already an alias", name))
 	}
 	globalCollection.aliases[alias] = name
 	// glog.Printf("mutators: %s aliased as %s\n", name, alias)
@@ -101,7 +102,7 @@ func New(fullName string) (Mutator, error) {
 	factory, ok := globalCollection.factories[name]
 	if !ok {
 		TryFuzzySearch(name)
-		return nil, fmt.Errorf("mutators: %s not found", name)
+		return nil, errtrace.Wrap(fmt.Errorf("mutators: %s not found", name))
 	}
 	glog.Printf("mutators: instancing %s\n", name)
 	if argsFound {
@@ -110,7 +111,7 @@ func New(fullName string) (Mutator, error) {
 
 	m, err := factory.NewMutator(globalCollection.logger, args)
 	if err != nil {
-		return nil, err
+		return nil, errtrace.Wrap(err)
 	}
 	globalCollection.mutators = append(globalCollection.mutators, m)
 	glog.Printf("mutators: returning a new %s\n", name)

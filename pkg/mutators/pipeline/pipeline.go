@@ -6,6 +6,7 @@ import (
 	"strings"
 	"sync"
 
+	"braces.dev/errtrace"
 	"github.com/batmac/ccat/pkg/log"
 	"github.com/batmac/ccat/pkg/mutators"
 )
@@ -24,7 +25,7 @@ func NewPipeline(description string, out io.WriteCloser, in io.ReadCloser) error
 	}
 	if len(description) == 0 {
 		globalPipeline.mu.Unlock()
-		return errors.New("empty pipeline requested")
+		return errtrace.Wrap(errors.New("empty pipeline requested"))
 	}
 	list := strings.Split(description, ",")
 	for _, m := range list {

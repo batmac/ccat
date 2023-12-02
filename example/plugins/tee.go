@@ -1,6 +1,7 @@
 package plugins
 
 import (
+	"braces.dev/errtrace"
 	"io"
 	"os"
 )
@@ -11,11 +12,11 @@ func Tee(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 	// open a tee.raw file for writing
 	file, err := os.Create("tee.raw")
 	if err != nil {
-		return 0, err
+		return 0, errtrace.Wrap(err)
 	}
 	defer file.Close()
 
 	tee := io.TeeReader(r, file)
 
-	return io.Copy(w, tee)
+	return errtrace.Wrap2(io.Copy(w, tee))
 }

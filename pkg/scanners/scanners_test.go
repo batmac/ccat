@@ -33,7 +33,7 @@ func (sr *slowReader) Read(p []byte) (int, error) {
 	if len(p) > sr.max {
 		p = p[0:sr.max]
 	}
-	return sr.buf.Read(p)
+	return sr.buf.Read(p) //errtrace:skip
 }
 
 // Test that the line splitter handles a final line without a newline.
@@ -77,7 +77,7 @@ func TestScanLineReturn(t *testing.T) {
 type alwaysError struct{}
 
 func (alwaysError) Read(_ []byte) (int, error) {
-	return 0, io.ErrUnexpectedEOF
+	return 0, io.ErrUnexpectedEOF //errtrace:skip
 }
 
 func TestNonEOFWithEmptyRead(t *testing.T) {

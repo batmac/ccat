@@ -4,6 +4,7 @@ import (
 	"io"
 	"log"
 
+	"braces.dev/errtrace"
 	"github.com/batmac/ccat/pkg/shaped"
 )
 
@@ -21,5 +22,5 @@ func maxbw(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 		return 0, nil
 	}
 	stream := shaped.NewReader(r, int(bw))
-	return io.Copy(w, stream)
+	return errtrace.Wrap2(io.Copy(w, stream))
 }
