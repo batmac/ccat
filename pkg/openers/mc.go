@@ -176,8 +176,9 @@ func getConfigFromMCFile(alias string) Config {
 
 func getConfigFromMCEnv(alias string) Config {
 	var c Config
-	if val, ok := os.LookupEnv("MC_HOST_" + alias); ok {
-		log.Debugf("config found in %s\n", "MC_HOST_"+alias)
+	host := "MC_HOST_" + alias
+	if val, ok := os.LookupEnv(host); ok {
+		log.Debugf("config found in %s\n", host)
 		u, err := url.Parse(val)
 		if err == nil {
 			if len(u.Host) != 0 {
@@ -189,7 +190,7 @@ func getConfigFromMCEnv(alias string) Config {
 			if pass, b := u.User.Password(); b {
 				c.SecretAccessKey = pass
 			} else {
-				log.Printf("failed to parse %s\n", "MC_HOST_"+alias)
+				log.Printf("failed to parse %s\n", host)
 			}
 		}
 	}

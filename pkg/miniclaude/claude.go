@@ -147,7 +147,7 @@ func (c *Client) Stream(sp *SamplingParameters) error {
 			return fmt.Errorf("unexpected line: %s", scanner.Text())
 		}
 		if scanner.Err() != nil {
-			return fmt.Errorf("error reading from scanner: %s", scanner.Err())
+			return fmt.Errorf("error reading from scanner: %w", scanner.Err())
 		}
 		log.Debugf("received event '%s': %s", eventName, eventData)
 		if eventName == "error" {

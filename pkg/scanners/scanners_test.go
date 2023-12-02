@@ -3,6 +3,7 @@ package scanners_test
 import (
 	"bufio"
 	"bytes"
+	"errors"
 	"io"
 	"strings"
 	"testing"
@@ -85,7 +86,7 @@ func TestNonEOFWithEmptyRead(t *testing.T) {
 	for scanner.Scan() {
 		t.Fatal("read should fail")
 	}
-	if err := scanner.Err(); err != io.ErrUnexpectedEOF {
+	if err := scanner.Err(); !errors.Is(err, io.ErrUnexpectedEOF) {
 		t.Errorf("unexpected error: %v", err)
 	}
 }
@@ -103,7 +104,7 @@ func TestBadReader(t *testing.T) {
 	for scanner.Scan() {
 		t.Fatal("read should fail")
 	}
-	if err := scanner.Err(); err != io.ErrNoProgress {
+	if err := scanner.Err(); !errors.Is(err, io.ErrNoProgress) {
 		t.Errorf("unexpected error: %v", err)
 	}
 }

@@ -20,7 +20,7 @@ func GetSecret(name, envVar string) (string, error) {
 	}
 	if IsKeystoreAvailable {
 		s, err := getSecret(name)
-		if err == keyring.ErrNotFound {
+		if errors.Is(err, keyring.ErrNotFound) {
 			log.Debugf("Secret '%s' not found in keyring", name)
 			return "", ErrNotFound
 		}

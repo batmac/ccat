@@ -22,7 +22,7 @@ linters:
     - errcheck
     - errchkjson
     - errname
-    # - errorlint
+    - errorlint
     - execinquery
     - exhaustive
     # deprecated

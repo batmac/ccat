@@ -57,7 +57,7 @@ func (f gcsOpener) Open(s string, _ bool) (io.ReadCloser, error) {
 	// or GOOGLE_APPLICATION_CREDENTIALS
 	client, err := storage.NewClient(ctx)
 	if err != nil {
-		return nil, fmt.Errorf("storage.NewClient: %v", err)
+		return nil, fmt.Errorf("storage.NewClient: %w", err)
 	}
 	// defer client.Close()
 
@@ -68,7 +68,7 @@ func (f gcsOpener) Open(s string, _ bool) (io.ReadCloser, error) {
 
 	rc, err := client.Bucket(bucket).Object(object).NewReader(ctx)
 	if err != nil {
-		return nil, fmt.Errorf("Object(%q).NewReader: %v", object, err)
+		return nil, fmt.Errorf("Object(%q).NewReader: %w", object, err)
 	}
 	// defer rc.Close()
 

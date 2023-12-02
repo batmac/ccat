@@ -40,13 +40,13 @@ func (f tcpOpener) Description() string {
 func (f tcpOpener) Open(s string, _ bool) (io.ReadCloser, error) {
 	l, err := net.Listen("tcp", stringutils.RemoveScheme(s))
 	if err != nil {
-		return nil, fmt.Errorf("error listening: %v", err)
+		return nil, fmt.Errorf("error listening: %w", err)
 	}
 	log.Debugln("Listening on " + stringutils.RemoveScheme(s))
 
 	conn, err := l.Accept()
 	if err != nil {
-		return nil, fmt.Errorf("error accepting: %v", err)
+		return nil, fmt.Errorf("error accepting: %w", err)
 	}
 	log.Debugln("Accepted, closing the listening socket...")
 	l.Close()

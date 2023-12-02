@@ -1,6 +1,7 @@
 package mutators
 
 import (
+	"errors"
 	"fmt"
 	"io"
 	"os"
@@ -60,7 +61,7 @@ func pv(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
 		rc++
 		// fmt.Fprintf(os.Stderr, "read: %d bytes, read(): %d\n", read, rc)
 		if err != nil && read == 0 {
-			if err == io.EOF {
+			if errors.Is(err, io.EOF) {
 				break
 			}
 			fmt.Fprintf(os.Stderr, "read error: %#v\n", err)

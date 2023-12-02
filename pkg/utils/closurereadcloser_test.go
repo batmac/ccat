@@ -52,7 +52,7 @@ func TestNewReadCloser(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			got := utils.NewReadCloser(tt.args.r, tt.args.closure)
 			err := got.Close()
-			if err != tt.wantErr || tt.taint != taint {
+			if !errors.Is(err, tt.wantErr) || tt.taint != taint {
 				t.Errorf("NewReadCloser() failed: err = %v, wantErr = %v, taint = %v, want %v", err, tt.wantErr, taint, tt.taint)
 			}
 		})

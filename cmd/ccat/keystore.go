@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"strings"
@@ -39,7 +40,7 @@ func interactivelySetKey() {
 	if value, err := secretprovider.GetSecret(name, ""); value != "" {
 		log.Debugf("key %s already exists, overwritng...\n", name)
 		log.Debugf("old secret: %s\n", strings.Repeat("*", len(value)))
-	} else if err != nil && err != secretprovider.ErrNotFound {
+	} else if err != nil && !errors.Is(err, secretprovider.ErrNotFound) {
 		log.Fatal(err)
 	}
 

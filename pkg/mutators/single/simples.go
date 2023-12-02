@@ -2,6 +2,7 @@ package mutators
 
 import (
 	"bufio"
+	"errors"
 	"fmt"
 	"io"
 
@@ -32,7 +33,7 @@ func discard(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
 
 	log.Debugf("discarding %d bytes\n", bytes)
 	_, err := io.CopyN(io.Discard, r, bytes)
-	if err != nil && err != io.EOF {
+	if err != nil && !errors.Is(err, io.EOF) {
 		return 0, err
 	}
 

@@ -44,7 +44,7 @@ func Do(version, tags string, mode Mode) {
 
 	latest, found, err := updater.DetectLatest(ctx, selfupdate.NewRepositorySlug("batmac", "ccat"))
 	if err != nil {
-		panic(fmt.Errorf("error occurred while detecting version: %v", err))
+		panic(fmt.Errorf("error occurred while detecting version: %w", err))
 	}
 	if !found {
 		panic(fmt.Errorf("latest version for %s/%s could not be found from github repository", runtime.GOOS, runtime.GOARCH))
@@ -99,7 +99,7 @@ func Do(version, tags string, mode Mode) {
 	}
 
 	if err := updater.UpdateTo(ctx, latest, exe); err != nil {
-		panic(fmt.Errorf("error occurred while updating binary: %v", err))
+		panic(fmt.Errorf("error occurred while updating binary: %w", err))
 	}
 	fmt.Printf("Successfully updated to version %s\n", latest.Version())
 }
