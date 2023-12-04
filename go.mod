@@ -10,7 +10,7 @@ require (
 	github.com/OneOfOne/xxhash v1.2.8
 	github.com/PaesslerAG/jsonpath v0.1.1
 	github.com/aixiansheng/lzfse v0.2.4
-	github.com/alecthomas/chroma/v2 v2.11.1
+	github.com/alecthomas/chroma/v2 v2.12.0
 	github.com/atotto/clipboard v0.1.4
 	github.com/aws/aws-sdk-go-v2 v1.23.4
 	github.com/aws/aws-sdk-go-v2/config v1.25.10
@@ -30,7 +30,7 @@ require (
 	github.com/klauspost/compress v1.17.4
 	github.com/kofalt/go-memoize v0.0.0-20220914132407-0b5d6a304579
 	github.com/magefile/mage v1.15.0
-	github.com/minio/minio-go/v7 v7.0.64
+	github.com/minio/minio-go/v7 v7.0.65
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/mmcdole/gofeed v1.2.1
 	github.com/muesli/reflow v0.3.0
