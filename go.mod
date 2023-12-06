@@ -21,7 +21,7 @@ require (
 	github.com/dsnet/compress v0.0.1
 	github.com/eliukblau/pixterm v1.3.1
 	github.com/gabriel-vasile/mimetype v1.4.3
-	github.com/gdamore/tcell/v2 v2.6.0
+	github.com/gdamore/tcell/v2 v2.6.1-0.20231203215052-2917c3801e73
 	github.com/google/renameio/v2 v2.0.0
 	github.com/gowebpki/jcs v1.0.1
 	github.com/hbollon/go-edlib v1.6.0
@@ -35,7 +35,7 @@ require (
 	github.com/muesli/reflow v0.3.0
 	github.com/patrickmn/go-cache v2.1.0+incompatible
 	github.com/pierrec/lz4/v4 v4.1.18
-	github.com/rivo/tview v0.0.0-20231126152417-33a1d271f2b6
+	github.com/rivo/tview v0.0.0-20231206124440-5f078138442e
 	github.com/robert-nix/ansihtml v1.0.1
 	github.com/sashabaranov/go-openai v1.17.9
 	github.com/spf13/pflag v1.0.5
