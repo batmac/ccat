@@ -79,6 +79,7 @@ require (
 	github.com/disintegration/imaging v1.6.2 // indirect
 	github.com/dlclark/regexp2 v1.10.0 // indirect
 	github.com/dustin/go-humanize v1.0.1 // indirect
+	github.com/gage-technologies/mistral-go v0.1.1 // indirect
 	github.com/gdamore/encoding v1.0.0 // indirect
 	github.com/go-fed/httpsig v1.1.0 // indirect
 	github.com/godbus/dbus/v5 v5.1.0 // indirect
