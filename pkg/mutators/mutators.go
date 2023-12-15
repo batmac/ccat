@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"io"
 	"os"
-	"slices"
 	"sort"
 	"strings"
 	"sync"
@@ -176,7 +175,7 @@ func AvailableMutatorsHelp() string {
 	for k := range d {
 		keys = append(keys, k)
 	}
-	slices.Sort(keys)
+	sort.Strings(keys)
 	for _, factory := range keys {
 		fmt.Fprintf(&s, "    %s: %s\n", strings.Join(d[factory], ", "), factory)
 	}
