@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"slices"
 	"sort"
 	"strings"
 	"sync"
@@ -168,11 +169,17 @@ func AvailableMutatorsHelp() string {
 	if len(d) > 0 {
 		s.WriteString("\n  mutator aliases:\n")
 	}
-	for factory, aliases := range d {
-		fmt.Fprintf(&s, "    %s: %s\n", strings.Join(aliases, ", "), factory)
+	// for factory, aliases := range d {
+	// 	fmt.Fprintf(&s, "    %s: %s\n", strings.Join(aliases, ", "), factory)
+	// }
+	keys = make([]string, 0, len(d))
+	for k := range d {
+		keys = append(keys, k)
 	}
-
-	// fmt.Fprintf(&s, "%v\n", globalCollection.aliases)
+	slices.Sort(keys)
+	for _, factory := range keys {
+		fmt.Fprintf(&s, "    %s: %s\n", strings.Join(d[factory], ", "), factory)
+	}
 	return s.String()
 }
 
