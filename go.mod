@@ -16,7 +16,7 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/s3 v1.47.7
 	github.com/aws/aws-sdk-go-v2/service/sts v1.26.6
 	github.com/batmac/go-curl v0.0.1
-	github.com/creativeprojects/go-selfupdate v1.1.2
+	github.com/creativeprojects/go-selfupdate v1.1.3
 	github.com/docker/go-units v0.5.0
 	github.com/dsnet/compress v0.0.1
 	github.com/eliukblau/pixterm v1.3.1
@@ -56,7 +56,7 @@ require (
 	cloud.google.com/go/compute v1.23.3 // indirect
 	cloud.google.com/go/compute/metadata v0.2.3 // indirect
 	cloud.google.com/go/iam v1.1.5 // indirect
-	code.gitea.io/sdk/gitea v0.16.0 // indirect
+	code.gitea.io/sdk/gitea v0.17.1 // indirect
 	github.com/Masterminds/semver/v3 v3.2.1 // indirect
 	github.com/PaesslerAG/gval v1.2.2 // indirect
 	github.com/PuerkitoBio/goquery v1.8.1 // indirect
@@ -107,7 +107,7 @@ require (
 	github.com/rs/xid v1.5.0 // indirect
 	github.com/shopspring/decimal v1.3.1 // indirect
 	github.com/sirupsen/logrus v1.9.3 // indirect
-	github.com/xanzy/go-gitlab v0.94.0 // indirect
+	github.com/xanzy/go-gitlab v0.95.2 // indirect
 	go.opencensus.io v0.24.0 // indirect
 	golang.org/x/crypto v0.17.0 // indirect
 	golang.org/x/image v0.14.0 // indirect
