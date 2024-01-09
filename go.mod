@@ -35,7 +35,7 @@ require (
 	github.com/mmcdole/gofeed v1.2.1
 	github.com/muesli/reflow v0.3.0
 	github.com/patrickmn/go-cache v2.1.0+incompatible
-	github.com/pierrec/lz4/v4 v4.1.19
+	github.com/pierrec/lz4/v4 v4.1.21
 	github.com/rivo/tview v0.0.0-20240101144852-b3bd1aa5e9f2
 	github.com/robert-nix/ansihtml v1.0.1
 	github.com/sashabaranov/go-openai v1.17.10
