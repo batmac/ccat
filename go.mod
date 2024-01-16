@@ -36,7 +36,7 @@ require (
 	github.com/muesli/reflow v0.3.0
 	github.com/patrickmn/go-cache v2.1.0+incompatible
 	github.com/pierrec/lz4/v4 v4.1.21
-	github.com/rivo/tview v0.0.0-20240115061330-ed5968603a5f
+	github.com/rivo/tview v0.0.0-20240116070845-bf8f1c43e46c
 	github.com/robert-nix/ansihtml v1.0.1
 	github.com/sashabaranov/go-openai v1.17.11
 	github.com/spf13/pflag v1.0.5
