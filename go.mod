@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	cloud.google.com/go/storage v1.36.0
-	git.sr.ht/~adnano/go-gemini v0.2.3
+	git.sr.ht/~adnano/go-gemini v0.2.4
 	github.com/JohannesKaufmann/html-to-markdown v1.5.0
 	github.com/OneOfOne/xxhash v1.2.8
 	github.com/PaesslerAG/jsonpath v0.1.1
