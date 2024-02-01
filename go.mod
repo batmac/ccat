@@ -36,7 +36,7 @@ require (
 	github.com/muesli/reflow v0.3.0
 	github.com/patrickmn/go-cache v2.1.0+incompatible
 	github.com/pierrec/lz4/v4 v4.1.21
-	github.com/rivo/tview v0.0.0-20240122063236-8526c9fe1b54
+	github.com/rivo/tview v0.0.0-20240201191747-007cbb1d1344
 	github.com/robert-nix/ansihtml v1.0.1
 	github.com/sashabaranov/go-openai v1.19.2
 	github.com/spf13/pflag v1.0.5
@@ -106,7 +106,7 @@ require (
 	github.com/mmcdole/goxpp v1.1.0 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
-	github.com/rivo/uniseg v0.4.4 // indirect
+	github.com/rivo/uniseg v0.4.7-0.20240127222946-601bbb3750c2 // indirect
 	github.com/rs/xid v1.5.0 // indirect
 	github.com/shopspring/decimal v1.3.1 // indirect
 	github.com/sirupsen/logrus v1.9.3 // indirect
