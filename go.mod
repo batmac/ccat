@@ -1,6 +1,8 @@
 module github.com/batmac/ccat
 
-go 1.19
+go 1.21
+
+toolchain go1.22.0
 
 require (
 	cloud.google.com/go/storage v1.39.0
@@ -30,7 +32,7 @@ require (
 	github.com/klauspost/compress v1.17.7
 	github.com/kofalt/go-memoize v0.0.0-20220914132407-0b5d6a304579
 	github.com/magefile/mage v1.15.0
-	github.com/minio/minio-go/v7 v7.0.66
+	github.com/minio/minio-go/v7 v7.0.68
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/mmcdole/gofeed v1.2.1
 	github.com/muesli/reflow v0.3.0
@@ -109,7 +111,6 @@ require (
 	github.com/rivo/uniseg v0.4.7 // indirect
 	github.com/rs/xid v1.5.0 // indirect
 	github.com/shopspring/decimal v1.3.1 // indirect
-	github.com/sirupsen/logrus v1.9.3 // indirect
 	github.com/xanzy/go-gitlab v0.95.2 // indirect
 	go.opencensus.io v0.24.0 // indirect
 	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.48.0 // indirect
