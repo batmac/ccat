@@ -40,14 +40,14 @@ require (
 	github.com/pierrec/lz4/v4 v4.1.21
 	github.com/rivo/tview v0.0.0-20240307173318-e804876934a1
 	github.com/robert-nix/ansihtml v1.0.1
-	github.com/sashabaranov/go-openai v1.20.3
+	github.com/sashabaranov/go-openai v1.20.4
 	github.com/spf13/pflag v1.0.5
 	github.com/titanous/json5 v1.0.0
 	github.com/tmc/keyring v0.0.0-20230418032330-0c8bdba76fa8
 	github.com/traefik/yaegi v0.16.0
 	github.com/ulikunitz/xz v0.5.11
 	github.com/zeebo/xxh3 v1.0.2
-	golang.org/x/exp v0.0.0-20240222234643-814bf88cf225
+	golang.org/x/exp v0.0.0-20240318143956-a85f2c67cd81
 	golang.org/x/term v0.18.0
 	howett.net/plist v1.0.1
 	sigs.k8s.io/yaml v1.4.0
