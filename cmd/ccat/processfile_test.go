@@ -1,6 +1,7 @@
 package main
 
 import (
+	"io"
 	"os"
 	"testing"
 
@@ -26,15 +27,10 @@ func Test_processFile(t *testing.T) {
 		{"donotpanicplease on exe", args{"fake://fakefakefake"}},
 	}
 
-	discardFile, err := os.OpenFile(os.DevNull, os.O_APPEND, 0)
-	if err != nil {
-		t.Fatal(err)
-	}
-	os.Stdout = discardFile
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			processFile(os.Stdout, tt.args.path)
-			processFileAsIs(os.Stdout, tt.args.path)
+			processFile(io.Discard, tt.args.path)
+			processFileAsIs(io.Discard, tt.args.path)
 		})
 	}
 }
