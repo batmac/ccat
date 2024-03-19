@@ -35,11 +35,11 @@ func NewPipeline(description string, out io.WriteCloser, in io.ReadCloser) error
 		}
 		globalPipeline.stages = append(globalPipeline.stages, mutator)
 	}
-	globalPipeline.mu.Unlock()
+	// globalPipeline.mu.Unlock()
 
 	ready := make(chan struct{})
 	go func() {
-		globalPipeline.mu.Lock()
+		// globalPipeline.mu.Lock()
 		from, to := in, out
 		for _, mutator := range globalPipeline.stages {
 			r, w := io.Pipe()
@@ -50,11 +50,11 @@ func NewPipeline(description string, out io.WriteCloser, in io.ReadCloser) error
 			from = r
 		}
 		close(ready) // all mutators are started, we are ready
-		globalPipeline.mu.Unlock()
 		n, err := io.Copy(to, from)
 		if err != nil {
 			log.Fatal(err)
 		}
+		globalPipeline.mu.Unlock()
 		log.Debugf("copied %v bytes.", n)
 		log.Debugf("closing pipeline.\n")
 		err = from.Close()
