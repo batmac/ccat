@@ -20,7 +20,7 @@ func init() {
 
 func claude(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 	args := conf.([]string)
-	maxTokens := 0
+	maxTokens := 1000
 	var err error
 	if len(args) > 0 && args[0] != "" {
 		maxTokens, err = strconv.Atoi(args[0])
@@ -29,7 +29,7 @@ func claude(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 		}
 	}
 
-	model := miniclaude.ModelClaudeLatest // latest model
+	model := miniclaude.ModelClaude3Haiku
 	if len(args) >= 2 && args[1] != "" {
 		model = args[1]
 	}
@@ -41,7 +41,7 @@ func claude(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 
 	log.Debugln("model: ", model)
 	log.Debugln("maxTokens: ", maxTokens)
-	log.Debugln("prePrompt: ", prePrompt)
+	log.Debugln("prePrompt (system): ", prePrompt)
 	key, _ := secretprovider.GetSecret("anthropic", "ANTHROPIC_API_KEY")
 	if key == "" {
 		log.Fatal("ANTHROPIC_API_KEY environment variable is not set")
@@ -52,30 +52,46 @@ func claude(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 		return 0, err
 	}
 
-	sp := miniclaude.NewSimpleSamplingParameters(prePrompt+string(prompt), model)
-	if maxTokens > 0 {
-		sp.MaxTokensToSample = maxTokens
+	mr := &miniclaude.MessagesRequest{
+		Model: model,
+		Messages: []miniclaude.Message{
+			{
+				Role: miniclaude.RoleUser,
+				Content: []miniclaude.ContentBlock{
+					{
+						Type: miniclaude.ContentTypeText,
+						Text: string(prompt),
+					},
+				},
+			},
+		},
+		MaxTokens: maxTokens,
 	}
-	client := miniclaude.New()
-	client.APIKey = key
+
+	if prePrompt != "" {
+		mr.System = prePrompt
+	}
+
+	request := miniclaude.NewMessagesRequest()
+	request.APIKey = key
 
 	go func() {
 		if key == "CI" {
 			log.Println("ANTHROPIC_API_KEY is set to CI, using fake response")
-			client.C <- "fake"
-			client.C <- ""
-			close(client.C)
+			request.C <- "fake"
+			request.C <- ""
+			close(request.C)
 			return
 		}
 
-		err := client.Stream(sp)
+		err := request.Stream(mr)
 		if err != nil {
-			log.Println("client.Stream: ", err)
+			log.Println("request.Stream: ", err)
 		}
 	}()
 
 	var total int64
-	for s := range client.C {
+	for s := range request.C {
 		if s == "" {
 			log.Debugln("empty string")
 		}

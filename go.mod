@@ -2,8 +2,6 @@ module github.com/batmac/ccat
 
 go 1.21
 
-toolchain go1.22.0
-
 require (
 	cloud.google.com/go/storage v1.39.1
 	git.sr.ht/~adnano/go-gemini v0.2.4
