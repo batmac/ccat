@@ -16,7 +16,7 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/s3 v1.53.0
 	github.com/aws/aws-sdk-go-v2/service/sts v1.28.5
 	github.com/batmac/go-curl v0.0.1
-	github.com/creativeprojects/go-selfupdate v1.1.3
+	github.com/creativeprojects/go-selfupdate v1.1.4
 	github.com/docker/go-units v0.5.0
 	github.com/dsnet/compress v0.0.1
 	github.com/eliukblau/pixterm v1.3.1
