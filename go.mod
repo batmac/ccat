@@ -3,7 +3,7 @@ module github.com/batmac/ccat
 go 1.21
 
 require (
-	cloud.google.com/go/storage v1.39.1
+	cloud.google.com/go/storage v1.40.0
 	git.sr.ht/~adnano/go-gemini v0.2.4
 	github.com/JohannesKaufmann/html-to-markdown v1.5.0
 	github.com/OneOfOne/xxhash v1.2.8
