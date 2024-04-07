@@ -83,8 +83,8 @@ github.com/batmac/go-curl v0.0.1/go.mod h1:4r9pMO176RgWlUeGvlO3+OYVIm9vBZYLr0ae2
 github.com/census-instrumentation/opencensus-proto v0.2.1/go.mod h1:f6KPmirojxKA12rnyqOA5BBL4O983OfeGPqjHWSTneU=
 github.com/client9/misspell v0.3.4/go.mod h1:qj6jICC3Q7zFZvVWo7KLAzC3yx5G7kyvSDkc90ppPyw=
 github.com/cncf/udpa/go v0.0.0-20191209042840-269d4d468f6f/go.mod h1:M8M6+tZqaGXZJjfX53e64911xZQV5JYwmTeXPW+k8Sc=
-github.com/creativeprojects/go-selfupdate v1.1.4 h1:6/+Wfg08lXAbmU/qEU0v9W4w5Wp6TWf9x2DAttZEwzg=
-github.com/creativeprojects/go-selfupdate v1.1.4/go.mod h1:zCTXcZolcs0Cw9WsfXZvlcX9AupkAlikQ14PQqIV2v0=
+github.com/creativeprojects/go-selfupdate v1.2.0 h1:sHpsnSJuSxQ6pua32c+86Izm+nG1jEKPo3UP/MAE6IM=
+github.com/creativeprojects/go-selfupdate v1.2.0/go.mod h1:zCTXcZolcs0Cw9WsfXZvlcX9AupkAlikQ14PQqIV2v0=
 github.com/danieljoos/wincred v1.2.1 h1:dl9cBrupW8+r5250DYkYxocLeZ1Y4vB1kxgtjxw8GQs=
 github.com/danieljoos/wincred v1.2.1/go.mod h1:uGaFL9fDn3OLTvzCGulzE+SzjEe5NGlh5FdCcyfPwps=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
