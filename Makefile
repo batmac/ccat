@@ -18,3 +18,9 @@ janitor:
 	govulncheck ./...
 	go list -json -deps ./... | nancy sleuth
 	pre-commit autoupdate
+
+release:
+	goreleaser release --rm-dist
+	echo "go to https://github.com/batmac/ccat/releases and create a new release"
+
+.PHONY: build test thanks janitor release all clean
