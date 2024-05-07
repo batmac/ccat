@@ -1,6 +1,8 @@
 module github.com/batmac/ccat
 
-go 1.21
+go 1.22
+
+toolchain go1.22.2
 
 require (
 	cloud.google.com/go/storage v1.40.0
@@ -28,7 +30,7 @@ require (
 	github.com/hbollon/go-edlib v1.6.0
 	github.com/kevinburke/nacl v0.0.0-20210405173606-cd9060f5f776
 	github.com/klauspost/compress v1.17.8
-	github.com/kofalt/go-memoize v0.0.0-20220914132407-0b5d6a304579
+	github.com/kofalt/go-memoize v0.0.0-20240506050413-9e5eb99a0f2a
 	github.com/magefile/mage v1.15.0
 	github.com/minio/minio-go/v7 v7.0.70
 	github.com/mitchellh/go-homedir v1.1.0
