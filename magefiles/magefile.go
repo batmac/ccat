@@ -215,3 +215,14 @@ func stepOKPrintln(a ...any) {
 	}
 	fmt.Println(append([]any{prefix + "✅"}, a...)...)
 }
+
+func Macsign() error {
+	if runtime.GOOS != "darwin" {
+		fmt.Println("❗️Skipping macOS signing on non-macOS platform")
+	}
+	stepPrintln("Signing and Notarizing for macOS with `gon` ...")
+	if err := sh.RunV("gon", ".gon.hcl"); err != nil {
+		return err
+	}
+	return nil
+}

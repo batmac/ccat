@@ -20,7 +20,10 @@ janitor:
 	pre-commit autoupdate
 
 release:
-	goreleaser release --rm-dist
+	goreleaser release --clean
 	echo "go to https://github.com/batmac/ccat/releases and create a new release"
 
-.PHONY: build test thanks janitor release all clean
+macsign:
+	gon .gon.hcl
+
+.PHONY: build test thanks janitor release all clean macsign
