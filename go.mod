@@ -40,7 +40,7 @@ require (
 	github.com/pierrec/lz4/v4 v4.1.21
 	github.com/rivo/tview v0.0.0-20240505185119-ed116790de0f
 	github.com/robert-nix/ansihtml v1.0.1
-	github.com/sashabaranov/go-openai v1.23.0
+	github.com/sashabaranov/go-openai v1.23.1
 	github.com/spf13/pflag v1.0.5
 	github.com/titanous/json5 v1.0.0
 	github.com/tmc/keyring v0.0.0-20230418032330-0c8bdba76fa8
