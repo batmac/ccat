@@ -2,7 +2,7 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "dependencyDashboardAutoclose": true,
   "extends": [
-    "config:base",
+    "config:recommended",
     ":rebaseStalePrs"
   ],
   "labels": [
@@ -50,6 +50,6 @@
     "gomodTidy"
   ],
   "prHourlyLimit": 3,
-  "stabilityDays": 1,
+  "minimumReleaseAge": "1 day",
   "timezone": "Europe/Paris"
 }
