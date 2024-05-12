@@ -1,0 +1,23 @@
+name: keep vendored branch up to date
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: vendor
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "bat+bot@sbz.fr"
+          git branch -D vendored
+          git checkout -b vendored
+          go mod vendor
+          git add .
+          git commit -m "vendored"
+          git push origin vendored
