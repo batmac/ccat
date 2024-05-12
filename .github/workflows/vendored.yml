@@ -19,9 +19,8 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "bat+bot@sbz.fr"
-          git branch -D vendored
           git checkout -b vendored
           go mod vendor
           git add .
           git commit -m "vendored"
-          git push origin vendored
+          git push -f origin vendored
