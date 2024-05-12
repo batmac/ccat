@@ -32,6 +32,14 @@
       ]
     },
     {
+      "matchManagers": [
+        "gomod"
+      ],
+      "digest": {
+        "masterIssueApproval": true
+      }
+    },
+    {
       "groupName": "aws-go-sdk-v2 monorepo",
       "groupSlug": "aws-go-sdk-v2",
       "matchDatasources": [
