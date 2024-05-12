@@ -9,7 +9,7 @@ COPY . .
 ENV CGO_ENABLED 1
 RUN go version && mage buildFull
 
-FROM alpine:20231219
+FROM alpine:20240329
 # hadolint ignore=DL3018
 RUN apk upgrade --no-cache && apk add --no-cache libcurl tini
 COPY "entrypoint.sh" "/entrypoint.sh"
