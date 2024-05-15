@@ -45,7 +45,7 @@ jobs:
           go test -race -cover -coverprofile coverage2.out -tags libcurl,crappy  ./...
 
       - name: Codecov
-        uses: codecov/codecov-action@v4.3.1
+        uses: codecov/codecov-action@v4.4.0
         with:
           files: coverage1.out,coverage2.out
 
