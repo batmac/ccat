@@ -74,7 +74,7 @@ func chatgpt(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 	req := gpt.ChatCompletionRequest{
 		Model: model,
 		Messages: []gpt.ChatCompletionMessage{
-			{Role: "user", Content: prePrompt + string(prompt)},
+			{Role: gpt.ChatMessageRoleUser, Content: prePrompt + string(prompt)},
 		},
 		MaxTokens:        maxTokens,
 		Temperature:      0,
