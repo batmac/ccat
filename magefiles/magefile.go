@@ -21,6 +21,7 @@ var Default = BuildDefaultAndTest
 var (
 	defaultBuildArgs = []string{"build"}
 	binaryName       = "ccat"
+	goBin			= mg.GoCmd()
 )
 
 func init() {
@@ -65,7 +66,7 @@ func build(tags string) error {
 	buildArgs := defaultBuildArgs
 	buildArgs = append(buildArgs, "-ldflags", ldFlags(tags), "-tags", tags)
 
-	if err := sh.RunWithV(nil, "go", buildArgs...); err != nil {
+	if err := sh.RunWithV(nil, goBin, buildArgs...); err != nil {
 		return err
 	}
 
@@ -115,7 +116,7 @@ func Install() error {
 // go mod download
 func InstallDeps() error {
 	stepPrintln("Installing Deps...")
-	if err := sh.RunV("go", "mod", "download"); err != nil {
+	if err := sh.RunV(goBin, "mod", "download"); err != nil {
 		return err
 	}
 	stepOKPrintln("Installing Deps OK")
@@ -126,7 +127,7 @@ func InstallDeps() error {
 func VerifyDeps() error {
 	mg.Deps(InstallDeps)
 	stepPrintln("Verifying Deps...")
-	if err := sh.Run("go", "mod", "verify"); err != nil {
+	if err := sh.Run(goBin, "mod", "verify"); err != nil {
 		return err
 	}
 	stepOKPrintln("Verifying Deps OK")
@@ -146,7 +147,7 @@ func Clean() error {
 func TestGo() error {
 	mg.Deps(InstallDeps)
 	stepPrintln("Testing Go...")
-	r, err := sh.Output("go", "test", "./...")
+	r, err := sh.Output(goBin, "test", "./...")
 	if mg.Verbose() {
 		fmt.Println(r, "\n ")
 	}
