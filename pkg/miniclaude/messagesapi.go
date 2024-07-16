@@ -84,7 +84,7 @@ func (c *Request) Stream(mr *MessagesRequest) error {
 	if resp.StatusCode != http.StatusOK {
 		log.Printf("http unexpected status code: %s", resp.Status)
 		// dump the body
-		io.Copy(os.Stderr, resp.Body)
+		_, _ = io.Copy(os.Stderr, resp.Body)
 		return fmt.Errorf("http unexpected status code: %d (%s)", resp.StatusCode, resp.Status)
 	}
 

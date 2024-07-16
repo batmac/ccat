@@ -28,7 +28,7 @@ func Test_processFile(t *testing.T) {
 	}
 
 	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
+		t.Run(tt.name, func(_ *testing.T) {
 			processFile(io.Discard, tt.args.path)
 			processFileAsIs(io.Discard, tt.args.path)
 		})
@@ -42,7 +42,7 @@ func Test_setError(t *testing.T) {
 		{"donotpanicplease"},
 	}
 	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
+		t.Run(tt.name, func(_ *testing.T) {
 			setErrored()
 		})
 	}

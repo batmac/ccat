@@ -19,7 +19,7 @@ func TestPrint(t *testing.T) {
 		{"bash", args{"bash", []string{}}},
 	}
 	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
+		t.Run(tt.name, func(_ *testing.T) {
 			completion.Print(tt.args.shell, tt.args.opts)
 		})
 	}

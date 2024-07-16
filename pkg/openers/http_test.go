@@ -25,7 +25,7 @@ var (
 )
 
 func init() {
-	rand.Seed(time.Now().UnixNano())
+	// rand.Seed(time.Now().UnixNano())
 
 	go func() {
 		// find an available port

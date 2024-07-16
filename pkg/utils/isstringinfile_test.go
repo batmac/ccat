@@ -14,7 +14,7 @@ func TestIsStringInFile(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	t.Run("donotpanicplease", func(t *testing.T) {
+	t.Run("donotpanicplease", func(_ *testing.T) {
 		got := utils.IsStringInFile(" ", exe)
 		log.Debugf("%v\n", got)
 	})

@@ -66,7 +66,7 @@ func TestGetTerminalSize(t *testing.T) {
 }
 
 func TestClearScreen(t *testing.T) {
-	t.Run("donotpanicplease", func(t *testing.T) {
+	t.Run("donotpanicplease", func(_ *testing.T) {
 		term.ClearScreen()
 	})
 }

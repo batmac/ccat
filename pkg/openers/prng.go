@@ -57,7 +57,7 @@ func (f prngOpener) Open(s string, _ bool) (io.ReadCloser, error) {
 			return nil, err
 		}
 	}
-	rand.Seed(seed)
+	rand.Seed(seed) //nolint:staticcheck
 	log.Debugf("seed : %d", seed)
 	pcg := pcg.NewPCG32(rand.Uint64(), rand.Uint64()) // #nosec
 	n := int64(0)

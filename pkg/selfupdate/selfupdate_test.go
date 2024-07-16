@@ -7,7 +7,7 @@ import (
 )
 
 func Test_Do(t *testing.T) {
-	t.Run("donotpanicplease", func(t *testing.T) {
+	t.Run("donotpanicplease", func(_ *testing.T) {
 		selfupdate.Do("v0+dev", "", selfupdate.ModeCheckOnly)
 		selfupdate.Do("100", "", selfupdate.ModeCheckOnly)
 	})

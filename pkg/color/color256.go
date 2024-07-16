@@ -24,7 +24,7 @@ func (c C256) Sprint(s string) string {
 
 // #nosec
 func (c *C256) Next() Color {
-	rand.Seed(int64(*c))
-	n := C256(rand.Intn(230))
+	rand.Seed(int64(*c))      //nolint:staticcheck
+	n := C256(rand.Intn(230)) //nolint:gosec
 	return &n
 }

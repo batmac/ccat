@@ -9,7 +9,6 @@ import (
 	"math/rand"
 	"os"
 	"strings"
-	"time"
 
 	"github.com/batmac/ccat/pkg/log"
 	"github.com/batmac/ccat/pkg/stringutils"
@@ -96,7 +95,7 @@ func (h *Chroma) highLight(w io.WriteCloser, r io.ReadCloser, o Options) error {
 	stylesList := styles.Names()
 	switch {
 	case o.StyleHint == "random":
-		rand.Seed(time.Now().UnixNano())
+		// rand.Seed(time.Now().UnixNano())
 		//#nosec G404 (weak rand)
 		randStyle := rand.Intn(len(stylesList))
 		h.style = stylesList[randStyle]

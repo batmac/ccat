@@ -22,7 +22,7 @@ var (
 
 func TestSet(t *testing.T) {
 	for _, tt := range testsGlobalCtx {
-		t.Run(tt.name, func(t *testing.T) {
+		t.Run(tt.name, func(_ *testing.T) {
 			globalctx.Set(tt.k, tt.v)
 		})
 	}

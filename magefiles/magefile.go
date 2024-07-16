@@ -21,7 +21,7 @@ var Default = BuildDefaultAndTest
 var (
 	defaultBuildArgs = []string{"build"}
 	binaryName       = "ccat"
-	goBin			= mg.GoCmd()
+	goBin            = mg.GoCmd()
 )
 
 func init() {
