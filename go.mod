@@ -22,7 +22,7 @@ require (
 	github.com/docker/go-units v0.5.0
 	github.com/dsnet/compress v0.0.1
 	github.com/eliukblau/pixterm v1.3.1
-	github.com/gabriel-vasile/mimetype v1.4.4
+	github.com/gabriel-vasile/mimetype v1.4.5
 	github.com/gage-technologies/mistral-go v1.1.0
 	github.com/gdamore/tcell/v2 v2.7.4
 	github.com/google/renameio/v2 v2.0.0
