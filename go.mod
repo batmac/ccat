@@ -2,7 +2,7 @@ module github.com/batmac/ccat
 
 go 1.22
 
-toolchain go1.22.5
+toolchain go1.22.6
 
 require (
 	cloud.google.com/go/storage v1.43.0
