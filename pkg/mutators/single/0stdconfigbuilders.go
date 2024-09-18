@@ -71,3 +71,22 @@ func stdConfigStrings(min, max int) configBuilder {
 		return args, nil
 	}
 }
+
+func stdConfigInts(min, max int) configBuilder {
+	return func(args []string) (any, error) {
+		if len(args) < min || len(args) > max {
+			return nil, ErrWrongNumberOfArgs(min, max, len(args))
+		}
+
+		var ints []int
+		for _, arg := range args {
+			n, err := strconv.Atoi(arg)
+			if err != nil {
+				return nil, err
+			}
+			ints = append(ints, n)
+		}
+
+		return ints, nil
+	}
+}
