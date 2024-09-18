@@ -8,8 +8,8 @@ import (
 
 func init() {
 	singleRegister("limit", limit, withDescription("a simple limiting fifo ( with X max size in bytes, for instance 'limit:1k')"),
-		withConfigBuilder(stdConfigHumanSizeAsInt64),
-		withAliases("l"))
+		withConfigBuilder(stdConfigHumanSizeAsInt64WithDefault(500)),
+		withAliases("l", "head"))
 }
 
 func limit(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
