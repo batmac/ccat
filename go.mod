@@ -79,6 +79,7 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/sso v1.23.3 // indirect
 	github.com/aws/aws-sdk-go-v2/service/ssooidc v1.27.3 // indirect
 	github.com/aws/smithy-go v1.21.0 // indirect
+	github.com/cosnicolaou/pbzip2 v1.0.3
 	github.com/danieljoos/wincred v1.2.2 // indirect
 	github.com/davidmz/go-pageant v1.0.2 // indirect
 	github.com/disintegration/imaging v1.6.2 // indirect

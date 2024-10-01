@@ -85,6 +85,8 @@ github.com/batmac/go-curl v0.0.1/go.mod h1:4r9pMO176RgWlUeGvlO3+OYVIm9vBZYLr0ae2
 github.com/census-instrumentation/opencensus-proto v0.2.1/go.mod h1:f6KPmirojxKA12rnyqOA5BBL4O983OfeGPqjHWSTneU=
 github.com/client9/misspell v0.3.4/go.mod h1:qj6jICC3Q7zFZvVWo7KLAzC3yx5G7kyvSDkc90ppPyw=
 github.com/cncf/udpa/go v0.0.0-20191209042840-269d4d468f6f/go.mod h1:M8M6+tZqaGXZJjfX53e64911xZQV5JYwmTeXPW+k8Sc=
+github.com/cosnicolaou/pbzip2 v1.0.3 h1:CebGEQSYOg9uFDfTgIXNDI3cuaQovlnBUcdB614dQws=
+github.com/cosnicolaou/pbzip2 v1.0.3/go.mod h1:uCNfm0iE2wIKGRlLyq31M4toziFprNhEnvueGmh5u3M=
 github.com/creativeprojects/go-selfupdate v1.3.0 h1:Hs+14cJ7Um7xbRpmkmrKEfkZGwec3vZLPWTVEFwYXBc=
 github.com/creativeprojects/go-selfupdate v1.3.0/go.mod h1:uYJeumb6ECaI6bhc5dvH3Htjz1KoMArQjFt1P8m71Tc=
 github.com/danieljoos/wincred v1.2.2 h1:774zMFJrqaeYCK2W57BgAem/MLi6mtSE47MB6BOJ0i0=
