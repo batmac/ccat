@@ -25,6 +25,7 @@ require (
 	github.com/gabriel-vasile/mimetype v1.4.5
 	github.com/gage-technologies/mistral-go v1.1.0
 	github.com/gdamore/tcell/v2 v2.7.4
+	github.com/google/generative-ai-go v0.18.0
 	github.com/google/renameio/v2 v2.0.0
 	github.com/gowebpki/jcs v1.0.1
 	github.com/hbollon/go-edlib v1.6.0
@@ -52,6 +53,11 @@ require (
 	golang.org/x/term v0.24.0
 	howett.net/plist v1.0.1
 	sigs.k8s.io/yaml v1.4.0
+)
+
+require (
+	cloud.google.com/go/ai v0.8.0 // indirect
+	cloud.google.com/go/longrunning v0.5.9 // indirect
 )
 
 require (
@@ -131,7 +137,7 @@ require (
 	golang.org/x/sys v0.25.0 // indirect
 	golang.org/x/text v0.18.0 // indirect
 	golang.org/x/time v0.5.0 // indirect
-	google.golang.org/api v0.188.0 // indirect
+	google.golang.org/api v0.188.0
 	google.golang.org/genproto v0.0.0-20240711142825-46eb208f015d // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20240711142825-46eb208f015d // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20240711142825-46eb208f015d // indirect
