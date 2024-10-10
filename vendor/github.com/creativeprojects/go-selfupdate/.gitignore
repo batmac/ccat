@@ -1,0 +1,8 @@
+/selfupdate-example
+/release
+/env.sh
+/detect-latest-release
+/go-get-release
+/coverage.out
+/cmd/restic
+/.vscode/
