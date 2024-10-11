@@ -39,11 +39,11 @@ type singleFactory struct {
 	expectingBinary   bool
 }
 
-func ErrWrongNumberOfArgs(min, max, got int) error {
-	if min == max {
-		return fmt.Errorf("wrong number of arguments, got %d, expected %d", got, min)
+func ErrWrongNumberOfArgs(amin, amax, got int) error {
+	if amin == amax {
+		return fmt.Errorf("wrong number of arguments, got %d, expected %d", got, amin)
 	}
-	return fmt.Errorf("wrong number of arguments, expected between %d and %d, got %d", min, max, got)
+	return fmt.Errorf("wrong number of arguments, expected between %d and %d, got %d", amin, amax, got)
 }
 
 func withHintLexer(s string) singleOption {

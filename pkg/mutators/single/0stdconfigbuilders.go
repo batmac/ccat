@@ -62,20 +62,20 @@ func stdConfigString(args []string) (any, error) {
 	return args[0], nil
 }
 
-func stdConfigStrings(min, max int) configBuilder {
+func stdConfigStrings(amin, amax int) configBuilder {
 	return func(args []string) (any, error) {
-		if len(args) < min || len(args) > max {
-			return nil, ErrWrongNumberOfArgs(min, max, len(args))
+		if len(args) < amin || len(args) > amax {
+			return nil, ErrWrongNumberOfArgs(amin, amax, len(args))
 		}
 
 		return args, nil
 	}
 }
 
-func stdConfigInts(min, max int) configBuilder {
+func stdConfigInts(amin, amax int) configBuilder {
 	return func(args []string) (any, error) {
-		if len(args) < min || len(args) > max {
-			return nil, ErrWrongNumberOfArgs(min, max, len(args))
+		if len(args) < amin || len(args) > amax {
+			return nil, ErrWrongNumberOfArgs(amin, amax, len(args))
 		}
 
 		var ints []int
