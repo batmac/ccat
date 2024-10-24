@@ -53,7 +53,7 @@ require (
 	github.com/zeebo/xxh3 v1.0.2
 	golang.org/x/exp v0.0.0-20240716160929-1d5bc16f04a8
 	golang.org/x/term v0.25.0
-	google.golang.org/api v0.202.0
+	google.golang.org/api v0.203.0
 	howett.net/plist v1.0.1
 	sigs.k8s.io/yaml v1.4.0
 )
@@ -62,7 +62,7 @@ require (
 	cel.dev/expr v0.16.1 // indirect
 	cloud.google.com/go v0.116.0 // indirect
 	cloud.google.com/go/ai v0.8.0 // indirect
-	cloud.google.com/go/auth v0.9.8 // indirect
+	cloud.google.com/go/auth v0.9.9 // indirect
 	cloud.google.com/go/auth/oauth2adapt v0.2.4 // indirect
 	cloud.google.com/go/compute/metadata v0.5.2 // indirect
 	cloud.google.com/go/iam v1.2.1 // indirect
