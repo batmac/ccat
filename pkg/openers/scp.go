@@ -15,7 +15,7 @@ import (
 
 var (
 	localShellScpOpenerName        = "ShellScp"
-	localShellScpOpenerDescription = "get scp:// via local scp\n"
+	localShellScpOpenerDescription = "get scp:// via local scp"
 )
 
 type localShellScpOpener struct {

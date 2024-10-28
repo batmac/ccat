@@ -105,7 +105,7 @@ $ kubectl run -i --tty ccat --image=batmac/ccat:latest -- /bin/sh
 ## help
 
 ```
-version v1.15.3-30-g2bde12b [libcurl,crappy,plugins,keystore], commit 2bde12b21da8ae4397672c203aec98f66e098a5c, built at 2024-09-19@11:19:44+0200 by Mage (go1.23.1 darwin/arm64)
+version v1.16.0-36-g9565427 [libcurl,crappy,plugins,keystore], commit 9565427319516d0b7cb15dede0aa60183e0e0204, built at 2024-10-28@22:05:48+0100 by Mage (go1.23.2 darwin/arm64)
 usage: ccat [options] [file ...]
   -t, --tokens string       comma-separated list of tokens
   -i, --ignore-case         tokens given with -t are case-insensitive
@@ -151,14 +151,14 @@ ccat <files>...
     gemini: get URL via Gemini
     http: get URL via HTTP(S)
     curl: get URL via libcurl bindings
-           libcurl/8.6.0 SecureTransport (LibreSSL/3.3.6) zlib/1.2.12 nghttp2/1.61.0
+           libcurl/8.7.1 SecureTransport (LibreSSL/3.3.6) zlib/1.2.12 nghttp2/1.62.0
            protocols: dict,file,ftp,ftps,gopher,gophers,http,https,imap,imaps,ldap,ldaps,mqtt,pop3,pop3s,rtsp,smb,smbs,smtp,smtps,telnet,tftp
     mc: get a Minio-compatible object via mc:// (use ~/.mc/config.json or env for credentials)
     tcp: get data from listening on tcp://[HOST]:<PORT>
     prng: generate endless pcg rand (don't use for crypto) (accept a seed as parameter)
     s3: get an AWS s3 object via s3://
     ShellScp: get scp:// via local scp
-
+    wormhole: get text, file or zipped dir via a wormhole code (wh://<code> or wormhole://<code>)
  - mutators:
         cb: put a copy in the clipboard
         discard: discard X:0 bytes (0 = all)
@@ -211,6 +211,7 @@ ccat <files>...
         unqp: decode quoted-printable data
         y2j: YAML -> JSON
     decompress:
+        punbzip2: parallel decompress bzip2 data (X:0 is concurrency, 0 is auto)
         unbzip2: decompress bzip2 data
         ungzip: decompress gzip data
         unlz4: decompress lz4 data
@@ -231,6 +232,7 @@ ccat <files>...
     external APIs:
         chatgpt: ask OpenAI ChatGPT, X:<unlimited> max replied tokens, the optional second arg is the model (Requires a valid key in $OPENAI_API_KEY, optional custom endpoint in $OPENAI_BASE_URL.)
         claude: ask Anthropic Claude, X:<unlimited> max replied tokens, optional second arg is the model, optional third arg is the preprompt (needs a valid key in $ANTHROPIC_API_KEY)
+        googleai: googleai, X:gemini-1.5-flash is the model (Requires a valid key in $GOOGLE_API_KEY)
         huggingface: ask HuggingFace for simple tasks, optional args are model, max tokens, temperature (needs a valid key in $HUGGING_FACE_HUB_TOKEN, set HUGGING_FACE_ENDPOINT to use an Inference API endpoint)
         mistralai: ask MistralAI, X:<unlimited> max replied tokens, the optional second arg is the model (Requires a valid key in $MISTRAL_API_KEY)
         translate: translate to X:en or $TARGET_LANGUAGE with google translate (needs a valid key in $GOOGLE_API_KEY)
@@ -252,11 +254,13 @@ ccat <files>...
     b64: base64
     cgpt: chatgpt
     d: discard
-    dum, dumm: dummy
-    hd, xxd: hexdump
-    h2m, h2md: html2md
+    dumm, dum: dummy
+    gai: googleai
+    xxd, hd: hexdump
+    h2md, h2m: html2md
     hf: huggingface
     l, head: limit
+    mime: mimetype
     mistral: mistralai
     ub64, unb64: unbase64
 ```
