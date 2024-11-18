@@ -9,6 +9,7 @@ import (
 )
 
 var IsKeystoreAvailable = true
+var ErrNotFound = keyring.ErrnotFound
 
 func SetSecret(name, secret string) error {
 	log.Debugf("Setting secret '%s'", name)
