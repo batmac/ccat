@@ -28,6 +28,27 @@ builds:
       - -tags=plugins,keystore
     ldflags:
       - -s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}} -X main.builtBy=goreleaser -X main.tags=plugins,keystore
+  - id: buildbsd
+    env:
+      - CGO_ENABLED=0
+    main: ./cmd/ccat
+    goos:
+      - freebsd
+      - netbsd
+      - openbsd
+      - dragonfly
+
+    goarch:
+      - amd64
+      - arm64
+      - arm
+    goarm: ["6", "7"]
+    mod_timestamp: '{{ .CommitTimestamp }}'
+    flags:
+      - -v
+      - -tags=plugins
+    ldflags:
+      - -s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}} -X main.builtBy=goreleaser -X main.tags=plugins
 archives:
   - name_template: "{{ .Binary }}-{{ .Version }}-{{ .Os }}-{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}"
     files:
