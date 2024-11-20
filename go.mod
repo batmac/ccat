@@ -16,7 +16,7 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/s3 v1.66.2
 	github.com/aws/aws-sdk-go-v2/service/sts v1.32.3
 	github.com/batmac/go-curl v0.0.1
-	github.com/cosnicolaou/pbzip2 v1.0.3
+	github.com/cosnicolaou/pbzip2 v1.0.5
 	github.com/creativeprojects/go-selfupdate v1.4.0
 	github.com/docker/go-units v0.5.0
 	github.com/dsnet/compress v0.0.1
