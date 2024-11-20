@@ -110,8 +110,8 @@ github.com/client9/misspell v0.3.4/go.mod h1:qj6jICC3Q7zFZvVWo7KLAzC3yx5G7kyvSDk
 github.com/cncf/udpa/go v0.0.0-20191209042840-269d4d468f6f/go.mod h1:M8M6+tZqaGXZJjfX53e64911xZQV5JYwmTeXPW+k8Sc=
 github.com/cncf/xds/go v0.0.0-20240905190251-b4127c9b8d78 h1:QVw89YDxXxEe+l8gU8ETbOasdwEV+avkR75ZzsVV9WI=
 github.com/cncf/xds/go v0.0.0-20240905190251-b4127c9b8d78/go.mod h1:W+zGtBO5Y1IgJhy4+A9GOqVhqLpfZi+vwmdNXUehLA8=
-github.com/cosnicolaou/pbzip2 v1.0.3 h1:CebGEQSYOg9uFDfTgIXNDI3cuaQovlnBUcdB614dQws=
-github.com/cosnicolaou/pbzip2 v1.0.3/go.mod h1:uCNfm0iE2wIKGRlLyq31M4toziFprNhEnvueGmh5u3M=
+github.com/cosnicolaou/pbzip2 v1.0.5 h1:+PZ8yRBx6bRXncOJWQvEThyFm8XhF9Yb6WUMN6KsgrA=
+github.com/cosnicolaou/pbzip2 v1.0.5/go.mod h1:uCNfm0iE2wIKGRlLyq31M4toziFprNhEnvueGmh5u3M=
 github.com/cpuguy83/go-md2man/v2 v2.0.2/go.mod h1:tgQtvFlXSQOSOSIRvRPT7W67SCa46tRHOmNcaadrF8o=
 github.com/creativeprojects/go-selfupdate v1.4.0 h1:4ePPd2CPCNl/YoPXeVxpuBLDUZh8rMEKP5ac+1Y/r5c=
 github.com/creativeprojects/go-selfupdate v1.4.0/go.mod h1:oPG7LmzEmS6OxfqEm620k5VKxP45xFZNKMkp4V5qqUY=
