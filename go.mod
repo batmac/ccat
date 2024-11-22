@@ -52,7 +52,7 @@ require (
 	github.com/zeebo/xxh3 v1.0.2
 	golang.org/x/exp v0.0.0-20241009180824-f66d83c29e7c
 	golang.org/x/term v0.26.0
-	google.golang.org/api v0.207.0
+	google.golang.org/api v0.208.0
 	howett.net/plist v1.0.1
 	sigs.k8s.io/yaml v1.4.0
 )
