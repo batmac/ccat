@@ -7,9 +7,7 @@ import (
 	"github.com/batmac/ccat/pkg/log"
 )
 
-var (
-	ServiceName = "ccat"
-)
+var ServiceName = "ccat"
 
 func GetSecret(name, envVar string) (string, error) {
 	if v := os.Getenv(envVar); v != "" {

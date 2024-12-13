@@ -84,7 +84,7 @@ func init() {
 
 func main() {
 	log.Debugln("STARTING ccat")
-	log.Debugf(buildLine())
+	log.Debugf("%s", buildLine())
 	if *argPprof {
 		log.Debugln("pprof enabled")
 		enablePprof()

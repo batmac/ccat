@@ -8,8 +8,10 @@ import (
 	"github.com/tmc/keyring"
 )
 
-var IsKeystoreAvailable = true
-var ErrNotFound = keyring.ErrNotFound
+var (
+	IsKeystoreAvailable = true
+	ErrNotFound         = keyring.ErrNotFound
+)
 
 func SetSecret(name, secret string) error {
 	log.Debugf("Setting secret '%s'", name)
