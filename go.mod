@@ -21,7 +21,7 @@ require (
 	github.com/docker/go-units v0.5.0
 	github.com/dsnet/compress v0.0.1
 	github.com/eliukblau/pixterm v1.3.2
-	github.com/gabriel-vasile/mimetype v1.4.7
+	github.com/gabriel-vasile/mimetype v1.4.8
 	github.com/gage-technologies/mistral-go v1.1.0
 	github.com/gdamore/tcell/v2 v2.7.4
 	github.com/google/generative-ai-go v0.19.0
