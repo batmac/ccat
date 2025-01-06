@@ -33,7 +33,7 @@ require (
 	github.com/klauspost/pgzip v1.2.6
 	github.com/kofalt/go-memoize v0.0.0-20240506050413-9e5eb99a0f2a
 	github.com/magefile/mage v1.15.0
-	github.com/minio/minio-go/v7 v7.0.82
+	github.com/minio/minio-go/v7 v7.0.83
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/mmcdole/gofeed v1.3.0
 	github.com/muesli/reflow v0.3.0
@@ -105,7 +105,7 @@ require (
 	github.com/go-ini/ini v1.67.0 // indirect
 	github.com/go-logr/logr v1.4.2 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
-	github.com/goccy/go-json v0.10.3 // indirect
+	github.com/goccy/go-json v0.10.4 // indirect
 	github.com/godbus/dbus/v5 v5.1.0 // indirect
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/google/go-github/v30 v30.1.0 // indirect
@@ -118,7 +118,7 @@ require (
 	github.com/hashicorp/go-retryablehttp v0.7.7 // indirect
 	github.com/hashicorp/go-version v1.7.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
-	github.com/klauspost/cpuid/v2 v2.2.8 // indirect
+	github.com/klauspost/cpuid/v2 v2.2.9 // indirect
 	github.com/lucasb-eyer/go-colorful v1.2.0 // indirect
 	github.com/mattn/go-runewidth v0.0.15 // indirect
 	github.com/minio/md5-simd v1.1.2 // indirect
