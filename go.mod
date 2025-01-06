@@ -51,7 +51,7 @@ require (
 	github.com/ulikunitz/xz v0.5.12
 	github.com/zeebo/xxh3 v1.0.2
 	golang.org/x/exp v0.0.0-20241009180824-f66d83c29e7c
-	golang.org/x/term v0.27.0
+	golang.org/x/term v0.28.0
 	google.golang.org/api v0.214.0
 	howett.net/plist v1.0.1
 	sigs.k8s.io/yaml v1.4.0
@@ -143,7 +143,7 @@ require (
 	golang.org/x/net v0.33.0 // indirect
 	golang.org/x/oauth2 v0.24.0 // indirect
 	golang.org/x/sync v0.10.0 // indirect
-	golang.org/x/sys v0.28.0 // indirect
+	golang.org/x/sys v0.29.0 // indirect
 	golang.org/x/text v0.21.0 // indirect
 	golang.org/x/time v0.8.0 // indirect
 	google.golang.org/genproto v0.0.0-20241118233622-e639e219e697 // indirect
