@@ -7,7 +7,6 @@ import (
 	"context"
 	"io"
 	"strings"
-	"time"
 
 	"github.com/psanford/wormhole-william/wormhole"
 
@@ -48,7 +47,7 @@ func (f wormholeOpener) Open(code string, _ bool) (io.ReadCloser, error) {
 
 	var c wormhole.Client
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second*30)
+	ctx := context.Background()
 	fileInfo, err := c.Receive(ctx, code)
 	if err != nil {
 		log.Fatal(err)
@@ -57,7 +56,6 @@ func (f wormholeOpener) Open(code string, _ bool) (io.ReadCloser, error) {
 	log.Debugf("got msg: %+v\n", fileInfo)
 
 	return utils.NewReadCloser(fileInfo, func() error {
-		cancel()
 		return nil
 	}), nil
 }
