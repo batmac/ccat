@@ -42,7 +42,7 @@ require (
 	github.com/psanford/wormhole-william v1.0.7
 	github.com/rivo/tview v0.0.0-20241016194538-c5e4fb24af13
 	github.com/robert-nix/ansihtml v1.0.1
-	github.com/sashabaranov/go-openai v1.36.1
+	github.com/sashabaranov/go-openai v1.37.0
 	github.com/spf13/pflag v1.0.6
 	github.com/tetratelabs/wazero v1.8.2
 	github.com/titanous/json5 v1.0.0
