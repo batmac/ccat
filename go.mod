@@ -1,6 +1,6 @@
 module github.com/batmac/ccat
 
-go 1.23.2
+go 1.24
 
 require (
 	cloud.google.com/go/storage v1.48.0
