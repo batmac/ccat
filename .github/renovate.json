@@ -36,7 +36,7 @@
         "gomod"
       ],
       "digest": {
-        "masterIssueApproval": true
+        "dependencyDashboardApproval": true
       }
     },
     {
@@ -45,11 +45,11 @@
       "matchDatasources": [
         "go"
       ],
-      "matchPackagePrefixes": [
-        "github.com/aws/aws-sdk-go-v2"
-      ],
       "schedule": [
         "every month"
+      ],
+      "matchPackageNames": [
+        "github.com/aws/aws-sdk-go-v2{/,}**"
       ]
     }
   ],
