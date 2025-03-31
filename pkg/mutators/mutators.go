@@ -19,7 +19,8 @@ var (
 )
 
 const (
-	argSeparator = ":"
+	ArgSeparator   = ":"
+	StageSeparator = ","
 )
 
 // Mutator and factory should be totally separate or reentrant as they may be used simultaneously
@@ -39,12 +40,13 @@ type Factory interface {
 }
 
 type mutatorCollection struct {
-	factories map[string]Factory
-	aliases   map[string]string
-	logger    *log.Logger
-	Name      string
-	mutators  []Mutator
-	mu        sync.Mutex
+	factories    map[string]Factory
+	aliases      map[string]string
+	logger       *log.Logger
+	Name         string
+	mutators     []Mutator
+	argSeparator string
+	mu           sync.Mutex
 }
 
 func newCollection(name string, logger *log.Logger) *mutatorCollection {
@@ -87,11 +89,11 @@ func New(fullName string) (Mutator, error) {
 	globalCollection.mu.Lock()
 	defer globalCollection.mu.Unlock()
 
-	name, argsString, argsFound := strings.Cut(fullName, argSeparator)
+	name, argsString, argsFound := strings.Cut(fullName, ArgSeparator)
 
 	var args []string
 	if argsString != "" {
-		args = strings.Split(argsString, argSeparator)
+		args = strings.Split(argsString, ArgSeparator)
 	}
 
 	if factoryName, ok := globalCollection.aliases[name]; ok {

@@ -26,7 +26,7 @@ func NewPipeline(description string, out io.WriteCloser, in io.ReadCloser) error
 		globalPipeline.mu.Unlock()
 		return errors.New("empty pipeline requested")
 	}
-	list := strings.Split(description, ",")
+	list := strings.Split(description, mutators.StageSeparator)
 	for _, m := range list {
 		log.Debugf("creating %v\n", m)
 		mutator, err := mutators.New(m)

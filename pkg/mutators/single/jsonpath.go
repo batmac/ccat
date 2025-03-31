@@ -8,6 +8,7 @@ import (
 
 	"github.com/PaesslerAG/jsonpath"
 	"github.com/batmac/ccat/pkg/log"
+	"github.com/batmac/ccat/pkg/mutators"
 )
 
 // https://goessner.net/articles/JsonPath/
@@ -26,7 +27,6 @@ func jSONPath(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
 	}
 
 	var v interface{}
-
 	if err := json.Unmarshal(buf, &v); err != nil {
 		return 0, err
 	}
@@ -36,9 +36,9 @@ func jSONPath(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
 		jp = "$" + jp
 	}
 	// replace all "|" with ","
-	jp = strings.ReplaceAll(jp, "|", ",")
+	jp = strings.ReplaceAll(jp, "|", mutators.StageSeparator)
 	//
-	jp = strings.ReplaceAll(jp, "£", ":")
+	jp = strings.ReplaceAll(jp, "£", mutators.ArgSeparator)
 
 	log.Debugf("final jsonpath: %s", jp)
 	values, err := jsonpath.Get(jp, v)
