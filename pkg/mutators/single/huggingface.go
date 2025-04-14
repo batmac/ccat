@@ -120,7 +120,7 @@ func huggingface(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 	if os.Getenv("HUGGING_FACE_ENDPOINT") != "" {
 		url = os.Getenv("HUGGING_FACE_ENDPOINT")
 		if len(arg) >= 1 && arg[0] != "" {
-			log.Println("warning: HUGGING_FACE_ENDPOINT is set, ignoring model argument")
+			log.Println("WARNING: HUGGING_FACE_ENDPOINT is set, ignoring model argument")
 		}
 	}
 

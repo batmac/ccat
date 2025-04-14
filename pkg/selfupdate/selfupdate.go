@@ -64,7 +64,7 @@ func Do(version, tags string, mode Mode) {
 	fmt.Printf("Version %v is available\n", latest.Version())
 
 	if tags != githubTags {
-		fmt.Printf("Warning: your current binary is built with tags '%s', GitHub releases are built with '%s'.\n", tags, githubTags)
+		fmt.Printf("WARNING: your current binary is built with tags '%s', GitHub releases are built with '%s'.\n", tags, githubTags)
 		tagsAreCompatible = false
 	} else {
 		tagsAreCompatible = true
