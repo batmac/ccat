@@ -37,6 +37,7 @@ type singleFactory struct {
 	hintLexer         string
 	hintSlowOutput    bool
 	expectingBinary   bool
+	expectingFinal    bool // if true, this mutator should be the last in the pipeline
 }
 
 func ErrWrongNumberOfArgs(amin, amax, got int) error {
@@ -70,6 +71,12 @@ func withCategory(s string) singleOption {
 func withExpectingBinary() singleOption {
 	return func(f *singleFactory) {
 		f.expectingBinary = true
+	}
+}
+
+func withExpectingFinal() singleOption {
+	return func(f *singleFactory) {
+		f.expectingFinal = true
 	}
 }
 
@@ -121,6 +128,12 @@ func (f *singleFactory) NewMutator(logger *log.Logger, args []string) (mutators.
 	globalctx.Set("hintLexer", f.hintLexer)
 	globalctx.Set("hintSlowOutput", f.hintSlowOutput)
 	globalctx.Set("expectingBinary", f.expectingBinary)
+
+	//  if expectingFinal is already defined in the globalctx, this means that a previous mutator should have been the last mutator, but is not, emit a warning
+	if globalctx.GetBool("expectingFinal") {
+		log.Printf("WARNING: %s should not be after a mutator that is expecting to be last, unexpected behavior may occur\n", f.Name())
+	}
+	globalctx.Set("expectingFinal", f.expectingFinal)
 
 	var config any
 	var err error

@@ -17,14 +17,15 @@ func init() {
 		withCategory("convert"),
 		withConfigBuilder(stdConfigStringWithDefault("")),
 		withExpectingBinary(), // don't highlight the output as it must unmodified
+		withExpectingFinal(),  // this mutator must be the last in the pipeline
 	)
 }
 
 func it2dl(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
 	if !term.IsITerm2() {
-		log.Println("Warning: it2dl is designed for iTerm2. It may not work as expected in other terminals.")
+		log.Println("WARNING: it2dl is designed for iTerm2. It may not work as expected in this terminals.")
 	} else if !term.IsStdoutTerminal() {
-		log.Println("Warning: it2dl is designed for iTerm2. It may not work as expected in non-terminal outputs.")
+		log.Println("WARNING: it2dl is designed for iTerm2. It may not work as expected in non-terminal outputs.")
 	}
 
 	// here is the shell version from upstream: (notably, the size must be known in advance)
