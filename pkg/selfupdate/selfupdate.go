@@ -23,7 +23,7 @@ const (
 
 // build tags for the github releases
 var (
-	githubTags        = ""
+	githubTags        = "plugins,keystore"
 	tagsAreCompatible = false
 )
 
