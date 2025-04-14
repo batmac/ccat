@@ -13,9 +13,10 @@ import (
 
 func init() {
 	singleRegister("it2dl", it2dl,
-		withDescription("download via iTerm2 escape code, does not work in other terminals"),
+		withDescription("download via iTerm2 escape code, does not work in other terminals. Must be the last mutator of the pipeline."),
 		withCategory("convert"),
 		withConfigBuilder(stdConfigStringWithDefault("")),
+		withExpectingBinary(), // don't highlight the output as it must unmodified
 	)
 }
 
@@ -96,11 +97,11 @@ func it2dl(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
 	if err != nil {
 		return 0, err
 	}
-	// close the writer
-	err = w.Close()
-	if err != nil {
-		return 0, err
-	}
+	// // close the writer
+	// err = w.Close()
+	// if err != nil {
+	// 	return 0, err
+	// }
 
 	return int64(preWritten), nil
 }
