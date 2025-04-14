@@ -8,10 +8,10 @@ import (
 
 func init() {
 	singleRegister("fpc", wfpc, withDescription("compress 64bit floats"),
-		withCategory("compress"),
+		withCategory("specific compress"),
 	)
 	singleRegister("unfpc", rfpc, withDescription("decompress 64bit floats"),
-		withCategory("decompress"),
+		withCategory("specific decompress"),
 	)
 }
 
