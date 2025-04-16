@@ -1,5 +1,4 @@
-//go:build !fileonly
-// +build !fileonly
+//go:build !fileonly && gcp
 
 package openers
 
