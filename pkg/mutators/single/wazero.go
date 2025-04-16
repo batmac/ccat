@@ -1,3 +1,6 @@
+//go:build plugins
+// +build plugins
+
 package mutators
 
 import (
@@ -15,10 +18,8 @@ import (
 	// "github.com/tetratelabs/wazero/api"
 )
 
-// Yaegi is a mutator that executes a yaegi script
-
 func init() {
-	singleRegister("wasm", wasm, withDescription("a wasi (wasm) module to apply (path as first argument"),
+	singleRegister("wasm", wasm, withDescription("a wasi (wasm) module to apply (path as first argument)"),
 		withConfigBuilder(stdConfigString),
 		withCategory("plugin"),
 	)
