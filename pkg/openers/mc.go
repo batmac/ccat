@@ -30,6 +30,7 @@ var (
 		Endpoint:        "AWS_ENDPOINT",
 		AccessKeyID:     "AWS_ACCESS_KEY_ID",
 		SecretAccessKey: "AWS_SECRET_ACCESS_KEY",
+		SessionToken:    "AWS_SESSION_TOKEN",
 	}
 	lastResortEndpoint = "s3.amazonaws.com"
 )
@@ -39,6 +40,7 @@ type Config struct {
 	Endpoint        string `json:"url"`
 	AccessKeyID     string `json:"accessKey"`
 	SecretAccessKey string `json:"secretKey"`
+	SessionToken    string `json:"sessionToken"`
 }
 
 type mcOpener struct {
@@ -63,6 +65,8 @@ func (f mcOpener) Description() string {
 func (f mcOpener) Evaluate(s string) float32 {
 	if strings.HasPrefix(s, "mc://") {
 		return 0.99
+	} else if strings.HasPrefix(s, "s3://") {
+		return 0.95
 	}
 	return 0
 }
@@ -70,13 +74,32 @@ func (f mcOpener) Evaluate(s string) float32 {
 func (f mcOpener) Open(s string, _ bool) (io.ReadCloser, error) {
 	ctx := context.Background()
 
-	alias, bucket, object := parseMcURI(s)
-	log.Debugf("request to get '%s' in '%s' from alias '%s'\n", object, bucket, alias)
+	var alias, bucket, object string
+	var c Config
 
-	log.Debugf(" creating client...\n")
+	if strings.HasPrefix(s, "s3://") {
+		// s3://bucket/object compat
+		bucket, object = parseS3URIcompat(s)
+		log.Debugf("request to get %s in %s\n", object, bucket)
+		c = Config{
+			Endpoint:        "s3.amazonaws.com",
+			AccessKeyID:     os.Getenv(EnvVar.AccessKeyID),
+			SecretAccessKey: os.Getenv(EnvVar.SecretAccessKey),
+		}
+		c = mergeConfig(c, getConfigFromFallback())
 
-	c := getConfig(alias)
+	} else if strings.HasPrefix(s, "mc://") {
+		alias, bucket, object = parseMcURI(s)
+		log.Debugf("request to get '%s' in '%s' from alias '%s'\n", object, bucket, alias)
+
+		log.Debugf(" creating client...\n")
+
+		c = getConfig(alias)
+	} else {
+		log.Fatalf("unknown prefix '%s'\n", s)
+	}
 	log.Debugf("config: %+v\n", c)
+
 	useSSL := !globalctx.GetBool("insecure")
 
 	if c == (Config{}) {
@@ -93,7 +116,7 @@ func (f mcOpener) Open(s string, _ bool) (io.ReadCloser, error) {
 	}
 
 	minioClient, err := minio.New(c.Endpoint, &minio.Options{
-		Creds:  credentials.NewStaticV4(c.AccessKeyID, c.SecretAccessKey, ""),
+		Creds:  credentials.NewStaticV4(c.AccessKeyID, c.SecretAccessKey, c.SessionToken),
 		Secure: useSSL,
 	})
 	if err != nil {
@@ -108,6 +131,13 @@ func (f mcOpener) Open(s string, _ bool) (io.ReadCloser, error) {
 	}
 
 	return o, nil
+}
+
+func parseS3URIcompat(s string) (string, string) {
+	s = strings.TrimPrefix(s, "s3://")
+	pair := strings.SplitN(s, "/", 2)
+	// bucket, object
+	return pair[0], pair[1]
 }
 
 func parseMcURI(s string) (string, string, string) {
@@ -137,6 +167,9 @@ func mergeConfig(c, c2 Config) Config {
 	}
 	if len(c2.SecretAccessKey) > 0 {
 		c1.SecretAccessKey = c2.SecretAccessKey
+	}
+	if len(c2.SessionToken) > 0 {
+		c1.SessionToken = c2.SessionToken
 	}
 	// log.Debugf("merged %+v\n", c1)
 	return c1
@@ -168,7 +201,7 @@ func getConfigFromMCFile(alias string) Config {
 
 	if a, ok := conf.Aliases[alias]; ok {
 		log.Debugf("found a config for '%s' in mc config (version %s)\n", alias, conf.Version)
-		return Config{stringutils.RemoveScheme(a.Endpoint), a.AccessKeyID, a.SecretAccessKey}
+		return Config{stringutils.RemoveScheme(a.Endpoint), a.AccessKeyID, a.SecretAccessKey, a.SessionToken}
 	}
 
 	return Config{}
@@ -203,5 +236,6 @@ func getConfigFromFallback() Config {
 		Endpoint:        os.Getenv(EnvVar.Endpoint),
 		AccessKeyID:     os.Getenv(EnvVar.AccessKeyID),
 		SecretAccessKey: os.Getenv(EnvVar.SecretAccessKey),
+		SessionToken:    os.Getenv(EnvVar.SessionToken),
 	}
 }
