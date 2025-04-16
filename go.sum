@@ -108,8 +108,8 @@ github.com/cncf/xds/go v0.0.0-20250326154945-ae57f3c0d45f h1:C5bqEmzEPLsHm9Mv73l
 github.com/cncf/xds/go v0.0.0-20250326154945-ae57f3c0d45f/go.mod h1:W+zGtBO5Y1IgJhy4+A9GOqVhqLpfZi+vwmdNXUehLA8=
 github.com/cosnicolaou/pbzip2 v1.0.5 h1:+PZ8yRBx6bRXncOJWQvEThyFm8XhF9Yb6WUMN6KsgrA=
 github.com/cosnicolaou/pbzip2 v1.0.5/go.mod h1:uCNfm0iE2wIKGRlLyq31M4toziFprNhEnvueGmh5u3M=
-github.com/creativeprojects/go-selfupdate v1.4.1 h1:bgS6RThbKm9LnuRxGQwKOcu6RIOe/rsfWlDkWnkvkrU=
-github.com/creativeprojects/go-selfupdate v1.4.1/go.mod h1:BRTk+0jZWjqB2Sq0sh9P6MktiieRtoOMpawYDX3+nX0=
+github.com/creativeprojects/go-selfupdate v1.5.0 h1:4zuFafc/qGpymx7umexxth2y2lJXoBR49c3uI0Hr+zU=
+github.com/creativeprojects/go-selfupdate v1.5.0/go.mod h1:Pewm8hY7Xe1ne7P8irVBAFnXjTkRuxbbkMlBeTdumNQ=
 github.com/danieljoos/wincred v1.2.2 h1:774zMFJrqaeYCK2W57BgAem/MLi6mtSE47MB6BOJ0i0=
 github.com/danieljoos/wincred v1.2.2/go.mod h1:w7w4Utbrz8lqeMbDAK0lkNJUv5sAOkFi7nd/ogr0Uh8=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
