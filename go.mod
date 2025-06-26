@@ -55,7 +55,7 @@ require (
 	golang.org/x/term v0.32.0
 	google.golang.org/api v0.238.0
 	howett.net/plist v1.0.1
-	sigs.k8s.io/yaml v1.4.0
+	sigs.k8s.io/yaml v1.5.0
 )
 
 require (
@@ -145,6 +145,7 @@ require (
 	go.opentelemetry.io/otel/sdk v1.36.0 // indirect
 	go.opentelemetry.io/otel/sdk/metric v1.36.0 // indirect
 	go.opentelemetry.io/otel/trace v1.36.0 // indirect
+	go.yaml.in/yaml/v2 v2.4.2 // indirect
 	golang.org/x/crypto v0.39.0 // indirect
 	golang.org/x/image v0.26.0 // indirect
 	golang.org/x/net v0.41.0 // indirect
