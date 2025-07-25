@@ -55,7 +55,7 @@ require (
 	golang.org/x/term v0.33.0
 	google.golang.org/api v0.243.0
 	howett.net/plist v1.0.1
-	sigs.k8s.io/yaml v1.5.0
+	sigs.k8s.io/yaml v1.6.0
 )
 
 require (

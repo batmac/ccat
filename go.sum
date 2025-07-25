@@ -500,5 +500,5 @@ nhooyr.io/websocket v1.8.17 h1:KEVeLJkUywCKVsnLIDlD/5gtayKp8VoCkksHCGGfT9Y=
 nhooyr.io/websocket v1.8.17/go.mod h1:rN9OFWIUwuxg4fR5tELlYC04bXYowCP9GX47ivo2l+c=
 salsa.debian.org/vasudev/gospake2 v0.0.0-20210510093858-d91629950ad1 h1:m65DhEZR/5zbgOGW4sQGDZmIwro+xBGIBQGWm43SlxM=
 salsa.debian.org/vasudev/gospake2 v0.0.0-20210510093858-d91629950ad1/go.mod h1:soKzqXBAtqHTODjyA0VzH2iERtpzN1w65eZUfetn2cQ=
-sigs.k8s.io/yaml v1.5.0 h1:M10b2U7aEUY6hRtU870n2VTPgR5RZiL/I6Lcc2F4NUQ=
-sigs.k8s.io/yaml v1.5.0/go.mod h1:wZs27Rbxoai4C0f8/9urLZtZtF3avA3gKvGyPdDqTO4=
+sigs.k8s.io/yaml v1.6.0 h1:G8fkbMSAFqgEFgh4b1wmtzDnioxFCUgTZhlbj5P9QYs=
+sigs.k8s.io/yaml v1.6.0/go.mod h1:796bPqUfzR/0jLAl6XjHl3Ck7MiyVv8dbTdyT3/pMf4=
