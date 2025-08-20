@@ -2,6 +2,7 @@ package mutators
 
 import (
 	"crypto/sha256"
+	"crypto/sha512"
 	"encoding/hex"
 	"hash"
 	"io"
@@ -21,6 +22,9 @@ var list = []struct {
 	description string
 }{
 	{name: "sha256", description: "compute the sha256 checksum", newHash: sha256.New},
+	{name: "sha224", description: "compute the sha224 checksum", newHash: sha256.New224},
+	{name: "sha512", description: "compute the sha512 checksum", newHash: sha512.New},
+	{name: "sha384", description: "compute the sha384 checksum", newHash: sha512.New384},
 	// {"sha256", "compute the sha256 checksum", ssha256.New()},
 	{name: "xxh64", description: "compute the xxhash64 checksum", newHash: xxh64New},
 	{name: "xxh32", description: "compute the xxhash32 checksum", newHash: xxh32New},
