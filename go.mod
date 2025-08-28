@@ -41,7 +41,7 @@ require (
 	github.com/patrickmn/go-cache v2.1.0+incompatible
 	github.com/pierrec/lz4/v4 v4.1.22
 	github.com/psanford/wormhole-william v1.0.8
-	github.com/rivo/tview v0.0.0-20250625164341-a4a78f1e05cb
+	github.com/rivo/tview v0.42.0
 	github.com/robert-nix/ansihtml v1.0.1
 	github.com/sashabaranov/go-openai v1.41.1
 	github.com/spf13/pflag v1.0.7
