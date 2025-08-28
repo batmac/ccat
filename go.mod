@@ -49,7 +49,7 @@ require (
 	github.com/titanous/json5 v1.0.0
 	github.com/tmc/keyring v0.0.0-20230418032330-0c8bdba76fa8
 	github.com/traefik/yaegi v0.16.1
-	github.com/ulikunitz/xz v0.5.13
+	github.com/ulikunitz/xz v0.5.14
 	github.com/zeebo/xxh3 v1.0.2
 	golang.org/x/exp v0.0.0-20250819193227-8b4c13bb791b
 	golang.org/x/term v0.34.0
