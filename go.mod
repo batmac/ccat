@@ -25,7 +25,7 @@ require (
 	github.com/gage-technologies/mistral-go v1.1.0
 	github.com/gdamore/tcell/v2 v2.9.0
 	github.com/google/generative-ai-go v0.20.1
-	github.com/google/renameio/v2 v2.0.0
+	github.com/google/renameio/v2 v2.0.1
 	github.com/gowebpki/jcs v1.0.1
 	github.com/hbollon/go-edlib v1.7.0
 	github.com/kevinburke/nacl v0.9.0
