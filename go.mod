@@ -23,7 +23,7 @@ require (
 	github.com/eliukblau/pixterm v1.3.2
 	github.com/gabriel-vasile/mimetype v1.4.11
 	github.com/gage-technologies/mistral-go v1.1.0
-	github.com/gdamore/tcell/v2 v2.9.0
+	github.com/gdamore/tcell/v2 v2.10.0
 	github.com/google/generative-ai-go v0.20.1
 	github.com/google/renameio/v2 v2.0.1
 	github.com/gowebpki/jcs v1.0.1
@@ -120,7 +120,7 @@ require (
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/klauspost/cpuid/v2 v2.2.11 // indirect
 	github.com/klauspost/crc32 v1.3.0 // indirect
-	github.com/lucasb-eyer/go-colorful v1.2.0 // indirect
+	github.com/lucasb-eyer/go-colorful v1.3.0 // indirect
 	github.com/mattn/go-runewidth v0.0.16 // indirect
 	github.com/minio/crc64nvme v1.1.0 // indirect
 	github.com/minio/md5-simd v1.1.2 // indirect
