@@ -23,7 +23,7 @@ require (
 	github.com/eliukblau/pixterm v1.3.2
 	github.com/gabriel-vasile/mimetype v1.4.11
 	github.com/gage-technologies/mistral-go v1.1.0
-	github.com/gdamore/tcell/v2 v2.10.0
+	github.com/gdamore/tcell/v2 v2.11.0
 	github.com/google/generative-ai-go v0.20.1
 	github.com/google/renameio/v2 v2.0.1
 	github.com/gowebpki/jcs v1.0.1
@@ -151,7 +151,7 @@ require (
 	golang.org/x/oauth2 v0.33.0 // indirect
 	golang.org/x/sync v0.18.0 // indirect
 	golang.org/x/sys v0.38.0 // indirect
-	golang.org/x/text v0.30.0 // indirect
+	golang.org/x/text v0.31.0 // indirect
 	golang.org/x/time v0.14.0 // indirect
 	google.golang.org/genproto v0.0.0-20250603155806-513f23925822 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20250818200422-3122310a409c // indirect
