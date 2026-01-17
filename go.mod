@@ -39,7 +39,7 @@ require (
 	github.com/mmcdole/gofeed v1.3.0
 	github.com/muesli/reflow v0.3.0
 	github.com/patrickmn/go-cache v2.1.0+incompatible
-	github.com/pierrec/lz4/v4 v4.1.23
+	github.com/pierrec/lz4/v4 v4.1.24
 	github.com/psanford/wormhole-william v1.0.8
 	github.com/rivo/tview v0.42.0
 	github.com/robert-nix/ansihtml v1.0.1
