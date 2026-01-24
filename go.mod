@@ -50,7 +50,7 @@ require (
 	github.com/tmc/keyring v0.0.0-20230418032330-0c8bdba76fa8
 	github.com/traefik/yaegi v0.16.1
 	github.com/ulikunitz/xz v0.5.15
-	github.com/zeebo/xxh3 v1.0.2
+	github.com/zeebo/xxh3 v1.1.0
 	golang.org/x/exp v0.0.0-20250819193227-8b4c13bb791b
 	golang.org/x/term v0.39.0
 	google.golang.org/api v0.262.0
