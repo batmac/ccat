@@ -3,7 +3,7 @@ ci:
 exclude: testdata/|generated|devcontainer\.json
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v5.0.0 # Use the ref you want to point at
+    rev: v6.0.0 # Use the ref you want to point at
     hooks:
       - id: trailing-whitespace
       - id: check-added-large-files
@@ -67,7 +67,7 @@ repos:
         args:
           ["--allow-parallel-runners", "--config=.golangci.yml"]
   - repo: https://github.com/renovatebot/pre-commit-hooks
-    rev: 40.62.1
+    rev: 43.2.1
     hooks:
       - id: renovate-config-validator
   - repo: https://github.com/pre-commit-ci/pre-commit-ci-config
