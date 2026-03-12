@@ -3,7 +3,7 @@ module github.com/batmac/ccat
 go 1.25.0
 
 require (
-	cloud.google.com/go/storage v1.61.0
+	cloud.google.com/go/storage v1.61.1
 	git.sr.ht/~adnano/go-gemini v0.2.6
 	github.com/JohannesKaufmann/html-to-markdown v1.6.0
 	github.com/OneOfOne/xxhash v1.2.8
@@ -62,7 +62,7 @@ require (
 	cel.dev/expr v0.25.1 // indirect
 	cloud.google.com/go v0.123.0 // indirect
 	cloud.google.com/go/ai v0.8.0 // indirect
-	cloud.google.com/go/auth v0.18.2 // indirect
+	cloud.google.com/go/auth v0.18.3-0.20260310051336-87cdcc9f7568 // indirect
 	cloud.google.com/go/auth/oauth2adapt v0.2.8 // indirect
 	cloud.google.com/go/compute/metadata v0.9.0 // indirect
 	cloud.google.com/go/iam v1.5.3 // indirect
