@@ -2,7 +2,7 @@ module github.com/batmac/ccat/cmd/ccat/_gen
 
 go 1.24.0
 
-toolchain go1.26.2
+toolchain go1.26.3
 
 require mvdan.cc/gofumpt v0.9.2
 
