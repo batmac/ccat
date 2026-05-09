@@ -1,12 +1,9 @@
 module github.com/batmac/ccat/cmd/ccat/_gen
 
-go 1.24.0
+go 1.25.0
 
 toolchain go1.26.3
 
-require mvdan.cc/gofumpt v0.9.2
+require mvdan.cc/gofumpt v0.10.0
 
-require (
-	github.com/google/go-cmp v0.7.0 // indirect
-	golang.org/x/tools v0.38.0 // indirect
-)
+require golang.org/x/tools v0.44.0 // indirect
