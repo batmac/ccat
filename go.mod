@@ -1,6 +1,6 @@
 module github.com/batmac/ccat
 
-go 1.25.0
+go 1.26
 
 require (
 	cloud.google.com/go/storage v1.62.2
@@ -9,7 +9,7 @@ require (
 	github.com/OneOfOne/xxhash v1.2.8
 	github.com/PaesslerAG/jsonpath v0.1.1
 	github.com/aixiansheng/lzfse v0.2.4
-	github.com/alecthomas/chroma/v2 v2.24.1
+	github.com/alecthomas/chroma/v2 v2.25.0
 	github.com/atotto/clipboard v0.1.4
 	github.com/aws/aws-sdk-go-v2 v1.41.7
 	github.com/aws/aws-sdk-go-v2/config v1.32.17
@@ -96,7 +96,7 @@ require (
 	github.com/danieljoos/wincred v1.2.3 // indirect
 	github.com/davidmz/go-pageant v1.0.2 // indirect
 	github.com/disintegration/imaging v1.6.2 // indirect
-	github.com/dlclark/regexp2 v1.12.0 // indirect
+	github.com/dlclark/regexp2/v2 v2.1.0 // indirect
 	github.com/dustin/go-humanize v1.0.1 // indirect
 	github.com/envoyproxy/go-control-plane/envoy v1.37.0 // indirect
 	github.com/envoyproxy/protoc-gen-validate v1.3.3 // indirect
