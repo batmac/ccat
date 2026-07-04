@@ -47,7 +47,7 @@ require (
 	github.com/spf13/pflag v1.0.10
 	github.com/tetratelabs/wazero v1.12.0
 	github.com/titanous/json5 v1.0.0
-	github.com/tmc/keyring v0.0.0-20230418032330-0c8bdba76fa8
+	github.com/tmc/keyring v0.1.0
 	github.com/traefik/yaegi v0.16.1
 	github.com/ulikunitz/xz v0.5.15
 	github.com/zeebo/xxh3 v1.1.0
@@ -107,7 +107,7 @@ require (
 	github.com/go-jose/go-jose/v4 v4.1.4 // indirect
 	github.com/go-logr/logr v1.4.3 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
-	github.com/godbus/dbus/v5 v5.2.0 // indirect
+	github.com/godbus/dbus/v5 v5.2.2 // indirect
 	github.com/google/go-github/v74 v74.0.0 // indirect
 	github.com/google/go-querystring v1.1.0 // indirect
 	github.com/google/s2a-go v0.1.9 // indirect
