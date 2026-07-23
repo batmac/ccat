@@ -1,0 +1,9 @@
+image: alpine/edge
+packages:
+- go
+sources:
+- https://git.sr.ht/~adnano/go-gemini
+tasks:
+- test: |
+    cd go-gemini
+    go test ./...
