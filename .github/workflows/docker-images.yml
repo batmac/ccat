@@ -17,24 +17,46 @@ env:
   GHCR_IMAGE: ghcr.io/batmac/ccat
 
 jobs:
-  # PR / merge-queue check: fast native amd64 build, nothing is pushed
-  docker:
+  # PR / merge-queue check: fast native builds of both platforms, nothing is pushed
+  pr-build:
     if: github.event_name != 'push'
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: linux/amd64
+            runner: ubuntu-latest
+          - platform: linux/arm64
+            runner: ubuntu-24.04-arm
+    runs-on: ${{ matrix.runner }}
     steps:
       - uses: actions/checkout@v7
+
+      - name: Prepare
+        run: |
+          platform=${{ matrix.platform }}
+          echo "PLATFORM_PAIR=${platform//\//-}" >> "$GITHUB_ENV"
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4
 
-      - name: Build (amd64 only, no push)
+      - name: Build (no push)
         uses: docker/build-push-action@v7
         with:
           context: .
-          platforms: linux/amd64
+          platforms: ${{ matrix.platform }}
           push: false
-          cache-from: type=gha,scope=linux-amd64
-          cache-to: type=gha,mode=max,scope=linux-amd64
+          cache-from: type=gha,scope=${{ env.PLATFORM_PAIR }}
+          cache-to: type=gha,mode=max,scope=${{ env.PLATFORM_PAIR }}
+
+  # gate job keeping the required status-check context named "docker"
+  docker:
+    if: ${{ !cancelled() && github.event_name != 'push' }}
+    needs: pr-build
+    runs-on: ubuntu-latest
+    steps:
+      - name: All platform builds succeeded
+        run: test "${{ needs.pr-build.result }}" = "success"
 
   # main/tags: build each platform natively and push by digest
   build:
