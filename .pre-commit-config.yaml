@@ -1,6 +1,8 @@
 ci:
   # renovate-config-validator's hook env exceeds pre-commit.ci's 250MiB tier
   skip: ["golangci-lint", "renovate-config-validator"]
+  # hook updates are owned by Renovate (weekly, grouped); keep pre-commit.ci quiet
+  autoupdate_schedule: quarterly
 exclude: testdata/|generated|devcontainer\.json
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks

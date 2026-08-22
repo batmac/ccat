@@ -3,15 +3,16 @@ WORKDIR /usr/src/app
 COPY go.mod go.sum ./
 # hadolint ignore=DL3018
 RUN apk upgrade --no-cache \
-    && apk add --no-cache build-base pkgconf curl-dev git bash \
-    && go install github.com/magefile/mage@latest
+    && apk add --no-cache build-base pkgconf curl-dev git bash
 # populate the module cache in its own layer, invalidated only by go.mod/go.sum
 RUN go mod download
 COPY . .
-ENV CGO_ENABLED 1
-RUN go version && mage buildFull
+ENV CGO_ENABLED=1
+# zero-install mage: version pinned by go.mod instead of @latest
+# hadolint ignore=DL3062
+RUN go version && go run magefiles/mage.go buildFull
 
-FROM alpine:20250108
+FROM alpine:3.22
 # hadolint ignore=DL3018
 RUN apk upgrade --no-cache && apk add --no-cache libcurl tini
 COPY "entrypoint.sh" "/entrypoint.sh"

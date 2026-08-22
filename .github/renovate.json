@@ -3,7 +3,11 @@
   "dependencyDashboardAutoclose": true,
   "extends": [
     "config:recommended",
-    ":rebaseStalePrs"
+    ":rebaseStalePrs",
+    "schedule:weekly",
+    "group:allNonMajor",
+    "helpers:pinGitHubActionDigests",
+    "docker:pinDigests"
   ],
   "labels": [
     "renovate"
@@ -49,6 +53,16 @@
       "digest": {
         "dependencyDashboardApproval": true
       }
+    },
+    {
+      "matchManagers": [
+        "gomod"
+      ],
+      "matchDepTypes": [
+        "indirect"
+      ],
+      "enabled": true,
+      "groupName": "go indirect dependencies"
     },
     {
       "groupName": "aws-go-sdk-v2 monorepo",
