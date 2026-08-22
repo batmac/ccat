@@ -83,6 +83,6 @@
     "gomodTidy"
   ],
   "prHourlyLimit": 3,
-  "minimumReleaseAge": "1 day",
+  "minimumReleaseAge": "7 days",
   "timezone": "Europe/Paris"
 }
