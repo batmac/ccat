@@ -1,5 +1,4 @@
 //go:build !fileonly
-// +build !fileonly
 
 package openers
 
@@ -110,8 +109,8 @@ func (s *sseReadCloser) Read(p []byte) (int, error) {
 		}
 
 		// Only output data lines
-		if strings.HasPrefix(line, "data:") {
-			eventData := strings.TrimSpace(strings.TrimPrefix(line, "data:"))
+		if after, ok := strings.CutPrefix(line, "data:"); ok {
+			eventData := strings.TrimSpace(after)
 			s.buf.WriteString(eventData)
 			s.buf.WriteString("\n")
 			return s.buf.Read(p)

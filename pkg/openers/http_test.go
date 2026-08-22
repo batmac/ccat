@@ -1,5 +1,4 @@
 //go:build !fileonly
-// +build !fileonly
 
 package openers_test
 
@@ -29,7 +28,7 @@ func init() {
 
 	go func() {
 		// find an available port
-		for i := 0; i < 100; i++ {
+		for range 100 {
 			m.Lock()
 			portTest = 10000 + rand.Intn(55000) //#nosec G404
 			m.Unlock()
@@ -38,7 +37,7 @@ func init() {
 	}()
 	go func() {
 		// find an available port
-		for i := 0; i < 100; i++ {
+		for range 100 {
 			m.Lock()
 			insecurePortTest = 10000 + rand.Intn(55000) //#nosec G404
 			m.Unlock()

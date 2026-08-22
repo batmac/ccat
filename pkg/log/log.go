@@ -15,7 +15,7 @@ var (
 	Stderr = &Logger{Logger: log.New(os.Stderr, "", flags)}
 
 	DebugIsDiscard  int32
-	continueOnFatal int32
+	continueOnFatal atomic.Int32
 )
 
 func init() {
@@ -66,14 +66,14 @@ func Println(v ...any) {
 
 func Fatal(v ...any) {
 	Stderr.Output(2, fmt.Sprint(v...))
-	if atomic.LoadInt32(&continueOnFatal) <= 0 {
+	if continueOnFatal.Load() <= 0 {
 		os.Exit(1)
 	}
 }
 
 func Fatalf(format string, v ...any) {
 	Stderr.Output(2, fmt.Sprintf(format, v...))
-	if atomic.LoadInt32(&continueOnFatal) <= 0 {
+	if continueOnFatal.Load() <= 0 {
 		os.Exit(1)
 	}
 }
@@ -91,5 +91,5 @@ func Pp(data any) string {
 }
 
 func SetContinueOnFatal() {
-	atomic.StoreInt32(&continueOnFatal, 1)
+	continueOnFatal.Store(1)
 }
