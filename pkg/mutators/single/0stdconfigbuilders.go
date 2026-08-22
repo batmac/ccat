@@ -1,12 +1,27 @@
 package mutators
 
 import (
+	"math"
 	"strconv"
 	"strings"
 
 	"github.com/batmac/ccat/pkg/mutators"
 	"github.com/batmac/ccat/pkg/stringutils"
 )
+
+// cfgInt converts a config value produced by stdConfigUint64WithDefault to
+// int, decoding the two's-complement encoding used for negative arguments
+// (e.g. gzip's default level ^uint64(0) means -1) and clamping to the int32
+// range so the result is the same on 32-bit and 64-bit platforms.
+func cfgInt(c any) int {
+	i := int64(c.(uint64)) // #nosec G115 -- deliberate two's-complement decode of "-n" args
+	if i > math.MaxInt32 {
+		i = math.MaxInt32
+	} else if i < math.MinInt32 {
+		i = math.MinInt32
+	}
+	return int(i)
+}
 
 func stdConfigHumanSizeAsInt64(args []string) (any, error) {
 	if len(args) != 1 {

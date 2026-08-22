@@ -38,7 +38,7 @@ func unzstd(out io.WriteCloser, in io.ReadCloser, _ any) (int64, error) {
 }
 
 func czstd(out io.WriteCloser, in io.ReadCloser, conf any) (int64, error) {
-	encoderLvl := zstd.EncoderLevelFromZstd(int(conf.(uint64)))
+	encoderLvl := zstd.EncoderLevelFromZstd(cfgInt(conf))
 	log.Debugf("zstd compression level: %d (-> %v)\n", conf.(uint64), encoderLvl)
 	e, err := zstd.NewWriter(out, zstd.WithEncoderLevel(encoderLvl))
 	if err != nil {

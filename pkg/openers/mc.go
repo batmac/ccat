@@ -26,7 +26,8 @@ var (
 	mcOpenerDescription = "get a Minio-compatible object via mc:// (use ~/.mc/config.json or env for credentials)"
 
 	mcConfigPath = "/.mc/config.json"
-	EnvVar       = Config{
+	// #nosec G101 -- environment variable names, not credentials
+	EnvVar = Config{
 		Endpoint:        "AWS_ENDPOINT",
 		AccessKeyID:     "AWS_ACCESS_KEY_ID",
 		SecretAccessKey: "AWS_SECRET_ACCESS_KEY",

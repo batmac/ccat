@@ -17,7 +17,7 @@ func init() {
 }
 
 func cminlz(out io.WriteCloser, in io.ReadCloser, c any) (int64, error) {
-	compressionLevel := int(c.(uint64))
+	compressionLevel := cfgInt(c)
 	d := minlz.NewWriter(out, minlz.WriterLevel(compressionLevel))
 	n, err := io.Copy(d, in)
 	d.Close()

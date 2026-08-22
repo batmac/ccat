@@ -60,7 +60,7 @@ func unzlib(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 }
 
 func cgzip(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
-	lvl := int(config.(uint64))
+	lvl := cfgInt(config)
 	// log.Printf("compression level: %d", lvl)
 	zw, err := gzip.NewWriterLevel(w, lvl)
 	if err != nil {
@@ -72,7 +72,7 @@ func cgzip(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
 }
 
 func czlib(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
-	lvl := int(config.(uint64))
+	lvl := cfgInt(config)
 	log.Debugf("compression level: %d", lvl)
 	zw, err := zlib.NewWriterLevel(w, lvl)
 	if err != nil {

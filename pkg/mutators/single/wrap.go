@@ -28,7 +28,7 @@ func init() {
 }
 
 func wordWrap(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
-	WrapMaxChars := int(config.(uint64))
+	WrapMaxChars := cfgInt(config)
 	ww := wordwrap.NewWriter(WrapMaxChars)
 	if _, err := io.Copy(ww, r); err != nil { // streamable?
 		return 0, err
@@ -38,7 +38,7 @@ func wordWrap(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
 }
 
 func unconditionalyWrap(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
-	WrapMaxChars := int(config.(uint64))
+	WrapMaxChars := cfgInt(config)
 	ww := uwrap.NewWriter(WrapMaxChars)
 	if _, err := io.Copy(ww, r); err != nil { // streamable?
 		return 0, err
