@@ -1,7 +1,7 @@
 # See https://github.com/devcontainers/images/tree/main/src/go
 
 # [Choice] Go version: 1, 1.27, 1-bookworm, 1.27-bookworm, ...
-ARG VARIANT="1-bookworm"
+ARG VARIANT="1-bookworm@sha256:30cbde1de62f190904446d8b81dcfd0befcfd60889419edb8872d598be9632cc"
 FROM mcr.microsoft.com/devcontainers/go:${VARIANT}
 
 # [Optional] Uncomment this section to install additional OS packages.
