@@ -13,7 +13,7 @@ func (pcg *PCG32) Next() uint32 {
 	return (xorshifted >> rot) | (xorshifted << ((-rot) & 31))
 }
 
-func NewPCG32(initState uint64, initSeq uint64) *PCG32 {
+func NewPCG32(initState, initSeq uint64) *PCG32 {
 	pcg := &PCG32{0, (initSeq << 1) | 1}
 	pcg.Next()
 	pcg.state += initState

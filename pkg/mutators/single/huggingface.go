@@ -140,7 +140,8 @@ func huggingface(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 			Inputs:     string(input),
 			Parameters: parameters,
 			Options:    map[string]any{"wait_for_model": true},
-		})
+		},
+	)
 	if err != nil {
 		return 0, err
 	}
@@ -185,7 +186,6 @@ func huggingface(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 	return int64(n), err
 }
 
-//nolint:gosec
 func getHuggingFaceToken() (string, string, error) {
 	// HUGGING_FACE_HUB_TOKEN,
 	// then HF_API_KEY,

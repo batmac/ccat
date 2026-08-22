@@ -47,7 +47,7 @@ func wolframalphallm(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 	return wolframalpha(w, r, "llm-api", "input")
 }
 
-func wolframalpha(w io.WriteCloser, r io.ReadCloser, t string, queryField string) (int64, error) {
+func wolframalpha(w io.WriteCloser, r io.ReadCloser, t, queryField string) (int64, error) {
 	baseURL := "https://api.wolframalpha.com/v1/" + t + "?"
 
 	query, err := io.ReadAll(r) // NOT streamable

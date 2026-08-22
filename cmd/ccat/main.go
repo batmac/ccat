@@ -120,7 +120,8 @@ func main() {
 				"",
 				strings.ToLower(*argStyle),
 				strings.ToLower(*argFormatter),
-				"go"))
+				"go",
+			))
 		} else {
 			s = b.String()
 		}

@@ -3,9 +3,7 @@ package mutators
 import (
 	"math"
 	"strconv"
-	"strings"
 
-	"github.com/batmac/ccat/pkg/mutators"
 	"github.com/batmac/ccat/pkg/stringutils"
 )
 
@@ -87,16 +85,6 @@ func stdConfigStrings(amin, amax int) configBuilder {
 
 		return args, nil
 	}
-}
-
-func stdConfigStringJoinsArgs(args []string) (any, error) {
-	if len(args) == 0 {
-		return nil, ErrWrongNumberOfArgs(1, -1, 0) // -1 indicates "at least 1"
-	}
-	// Re-join the parts that were split, using the original separator
-	joinedArg := strings.Join(args, mutators.ArgSeparator)
-	// joinedArg = strings.TrimSpace(joinedArg)
-	return joinedArg, nil
 }
 
 func stdConfigInts(amin, amax int) configBuilder {
