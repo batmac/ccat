@@ -140,13 +140,15 @@ func huggingface(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 			Inputs:     string(input),
 			Parameters: parameters,
 			Options:    map[string]any{"wait_for_model": true},
-		})
+		},
+	)
 	if err != nil {
 		return 0, err
 	}
 
 	log.Debugf("request: %s\n", request)
 
+	// #nosec G704 -- the URL is chosen by the local user (endpoint env var or model argument), like curl
 	req, err := http.NewRequest(http.MethodPost, url, bytes.NewReader(request))
 	if err != nil {
 		return 0, err
@@ -161,7 +163,7 @@ func huggingface(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 		return 0, nil
 	}
 
-	resp, err := http.DefaultClient.Do(req)
+	resp, err := http.DefaultClient.Do(req) // #nosec G704 -- see above, user-chosen URL
 	if err != nil {
 		return 0, err
 	}
@@ -184,16 +186,15 @@ func huggingface(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 	return int64(n), err
 }
 
-//nolint:gosec
 func getHuggingFaceToken() (string, string, error) {
 	// HUGGING_FACE_HUB_TOKEN,
 	// then HF_API_KEY,
 	// then the content of the file $HF_HOME/token
 	// then the content of the file ~/.huggingface/token
 	// and finally the content of the file ~/.cache/huggingface/token
-	token, source := os.Getenv("HUGGING_FACE_HUB_TOKEN"), "HUGGING_FACE_HUB_TOKEN"
+	token, source := os.Getenv("HUGGING_FACE_HUB_TOKEN"), "HUGGING_FACE_HUB_TOKEN" // #nosec G101 -- env var name, not a credential
 	if token == "" {
-		token, source = os.Getenv("HF_API_KEY"), "HF_API_KEY"
+		token, source = os.Getenv("HF_API_KEY"), "HF_API_KEY" // #nosec G101 -- env var name, not a credential
 	}
 	for _, path := range []string{"$HF_HOME/token", "~/.huggingface/token", "~/.cache/huggingface/token"} {
 		if token != "" {

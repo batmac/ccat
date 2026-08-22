@@ -1,16 +1,19 @@
-FROM golang:1.25-alpine as build
+FROM golang:1.27-alpine as build
 WORKDIR /usr/src/app
 # install git for go buildinfo (-B)
 # hadolint ignore=DL3018
 RUN apk upgrade --no-cache \
-    && apk add --no-cache git \
-    && go install github.com/magefile/mage@latest
+    && apk add --no-cache git
+COPY go.mod go.sum ./
+RUN go mod download
 COPY . .
-ENV CGO_ENABLED 0
-RUN go version && mage
+ENV CGO_ENABLED=0
+# zero-install mage: version pinned by go.mod instead of @latest
+# hadolint ignore=DL3062
+RUN go version && go run magefiles/mage.go
 
 # hadolint ignore=DL3006
-FROM gcr.io/distroless/static-debian11
+FROM gcr.io/distroless/static-debian12@sha256:d75cdd72874d4790092fcb1b058493ecf6bb5bf2b2b897045b00ff01d91843f2
 COPY --from=build /usr/src/app/ccat /usr/bin/ccat
 USER 1000
 ENTRYPOINT ["/usr/bin/ccat"]

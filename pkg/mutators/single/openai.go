@@ -76,7 +76,10 @@ func chatgpt(w io.WriteCloser, r io.ReadCloser, conf any) (int64, error) {
 		Messages: []gpt.ChatCompletionMessage{
 			{Role: gpt.ChatMessageRoleUser, Content: prePrompt + string(prompt)},
 		},
-		MaxTokens:        maxTokens,
+		// MaxCompletionTokens is the modern field, but OPENAI_BASE_URL lets
+		// users point ccat at OpenAI-compatible servers (llama.cpp, ollama,
+		// LocalAI...) that only understand max_tokens.
+		MaxTokens:        maxTokens, //nolint:staticcheck // SA1019, see above
 		Temperature:      0,
 		TopP:             0,
 		N:                0,

@@ -5,7 +5,7 @@ import "testing"
 func CheckBytesRandomness(t *testing.T, data []byte) {
 	t.Helper()
 	acc := uint8(0)
-	for i := 0; i < len(data); i++ {
+	for i := range data {
 		acc |= data[i]
 	}
 	if acc != 0xFF {

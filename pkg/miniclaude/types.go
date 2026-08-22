@@ -15,7 +15,7 @@ type Request struct {
 type MessagesResponse struct {
 	ID           string         `json:"id"`
 	Type         string         `json:"type"` // always "message"
-	Error        ErrorBlock     `json:"error,omitempty"`
+	Error        ErrorBlock     `json:"error"`
 	Role         string         `json:"role"` // always "assistant"
 	Content      []ContentBlock `json:"content"`
 	Model        string         `json:"model"`

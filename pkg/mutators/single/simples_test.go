@@ -29,7 +29,7 @@ func Test_discard(t *testing.T) {
 
 func Test_wc(t *testing.T) {
 	tests := []struct {
-		name, input string
+		name, input    string
 		expectedCounts map[string]int64 // mode -> expected count
 	}{
 		{"empty", "", map[string]int64{"b": 0, "r": 0, "w": 0, "l": 0}},
@@ -49,7 +49,7 @@ func Test_wc(t *testing.T) {
 			t.Run(tt.name, func(t *testing.T) {
 				mutatorName := f + ":" + mode
 				got := mutators.Run(mutatorName, tt.input)
-				
+
 				// The output could be either "13\n" or "13.00\n" depending on terminal detection
 				// We'll validate that the numeric value is correct regardless of formatting
 				var actualCount int64
@@ -72,12 +72,12 @@ func Test_wc(t *testing.T) {
 				}
 			})
 		}
-		
+
 		// Test default mode (should be same as 'b' mode)
 		t.Run(tt.name, func(t *testing.T) {
 			expectedCount := tt.expectedCounts["b"]
 			got := mutators.Run(f, tt.input)
-			
+
 			var actualCount int64
 			if n, err := fmt.Sscanf(got, "%d\n", &actualCount); n == 1 && err == nil {
 				if actualCount != expectedCount {

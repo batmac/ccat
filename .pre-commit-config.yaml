@@ -1,5 +1,8 @@
 ci:
-  skip: ["golangci-lint"]
+  # renovate-config-validator's hook env exceeds pre-commit.ci's 250MiB tier
+  skip: ["golangci-lint", "renovate-config-validator"]
+  # hook updates are owned by Renovate (weekly, grouped); keep pre-commit.ci quiet
+  autoupdate_schedule: quarterly
 exclude: testdata/|generated|devcontainer\.json
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -42,7 +45,7 @@ repos:
   # - id: forbid-crlf
   # - id: remove-crlf
   - repo: https://github.com/zricethezav/gitleaks
-    rev: v8.30.0
+    rev: v8.30.1
     hooks:
       - id: gitleaks
   - repo: https://github.com/Bahjat/pre-commit-golang
@@ -79,7 +82,7 @@ repos:
   # hooks:
   # - id: hadolint
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.35.0
+    rev: 0.38.0
     hooks:
       - id: check-github-workflows
       - id: check-dependabot

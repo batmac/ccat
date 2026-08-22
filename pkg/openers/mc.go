@@ -1,5 +1,4 @@
 //go:build !fileonly
-// +build !fileonly
 
 package openers
 
@@ -26,7 +25,8 @@ var (
 	mcOpenerDescription = "get a Minio-compatible object via mc:// (use ~/.mc/config.json or env for credentials)"
 
 	mcConfigPath = "/.mc/config.json"
-	EnvVar       = Config{
+	// #nosec G101 -- environment variable names, not credentials
+	EnvVar = Config{
 		Endpoint:        "AWS_ENDPOINT",
 		AccessKeyID:     "AWS_ACCESS_KEY_ID",
 		SecretAccessKey: "AWS_SECRET_ACCESS_KEY",
@@ -77,7 +77,8 @@ func (f mcOpener) Open(s string, _ bool) (io.ReadCloser, error) {
 	var alias, bucket, object string
 	var c Config
 
-	if strings.HasPrefix(s, "s3://") {
+	switch {
+	case strings.HasPrefix(s, "s3://"):
 		// s3://bucket/object compat
 		bucket, object = parseS3URIcompat(s)
 		log.Debugf("request to get %s in %s\n", object, bucket)
@@ -87,15 +88,14 @@ func (f mcOpener) Open(s string, _ bool) (io.ReadCloser, error) {
 			SecretAccessKey: os.Getenv(EnvVar.SecretAccessKey),
 		}
 		c = mergeConfig(c, getConfigFromFallback())
-
-	} else if strings.HasPrefix(s, "mc://") {
+	case strings.HasPrefix(s, "mc://"):
 		alias, bucket, object = parseMcURI(s)
 		log.Debugf("request to get '%s' in '%s' from alias '%s'\n", object, bucket, alias)
 
 		log.Debugf(" creating client...\n")
 
 		c = getConfig(alias)
-	} else {
+	default:
 		log.Fatalf("unknown prefix '%s'\n", s)
 	}
 	log.Debugf("config: %+v\n", c)

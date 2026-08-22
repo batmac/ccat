@@ -107,7 +107,7 @@ stream:
 		if eventName == "error" {
 			log.Printf("error: %s", eventData)
 		}
-		var d map[string]interface{}
+		var d map[string]any
 		err = json.Unmarshal([]byte(eventData), &d)
 		if err != nil {
 			log.Debugf("error unmarshalling: %s\n%s\n", err, eventData)

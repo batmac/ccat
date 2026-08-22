@@ -1,5 +1,4 @@
 //go:build !nohl
-// +build !nohl
 
 package completion
 

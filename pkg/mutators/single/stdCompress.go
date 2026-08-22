@@ -41,10 +41,8 @@ func ungzip(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 }
 
 func bunzip2(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
+	// bzip2.NewReader never returns nil, there is nothing to check here
 	bzr := bzip2.NewReader(r)
-	if bzr == nil {
-		log.Fatal("bzip2 decompressor failed to init")
-	}
 	//#nosec
 	return io.Copy(w, bzr)
 }
@@ -60,7 +58,7 @@ func unzlib(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 }
 
 func cgzip(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
-	lvl := int(config.(uint64))
+	lvl := cfgInt(config)
 	// log.Printf("compression level: %d", lvl)
 	zw, err := gzip.NewWriterLevel(w, lvl)
 	if err != nil {
@@ -72,7 +70,7 @@ func cgzip(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
 }
 
 func czlib(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
-	lvl := int(config.(uint64))
+	lvl := cfgInt(config)
 	log.Debugf("compression level: %d", lvl)
 	zw, err := zlib.NewWriterLevel(w, lvl)
 	if err != nil {

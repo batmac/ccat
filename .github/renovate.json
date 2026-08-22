@@ -3,7 +3,11 @@
   "dependencyDashboardAutoclose": true,
   "extends": [
     "config:recommended",
-    ":rebaseStalePrs"
+    ":rebaseStalePrs",
+    "schedule:weekly",
+    "group:allNonMajor",
+    "helpers:pinGitHubActionDigests",
+    "docker:pinDigests"
   ],
   "labels": [
     "renovate"
@@ -32,12 +36,43 @@
       ]
     },
     {
+      "groupName": "github actions (major)",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "automerge": true,
+      "dependencyDashboardApproval": false
+    },
+    {
       "matchManagers": [
         "gomod"
       ],
       "digest": {
         "dependencyDashboardApproval": true
       }
+    },
+    {
+      "matchManagers": [
+        "gomod"
+      ],
+      "matchDepTypes": [
+        "indirect"
+      ],
+      "enabled": true,
+      "groupName": "go indirect dependencies"
+    },
+    {
+      "description": "constrained by the deprecated github.com/google/generative-ai-go, whose build breaks against newer go/ai; remove after migrating to google.golang.org/genai",
+      "matchManagers": [
+        "gomod"
+      ],
+      "matchPackageNames": [
+        "cloud.google.com/go/ai"
+      ],
+      "enabled": false
     },
     {
       "groupName": "aws-go-sdk-v2 monorepo",
@@ -53,11 +88,24 @@
       ]
     }
   ],
+  "customManagers": [
+    {
+      "description": "go run tool pins in the Makefile",
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/^Makefile$/"
+      ],
+      "matchStrings": [
+        "(?<depName>[a-z0-9./-]+(?:\\.[a-z]{2,})[^\\s@]*)@(?<currentValue>v[0-9][^\\s]*)"
+      ],
+      "datasourceTemplate": "go"
+    }
+  ],
   "postUpdateOptions": [
     "gomodUpdateImportPaths",
     "gomodTidy"
   ],
   "prHourlyLimit": 3,
-  "minimumReleaseAge": "1 day",
+  "minimumReleaseAge": "7 days",
   "timezone": "Europe/Paris"
 }
