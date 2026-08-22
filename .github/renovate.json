@@ -1,5 +1,12 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": [
+    "Update policy for this repo, in one place. Renovate opens one grouped batch of PRs on Monday mornings (Europe/Paris).",
+    "Minor, patch and digest updates merge themselves once the required checks are green. Majors do not: they wait for you to tick their box on the Dependency Dashboard (issue #10), and merge once you do.",
+    "Nothing is proposed until it has been public for 7 days (minimumReleaseAge), which is the main defence against a compromised or yanked release.",
+    "GitHub Actions and Docker base images are pinned to digests, so a moving tag cannot change what CI runs without a PR.",
+    "Every packageRule below carries a description saying why it exists; keep it that way, and delete a rule rather than leaving it unexplained."
+  ],
   "dependencyDashboardAutoclose": true,
   "extends": [
     "config:recommended",
@@ -20,6 +27,7 @@
   },
   "packageRules": [
     {
+      "description": "the routine case: low-risk updates merge themselves once the required checks pass. The 7-day minimumReleaseAge and the test matrix are the gate here, not human review.",
       "automerge": true,
       "matchUpdateTypes": [
         "minor",
@@ -30,6 +38,7 @@
       ]
     },
     {
+      "description": "majors can break the build or change behaviour, so they wait for a human to tick their box on the Dependency Dashboard (issue #10). automerge still applies afterwards: approving on the dashboard IS the approval, and the PR merges once checks are green.",
       "automerge": true,
       "dependencyDashboardApproval": true,
       "matchUpdateTypes": [
@@ -37,6 +46,7 @@
       ]
     },
     {
+      "description": "the exception to the rule above. Action majors are almost always a runner or Node runtime bump rather than a behaviour change, they are covered by every workflow running on the PR itself, and the digests are pinned, so waiting on a human buys nothing.",
       "groupName": "github actions (major)",
       "matchManagers": [
         "github-actions"
@@ -48,14 +58,7 @@
       "dependencyDashboardApproval": false
     },
     {
-      "matchManagers": [
-        "gomod"
-      ],
-      "digest": {
-        "dependencyDashboardApproval": true
-      }
-    },
-    {
+      "description": "Renovate ignores indirect Go dependencies unless told otherwise, so 'enabled' here is load-bearing, not a no-op. Grouping them keeps transitive churn to a single PR.",
       "matchManagers": [
         "gomod"
       ],
@@ -89,6 +92,7 @@
       "enabled": false
     },
     {
+      "description": "the AWS SDK ships a release most weekdays and splits into ~15 modules, so the default schedule would bury every other update. Monthly, grouped, is enough for an S3 opener.",
       "groupName": "aws-go-sdk-v2 monorepo",
       "groupSlug": "aws-go-sdk-v2",
       "matchDatasources": [
