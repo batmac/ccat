@@ -66,6 +66,19 @@
       "groupName": "go indirect dependencies"
     },
     {
+      "description": "a Go major bump is an import-path change, so for an indirect dep it can only happen inside the parent module; nothing here can act on it",
+      "matchManagers": [
+        "gomod"
+      ],
+      "matchDepTypes": [
+        "indirect"
+      ],
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "enabled": false
+    },
+    {
       "description": "constrained by the deprecated github.com/google/generative-ai-go, whose build breaks against newer go/ai; remove after migrating to google.golang.org/genai",
       "matchManagers": [
         "gomod"
