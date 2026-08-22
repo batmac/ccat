@@ -1,5 +1,6 @@
 ci:
-  skip: ["golangci-lint"]
+  # renovate-config-validator's hook env exceeds pre-commit.ci's 250MiB tier
+  skip: ["golangci-lint", "renovate-config-validator"]
 exclude: testdata/|generated|devcontainer\.json
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
