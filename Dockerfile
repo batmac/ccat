@@ -5,6 +5,8 @@ COPY go.mod go.sum ./
 RUN apk upgrade --no-cache \
     && apk add --no-cache build-base pkgconf curl-dev git bash \
     && go install github.com/magefile/mage@latest
+# populate the module cache in its own layer, invalidated only by go.mod/go.sum
+RUN go mod download
 COPY . .
 ENV CGO_ENABLED 1
 RUN go version && mage buildFull
