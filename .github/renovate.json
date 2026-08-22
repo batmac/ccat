@@ -25,6 +25,7 @@
         "minor",
         "patch",
         "pin",
+        "pinDigest",
         "digest"
       ]
     },
