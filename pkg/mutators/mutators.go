@@ -40,13 +40,12 @@ type Factory interface {
 }
 
 type mutatorCollection struct {
-	factories    map[string]Factory
-	aliases      map[string]string
-	logger       *log.Logger
-	Name         string
-	mutators     []Mutator
-	argSeparator string
-	mu           sync.Mutex
+	factories map[string]Factory
+	aliases   map[string]string
+	logger    *log.Logger
+	Name      string
+	mutators  []Mutator
+	mu        sync.Mutex
 }
 
 func newCollection(name string, logger *log.Logger) *mutatorCollection {
@@ -73,7 +72,7 @@ func RegisterFactory(name string, factory Factory) error {
 	return nil
 }
 
-func RegisterAlias(name string, alias string) error {
+func RegisterAlias(name, alias string) error {
 	globalCollection.mu.Lock()
 	defer globalCollection.mu.Unlock()
 	// forbid overwriting an existing alias

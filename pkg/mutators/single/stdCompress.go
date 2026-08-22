@@ -41,10 +41,8 @@ func ungzip(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 }
 
 func bunzip2(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
+	// bzip2.NewReader never returns nil, there is nothing to check here
 	bzr := bzip2.NewReader(r)
-	if bzr == nil {
-		log.Fatal("bzip2 decompressor failed to init")
-	}
 	//#nosec
 	return io.Copy(w, bzr)
 }

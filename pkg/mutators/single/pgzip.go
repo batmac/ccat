@@ -46,16 +46,17 @@ func cpgzip(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
 	}
 	defer zw.Close()
 
+	// return instead of log.Fatal: exiting here would skip the deferred Close
 	switch len(args) {
 	case 2:
 		log.Debugf("setting block size: %d", args[1])
 		if err := zw.SetConcurrency(args[1], runtime.GOMAXPROCS(0)); err != nil {
-			log.Fatal(err)
+			return 0, err
 		}
 	case 3:
 		log.Debugf("setting block size: %d, blocks: %d", args[1], args[2])
 		if err := zw.SetConcurrency(args[1], args[2]); err != nil {
-			log.Fatal(err)
+			return 0, err
 		}
 	}
 

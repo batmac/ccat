@@ -148,7 +148,7 @@ func TestScanWords(t *testing.T) {
 	testScanWords(t, text, words)
 }
 
-func testScanBytes(t *testing.T, text []byte, tokens []byte) {
+func testScanBytes(t *testing.T, text, tokens []byte) {
 	t.Helper()
 	buf := bytes.NewReader(text)
 	s := bufio.NewScanner(&slowReader{7, buf})

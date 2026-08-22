@@ -43,7 +43,7 @@ func (f sseOpener) Open(s string, _ bool) (io.ReadCloser, error) {
 	// Convert sse:// to https://
 	url := strings.Replace(s, "sse://", "https://", 1)
 
-	req, err := http.NewRequest("GET", url, nil)
+	req, err := http.NewRequest(http.MethodGet, url, nil)
 	if err != nil {
 		return nil, err
 	}

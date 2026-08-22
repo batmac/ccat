@@ -29,7 +29,7 @@ func Test_discard(t *testing.T) {
 
 func Test_wc(t *testing.T) {
 	tests := []struct {
-		name, input string
+		name, input    string
 		expectedCounts map[string]int64 // mode -> expected count
 	}{
 		{"empty", "", map[string]int64{"b": 0, "r": 0, "w": 0, "l": 0}},

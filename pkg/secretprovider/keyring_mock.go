@@ -12,7 +12,7 @@ import (
 var (
 	IsKeystoreAvailable = false
 	ErrNotCompiled      = errors.New("keystore not compiled in")
-	ErrNotFound         = errors.New("Not Found")
+	ErrNotFound         = errors.New("not found")
 )
 
 func SetSecret(name, _ string) error {

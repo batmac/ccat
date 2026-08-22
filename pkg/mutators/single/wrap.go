@@ -17,13 +17,16 @@ const (
 
 func init() {
 	singleRegister("wrap", wordWrap, withDescription(
-		fmt.Sprintf("word-wrap the text (to X:%d chars maximum)", WrapMaxChars)),
+		fmt.Sprintf("word-wrap the text (to X:%d chars maximum)", WrapMaxChars),
+	),
 		withConfigBuilder(stdConfigUint64WithDefault(WrapMaxChars)))
 	singleRegister("wrapU", unconditionalyWrap, withDescription(
-		fmt.Sprintf("unconditionally wrap the text (to X:%d chars maximum)", WrapMaxChars)),
+		fmt.Sprintf("unconditionally wrap the text (to X:%d chars maximum)", WrapMaxChars),
+	),
 		withConfigBuilder(stdConfigUint64WithDefault(WrapMaxChars)))
 	singleRegister("indent", singleIndent, withDescription(
-		fmt.Sprintf("indent the text (with X:%d chars)", IndentChars)),
+		fmt.Sprintf("indent the text (with X:%d chars)", IndentChars),
+	),
 		withConfigBuilder(stdConfigUint64WithDefault(IndentChars)))
 }
 
