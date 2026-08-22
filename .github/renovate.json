@@ -32,6 +32,17 @@
       ]
     },
     {
+      "groupName": "github actions (major)",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "automerge": true,
+      "dependencyDashboardApproval": false
+    },
+    {
       "matchManagers": [
         "gomod"
       ],
