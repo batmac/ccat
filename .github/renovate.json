@@ -65,6 +65,16 @@
       "groupName": "go indirect dependencies"
     },
     {
+      "description": "constrained by the deprecated github.com/google/generative-ai-go, whose build breaks against newer go/ai; remove after migrating to google.golang.org/genai",
+      "matchManagers": [
+        "gomod"
+      ],
+      "matchPackageNames": [
+        "cloud.google.com/go/ai"
+      ],
+      "enabled": false
+    },
+    {
       "groupName": "aws-go-sdk-v2 monorepo",
       "groupSlug": "aws-go-sdk-v2",
       "matchDatasources": [
