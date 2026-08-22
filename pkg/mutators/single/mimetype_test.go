@@ -23,7 +23,7 @@ func Test_mt(t *testing.T) {
 		{"bzip2", "BZh", "application/x-bzip2"},
 		{"zip", "\x50\x4b\x03\x04", "application/zip"},
 		{"jpg", "\xff\xd8\xff", "image/jpeg"},
-		{"mp3", "ID3", "audio/mpeg"},
+		{"mp3", "\xff\xfb\x90\x00\x00\x00\x00\x00", "audio/mpeg"},
 		{"rpm", "\xed\xab\xee\xdb", "application/x-rpm"},
 		{"swf", "FWS", "application/x-shockwave-flash"},
 		{"zstd", "\x28\xb5\x2f\xfd", "application/zstd"},
