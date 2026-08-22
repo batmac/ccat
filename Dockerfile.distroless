@@ -3,14 +3,16 @@ WORKDIR /usr/src/app
 # install git for go buildinfo (-B)
 # hadolint ignore=DL3018
 RUN apk upgrade --no-cache \
-    && apk add --no-cache git \
-    && go install github.com/magefile/mage@latest
+    && apk add --no-cache git
+COPY go.mod go.sum ./
+RUN go mod download
 COPY . .
-ENV CGO_ENABLED 0
-RUN go version && mage
+ENV CGO_ENABLED=0
+# zero-install mage: version pinned by go.mod instead of @latest
+RUN go version && go run magefiles/mage.go
 
 # hadolint ignore=DL3006
-FROM gcr.io/distroless/static-debian11
+FROM gcr.io/distroless/static-debian12
 COPY --from=build /usr/src/app/ccat /usr/bin/ccat
 USER 1000
 ENTRYPOINT ["/usr/bin/ccat"]
