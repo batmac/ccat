@@ -1,5 +1,4 @@
 //go:build !fileonly
-// +build !fileonly
 
 package openers
 
@@ -15,7 +14,7 @@ import (
 )
 
 var (
-	clipboardOpenerName        = "clipboard"
+	clipboardOpenerName        = "cb"
 	clipboardOpenerDescription = "get content from the system clipboard via cb://"
 )
 
