@@ -12,7 +12,7 @@ ENV CGO_ENABLED=1
 # hadolint ignore=DL3062
 RUN go version && go run magefiles/mage.go buildFull
 
-FROM alpine:3.22
+FROM alpine:3.24@sha256:28bd5fe8b56d1bd048e5babf5b10710ebe0bae67db86916198a6eec434943f8b
 # hadolint ignore=DL3018
 RUN apk upgrade --no-cache && apk add --no-cache libcurl tini
 COPY "entrypoint.sh" "/entrypoint.sh"
