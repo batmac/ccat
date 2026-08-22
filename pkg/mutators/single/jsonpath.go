@@ -26,7 +26,7 @@ func jSONPath(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
 		return 0, err
 	}
 
-	var v interface{}
+	var v any
 	if err := json.Unmarshal(buf, &v); err != nil {
 		return 0, err
 	}

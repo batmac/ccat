@@ -1,5 +1,4 @@
 //go:build !fileonly
-// +build !fileonly
 
 package openers
 
@@ -39,10 +38,10 @@ func (f wormholeOpener) Description() string {
 }
 
 func (f wormholeOpener) Open(code string, _ bool) (io.ReadCloser, error) {
-	if strings.HasPrefix(code, "wormhole://") {
-		code = strings.TrimPrefix(code, "wormhole://")
-	} else if strings.HasPrefix(code, "wh://") {
-		code = strings.TrimPrefix(code, "wh://")
+	if after, ok := strings.CutPrefix(code, "wormhole://"); ok {
+		code = after
+	} else if after, ok := strings.CutPrefix(code, "wh://"); ok {
+		code = after
 	}
 
 	var c wormhole.Client

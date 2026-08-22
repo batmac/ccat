@@ -22,7 +22,7 @@ func testNext(t *testing.T, c color.Color) {
 	t.Helper()
 	t.Run("donotpanicplease", func(t *testing.T) {
 		source := "hi"
-		for i := 0; i < 100; i++ {
+		for range 100 {
 			c = c.Next()
 			s := c.Sprint(source)
 			if len(s) <= len(source) {

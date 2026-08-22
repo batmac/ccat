@@ -1,5 +1,4 @@
 //go:build !keystore
-// +build !keystore
 
 package secretprovider
 

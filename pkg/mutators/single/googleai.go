@@ -5,6 +5,7 @@ import (
 	"errors"
 	"io"
 	"os"
+	"strings"
 
 	"github.com/batmac/ccat/pkg/log"
 	"github.com/google/generative-ai-go/genai"
@@ -55,15 +56,15 @@ func googleai(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
 			return 0, err
 		}
 
-		p := ""
+		var p strings.Builder
 		for i, c := range resp.Candidates[0].Content.Parts {
 			log.Debugln("part ", i, ": ", c)
 			if t, ok := c.(genai.Text); ok {
-				p += string(t)
+				p.WriteString(string(t))
 			}
 		}
 
-		n, err := io.WriteString(w, p)
+		n, err := io.WriteString(w, p.String())
 		if err != nil {
 			return 0, err
 		}

@@ -47,7 +47,7 @@ func NDJSONIndent(w io.WriteCloser, r io.ReadCloser, arg any) (int64, error) {
 		}
 
 		// Parse and pretty-print the JSON line
-		var jsonObj interface{}
+		var jsonObj any
 		if err := json.Unmarshal([]byte(line), &jsonObj); err != nil {
 			// If it's not valid JSON, write the line as-is
 			if _, err := fmt.Fprintln(w, line); err != nil {

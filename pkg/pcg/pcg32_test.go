@@ -44,7 +44,7 @@ func TestPCG32Output(t *testing.T) {
 	generated := make(map[uint32]struct{})
 	var firstValue uint32
 	allSame := true
-	for i := 0; i < count; i++ {
+	for i := range count {
 		v := rng.Next()
 		generated[v] = struct{}{}
 		if i == 0 {
