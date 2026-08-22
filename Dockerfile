@@ -9,6 +9,7 @@ RUN go mod download
 COPY . .
 ENV CGO_ENABLED=1
 # zero-install mage: version pinned by go.mod instead of @latest
+# hadolint ignore=DL3062
 RUN go version && go run magefiles/mage.go buildFull
 
 FROM alpine:3.22

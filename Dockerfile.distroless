@@ -9,6 +9,7 @@ RUN go mod download
 COPY . .
 ENV CGO_ENABLED=0
 # zero-install mage: version pinned by go.mod instead of @latest
+# hadolint ignore=DL3062
 RUN go version && go run magefiles/mage.go
 
 # hadolint ignore=DL3006

@@ -11,6 +11,8 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive && apt-get -y upgrad
 
 # [Optional] Uncomment the next lines to use go get to install anything else you need
 USER vscode
+# dev tool: latest is intentional here
+# hadolint ignore=DL3062
 RUN go install mvdan.cc/gofumpt@latest
 
 # [Optional] Uncomment this line to install global node packages.
