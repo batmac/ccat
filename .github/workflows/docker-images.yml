@@ -12,6 +12,9 @@ concurrency:
   group: buildx-${{ github.event.pull_request.number || github.ref_name }}
   cancel-in-progress: false
 
+permissions:
+  contents: read
+
 env:
   DOCKERHUB_IMAGE: batmac/ccat
   GHCR_IMAGE: ghcr.io/batmac/ccat
@@ -61,6 +64,9 @@ jobs:
   # main/tags: build each platform natively and push by digest
   build:
     if: github.event_name == 'push'
+    permissions:
+      contents: read
+      packages: write
     strategy:
       fail-fast: false
       matrix:
@@ -131,6 +137,9 @@ jobs:
   merge:
     if: github.event_name == 'push'
     needs: build
+    permissions:
+      contents: read
+      packages: write
     runs-on: ubuntu-latest
     steps:
       - name: Download digests

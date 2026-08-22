@@ -10,6 +10,9 @@ on:
   merge_group:
 
 
+permissions:
+  contents: read
+
 jobs:
   makefile:
     runs-on: ubuntu-latest
