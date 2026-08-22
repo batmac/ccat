@@ -14,6 +14,6 @@ func PrintMemUsage() {
 	// For info on each, see: https://golang.org/pkg/runtime/#MemStats
 	fmt.Fprintf(os.Stderr, "Alloc = %v ", stringutils.HumanSize(m.Alloc))
 	fmt.Fprintf(os.Stderr, "\tTotalAlloc = %v ", stringutils.HumanSize(m.TotalAlloc))
-	fmt.Fprintf(os.Stderr, "\tSys = %v ", stringutils.HumanSize((m.Sys)))
+	fmt.Fprintf(os.Stderr, "\tSys = %v ", stringutils.HumanSize(m.Sys))
 	fmt.Fprintf(os.Stderr, "\tNumGC = %v\n", m.NumGC)
 }

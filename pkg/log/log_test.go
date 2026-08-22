@@ -31,7 +31,7 @@ func TestSetDebug(t *testing.T) {
 	t.Run("bytes.Buffer", func(t *testing.T) {
 		w := &bytes.Buffer{}
 		log.SetDebug(w)
-		if w != (log.Debug.Logger.Writer()) {
+		if w != log.Debug.Logger.Writer() {
 			t.Errorf("SetDebug() = %v, want %v", log.Debug.Logger, w)
 		}
 	})

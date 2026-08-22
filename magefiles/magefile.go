@@ -193,11 +193,10 @@ func UpdateREADME() error {
 	}
 	data = append(data, "\n```\n"...)
 	out, err := sh.Output("./"+binaryName, "--fullhelp")
-
-	data = append(data, out...)
 	if err != nil {
 		return err
 	}
+	data = append(data, out...)
 	data = append(data, "```\n"...)
 
 	if err := os.WriteFile("README.md", data, 0o600); err != nil { // #nosec G703 -- constant path
@@ -226,6 +225,7 @@ func stepOKPrintln(a ...any) {
 func Macsign() error {
 	if runtime.GOOS != "darwin" {
 		fmt.Println("❗️Skipping macOS signing on non-macOS platform")
+		return nil
 	}
 	stepPrintln("Signing and Notarizing for macOS with `gon` ...")
 	if err := sh.RunV("gon", ".gon.hcl"); err != nil {
