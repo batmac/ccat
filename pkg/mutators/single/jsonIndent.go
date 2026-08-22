@@ -14,7 +14,10 @@ func init() {
 }
 
 func jsonIndent(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
-	indent := int(config.(uint64))
+	indent := cfgInt(config)
+	if indent < 0 {
+		indent = 0
+	}
 	j, err := io.ReadAll(r) // NOT streamable
 	if err != nil {
 		return 0, err

@@ -29,10 +29,13 @@ func unlz4(out io.WriteCloser, in io.ReadCloser, _ any) (int64, error) {
 }
 
 func clz4(out io.WriteCloser, in io.ReadCloser, config any) (int64, error) {
-	c := config.(uint64)
+	lvl := cfgInt(config)
+	if lvl < 0 || lvl > 9 {
+		log.Fatal("lz4 compression level must be 0-9")
+	}
 	compressionLevel := lz4.Fast
-	if c != 0 {
-		compressionLevel = lz4.CompressionLevel(1 << (8 + lz4.CompressionLevel(c)))
+	if lvl != 0 {
+		compressionLevel = lz4.CompressionLevel(1 << (8 + lvl))
 	}
 	log.Debugf("compression level: %s", compressionLevel)
 	e := lz4.NewWriter(out)

@@ -200,7 +200,7 @@ func UpdateREADME() error {
 	}
 	data = append(data, "```\n"...)
 
-	if err := os.WriteFile("README.md", data, 0o600); err != nil {
+	if err := os.WriteFile("README.md", data, 0o600); err != nil { // #nosec G703 -- constant path
 		return err
 	}
 	stepOKPrintln("Updating README.md OK")

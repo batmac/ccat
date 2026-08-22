@@ -18,7 +18,10 @@ func init() {
 }
 
 func pv(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
-	option := config.(uint64)
+	interval := cfgInt(config)
+	if interval <= 0 {
+		interval = 1000 // keep the default, and avoid a zero division below
+	}
 
 	done := make(chan struct{})
 	defer close(done)
@@ -33,13 +36,13 @@ func pv(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
 			select {
 			case <-done:
 				return
-			case <-time.After(time.Duration(option) * time.Millisecond):
+			case <-time.After(time.Duration(interval) * time.Millisecond):
 				prefix := ""
 				if log.DebugIsDiscard == 1 {
 					prefix = "\x1b[A\x1b[2K" // go on the previous line and erase the line
 				}
 				newTotal := totalWritten.Load()
-				computedDiff := stringutils.HumanSize((newTotal - oldTotal) * 1000 / int64(option))
+				computedDiff := stringutils.HumanSize((newTotal - oldTotal) * 1000 / int64(interval))
 				oldTotal = newTotal
 
 				fmt.Fprintf(os.Stderr, "%s%s [%s/s]     \n", prefix, stringutils.HumanSize(newTotal), computedDiff)

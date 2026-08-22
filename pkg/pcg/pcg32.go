@@ -8,7 +8,7 @@ type PCG32 struct {
 func (pcg *PCG32) Next() uint32 {
 	oldstate := pcg.state
 	pcg.state = oldstate*6364136223846793005 + (pcg.inc | 1)
-	xorshifted := uint32(((oldstate >> 18) ^ oldstate) >> 27)
+	xorshifted := uint32(((oldstate >> 18) ^ oldstate) >> 27) // #nosec G115 -- deliberate truncation, per the PCG algorithm
 	rot := uint32(oldstate >> 59)
 	return (xorshifted >> rot) | (xorshifted << ((-rot) & 31))
 }

@@ -22,7 +22,7 @@ func init() {
 }
 
 func cbzip2(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
-	lvl := int(config.(uint64)) //nolint:gosec
+	lvl := cfgInt(config)
 	log.Debugf("compression level: %d", lvl)
 	zw, err := bzip2.NewWriter(w, &bzip2.WriterConfig{Level: lvl})
 	if err != nil {
@@ -41,8 +41,8 @@ func cbzip2(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
 } */
 
 func punzip2(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
-	concurrency := int(config.(uint64)) //nolint:gosec
-	if concurrency == 0 {
+	concurrency := cfgInt(config)
+	if concurrency <= 0 {
 		concurrency = runtime.NumCPU()
 	}
 	return io.Copy(w, pbzip2.NewReader(context.Background(), r, pbzip2.DecompressionOptions(pbzip2.BZConcurrency(concurrency))))
