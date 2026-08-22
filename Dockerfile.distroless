@@ -13,7 +13,7 @@ ENV CGO_ENABLED=0
 RUN go version && go run magefiles/mage.go
 
 # hadolint ignore=DL3006
-FROM gcr.io/distroless/static-debian12
+FROM gcr.io/distroless/static-debian12@sha256:d75cdd72874d4790092fcb1b058493ecf6bb5bf2b2b897045b00ff01d91843f2
 COPY --from=build /usr/src/app/ccat /usr/bin/ccat
 USER 1000
 ENTRYPOINT ["/usr/bin/ccat"]
