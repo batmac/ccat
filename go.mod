@@ -51,7 +51,7 @@ require (
 	github.com/traefik/yaegi v0.16.1
 	github.com/ulikunitz/xz v0.5.16
 	github.com/zeebo/xxh3 v1.1.0
-	golang.org/x/exp v0.0.0-20250819193227-8b4c13bb791b
+	golang.org/x/exp v0.0.0-20260908205506-85c1c2202aba
 	golang.org/x/term v0.45.0
 	google.golang.org/api v0.297.0
 	howett.net/plist v1.0.1
