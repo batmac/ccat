@@ -1,6 +1,6 @@
 GOVULNCHECK := golang.org/x/vuln/cmd/govulncheck@v1.7.0
 GOSEC := github.com/securego/gosec/v2/cmd/gosec@v2.29.0
-GOFUMPT := mvdan.cc/gofumpt@v0.11.0
+GOFUMPT := mvdan.cc/gofumpt@v0.12.0
 GOLANGCI_LINT := github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.13.2
 
 # advisories with no fixed version available, so govulncheck can never go green:

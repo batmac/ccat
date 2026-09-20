@@ -3,7 +3,7 @@ module github.com/batmac/ccat
 go 1.27.0
 
 require (
-	cloud.google.com/go/storage v1.67.0
+	cloud.google.com/go/storage v1.67.1
 	git.sr.ht/~adnano/go-gemini v0.2.6
 	github.com/JohannesKaufmann/html-to-markdown v1.6.0
 	github.com/OneOfOne/xxhash v1.2.8
@@ -43,7 +43,7 @@ require (
 	github.com/psanford/wormhole-william v1.0.8
 	github.com/rivo/tview v0.42.0
 	github.com/robert-nix/ansihtml v1.0.1
-	github.com/sashabaranov/go-openai v1.42.0
+	github.com/sashabaranov/go-openai v1.42.1
 	github.com/spf13/pflag v1.0.10
 	github.com/tetratelabs/wazero v1.12.0
 	github.com/titanous/json5 v1.0.0
@@ -52,7 +52,7 @@ require (
 	github.com/ulikunitz/xz v0.5.16
 	github.com/zeebo/xxh3 v1.1.0
 	golang.org/x/exp v0.0.0-20260908205506-85c1c2202aba
-	golang.org/x/term v0.45.0
+	golang.org/x/term v0.46.0
 	google.golang.org/api v0.297.0
 	howett.net/plist v1.0.1
 	sigs.k8s.io/yaml v1.6.0
