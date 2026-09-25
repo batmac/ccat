@@ -204,6 +204,8 @@ github.com/hbollon/go-edlib v1.7.0/go.mod h1:wnt6o6EIVEzUfgbUZY7BerzQ2uvzp354qmS
 github.com/hexops/gotextdiff v1.0.3 h1:gitA9+qJrrTCsiCl7+kh75nPqQt1cx4ZkudSTLoUqJM=
 github.com/hexops/gotextdiff v1.0.3/go.mod h1:pSWU5MAI3yDq+fZBTazCSJysOMbxWL1BSow5/V2vxeg=
 github.com/jessevdk/go-flags v1.4.0/go.mod h1:4FA24M0QyGHXBuZZK/XkWh8h0e1EYbRYJSGM75WSRxI=
+github.com/jftuga/bzip3-go v1.0.0 h1:Q1a9eFvK/07WRUVE6luM/Vau7+df/F9CTm+yJcw/6cI=
+github.com/jftuga/bzip3-go v1.0.0/go.mod h1:uvW0PZT5baGFnZSCQgakB5isNsnfUWitjGJ7lD/GIsw=
 github.com/kevinburke/nacl v0.9.0 h1:2C9v+jXTUUlK19kw+9rqfsdO7riP5xIyHNJ3GvsgOro=
 github.com/kevinburke/nacl v0.9.0/go.mod h1:qxFJhGMHIPiWJXUauGGORlObOR4bLKBqf/n6PL8l8N0=
 github.com/klauspost/compress v1.4.1/go.mod h1:RyIbtBH6LamlWaDj8nUwkbUhJ87Yi3uG0guNDohfE1A=

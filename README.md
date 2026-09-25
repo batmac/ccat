@@ -195,6 +195,7 @@ ccat <files>...
         xxh64: compute the xxhash64 checksum
     compress:
         bzip2: compress to bzip2 data (X:9 is compression level, 0-9)
+        bzip3: compress to bzip3 data (X:16777216 is block size in bytes, 65KiB-511MiB)
         gzip: compress to gzip data (X:6 is compression level, 0-9)
         lz4: compress to lz4 data (X:0 is compression level, 0-9)
         lzma2: compress to lzma2 data
@@ -226,6 +227,7 @@ ccat <files>...
     decompress:
         punbzip2: parallel decompress bzip2 data (X:0 is concurrency, 0 is auto)
         unbzip2: decompress bzip2 data
+        unbzip3: decompress bzip3 data
         ungzip: decompress gzip data
         unlz4: decompress lz4 data
         unlzfse: decompress lzfse data
