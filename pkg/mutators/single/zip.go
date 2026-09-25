@@ -1,7 +1,6 @@
 package mutators
 
 import (
-	"archive/zip"
 	"bytes"
 	"fmt"
 	"io"
@@ -9,6 +8,7 @@ import (
 
 	"github.com/batmac/ccat/pkg/globalctx"
 	"github.com/batmac/ccat/pkg/log"
+	"github.com/klauspost/compress/zip"
 )
 
 func init() {

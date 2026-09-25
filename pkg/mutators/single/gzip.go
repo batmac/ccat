@@ -1,11 +1,11 @@
 package mutators
 
 import (
-	"compress/gzip"
-	"compress/zlib"
 	"io"
 
 	"github.com/batmac/ccat/pkg/log"
+	"github.com/klauspost/compress/gzip"
+	"github.com/klauspost/compress/zlib"
 )
 
 func init() {
