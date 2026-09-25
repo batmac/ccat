@@ -42,6 +42,14 @@ jobs:
       - name: Test
         run: go test -v -tags libcurl  ./...
 
+      - name: Test libcurl opener without cgo (purego+ffi)
+        if: runner.os == 'macOS'
+        env:
+          CGO_ENABLED: "0"
+        run: |
+          go build -v -tags libcurl_purego ./cmd/ccat
+          go test -v -tags libcurl_purego ./pkg/openers/
+
       - name: Coverage
         run: |
           go test -race -cover -coverprofile coverage1.out ./...

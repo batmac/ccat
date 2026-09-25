@@ -56,6 +56,7 @@ $ go run magefiles/mage.go # or 'mage'
 available build tags:
 
 - `libcurl`: build with the libcurl opener.
+- `libcurl_purego`: (macOS only) build with the libcurl opener without cgo: the system libcurl is loaded at runtime with [purego](https://github.com/ebitengine/purego) and [ffi](https://github.com/JupiterRider/ffi) (libffi is embedded and extracted to the user cache dir). Ignored if `libcurl` is also set with cgo enabled.
 - `plugins`: build with the yaegi plugins engine.
 - `fileonly`: build with the local file opener only.
 - `nohl`: build without the syntax-highlighter.

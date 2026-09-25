@@ -20,6 +20,7 @@ require (
 	github.com/creativeprojects/go-selfupdate v1.6.0
 	github.com/docker/go-units v0.5.0
 	github.com/dsnet/compress v0.0.1
+	github.com/ebitengine/purego v0.11.1
 	github.com/eliukblau/pixterm v1.3.3
 	github.com/gabriel-vasile/mimetype v1.4.15
 	github.com/gage-technologies/mistral-go v1.1.0
@@ -28,6 +29,7 @@ require (
 	github.com/google/renameio/v2 v2.0.2
 	github.com/gowebpki/jcs v1.0.1
 	github.com/hbollon/go-edlib v1.7.0
+	github.com/jupiterrider/ffi v0.7.0
 	github.com/kevinburke/nacl v0.9.0
 	github.com/klauspost/compress v1.20.0
 	github.com/klauspost/pgzip v1.2.6
