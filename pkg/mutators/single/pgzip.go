@@ -10,25 +10,10 @@ import (
 )
 
 func init() {
-	singleRegister("unpgzip", unpgzip, withDescription("decompress with pgzip"),
-		withCategory("decompress"),
-	)
-
 	singleRegister("pgzip", cpgzip, withDescription("compress with pgzip  (X:6 is compression level, 0-9, blockSize, blocks)"),
 		withCategory("compress"),
 		withConfigBuilder(stdConfigInts(0, 3)),
 	)
-}
-
-func unpgzip(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
-	zr, err := gzip.NewReader(r)
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer zr.Close()
-
-	//#nosec
-	return io.Copy(w, zr)
 }
 
 func cpgzip(w io.WriteCloser, r io.ReadCloser, config any) (int64, error) {
