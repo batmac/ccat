@@ -1,7 +1,6 @@
 package mutators
 
 import (
-	"compress/bzip2"
 	"compress/gzip"
 	"compress/zlib"
 	"io"
@@ -11,9 +10,6 @@ import (
 
 func init() {
 	singleRegister("ungzip", ungzip, withDescription("decompress gzip data"),
-		withCategory("decompress"),
-	)
-	singleRegister("unbzip2", bunzip2, withDescription("decompress bzip2 data"),
 		withCategory("decompress"),
 	)
 	singleRegister("unzlib", unzlib, withDescription("decompress zlib data"),
@@ -38,13 +34,6 @@ func ungzip(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
 	defer zr.Close()
 	//#nosec
 	return io.Copy(w, zr)
-}
-
-func bunzip2(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
-	// bzip2.NewReader never returns nil, there is nothing to check here
-	bzr := bzip2.NewReader(r)
-	//#nosec
-	return io.Copy(w, bzr)
 }
 
 func unzlib(w io.WriteCloser, r io.ReadCloser, _ any) (int64, error) {
