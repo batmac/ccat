@@ -1,10 +1,10 @@
 package mutators
 
 import (
-	"archive/zip"
 	"io"
 
 	"github.com/batmac/ccat/pkg/log"
+	"github.com/klauspost/compress/zip"
 	"github.com/klauspost/compress/zstd"
 )
 
