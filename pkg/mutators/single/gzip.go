@@ -9,8 +9,11 @@ import (
 )
 
 func init() {
+	// unpgzip is an alias: pgzip's read-ahead reader is not faster than
+	// klauspost/gzip, pgzip only pays off when compressing
 	singleRegister("ungzip", ungzip, withDescription("decompress gzip data"),
 		withCategory("decompress"),
+		withAliases("unpgzip"),
 	)
 	singleRegister("unzlib", unzlib, withDescription("decompress zlib data"),
 		withCategory("decompress"),

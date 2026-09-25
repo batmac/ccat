@@ -166,3 +166,22 @@ func TestUnzipMethods(t *testing.T) {
 		})
 	}
 }
+
+// punbzip2 and unpgzip are kept as aliases for existing command lines.
+func TestDecompressAliases(t *testing.T) {
+	input := bigInput()
+	tests := []struct{ compressor, decompressor string }{
+		{"bzip2", "punbzip2"},
+		{"bzip2", "punbzip2:2"},
+		{"bzip2", "unbzip2:1"},
+		{"pgzip", "unpgzip"},
+		{"gzip", "unpgzip"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.decompressor, func(t *testing.T) {
+			if got := mutators.Run(tt.decompressor, mutators.Run(tt.compressor, input)); got != input {
+				t.Errorf("%s: mismatch (len %d, want %d)", tt.decompressor, len(got), len(input))
+			}
+		})
+	}
+}
