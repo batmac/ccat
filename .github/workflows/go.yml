@@ -72,6 +72,10 @@ jobs:
       - run: go build -v -tags libcurl_purego ./cmd/ccat
       - run: ./ccat --fullhelp | grep -A2 "via libcurl (purego)$"
       - run: go test -v -tags libcurl_purego -run 'libcurl' ./pkg/openers/
+      # default on a Mac: the purego opener must also work with cgo enabled
+      - run: go test -v -tags libcurl_purego -run 'libcurl' ./pkg/openers/
+        env:
+          CGO_ENABLED: "1"
 
   win:
     strategy:
