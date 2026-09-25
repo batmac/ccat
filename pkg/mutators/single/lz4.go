@@ -23,6 +23,10 @@ func unlz4(out io.WriteCloser, in io.ReadCloser, _ any) (int64, error) {
 	if d == nil {
 		log.Fatal("lz4 decompressor failed to init")
 	}
+	// decodes independent blocks in parallel, dependent ones sequentially
+	if err := d.Apply(lz4.ConcurrencyOption(-1)); err != nil {
+		return 0, err
+	}
 
 	n, err := io.Copy(out, d)
 	return n, err
@@ -42,7 +46,7 @@ func clz4(out io.WriteCloser, in io.ReadCloser, config any) (int64, error) {
 	if e == nil {
 		log.Fatal("compressor failed to init")
 	}
-	if err := e.Apply(lz4.CompressionLevelOption(compressionLevel)); err != nil {
+	if err := e.Apply(lz4.CompressionLevelOption(compressionLevel), lz4.ConcurrencyOption(-1)); err != nil {
 		log.Fatal(err.Error())
 	}
 
