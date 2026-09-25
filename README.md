@@ -106,7 +106,7 @@ $ kubectl run -i --tty ccat --image=batmac/ccat:latest -- /bin/sh
 ## help
 
 ```
-version v1.19.0 [libcurl,crappy,plugins,keystore,gcp,aws], commit c3fde3b710b2c43ed0d1fa68c628b043bc8bdb16, built at 2025-08-21@01:37:21+0200 by Mage (go1.25.0 darwin/arm64)
+version v1.20.1-252-gecf0872b [libcurl,crappy,plugins,keystore,gcp,aws], commit ecf0872bc7b3df5dd51c5994464f06d48b6d30a0, built at 2026-09-25@21:20:31+0000 by Mage (go1.27.0 linux/amd64)
 usage: ccat [options] [file ...]
   -t, --tokens string       comma-separated list of tokens
   -i, --ignore-case         tokens given with -t are case-insensitive
@@ -141,10 +141,11 @@ usage: ccat [options] [file ...]
 ---
 ccat <files>...
  - highlighter (used with -H):
-  - Lexers: 1S, 1S:Enterprise, ABAP, abap, abl, abnf, ABNF, aconf, ActionScript, actionscript, ActionScript 3, actionscript3, Ada, ada, ada2005, ada95, agda, Agda, ahk, al, AL, Alloy, alloy, Angular2, antlr, ANTLR, apache, ApacheConf, apacheconf, apl, APL, AppleScript, applescript, aql, ArangoDB AQL, arduino, Arduino, arexx, armasm, ArmAsm, as, as3, asm, atl, ATL, AutoHotkey, autohotkey, AutoIt, autoit, Awk, awk, b3d, ballerina, Ballerina, Bash, bash, Bash Session, bash-session, basic, bat, batch, Batchfile, Beef, beef, bf, bib, bibtex, BibTeX, bicep, Bicep, bind, BlitzBasic, blitzbasic, bnf, BNF, bplus, BQN, bqn, brainfuck, Brainfuck, bsdmake, c, C, C#, c#, c++, C++, caddy, caddy-d, Caddyfile, caddyfile, Caddyfile Directives, caddyfile-d, caddyfile-directives, Cap'n Proto, capnp, cassandra, Cassandra CQL, cassette, Ceylon, ceylon, cf3, CFEngine3, cfengine3, cfg, cfs, cfstatement, chai, chaiscript, ChaiScript, chapel, Chapel, Cheetah, cheetah, chpl, cl, clj, clojure, Clojure, cmake, CMake, COBOL, cobol, coffee, coffee-script, coffeescript, CoffeeScript, Common Lisp, common-lisp, console, containerfile, coq, Coq, core, Core, cpp, cql, cr, Crystal, crystal, csh, csharp, css, CSS, csv, CSV, Cucumber, cucumber, cue, CUE, Cython, cython, d, D, Dart, dart, Dax, dax, desktop, Desktop file, desktop_entry, Diff, diff, django, Django/Jinja, dns, Docker, docker, dockerfile, dosbatch, dosini, DTD, dtd, duby, Dylan, dylan, ebnf, EBNF, edn, elisp, elixir, Elixir, Elm, elm, emacs, emacs-lisp, EmacsLisp, Erlang, erlang, ex, exs, f90, factor, Factor, fennel, Fennel, Fish, fish, fishshell, fnl, forth, Forth, fortran, Fortran, fortranfixed, FortranFixed, fsharp, FSharp, GAS, gas, gawk, gd, gd3, GDScript, gdscript, GDScript3, gdscript3, gemini, gemtext, Gemtext, Genshi, genshi, Genshi HTML, Genshi Text, genshitext, Gherkin, gherkin, Gherkin, gleam, Gleam, glsl, GLSL, gmi, gmni, gnuplot, Gnuplot, go, Go, Go HTML Template, Go Template, Go Text Template, go-html-template, go-template, go-text-template, golang, gql, GraphQL, graphql, graphqls, groff, Groff, groovy, Groovy, gsed, Handlebars, handlebars, Hare, hare, Haskell, haskell, haxe, Haxe, hbs, HCL, hcl, hcl, Hexdump, hexdump, hlb, HLB, hlsl, HLSL, holyc, HolyC, hs, html, HTML, html+genshi, html+kid, HTTP, http, hx, hxsl, Hy, hylang, idr, Idris, idris, igor, Igor, igorpro, ini, INI, io, Io, iscdhcpd, ISCdhcpd, j, J, janet, Janet, java, Java, java-properties, javascript, JavaScript, jinja, jl, js, json, JSON, JSONata, jsonata, Jsonnet, jsonnet, jsx, Julia, julia, jungle, Jungle, kid, Kotlin, kotlin, ksh, latex, lean, lean4, Lean4, lighttpd, Lighttpd configuration file, lighty, lisp, LLVM, llvm, lox, Lua, lua, luau, m2, make, Makefile, makefile, Mako, mako, man, mariadb, markdown, mason, Mason, materialize, Materialize SQL dialect, Mathematica, mathematica, matlab, Matlab, mawk, mcf, MCFunction, mcfunction, md, Meson, meson, meson.build, Metal, metal, mf, minizinc, MiniZinc, mkd, MLIR, mlir, mma, Modula-2, modula2, Mojo, mojo, MonkeyC, monkeyc, moon, MoonScript, moonscript, morrowind, MorrowindScript, mwscript, Myghty, myghty, mysql, MySQL, mzn, MZN, mzsql, nasm, NASM, natural, Natural, nawk, nb, NDISASM, ndisasm, Newspeak, newspeak, ng2, nginx, Nginx configuration file, Nim, nim, nimrod, nix, Nix, nixos, no-highlight, nroff, nsh, nsi, nsis, NSIS, Nu, nu, obj-c, objc, Objective-C, objective-c, objectivec, ObjectPascal, objectpascal, ocaml, OCaml, octave, Octave, odin, Odin, ones, onesenterprise, OnesEnterprise, openedge, OpenEdge ABL, openedgeabl, openscad, OpenSCAD, org, Org Mode, orgmode, PacmanConf, pacmanconf, perl, Perl, perl6, PHP, php, php3, php4, php5, phtml, PHTML, pig, Pig, PkgConfig, pkgconfig, pl, PL/pgSQL, pl6, plain, plaintext, plc, plpgsql, Plutus Core, plutus-core, Pony, pony, posh, postgres, postgresql, PostgreSQL SQL dialect, postscr, postscript, PostScript, pov, POVRay, powerquery, PowerQuery, powershell, PowerShell, pq, progress, prolog, Prolog, promela, Promela, PromQL, promql, properties, proto, protobuf, Protocol Buffer, prql, PRQL, ps1, psd1, psl, PSL, psm1, puppet, Puppet, pwsh, py, py2, py3, pyrex, python, Python, Python 2, python2, python3, pyx, qbasic, QBasic, qbs, QML, qml, R, r, racket, Racket, Ragel, ragel, raku, Raku, rb, react, react, reason, ReasonML, reasonml, reg, registry, Rego, rego, rest, reStructuredText, restructuredtext, rexx, Rexx, rkt, RPG IV, RPGLE, RPMSpec, rs, rst, ruby, Ruby, Rust, rust, s, sage, SAS, sas, Sass, sass, Scala, scala, Scheme, scheme, Scilab, scilab, scm, scss, SCSS, Sed, sed, sh, shell, shell-session, sieve, Sieve, smali, Smali, Smalltalk, smalltalk, Smarty, smarty, sml, snbt, SNBT, Snobol, snobol, sol, Solidity, solidity, SourcePawn, sp, SPARQL, sparql, spec, spitfire, splus, SQL, sql, SQLRPGLE, squeak, squid, squid.conf, SquidConf, squidconf, ssed, st, Standard ML, stas, stylus, Stylus, sv, svelte, Svelte, Swift, swift, systemd, SYSTEMD, systemverilog, systemverilog, t-sql, tablegen, TableGen, tal, Tal, tape, tasm, TASM, Tcl, tcl, Tcsh, tcsh, Termcap, termcap, Terminfo, terminfo, Terraform, terraform, tex, TeX, text, tf, thrift, Thrift, toml, TOML, TradingView, tradingview, Transact-SQL, ts, tsql, tsx, turing, Turing, turtle, Turtle, tv, twig, Twig, typescript, TypeScript, TypoScript, typoscript, TypoScriptCssData, typoscriptcssdata, TypoScriptHtmlData, typoscripthtmldata, Typst, typst, ucode, udiff, uxntal, v, V, v, V shell, vala, Vala, vapi, vb.net, VB.net, vbnet, verilog, verilog, vhdl, VHDL, VHS, vhs, vim, VimL, vlang, vsh, vshell, vtt, vue, vue, vuejs, WDTE, WebGPU Shading Language, WebVTT, wgsl, whiley, Whiley, winbatch, XML, xml, xml+genshi, xml+kid, Xorg, xorg.conf, YAML, yaml, YANG, yang, z80, Z80 Assembly, Zed, zed, Zig, zig, zone, zsh, 🔥
-  - Styles: abap, algol, algol_nu, arduino, autumn, average, base16-snazzy, borland, bw, catppuccin-frappe, catppuccin-latte, catppuccin-macchiato, catppuccin-mocha, colorful, doom-one, doom-one2, dracula, emacs, evergarden, friendly, fruity, github, github-dark, gruvbox, gruvbox-light, hr_high_contrast, hrdark, igor, lovelace, manni, modus-operandi, modus-vivendi, monokai, monokailight, murphy, native, nord, nordic, onedark, onesenterprise, paraiso-dark, paraiso-light, pastie, perldoc, pygments, rainbow_dash, rose-pine, rose-pine-dawn, rose-pine-moon, RPGLE, rrt, solarized-dark, solarized-dark256, solarized-light, swapoff, tango, tokyonight-day, tokyonight-moon, tokyonight-night, tokyonight-storm, trac, vim, vs, vulcan, witchhazel, xcode, xcode-dark
+  - Lexers: 1S, 1S:Enterprise, ABAP, abap, abl, ABNF, abnf, aconf, actionscript, ActionScript, ActionScript 3, actionscript3, Ada, ada, ada2005, ada95, Agda, agda, ahk, AL, al, alloy, Alloy, ampl, AMPL, Angular2, ansible, antlr, ANTLR, apache, apacheconf, ApacheConf, apl, APL, AppleScript, applescript, aql, ArangoDB AQL, Arduino, arduino, arexx, armasm, ArmAsm, art, arturo, Arturo, as, as3, asm, ATL, atl, AutoHotkey, autohotkey, AutoIt, autoit, awk, Awk, b3d, Ballerina, ballerina, bash, Bash, Bash Session, bash-session, basic, bat, batch, Batchfile, Beef, beef, bf, bib, BibTeX, bibtex, bicep, Bicep, bind, BlitzBasic, blitzbasic, BNF, bnf, bplus, BQN, bqn, brainfuck, Brainfuck, bsdmake, c, C, c#, C#, c++, C++, C3, c3, caddy, caddy-d, caddyfile, Caddyfile, Caddyfile Directives, caddyfile-d, caddyfile-directives, Cap'n Proto, capnp, cassandra, Cassandra CQL, cassette, Ceylon, ceylon, cf3, cfengine3, CFEngine3, cfg, cfs, cfstatement, chai, ChaiScript, chaiscript, Chapel, chapel, Cheetah, cheetah, chpl, cl, clj, clojure, Clojure, cmake, CMake, cobol, COBOL, coffee, coffee-script, CoffeeScript, coffeescript, Common Lisp, common-lisp, console, containerfile, Coq, coq, Core, core, cpp, cql, cr, crystal, Crystal, csh, csharp, CSS, css, CSV, csv, cucumber, Cucumber, CUE, cue, Cython, cython, d, D, dart, Dart, Dax, dax, desktop, Desktop file, desktop_entry, devicetree, Devicetree, Diff, diff, django, Django/Jinja, dns, docker, Docker, dockerfile, dosbatch, dosini, DTD, dtd, dts, duby, Dylan, dylan, ebnf, EBNF, edn, elisp, elixir, Elixir, Elm, elm, emacs, emacs-lisp, EmacsLisp, erb, ERB, Erlang, erlang, ex, exs, f90, Factor, factor, Fennel, fennel, fish, Fish, fishshell, fnl, Forth, forth, fortran, Fortran, FortranFixed, fortranfixed, fsharp, FSharp, GAS, gas, gawk, gd, gd3, GDScript, gdscript, GDScript3, gdscript3, gemfile-lock, Gemfile.lock, gemfilelock, gemini, Gemtext, gemtext, Genshi, genshi, Genshi HTML, Genshi Text, genshitext, Gettext, Gherkin, Gherkin, gherkin, Gleam, gleam, GLSL, glsl, gmi, gmni, Gnuplot, gnuplot, go, Go, Go HTML Template, Go Template, Go Text Template, go-html-template, go-template, go-text-template, golang, gql, graphql, GraphQL, graphqls, groff, Groff, Groovy, groovy, gsed, Handlebars, handlebars, hare, Hare, Haskell, haskell, Haxe, haxe, hbs, HCL, hcl, hcl, Hexdump, hexdump, hlb, HLB, HLSL, hlsl, HolyC, holyc, hs, html, HTML, html+erb, html+genshi, html+kid, html+ruby, HTTP, http, hx, hxsl, Hy, hylang, idr, idris, Idris, Igor, igor, igorpro, ini, INI, Io, io, iscdhcpd, ISCdhcpd, J, j, janet, Janet, java, Java, java-properties, javascript, JavaScript, jinja, jl, js, json, JSON, JSONata, jsonata, jsonl, Jsonnet, jsonnet, jsx, Julia, julia, jungle, Jungle, kak, Kakoune, kakoune, kakrc, kakscript, KDL, kdl, kid, kotlin, Kotlin, ksh, lateralus, Lateralus, latex, lean, lean4, Lean4, lighttpd, Lighttpd configuration file, lighty, lilypond, LilyPond, lisp, LLVM, llvm, lox, ltl, lua, Lua, luau, Luau, m2, make, Makefile, makefile, Mako, mako, man, mariadb, markdown, Markless, mason, Mason, materialize, Materialize SQL dialect, mathematica, Mathematica, matlab, Matlab, mawk, mbt, mcf, MCFunction, mcfunction, md, Meson, meson, meson.build, mess, metal, Metal, mf, microcad, minizinc, MiniZinc, mkd, MLIR, mlir, mma, Modelica, modelica, Modula-2, modula2, mojo, Mojo, MonkeyC, monkeyc, moon, moonbit, MoonBit, moonscript, MoonScript, morrowind, MorrowindScript, mwscript, Myghty, myghty, mysql, MySQL, MZN, mzn, mzsql, NASM, nasm, natural, Natural, nawk, nb, NDISASM, ndisasm, newspeak, Newspeak, ng2, nginx, Nginx configuration file, Nim, nim, nimrod, Nix, nix, nixos, no-highlight, nroff, nsh, nsi, NSIS, nsis, Nu, nu, obj-c, objc, Objective-C, objective-c, objectivec, objectpascal, ObjectPascal, OCaml, ocaml, Octave, octave, odin, Odin, ones, onesenterprise, OnesEnterprise, openedge, OpenEdge ABL, openedgeabl, OpenSCAD, openscad, org, Org Mode, orgmode, PacmanConf, pacmanconf, perl, Perl, perl6, PHP, php, php3, php4, php5, phtml, PHTML, Pig, pig, PkgConfig, pkgconfig, pl, PL/pgSQL, pl6, plain, plaintext, plc, plpgsql, Plutus Core, plutus-core, po, Pony, pony, posh, postgres, postgresql, PostgreSQL SQL dialect, postscr, postscript, PostScript, pot, pov, POVRay, PowerQuery, powerquery, PowerShell, powershell, pq, progress, prolog, Prolog, Promela, promela, promql, PromQL, properties, proto, protobuf, Protocol Buffer, Protocol Buffer Text Format, prql, PRQL, ps1, psd1, psl, PSL, psm1, puppet, Puppet, pwsh, py, py2, py3, pyrex, python, Python, Python 2, python2, python3, pyx, QBasic, qbasic, qbs, qml, QML, R, r, racket, Racket, Ragel, ragel, raku, Raku, rb, react, react, reason, ReasonML, reasonml, reg, registry, rego, Rego, rest, reStructuredText, restructuredtext, rexx, Rexx, rgbasm, RGBDS Assembly, rhtml, Ring, ring, rkt, RPG IV, RPGLE, RPMSpec, rs, rst, Ruby, ruby, rust, Rust, s, sage, salt, SAS, sas, Sass, sass, Scala, scala, scdoc, scdoc, scheme, Scheme, Scilab, scilab, scm, SCSS, scss, Sed, sed, sh, shell, shell-session, Sieve, sieve, sls, Smali, smali, smalltalk, Smalltalk, Smarty, smarty, sml, snbt, SNBT, snobol, Snobol, sol, solidity, Solidity, SourcePawn, sp, Spade, spade, sparql, SPARQL, spec, spitfire, splus, sql, SQL, SQLRPGLE, squeak, squid, squid.conf, squidconf, SquidConf, ssed, st, Standard ML, starlark, stas, Stylus, stylus, sv, svelte, Svelte, swift, Swift, SYSTEMD, systemd, systemverilog, systemverilog, t-sql, tablegen, TableGen, tal, Tal, tape, TASM, tasm, Tcl, tcl, tcsh, Tcsh, templ, Templ, Termcap, termcap, Terminfo, terminfo, Terraform, terraform, TeX, tex, text, tf, thrift, Thrift, TOML, toml, TradingView, tradingview, Transact-SQL, ts, tsql, tsx, Turing, turing, Turtle, turtle, tv, Twig, twig, txtpb, TypeScript, typescript, typoscript, TypoScript, typoscriptcssdata, TypoScriptCssData, typoscripthtmldata, TypoScriptHtmlData, typst, Typst, ucode, udiff, uxntal, v, V, v, V shell, Vala, vala, vapi, VB.net, vb.net, vbnet, verilog, verilog, vhdl, VHDL, VHS, vhs, vim, VimL, vlang, vsh, vshell, vtt, vue, vue, vuejs, wast, wat, WDTE, WebAssembly Text Format, WebGPU Shading Language, WebVTT, wgsl, Whiley, whiley, winbatch, xml, XML, xml+genshi, xml+kid, Xorg, xorg.conf, YAML, yaml, yaml+jinja, YAML+Jinja, YANG, yang, z80, Z80 Assembly, Zed, zed, Zig, zig, zone, zsh, µcad, 🔥
+  - Styles: abap, algol, algol_nu, arduino, ashen, aura-theme-dark, aura-theme-dark-soft, autumn, average, base16-snazzy, borland, bw, catppuccin-frappe, catppuccin-latte, catppuccin-macchiato, catppuccin-mocha, colorful, darcula, doom-one, doom-one2, dracula, emacs, evergarden, friendly, fruity, github, github-dark, gruvbox, gruvbox-light, hr_high_contrast, hrdark, igor, kanagawa-dragon, kanagawa-lotus, kanagawa-wave, lovelace, manni, modus-operandi, modus-vivendi, monokai, monokailight, murphy, native, nord, nordic, onedark, onesenterprise, paraiso-dark, paraiso-light, pastie, perldoc, pygments, rainbow_dash, rose-pine, rose-pine-dawn, rose-pine-moon, rpgle, rrt, solarized-dark, solarized-dark256, solarized-light, swapoff, tango, tokyonight-day, tokyonight-moon, tokyonight-night, tokyonight-storm, trac, vim, vs, vulcan, witchhazel, xcode, xcode-dark
   - Formatters: html, json, noop, svg, terminal, terminal16, terminal16m, terminal256, terminal8, tokens
  - openers:
+    cb: get content from the system clipboard via cb://
     crng: get data from crypto/rand (accept a size limit as parameter)
     echo: echo the string given
     file: open local files
@@ -152,8 +153,8 @@ ccat <files>...
     gemini: get URL via Gemini
     http: get URL via HTTP(S)
     curl: get URL via libcurl bindings
-           libcurl/8.7.1 SecureTransport (LibreSSL/3.3.6) zlib/1.2.12 nghttp2/1.64.0
-           protocols: dict,file,ftp,ftps,gopher,gophers,http,https,imap,imaps,ldap,ldaps,mqtt,pop3,pop3s,rtsp,smb,smbs,smtp,smtps,telnet,tftp
+           libcurl/8.5.0 OpenSSL/3.0.13 zlib/1.3 brotli/1.1.0 zstd/1.5.5 libidn2/2.3.7 libpsl/0.21.2 (+libidn2/2.3.7) libssh/0.10.6/openssl/zlib nghttp2/1.59.0 librtmp/2.3 OpenLDAP/2.6.10
+           protocols: dict,file,ftp,ftps,gopher,gophers,http,https,imap,imaps,ldap,ldaps,mqtt,pop3,pop3s,rtmp,rtmpe,rtmps,rtmpt,rtmpte,rtmpts,rtsp,scp,sftp,smb,smbs,smtp,smtps,telnet,tftp
     mc: get a Minio-compatible object via mc:// (use ~/.mc/config.json or env for credentials)
     tcp: get data from listening on tcp://[HOST]:<PORT>
     prng: generate endless pcg rand (don't use for crypto) (accept a seed as parameter)
@@ -162,7 +163,6 @@ ccat <files>...
     sse: stream Server-Sent Events via sse://
     wormhole: get text, file or zipped dir via a wormhole code (wh://<code> or wormhole://<code>)
  - mutators:
-        buf: buffer input through a channel of configurable size (supports human sizes like 1M, 10k)
         cb: put a copy in the clipboard
         discard: discard X:0 bytes (0 = all)
         dummy: a simple fifo
@@ -195,8 +195,10 @@ ccat <files>...
         xxh3: compute the xxh3 checksum
         xxh64: compute the xxhash64 checksum
     compress:
+        brotli: compress to brotli data (X:6 is compression level, 0-11)
         bzip2: compress to bzip2 data (X:9 is compression level, 0-9)
         bzip3: compress to bzip3 data (X:16777216 is block size in bytes, 65KiB-511MiB)
+        deflate: compress to raw deflate data (RFC 1951, no header) (X:6 is compression level, 0-9)
         gzip: compress to gzip data (X:6 is compression level, 0-9)
         lz4: compress to lz4 data (X:0 is compression level, 0-9)
         lzma2: compress to lzma2 data
@@ -205,7 +207,10 @@ ccat <files>...
         pbzip3: parallel compress to bzip3 data (X:0 is concurrency, 0 is auto, then X:16777216 is block size in bytes)
         pgzip: compress with pgzip  (X:6 is compression level, 0-9, blockSize, blocks)
         s2: compress to s2 data
+        s2block: compress to a raw (unframed) s2 block
         snap: compress to snappy data
+        snapblock: compress to a raw (unframed) snappy block
+        xerial: compress to xerial-framed snappy data (snappy-java, Kafka)
         xz: compress to xz data
         zip: compress to zip data
         zlib: compress to zlib data (X:6 is compression level, 0-9)
@@ -227,19 +232,21 @@ ccat <files>...
         unqp: decode quoted-printable data
         y2j: YAML -> JSON
     decompress:
-        punbzip2: parallel decompress bzip2 data (X:0 is concurrency, 0 is auto)
         punbzip3: parallel decompress bzip3 data (X:0 is concurrency, 0 is auto)
-        unbzip2: decompress bzip2 data
+        unbrotli: decompress brotli data
+        unbzip2: decompress bzip2 data in parallel (X:0 is concurrency, 0 is one worker per CPU)
         unbzip3: decompress bzip3 data
+        undeflate: decompress raw deflate data (RFC 1951, no header)
         ungzip: decompress gzip data
         unlz4: decompress lz4 data
         unlzfse: decompress lzfse data
         unlzma2: decompress lzma2 data
         unlzma: decompress lzma data
         unminlz: decompress minlz data
-        unpgzip: decompress with pgzip
         uns2: decompress s2 data
         unsnap: decompress snappy data
+        unsnapblock: decompress a raw (unframed) snappy or s2 block
+        unxerial: decompress xerial-framed snappy data (snappy-java, Kafka), or a raw snappy block
         unxz: decompress xz data
         unzip: decompress the first file in a zip archive
         unzlib: decompress zlib data
@@ -263,6 +270,8 @@ ccat <files>...
         filterUTF8: remove non-utf8
         jsonpath: a jsonpath expression to apply (on $, with all ',' replaced by '|', all ':' replaced by '£')
         removeANSI: remove ANSI codes
+        shuffle: group the X:8-byte elements by byte position, so a following compressor sees runs instead of interleaved bytes
+        unshuffle: reverse shuffle (X:8 must match the shuffle element size)
     plugin:
         wasm: a wasi (wasm) module to apply (path as first argument)
         yaegi: a yaegi script to apply (path as first argument, symbol as second argument)
@@ -273,14 +282,18 @@ ccat <files>...
     b64: base64
     cgpt: chatgpt
     d: discard
-    dumm, dum: dummy
+    dum, dumm: dummy
     gai: googleai
-    xxd, hd: hexdump
+    hd, xxd: hexdump
     h2m, h2md: html2md
     hf: huggingface
-    l, head: limit
+    head, l: limit
     mime: mimetype
     mistral: mistralai
     unpbzip3: punbzip3
     ub64, unb64: unbase64
+    punbzip2: unbzip2
+    inflate: undeflate
+    unpgzip: ungzip
+    uns2block: unsnapblock
 ```

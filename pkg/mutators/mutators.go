@@ -178,6 +178,7 @@ func AvailableMutatorsHelp() string {
 	}
 	sort.Strings(keys)
 	for _, factory := range keys {
+		sort.Strings(d[factory]) // filled from a map: order would change between runs
 		fmt.Fprintf(&s, "    %s: %s\n", strings.Join(d[factory], ", "), factory)
 	}
 	return s.String()
