@@ -21,6 +21,7 @@ require (
 	github.com/creativeprojects/go-selfupdate v1.6.0
 	github.com/docker/go-units v0.5.0
 	github.com/dsnet/compress v0.0.1
+	github.com/ebitengine/purego v0.11.1
 	github.com/eliukblau/pixterm v1.3.3
 	github.com/gabriel-vasile/mimetype v1.4.15
 	github.com/gage-technologies/mistral-go v1.1.0

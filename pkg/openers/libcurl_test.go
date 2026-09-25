@@ -1,5 +1,4 @@
-//go:build cgo && libcurl && !fileonly
-// +build cgo,libcurl,!fileonly
+//go:build !fileonly && ((cgo && libcurl) || (darwin && libcurl_purego))
 
 package openers_test
 
