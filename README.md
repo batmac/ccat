@@ -201,6 +201,7 @@ ccat <files>...
         lzma2: compress to lzma2 data
         lzma: compress to lzma data
         minlz: compress to minlz data
+        pbzip3: parallel compress to bzip3 data (X:0 is concurrency, 0 is auto, then X:16777216 is block size in bytes)
         pgzip: compress with pgzip  (X:6 is compression level, 0-9, blockSize, blocks)
         s2: compress to s2 data
         snap: compress to snappy data
@@ -226,6 +227,7 @@ ccat <files>...
         y2j: YAML -> JSON
     decompress:
         punbzip2: parallel decompress bzip2 data (X:0 is concurrency, 0 is auto)
+        punbzip3: parallel decompress bzip3 data (X:0 is concurrency, 0 is auto)
         unbzip2: decompress bzip2 data
         unbzip3: decompress bzip3 data
         ungzip: decompress gzip data
@@ -278,5 +280,6 @@ ccat <files>...
     l, head: limit
     mime: mimetype
     mistral: mistralai
+    unpbzip3: punbzip3
     ub64, unb64: unbase64
 ```
