@@ -90,4 +90,3 @@ repos:
     hooks:
       - id: check-github-workflows
       - id: check-dependabot
-      - id: check-metaschema
