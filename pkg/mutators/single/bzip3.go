@@ -27,7 +27,7 @@ func bzip3BlockSizeConfig(args []string) (any, error) {
 	if blockSize < bzip3.MinBlockSize || blockSize > bzip3.MaxBlockSize {
 		return nil, fmt.Errorf("bzip3 block size %d out of range [%d, %d]", blockSize, bzip3.MinBlockSize, bzip3.MaxBlockSize)
 	}
-	return blockSize, nil
+	return int32(blockSize), nil // #nosec G115 -- bounds checked above
 }
 
 func unbzip3(out io.WriteCloser, in io.ReadCloser, _ any) (int64, error) {
@@ -35,10 +35,10 @@ func unbzip3(out io.WriteCloser, in io.ReadCloser, _ any) (int64, error) {
 }
 
 func cbzip3(out io.WriteCloser, in io.ReadCloser, conf any) (int64, error) {
-	blockSize := conf.(int64)
+	blockSize := conf.(int32)
 	log.Debugf("bzip3 block size: %d\n", blockSize)
 
-	e, err := bzip3.NewWriter(out, int32(blockSize))
+	e, err := bzip3.NewWriter(out, blockSize)
 	if err != nil {
 		return 0, err
 	}
