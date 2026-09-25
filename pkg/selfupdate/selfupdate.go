@@ -21,11 +21,18 @@ const (
 	ModeForce
 )
 
-// build tags for the github releases
+// build tags for the github releases (see .goreleaser.yaml)
 var (
-	githubTags        = "plugins,keystore"
+	githubTags        = releaseTags(runtime.GOOS)
 	tagsAreCompatible = false
 )
+
+func releaseTags(goos string) string {
+	if goos == "darwin" {
+		return "plugins,keystore,libcurl_purego"
+	}
+	return "plugins,keystore"
+}
 
 func Do(version, tags string, mode Mode) {
 	log.Debugf("Trying to self-update %v...\n", version)

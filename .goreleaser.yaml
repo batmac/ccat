@@ -11,7 +11,6 @@ builds:
       - CGO_ENABLED=0
     main: ./cmd/ccat
     goos:
-      - darwin
       - linux
       - windows
     goarch:
@@ -28,6 +27,22 @@ builds:
       - -tags=plugins,keystore
     ldflags:
       - -s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}} -X main.builtBy=goreleaser -X main.tags=plugins,keystore
+  # libcurl opener without cgo: the system libcurl is loaded at runtime (purego)
+  - id: builddarwin
+    env:
+      - CGO_ENABLED=0
+    main: ./cmd/ccat
+    goos:
+      - darwin
+    goarch:
+      - amd64
+      - arm64
+    mod_timestamp: '{{ .CommitTimestamp }}'
+    flags:
+      - -v
+      - -tags=plugins,keystore,libcurl_purego
+    ldflags:
+      - -s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}} -X main.builtBy=goreleaser -X main.tags=plugins,keystore,libcurl_purego
   - id: buildbsd
     env:
       - CGO_ENABLED=0
@@ -81,7 +96,7 @@ release:
   footer: |
 
     ## NOTE
-    these builds are without libcurl
+    the macOS builds include the libcurl opener (system libcurl, loaded at runtime without cgo), the other builds are without libcurl
 signs:
   - artifacts: checksum
     args:

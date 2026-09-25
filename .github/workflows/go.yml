@@ -42,14 +42,6 @@ jobs:
       - name: Test
         run: go test -v -tags libcurl  ./...
 
-      - name: Test libcurl opener without cgo (purego)
-        if: runner.os == 'macOS'
-        env:
-          CGO_ENABLED: "0"
-        run: |
-          go build -v -tags libcurl_purego ./cmd/ccat
-          go test -v -tags libcurl_purego ./pkg/openers/
-
       - name: Coverage
         run: |
           go test -race -cover -coverprofile coverage1.out ./...
@@ -59,6 +51,27 @@ jobs:
         uses: codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f # v7.0.0
         with:
           files: coverage1.out,coverage2.out
+
+  # libcurl opener without cgo (libcurl_purego): the system libcurl is loaded
+  # at runtime, check it on several macOS versions and on both archs
+  macos-purego:
+    strategy:
+      matrix:
+        os: [macos-14, macos-15, macos-26, macos-15-intel]
+      fail-fast: false
+    runs-on: ${{ matrix.os }}
+    env:
+      CGO_ENABLED: "0"
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7
+        with:
+          go-version-file: "go.mod"
+          cache: true
+      - run: sw_vers && uname -m
+      - run: go build -v -tags libcurl_purego ./cmd/ccat
+      - run: ./ccat --fullhelp | grep -A2 "via libcurl (purego)$"
+      - run: go test -v -tags libcurl_purego -run 'libcurl' ./pkg/openers/
 
   win:
     strategy:
