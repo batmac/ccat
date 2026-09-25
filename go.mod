@@ -29,7 +29,6 @@ require (
 	github.com/google/renameio/v2 v2.0.2
 	github.com/gowebpki/jcs v1.0.1
 	github.com/hbollon/go-edlib v1.7.0
-	github.com/jupiterrider/ffi v0.7.0
 	github.com/kevinburke/nacl v0.9.0
 	github.com/klauspost/compress v1.20.0
 	github.com/klauspost/pgzip v1.2.6

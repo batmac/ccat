@@ -42,7 +42,7 @@ jobs:
       - name: Test
         run: go test -v -tags libcurl  ./...
 
-      - name: Test libcurl opener without cgo (purego+ffi)
+      - name: Test libcurl opener without cgo (purego)
         if: runner.os == 'macOS'
         env:
           CGO_ENABLED: "0"

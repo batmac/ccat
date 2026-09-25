@@ -10,7 +10,7 @@ import (
 	"github.com/batmac/ccat/pkg/stringutils"
 )
 
-// shared by the cgo (libcurl) and the purego+ffi (libcurl_purego) implementations
+// shared by the cgo (libcurl) and the purego (libcurl_purego) implementations
 
 const curlOpenerName = "curl"
 
