@@ -3,14 +3,14 @@ module github.com/batmac/ccat
 go 1.27.0
 
 require (
-	cloud.google.com/go/storage v1.67.1
+	cloud.google.com/go/storage v1.69.0
 	git.sr.ht/~adnano/go-gemini v0.2.6
 	github.com/JohannesKaufmann/html-to-markdown v1.6.0
 	github.com/OneOfOne/xxhash v1.2.8
 	github.com/PaesslerAG/jsonpath v0.1.1
 	github.com/aixiansheng/lzfse v0.2.4
 	github.com/alecthomas/chroma/v2 v2.27.0
-	github.com/andybalholm/brotli v1.2.4
+	github.com/andybalholm/brotli v1.2.6
 	github.com/atotto/clipboard v0.1.4
 	github.com/aws/aws-sdk-go-v2 v1.43.7
 	github.com/aws/aws-sdk-go-v2/config v1.32.37
@@ -28,35 +28,35 @@ require (
 	github.com/gdamore/tcell/v2 v2.13.10
 	github.com/google/generative-ai-go v0.20.1
 	github.com/google/renameio/v2 v2.0.2
-	github.com/gowebpki/jcs v1.0.1
+	github.com/gowebpki/jcs v1.0.2
 	github.com/hbollon/go-edlib v1.7.0
 	github.com/jftuga/bzip3-go v1.0.0
 	github.com/kevinburke/nacl v0.9.0
-	github.com/klauspost/compress v1.20.0
-	github.com/klauspost/pgzip v1.2.6
+	github.com/klauspost/compress v1.20.1
+	github.com/klauspost/pgzip v1.2.7
 	github.com/kofalt/go-memoize v0.0.0-20240506050413-9e5eb99a0f2a
 	github.com/magefile/mage v1.17.2
 	github.com/minio/minio-go/v7 v7.3.0
-	github.com/minio/minlz v1.2.0
+	github.com/minio/minlz v1.2.1
 	github.com/mitchellh/go-homedir v1.1.0
-	github.com/mmcdole/gofeed v1.4.2
+	github.com/mmcdole/gofeed v1.5.0
 	github.com/muesli/reflow v0.3.0
 	github.com/patrickmn/go-cache v2.1.0+incompatible
-	github.com/pierrec/lz4/v4 v4.1.29
+	github.com/pierrec/lz4/v4 v4.1.33
 	github.com/psanford/wormhole-william v1.0.8
 	github.com/rivo/tview v0.42.0
 	github.com/robert-nix/ansihtml v1.0.1
-	github.com/sashabaranov/go-openai v1.42.1
+	github.com/sashabaranov/go-openai v1.43.0
 	github.com/spf13/pflag v1.0.10
 	github.com/tetratelabs/wazero v1.12.0
 	github.com/titanous/json5 v1.0.0
 	github.com/tmc/keyring v0.1.0
 	github.com/traefik/yaegi v0.16.1
-	github.com/ulikunitz/xz v0.5.16
+	github.com/ulikunitz/xz v0.5.17
 	github.com/zeebo/xxh3 v1.1.0
 	golang.org/x/exp v0.0.0-20260908205506-85c1c2202aba
 	golang.org/x/term v0.46.0
-	google.golang.org/api v0.297.0
+	google.golang.org/api v0.300.0
 	howett.net/plist v1.0.1
 	sigs.k8s.io/yaml v1.6.0
 )
