@@ -37,7 +37,7 @@ require (
 	github.com/kofalt/go-memoize v0.0.0-20240506050413-9e5eb99a0f2a
 	github.com/magefile/mage v1.17.2
 	github.com/minio/minio-go/v7 v7.3.0
-	github.com/minio/minlz v1.2.1
+	github.com/minio/minlz v1.2.2
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/mmcdole/gofeed v1.5.0
 	github.com/muesli/reflow v0.3.0
@@ -56,7 +56,7 @@ require (
 	github.com/zeebo/xxh3 v1.1.0
 	golang.org/x/exp v0.0.0-20260908205506-85c1c2202aba
 	golang.org/x/term v0.47.0
-	google.golang.org/api v0.300.0
+	google.golang.org/api v0.301.0
 	howett.net/plist v1.0.1
 	sigs.k8s.io/yaml v1.6.0
 )
