@@ -21,9 +21,9 @@ require (
 	github.com/creativeprojects/go-selfupdate v1.6.0
 	github.com/docker/go-units v0.5.0
 	github.com/dsnet/compress v0.0.1
-	github.com/ebitengine/purego v0.11.1
+	github.com/ebitengine/purego v0.11.2
 	github.com/eliukblau/pixterm v1.3.3
-	github.com/gabriel-vasile/mimetype v1.4.15
+	github.com/gabriel-vasile/mimetype v1.4.16
 	github.com/gage-technologies/mistral-go v1.1.0
 	github.com/gdamore/tcell/v2 v2.13.10
 	github.com/google/generative-ai-go v0.20.1
@@ -32,11 +32,11 @@ require (
 	github.com/hbollon/go-edlib v1.7.0
 	github.com/jftuga/bzip3-go v1.0.0
 	github.com/kevinburke/nacl v0.9.0
-	github.com/klauspost/compress v1.20.1
+	github.com/klauspost/compress v1.20.3
 	github.com/klauspost/pgzip v1.2.7
 	github.com/kofalt/go-memoize v0.0.0-20240506050413-9e5eb99a0f2a
 	github.com/magefile/mage v1.17.2
-	github.com/minio/minio-go/v7 v7.3.0
+	github.com/minio/minio-go/v7 v7.4.1
 	github.com/minio/minlz v1.2.2
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/mmcdole/gofeed v1.5.0
@@ -56,7 +56,7 @@ require (
 	github.com/zeebo/xxh3 v1.1.0
 	golang.org/x/exp v0.0.0-20261014143641-f0251eb4aa3e
 	golang.org/x/term v0.47.0
-	google.golang.org/api v0.301.0
+	google.golang.org/api v0.304.0
 	howett.net/plist v1.0.1
 	sigs.k8s.io/yaml v1.6.0
 )
@@ -156,7 +156,7 @@ require (
 	golang.org/x/time v0.16.0 // indirect
 	google.golang.org/genproto v0.0.0-20260715232425-e75dac1f907d // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20260715232425-e75dac1f907d // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20260928230214-8a89bd6388cc // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20261005182115-fad411399dd8 // indirect
 	google.golang.org/grpc v1.84.0 // indirect
 	google.golang.org/protobuf v1.36.12 // indirect
 	gopkg.in/ini.v1 v1.67.3 // indirect
