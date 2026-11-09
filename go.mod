@@ -3,14 +3,14 @@ module github.com/batmac/ccat
 go 1.27.0
 
 require (
-	cloud.google.com/go/storage v1.69.0
+	cloud.google.com/go/storage v1.70.0
 	git.sr.ht/~adnano/go-gemini v0.2.6
 	github.com/JohannesKaufmann/html-to-markdown v1.6.0
 	github.com/OneOfOne/xxhash v1.2.8
 	github.com/PaesslerAG/jsonpath v0.1.1
 	github.com/aixiansheng/lzfse v0.2.4
 	github.com/alecthomas/chroma/v2 v2.27.0
-	github.com/andybalholm/brotli v1.2.6
+	github.com/andybalholm/brotli v1.2.7
 	github.com/atotto/clipboard v0.1.4
 	github.com/aws/aws-sdk-go-v2 v1.47.4
 	github.com/aws/aws-sdk-go-v2/config v1.33.10
@@ -18,7 +18,7 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/sts v1.51.5
 	github.com/batmac/go-curl v0.0.1
 	github.com/cosnicolaou/pbzip2 v1.0.6
-	github.com/creativeprojects/go-selfupdate v1.6.0
+	github.com/creativeprojects/go-selfupdate v1.7.0
 	github.com/docker/go-units v0.5.0
 	github.com/dsnet/compress v0.0.1
 	github.com/ebitengine/purego v0.11.2
@@ -33,11 +33,11 @@ require (
 	github.com/jftuga/bzip3-go v1.0.0
 	github.com/kevinburke/nacl v0.9.0
 	github.com/klauspost/compress v1.20.3
-	github.com/klauspost/pgzip v1.2.7
+	github.com/klauspost/pgzip v1.3.0
 	github.com/kofalt/go-memoize v0.0.0-20240506050413-9e5eb99a0f2a
 	github.com/magefile/mage v1.17.2
 	github.com/minio/minio-go/v7 v7.4.1
-	github.com/minio/minlz v1.2.2
+	github.com/minio/minlz v1.2.3
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/mmcdole/gofeed v1.5.0
 	github.com/muesli/reflow v0.3.0
@@ -56,7 +56,7 @@ require (
 	github.com/zeebo/xxh3 v1.1.0
 	golang.org/x/exp v0.0.0-20261014143641-f0251eb4aa3e
 	golang.org/x/term v0.47.0
-	google.golang.org/api v0.304.0
+	google.golang.org/api v0.310.0
 	howett.net/plist v1.0.1
 	sigs.k8s.io/yaml v1.6.0
 )
@@ -77,6 +77,7 @@ require (
 	github.com/GoogleCloudPlatform/opentelemetry-operations-go/internal/resourcemapping v0.62.0 // indirect
 	github.com/Masterminds/semver/v3 v3.5.0 // indirect
 	github.com/PaesslerAG/gval v1.2.4 // indirect
+	github.com/ProtonMail/go-crypto v1.5.2 // indirect
 	github.com/PuerkitoBio/goquery v1.13.0 // indirect
 	github.com/andybalholm/cascadia v1.3.5 // indirect
 	github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream v1.7.24 // indirect
@@ -95,6 +96,7 @@ require (
 	github.com/aws/smithy-go v1.28.7 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/clipperhouse/uax29/v2 v2.7.0 // indirect
+	github.com/cloudflare/circl v1.6.3 // indirect
 	github.com/cncf/xds/go v0.0.0-20260202195803-dba9d589def2 // indirect
 	github.com/danieljoos/wincred v1.2.3 // indirect
 	github.com/davidmz/go-pageant v1.0.2 // indirect
@@ -156,12 +158,11 @@ require (
 	golang.org/x/time v0.16.0 // indirect
 	google.golang.org/genproto v0.0.0-20261012220534-4341edf3f941 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20261012220534-4341edf3f941 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20261012220534-4341edf3f941 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20261019180522-ce908d29299b // indirect
 	google.golang.org/grpc v1.85.0 // indirect
 	google.golang.org/protobuf v1.36.12 // indirect
 	gopkg.in/ini.v1 v1.67.3 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
-	gopkg.in/yaml.v3 v3.0.1 // indirect
 	nhooyr.io/websocket v1.8.17 // indirect
 	salsa.debian.org/vasudev/gospake2 v0.0.0-20210510093858-d91629950ad1 // indirect
 )
