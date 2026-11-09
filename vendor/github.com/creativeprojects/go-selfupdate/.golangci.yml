@@ -1,0 +1,50 @@
+version: "2"
+linters:
+  enable:
+    - asasalint
+    - asciicheck
+    - bidichk
+    - bodyclose
+    - contextcheck
+    - errname
+    - gocheckcompilerdirectives
+    - gosec
+    # - maintidx
+    - misspell
+    - nilnil
+    - noctx
+    - nolintlint
+    - predeclared
+    - reassign
+    - sloglint
+    - spancheck
+    - unconvert
+    - unparam
+    - usestdlibvars
+  settings:
+    gosec:
+      excludes:
+        - G101
+    staticcheck:
+      checks:
+        - all
+        - -SA1019
+        - -ST1003
+  exclusions:
+    generated: lax
+    presets:
+      - comments
+      - common-false-positives
+      - legacy
+      - std-error-handling
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
+formatters:
+  exclusions:
+    generated: lax
+    paths:
+      - third_party$
+      - builtin$
+      - examples$

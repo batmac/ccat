@@ -1,0 +1,10 @@
+/bzip3
+/cmd/bzip3/bzip3
+/bz3
+*.bz3
+!testdata/*.bz3
+testdata/fuzz/
+
+# Build and profiling artifacts
+*.test
+*.prof
