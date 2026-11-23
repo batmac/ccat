@@ -1,0 +1,5 @@
+# Test fixtures are compared byte-for-byte (and some are decoded from
+# reference .bz3 files), so they must never undergo CRLF conversion.
+# Without this, Windows checkouts with core.autocrlf=true inflate the
+# text fixtures and break TestDecodeCReference and the interop tests.
+testdata/** -text

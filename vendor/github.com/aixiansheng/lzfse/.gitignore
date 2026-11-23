@@ -1,0 +1,4 @@
+test/*.cmp
+test/*.dec
+test/*.err
+test/test.list
